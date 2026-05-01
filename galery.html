@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Galeria &amp; O mnie — NAZWA STUDIA</title>
+  <meta name="description" content="Galeria pomalowanych modeli i figurek. Poznaj mnie i moje doświadczenie w malowaniu miniatur." />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+  <!-- ===== NAVIGATION ===== -->
+  <nav class="nav">
+    <div class="nav__inner">
+      <a href="index.html" class="nav__logo">NAZWA STUDIA</a>
+      <ul class="nav__links">
+        <li><a href="index.html" data-i18n="nav.home">Główna</a></li>
+        <li><a href="galery.html" class="active" data-i18n="nav.gallery">Galeria &amp; O mnie</a></li>
+        <li><a href="order.html" data-i18n="nav.order">Zamów</a></li>
+      </ul>
+      <div class="lang-switcher">
+        <button class="lang-btn" data-lang="pl">PL</button>
+        <span class="lang-sep">|</span>
+        <button class="lang-btn" data-lang="en">EN</button>
+      </div>
+      <button class="nav__burger" id="burgerBtn" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <div class="nav__mobile" id="mobileMenu">
+    <ul>
+      <li><a href="index.html" data-i18n="nav.home">Główna</a></li>
+      <li><a href="galery.html" class="active" data-i18n="nav.gallery">Galeria &amp; O mnie</a></li>
+      <li><a href="order.html" data-i18n="nav.order">Zamów</a></li>
+    </ul>
+    <div class="lang-switcher lang-switcher--mobile">
+      <button class="lang-btn" data-lang="pl">PL</button>
+      <span class="lang-sep">|</span>
+      <button class="lang-btn" data-lang="en">EN</button>
+    </div>
+  </div>
+
+  <main>
+
+    <!-- ===== PAGE HERO ===== -->
+    <div class="page-hero">
+      <h1 data-i18n="gallery.hero.title">Galeria &amp; O mnie</h1>
+      <p data-i18n="gallery.hero.sub">Poznaj moją pracę i dowiedz się, kto stoi za pędzlem.</p>
+    </div>
+
+    <!-- ===== O MNIE ===== -->
+    <section class="about">
+      <div class="container">
+        <div class="about__grid">
+
+          <!-- Zastąp src własnym zdjęciem profilowym lub przykładową pracą -->
+          <img
+            src="https://placehold.co/500x500/181818/c9a84c?text=Zdjęcie"
+            alt="Zdjęcie autora"
+            class="about__img"
+          />
+
+          <div class="about__text">
+            <h2 data-i18n-html="about.title">Cześć, jestem <span>TWOJE IMIĘ</span></h2>
+            <!-- Uzupełnij ten tekst swoim własnym opisem -->
+            <p data-i18n="about.p1">
+              Maluję figurki od ponad X lat. Zaczęło się od gier planszowych i Warhammera,
+              a z czasem pasja przerodziła się w coś więcej. Dziś maluję figurki dla klientów
+              z całej Polski, dbając o każdy detal.
+            </p>
+            <p data-i18n="about.p2">
+              Specjalizuję się w modelach fantasy i sci-fi, choć chętnie podejmuję się każdego
+              wyzwania. Każde zamówienie traktuję indywidualnie — zależy mi, żeby efekt
+              końcowy przekroczył Twoje oczekiwania.
+            </p>
+            <p data-i18n="about.p3">
+              Masz pytania? Napisz do mnie przez formularz zamówienia lub bezpośrednio
+              na e-mail.
+            </p>
+            <div class="about__badges">
+              <!-- Dostosuj lub usuń tagi wedle potrzeb -->
+              <span class="badge">Warhammer 40k</span>
+              <span class="badge">Age of Sigmar</span>
+              <span class="badge">Gry planszowe</span>
+              <span class="badge">Fantasy</span>
+              <span class="badge">Sci-Fi</span>
+              <span class="badge">Display Quality</span>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== GALERIA ===== -->
+    <section class="gallery-section">
+      <div class="container">
+        <div class="section-header">
+          <h2 data-i18n="gallery.title">Moje prace</h2>
+          <p data-i18n="gallery.subtitle">Każdy model to osobna historia — oto kilka z nich.</p>
+          <div class="divider"></div>
+        </div>
+
+        <div class="gallery-grid">
+
+          <!-- ===================================================
+               Zastąp poniższe placeholdery własnymi zdjęciami.
+               Przykład: <img src="images/moja-praca-1.jpg" alt="..." />
+               ===================================================== -->
+
+          <div class="gallery-item">
+            <img src="https://placehold.co/600x450/181818/c9a84c?text=Praca+1" alt="Praca 1" />
+            <div class="gallery-item__overlay">
+              <span class="gallery-item__label" data-i18n="gallery.item.label">Tytuł pracy / Poziom jakości</span>
+            </div>
+          </div>
+
+          <div class="gallery-item">
+            <img src="https://placehold.co/600x450/1a1a1a/c9a84c?text=Praca+2" alt="Praca 2" />
+            <div class="gallery-item__overlay">
+              <span class="gallery-item__label" data-i18n="gallery.item.label">Tytuł pracy / Poziom jakości</span>
+            </div>
+          </div>
+
+          <div class="gallery-item">
+            <img src="https://placehold.co/600x450/181818/c9a84c?text=Praca+3" alt="Praca 3" />
+            <div class="gallery-item__overlay">
+              <span class="gallery-item__label" data-i18n="gallery.item.label">Tytuł pracy / Poziom jakości</span>
+            </div>
+          </div>
+
+          <div class="gallery-item">
+            <img src="https://placehold.co/600x450/1a1a1a/c9a84c?text=Praca+4" alt="Praca 4" />
+            <div class="gallery-item__overlay">
+              <span class="gallery-item__label" data-i18n="gallery.item.label">Tytuł pracy / Poziom jakości</span>
+            </div>
+          </div>
+
+          <div class="gallery-item">
+            <img src="https://placehold.co/600x450/181818/c9a84c?text=Praca+5" alt="Praca 5" />
+            <div class="gallery-item__overlay">
+              <span class="gallery-item__label" data-i18n="gallery.item.label">Tytuł pracy / Poziom jakości</span>
+            </div>
+          </div>
+
+          <div class="gallery-item">
+            <img src="https://placehold.co/600x450/1a1a1a/c9a84c?text=Praca+6" alt="Praca 6" />
+            <div class="gallery-item__overlay">
+              <span class="gallery-item__label" data-i18n="gallery.item.label">Tytuł pracy / Poziom jakości</span>
+            </div>
+          </div>
+
+          <div class="gallery-item">
+            <img src="https://placehold.co/600x450/181818/c9a84c?text=Praca+7" alt="Praca 7" />
+            <div class="gallery-item__overlay">
+              <span class="gallery-item__label" data-i18n="gallery.item.label">Tytuł pracy / Poziom jakości</span>
+            </div>
+          </div>
+
+          <div class="gallery-item">
+            <img src="https://placehold.co/600x450/1a1a1a/c9a84c?text=Praca+8" alt="Praca 8" />
+            <div class="gallery-item__overlay">
+              <span class="gallery-item__label" data-i18n="gallery.item.label">Tytuł pracy / Poziom jakości</span>
+            </div>
+          </div>
+
+          <div class="gallery-item">
+            <img src="https://placehold.co/600x450/181818/c9a84c?text=Praca+9" alt="Praca 9" />
+            <div class="gallery-item__overlay">
+              <span class="gallery-item__label" data-i18n="gallery.item.label">Tytuł pracy / Poziom jakości</span>
+            </div>
+          </div>
+
+        </div>
+
+        <div style="text-align:center; margin-top: 48px;">
+          <a href="order.html" class="btn btn--gold" data-i18n="gallery.cta">Chcę zamówić malowanie</a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__logo">NAZWA STUDIA</div>
+      <ul class="footer__links">
+        <li><a href="index.html" data-i18n="nav.home">Główna</a></li>
+        <li><a href="galery.html" data-i18n="nav.gallery">Galeria &amp; O mnie</a></li>
+        <li><a href="order.html" data-i18n="nav.order">Zamów</a></li>
+      </ul>
+      <p class="footer__copy" data-i18n="footer.copy">&copy; 2025 NAZWA STUDIA. Wszelkie prawa zastrzeżone.</p>
+    </div>
+  </footer>
+
+  <script src="js/i18n.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>
