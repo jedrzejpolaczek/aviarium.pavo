@@ -244,11 +244,21 @@ var TRANSLATIONS = {
 
 var I18N = (function () {
   var DEFAULT_LANG = 'pl';
-  var currentLang  = localStorage.getItem('lang') || DEFAULT_LANG;
+  var urlLang      = new URLSearchParams(window.location.search).get('lang');
+  var currentLang  = (TRANSLATIONS[urlLang] ? urlLang : null) || localStorage.getItem('lang') || DEFAULT_LANG;
+  if (urlLang && TRANSLATIONS[urlLang]) { localStorage.setItem('lang', urlLang); }
 
   function t(key) {
     var lang = TRANSLATIONS[currentLang] || TRANSLATIONS[DEFAULT_LANG];
     return lang[key] !== undefined ? lang[key] : (TRANSLATIONS[DEFAULT_LANG][key] || key);
+  }
+
+  function updateNavLinks(lang) {
+    document.querySelectorAll('a').forEach(function (a) {
+      var href = a.getAttribute('href');
+      if (!href || !href.match(/\.html/)) return;
+      a.setAttribute('href', href.split('?')[0] + '?lang=' + lang);
+    });
   }
 
   function apply() {
@@ -293,6 +303,8 @@ var I18N = (function () {
     document.querySelectorAll('.lang-btn').forEach(function (btn) {
       btn.classList.toggle('active', btn.dataset.lang === currentLang);
     });
+
+    updateNavLinks(currentLang);
   }
 
   function reinitFlatpickr() {
@@ -323,6 +335,13 @@ var I18N = (function () {
     apply();
     document.querySelectorAll('.lang-btn').forEach(function (btn) {
       btn.addEventListener('click', function () { setLang(btn.dataset.lang); });
+    });
+    window.addEventListener('pageshow', function (e) {
+      if (e.persisted) {
+        var pageLang = new URLSearchParams(window.location.search).get('lang');
+        currentLang = (TRANSLATIONS[pageLang] ? pageLang : null) || localStorage.getItem('lang') || DEFAULT_LANG;
+        apply();
+      }
     });
   }
 
