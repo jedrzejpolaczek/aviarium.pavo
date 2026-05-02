@@ -1,7 +1,12 @@
 {
   "permissions": {
     "allow": [
-      "Bash(git mv *)"
+      "Bash(git mv *)",
+      "Bash(Get-ChildItem -Path . -Force)",
+      "Bash(Select-Object Name, PSIsContainer)",
+      "Bash(grep -E \"\\\\.\\(json|config|xml\\)$\")",
+      "Bash(grep -v \"^\\\\.$\")",
+      "Bash(git -C c:/Workspace/AviariumSoftware/aviarium.pavo log --oneline)"
     ]
   }
 }
