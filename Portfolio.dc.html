@@ -55,7 +55,7 @@ h1,h2,h3{font-family:'IBM Plex Sans',sans-serif;}
     <div style="display:flex;gap:16px;width:max-content;">
       <sc-for list="{{ stackLogos }}" as="s" hint-placeholder-count="34">
         <div style="flex:none;display:flex;flex-direction:column;align-items:center;gap:8px;width:104px;">
-          <sc-if value="{{ s.icon }}" hint-placeholder-val="{{ true }}">
+          <sc-if value="{{ s.icon }}" hint-placeholder-val="{{ false }}">
             <div style="width:44px;height:44px;display:flex;align-items:center;justify-content:center;background:oklch(0.185 0.006 250);border:1px solid rgba(255,255,255,0.08);border-radius:6px;">
               <img src="{{ s.icon }}" alt="{{ s.name }}" style="width:24px;height:24px;object-fit:contain;"></img>
             </div>
@@ -211,6 +211,7 @@ h1,h2,h3{font-family:'IBM Plex Sans',sans-serif;}
     <div style="border:1px solid rgba(255,255,255,0.08);border-radius:2px;padding:40px;background:oklch(0.16 0.006 250);">
       <div style="font-family:'IBM Plex Mono',monospace;font-size:13px;color:oklch(0.55 0.006 250);letter-spacing:0.06em;margin-bottom:8px;">EKSPONATY INTERAKTYWNE</div>
       <h3 style="font-size:24px;font-weight:600;margin:0 0 8px;">{{ activeExhibitTitle }}</h3>
+      <p style="font-family:'IBM Plex Mono',monospace;font-size:13px;color:{{ accent.text }};margin:0 0 10px;"><strong>Problem:</strong> {{ activeExhibitProblem }}</p>
       <p style="font-size:14px;line-height:1.6;color:oklch(0.62 0.006 250);max-width:640px;margin:0 0 24px;">{{ activeExhibitCaption }}</p>
 
       <div ref="{{ railRef }}" style="display:flex;gap:10px;overflow-x:auto;padding-bottom:14px;margin-bottom:32px;scroll-behavior:smooth;">
@@ -239,12 +240,158 @@ h1,h2,h3{font-family:'IBM Plex Sans',sans-serif;}
         </div>
       </sc-if>
 
-      <sc-if value="{{ isIframeExhibit }}" hint-placeholder-val="{{ false }}">
+      <sc-if value="{{ isPyramid }}" hint-placeholder-val="{{ false }}">
+        <div style="display:flex;gap:40px;flex-wrap:wrap;align-items:flex-start;">
+          <div style="width:340px;flex-shrink:0;display:flex;flex-direction:column;gap:12px;align-items:center;">
+            <div style="display:flex;flex-direction:column;align-items:center;gap:4px;padding:8px 10px;border:1px dashed rgba(255,255,255,0.25);border-radius:4px;">
+              <div style="display:grid;grid-template-columns:repeat(4,8px);gap:2px;">
+                <sc-for list="{{ pyramidGoal }}" as="g" hint-placeholder-count="8">
+                  <div style="{{ g.style }}"></div>
+                </sc-for>
+              </div>
+              <div style="font-family:'IBM Plex Mono',monospace;font-size:10px;color:oklch(0.55 0.006 250);">cel: 8/8 · najlepszy dotąd: {{ pyramidBest }}/100</div>
+            </div>
+            <sc-for list="{{ pyramidRows }}" as="row" hint-placeholder-count="4">
+              <div style="display:flex;gap:8px;">
+                <sc-for list="{{ row }}" as="tile" hint-placeholder-count="8">
+                  <div style="{{ tile.wrapStyle }}">
+                    <div style="{{ tile.bitsGridStyle }}">
+                      <sc-for list="{{ tile.bits }}" as="bit" hint-placeholder-count="8">
+                        <div style="{{ bit.style }}"></div>
+                      </sc-for>
+                    </div>
+                    <div style="{{ tile.scoreLabelStyle }}">{{ tile.score }}</div>
+                  </div>
+                </sc-for>
+              </div>
+            </sc-for>
+          </div>
+          <div style="flex:1;min-width:220px;">
+            <div style="font-family:'IBM Plex Mono',monospace;font-size:14px;color:oklch(0.85 0.004 250);margin-bottom:8px;min-height:20px;" aria-live="polite">{{ searchStatus }}</div>
+            <div style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:oklch(0.5 0.006 250);margin-bottom:24px;">krok {{ searchStepIndex }} / {{ searchTotal }}</div>
+            <div style="display:flex;gap:10px;margin-bottom:24px;">
+              <button onClick="{{ onSearchStart }}" style="padding:12px 20px;background:{{ accent.solid }};color:#12160f;font-weight:600;border:none;border-radius:2px;font-size:14px;cursor:pointer;min-height:44px;">{{ searchStartLabel }}</button>
+              <button onClick="{{ onSearchStep }}" style="padding:12px 20px;background:transparent;color:oklch(0.9 0.004 250);border:1px solid rgba(255,255,255,0.15);border-radius:2px;font-size:14px;cursor:pointer;min-height:44px;">Krok</button>
+              <button onClick="{{ onSearchReset }}" style="padding:12px 20px;background:transparent;color:oklch(0.6 0.006 250);border:1px solid rgba(255,255,255,0.1);border-radius:2px;font-size:14px;cursor:pointer;min-height:44px;">Reset</button>
+            </div>
+            <a href="{{ activeExhibitHref }}" style="font-family:'IBM Plex Mono',monospace;font-size:13px;">Zobacz cały przewodnik ↗</a>
+          </div>
+        </div>
+      </sc-if>
+
+      <sc-if value="{{ isDartboard }}" hint-placeholder-val="{{ false }}">
         <div style="display:flex;gap:40px;flex-wrap:wrap;align-items:flex-start;">
           <div style="position:relative;width:340px;height:230px;border:2px solid {{ accent.border }};background:oklch(0.14 0.006 250);flex-shrink:0;overflow:hidden;">
-            <sc-for list="{{ searchPoints }}" as="sp" hint-placeholder-count="16">
-              <div style="{{ sp.style }}"></div>
+            <sc-for list="{{ dartRings }}" as="ring" hint-placeholder-count="4">
+              <div style="{{ ring.style }}"></div>
             </sc-for>
+            <sc-for list="{{ dartMarkers }}" as="dm" hint-placeholder-count="16">
+              <div style="{{ dm.style }}"></div>
+            </sc-for>
+          </div>
+          <div style="flex:1;min-width:220px;">
+            <div style="font-family:'IBM Plex Mono',monospace;font-size:14px;color:oklch(0.85 0.004 250);margin-bottom:8px;min-height:20px;" aria-live="polite">{{ searchStatus }}</div>
+            <div style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:oklch(0.5 0.006 250);margin-bottom:24px;">krok {{ searchStepIndex }} / {{ searchTotal }}</div>
+            <div style="display:flex;gap:10px;margin-bottom:24px;">
+              <button onClick="{{ onSearchStart }}" style="padding:12px 20px;background:{{ accent.solid }};color:#12160f;font-weight:600;border:none;border-radius:2px;font-size:14px;cursor:pointer;min-height:44px;">{{ searchStartLabel }}</button>
+              <button onClick="{{ onSearchStep }}" style="padding:12px 20px;background:transparent;color:oklch(0.9 0.004 250);border:1px solid rgba(255,255,255,0.15);border-radius:2px;font-size:14px;cursor:pointer;min-height:44px;">Krok</button>
+              <button onClick="{{ onSearchReset }}" style="padding:12px 20px;background:transparent;color:oklch(0.6 0.006 250);border:1px solid rgba(255,255,255,0.1);border-radius:2px;font-size:14px;cursor:pointer;min-height:44px;">Reset</button>
+            </div>
+            <a href="{{ activeExhibitHref }}" style="font-family:'IBM Plex Mono',monospace;font-size:13px;">Zobacz cały przewodnik ↗</a>
+          </div>
+        </div>
+      </sc-if>
+
+      <sc-if value="{{ isTerrain }}" hint-placeholder-val="{{ false }}">
+        <div style="display:flex;gap:40px;flex-wrap:wrap;align-items:flex-start;">
+          <div style="position:relative;width:340px;height:230px;border:2px solid {{ accent.border }};background:{{ terrainBgStyle }};flex-shrink:0;overflow:hidden;">
+            <div style="{{ hotCircleStyle }}"></div>
+            <sc-for list="{{ terrainPoints }}" as="tp" hint-placeholder-count="14">
+              <div style="{{ tp.style }}"></div>
+            </sc-for>
+          </div>
+          <div style="flex:1;min-width:220px;">
+            <div style="font-family:'IBM Plex Mono',monospace;font-size:14px;color:oklch(0.85 0.004 250);margin-bottom:8px;min-height:20px;" aria-live="polite">{{ searchStatus }}</div>
+            <div style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:oklch(0.5 0.006 250);margin-bottom:24px;">krok {{ searchStepIndex }} / {{ searchTotal }}</div>
+            <div style="display:flex;gap:10px;margin-bottom:24px;">
+              <button onClick="{{ onSearchStart }}" style="padding:12px 20px;background:{{ accent.solid }};color:#12160f;font-weight:600;border:none;border-radius:2px;font-size:14px;cursor:pointer;min-height:44px;">{{ searchStartLabel }}</button>
+              <button onClick="{{ onSearchStep }}" style="padding:12px 20px;background:transparent;color:oklch(0.9 0.004 250);border:1px solid rgba(255,255,255,0.15);border-radius:2px;font-size:14px;cursor:pointer;min-height:44px;">Krok</button>
+              <button onClick="{{ onSearchReset }}" style="padding:12px 20px;background:transparent;color:oklch(0.6 0.006 250);border:1px solid rgba(255,255,255,0.1);border-radius:2px;font-size:14px;cursor:pointer;min-height:44px;">Reset</button>
+            </div>
+            <a href="{{ activeExhibitHref }}" style="font-family:'IBM Plex Mono',monospace;font-size:13px;">Zobacz cały przewodnik ↗</a>
+          </div>
+        </div>
+      </sc-if>
+
+      <sc-if value="{{ isBracket }}" hint-placeholder-val="{{ false }}">
+        <div style="display:flex;gap:40px;flex-wrap:wrap;align-items:flex-start;">
+          <div style="width:340px;flex-shrink:0;">
+            <div style="font-family:'IBM Plex Mono',monospace;font-size:10px;color:oklch(0.5 0.006 250);margin-bottom:4px;">każdy słupek = jeden kandydat; wyższy = lepsza oceniona jakość. Z każdą rundą ocena zwycięzców jest dokładniejsza (mniejszy szum pomiaru), nie losowo wyższa.</div>
+            <div style="height:200px;display:flex;gap:6px;border:2px solid {{ accent.border }};padding:10px;box-sizing:border-box;overflow:hidden;">
+              <sc-for list="{{ bracketRounds }}" as="round" hint-placeholder-count="5">
+                <div style="flex:1;display:flex;flex-direction:column;justify-content:space-around;gap:3px;height:100%;">
+                  <sc-for list="{{ round.contestants }}" as="c" hint-placeholder-count="16">
+                    <div style="{{ c.slotStyle }}">
+                      <div style="{{ c.style }}">{{ c.label }}</div>
+                    </div>
+                  </sc-for>
+                </div>
+              </sc-for>
+            </div>
+          </div>
+          <div style="flex:1;min-width:220px;">
+            <div style="font-family:'IBM Plex Mono',monospace;font-size:14px;color:oklch(0.85 0.004 250);margin-bottom:8px;min-height:20px;" aria-live="polite">{{ searchStatus }}</div>
+            <div style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:oklch(0.5 0.006 250);margin-bottom:24px;">krok {{ searchStepIndex }} / {{ searchTotal }}</div>
+            <div style="display:flex;gap:10px;margin-bottom:24px;">
+              <button onClick="{{ onSearchStart }}" style="padding:12px 20px;background:{{ accent.solid }};color:#12160f;font-weight:600;border:none;border-radius:2px;font-size:14px;cursor:pointer;min-height:44px;">{{ searchStartLabel }}</button>
+              <button onClick="{{ onSearchStep }}" style="padding:12px 20px;background:transparent;color:oklch(0.9 0.004 250);border:1px solid rgba(255,255,255,0.15);border-radius:2px;font-size:14px;cursor:pointer;min-height:44px;">Krok</button>
+              <button onClick="{{ onSearchReset }}" style="padding:12px 20px;background:transparent;color:oklch(0.6 0.006 250);border:1px solid rgba(255,255,255,0.1);border-radius:2px;font-size:14px;cursor:pointer;min-height:44px;">Reset</button>
+            </div>
+            <a href="{{ activeExhibitHref }}" style="font-family:'IBM Plex Mono',monospace;font-size:13px;">Zobacz cały przewodnik ↗</a>
+          </div>
+        </div>
+      </sc-if>
+
+      <sc-if value="{{ isStaircase }}" hint-placeholder-val="{{ false }}">
+        <div style="display:flex;gap:40px;flex-wrap:wrap;align-items:flex-start;">
+          <div style="width:340px;flex-shrink:0;display:flex;flex-direction:column;gap:12px;">
+            <div style="font-family:'IBM Plex Mono',monospace;font-size:10px;color:oklch(0.5 0.006 250);">czerwona linia = prawdziwa wartość (cel: {{ staircaseTarget }}%). Każdy pasek to ta sama ocena mierzona z innym budżetem — im więcej próbek, tym mniejszy szum i pasek trafia bliżej linii.</div>
+            <sc-for list="{{ staircaseRungs }}" as="rg" hint-placeholder-count="4">
+              <div>
+                <div style="{{ rg.trackStyle }}">
+                  <div style="{{ rg.fillStyle }}">{{ rg.scoreLabel }}</div>
+                  <div style="{{ rg.targetMarkerStyle }}"></div>
+                </div>
+                <div style="font-family:'IBM Plex Mono',monospace;font-size:10px;color:oklch(0.5 0.006 250);margin-top:2px;">{{ rg.label }}</div>
+              </div>
+            </sc-for>
+          </div>
+          <div style="flex:1;min-width:220px;">
+            <div style="font-family:'IBM Plex Mono',monospace;font-size:14px;color:oklch(0.85 0.004 250);margin-bottom:8px;min-height:20px;" aria-live="polite">{{ searchStatus }}</div>
+            <div style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:oklch(0.5 0.006 250);margin-bottom:24px;">krok {{ searchStepIndex }} / {{ searchTotal }}</div>
+            <div style="display:flex;gap:10px;margin-bottom:24px;">
+              <button onClick="{{ onSearchStart }}" style="padding:12px 20px;background:{{ accent.solid }};color:#12160f;font-weight:600;border:none;border-radius:2px;font-size:14px;cursor:pointer;min-height:44px;">{{ searchStartLabel }}</button>
+              <button onClick="{{ onSearchStep }}" style="padding:12px 20px;background:transparent;color:oklch(0.9 0.004 250);border:1px solid rgba(255,255,255,0.15);border-radius:2px;font-size:14px;cursor:pointer;min-height:44px;">Krok</button>
+              <button onClick="{{ onSearchReset }}" style="padding:12px 20px;background:transparent;color:oklch(0.6 0.006 250);border:1px solid rgba(255,255,255,0.1);border-radius:2px;font-size:14px;cursor:pointer;min-height:44px;">Reset</button>
+            </div>
+            <a href="{{ activeExhibitHref }}" style="font-family:'IBM Plex Mono',monospace;font-size:13px;">Zobacz cały przewodnik ↗</a>
+          </div>
+        </div>
+      </sc-if>
+
+      <sc-if value="{{ isNasExhibit }}" hint-placeholder-val="{{ false }}">
+        <div style="display:flex;gap:40px;flex-wrap:wrap;align-items:flex-start;">
+          <div style="width:340px;flex-shrink:0;">
+            <div style="font-family:'IBM Plex Mono',monospace;font-size:10px;color:oklch(0.5 0.006 250);margin-bottom:6px;">każdy słupek = jedna warstwa sieci; wysokość = jej rozmiar (liczba neuronów). Kandydat poniżej to CAŁA architektura — im wyższe słupki, tym dokładniejsza, ale wolniejsza sieć.</div>
+            <div style="display:flex;align-items:flex-end;gap:8px;height:140px;padding:12px;border:2px solid {{ accent.border }};background:oklch(0.14 0.006 250);">
+              <sc-for list="{{ archBlocks }}" as="ab" hint-placeholder-count="6">
+                <div style="{{ ab.style }}"></div>
+              </sc-for>
+            </div>
+            <div style="display:flex;justify-content:space-between;margin-top:10px;font-family:'IBM Plex Mono',monospace;font-size:12px;color:oklch(0.6 0.006 250);">
+              <span>dokładność: {{ archAccuracy }}%</span>
+              <span>latencja: {{ archLatency }}ms</span>
+            </div>
           </div>
           <div style="flex:1;min-width:220px;">
             <div style="font-family:'IBM Plex Mono',monospace;font-size:14px;color:oklch(0.85 0.004 250);margin-bottom:8px;min-height:20px;" aria-live="polite">{{ searchStatus }}</div>
@@ -362,15 +509,15 @@ const TAGS = ['all','ml','research','dziala','hobby','eksperyment','komercyjne',
 const TAG_LABELS = { all:'Wszystkie', ml:'#ml', research:'#research', dziala:'#działa', hobby:'#hobby', eksperyment:'#eksperyment', komercyjne:'#komercyjne', startup:'#startup' };
 
 const EXHIBITS = [
-  { id:'sudoku', label:'Sudoku (GA)', kind:'sudoku', title:'Algorytm genetyczny rozwiązujący Sudoku 9×9', caption:'Populacja osobników (permutacje cyfr w blokach 3×3) ewoluuje przez selekcję turniejową, krzyżowanie blokowe i mutację — fitness to liczba konfliktów w wierszach i kolumnach.' },
-  { id:'p3', label:'P3', kind:'iframe', href:'./explainers/p3.html', title:'Jak naprawdę działa P3', caption:'Interaktywny przewodnik po algorytmie P3 (Parameter-less Population Pyramid).' },
-  { id:'p3net', label:'P3Net', kind:'iframe', href:'./explainers/p3net.html', title:'Jak naprawdę działa P3Net', caption:'Wariant P3 z surogatowym modelem oceny — przewodnik krok po kroku.' },
-  { id:'random-search', label:'Random search', kind:'iframe', href:'./explainers/random-search.html', title:'Jak naprawdę działa Random search', caption:'Najprostszy punkt odniesienia dla optymalizacji hiperparametrów.' },
-  { id:'tpe', label:'TPE', kind:'iframe', href:'./explainers/tpe.html', title:'Jak naprawdę działa TPE', caption:'Tree-structured Parzen Estimator — probabilistyczne modelowanie dobrych i słabych prób.' },
-  { id:'nsga-net', label:'NSGA-Net', kind:'iframe', href:'./explainers/nsga-net.html', title:'Jak naprawdę działa NSGA-Net', caption:'Ewolucyjne przeszukiwanie architektur sieci z wieloma celami naraz.' },
-  { id:'nsganetv2', label:'NSGANetV2', kind:'iframe', href:'./explainers/nsganetv2.html', title:'Jak naprawdę działa NSGANetV2', caption:'Rozwinięcie NSGA-Net z szybszą oceną kandydatów.' },
-  { id:'sh-emoa', label:'SH-EMOA', kind:'iframe', href:'./explainers/sh-emoa.html', title:'Jak naprawdę działa SH-EMOA', caption:'Successive Halving połączone z wieloobiektywową ewolucją.' },
-  { id:'mo-bohb', label:'MO-BOHB', kind:'iframe', href:'./explainers/mo-bohb.html', title:'Jak naprawdę działa MO-BOHB', caption:'Bayesowska optymalizacja i Hyperband dla wielu celów jednocześnie.' },
+  { id:'sudoku', label:'Sudoku (GA)', kind:'sudoku', title:'Algorytm genetyczny rozwiązujący Sudoku 9×9', problem:'Wypełnić siatkę 9×9 tak, by każdy wiersz, kolumna i blok 3×3 zawierał cyfry 1-9 bez powtórzeń.', caption:'Populacja osobników (permutacje cyfr w blokach 3×3) ewoluuje przez selekcję turniejową, krzyżowanie blokowe i mutację — fitness to liczba konfliktów w wierszach i kolumnach.' },
+  { id:'p3', label:'P3', kind:'iframe', domain:'hpo', visual:'pyramid', href:'./explainers/p3.html', title:'P3 — układanie klocków bitowych', problem:'Znaleźć 8-bitowy ciąg z jak największą liczbą jedynek, składając go z dobrych fragmentów mniejszych ciągów.', caption:'Klasyczny problem: zbudować jak najlepszy ciąg bitów (same jedynki) łącząc dobre fragmenty z niższych poziomów piramidy — bez ręcznego ustawiania żadnych parametrów.' },
+  { id:'p3net', label:'P3Net', kind:'iframe', domain:'nas', href:'./explainers/p3net.html', title:'P3Net — projektowanie architektury sieci z surogatem', problem:'Ten sam problem co NSGA-Net (dokładność vs. szybkość sieci), ale kolejni kandydaci są najpierw oceniani przez szybki model zastępczy (surogat), a nie liczeni w całości.', caption:'Wariant P3 zastosowany do projektowania architektur — surogat podpowiada, które architektury warto sprawdzić dokładnie, przyspieszając poszukiwanie kompromisu dokładność/szybkość.' },
+  { id:'random-search', label:'Random search', kind:'iframe', domain:'hpo', visual:'dartboard', href:'./explainers/random-search.html', title:'Random search — rzuty na chybił trafił', problem:'Trafić jak najbliżej niewidocznego środka tarczy, rzucając punkty na chybił trafił.', caption:'Punkt odniesienia: każdy "rzut" ląduje niezależnie od poprzednich, bez uczenia się na wynikach.' },
+  { id:'tpe', label:'TPE', kind:'iframe', domain:'hpo', visual:'terrain', href:'./explainers/tpe.html', title:'TPE — zwężanie poszukiwań', problem:'Znaleźć najniższy punkt na terenie, którego mapy nie widać z góry — tylko wysokość w miejscach, gdzie się stanęło.', caption:'Tree-structured Parzen Estimator modeluje rozkład dobrych i słabych prób, żeby zawężać "gorący obszar" poszukiwań wokół obiecujących miejsc.' },
+  { id:'sh-emoa', label:'SH-EMOA', kind:'iframe', domain:'hpo', visual:'bracket', href:'./explainers/sh-emoa.html', title:'SH-EMOA — turniej na wyłanianie', problem:'Wyłonić najlepszego z 16 kandydatów bez oceniania każdego dokładnie — tylko porównując parami i odsiewając słabszych.', caption:'Successive Halving: co rundę odpada gorsza połowa kandydatów, reszta awansuje do następnej rundy — jak tabela pucharowa.' },
+  { id:'mo-bohb', label:'MO-BOHB', kind:'iframe', domain:'hpo', visual:'staircase', href:'./explainers/mo-bohb.html', title:'MO-BOHB — schody budżetowe', problem:'Ocenić dużo kandydatów tanio (małym budżetem) i tylko najlepszych sprawdzić dokładnie (pełnym budżetem), by nie przepłacać za oceny.', caption:'Łączy odsiewanie słabych prób przy małym budżecie (Hyperband) z modelowaniem obiecujących obszarów przy budżecie pełnym.' },
+  { id:'nsga-net', label:'NSGA-Net', kind:'iframe', domain:'nas', href:'./explainers/nsga-net.html', title:'NSGA-Net — projektowanie architektury sieci', problem:'Zaprojektować sieć neuronową, która jest jednocześnie dokładna i szybka — dwa cele naraz, bez jednej "najlepszej" odpowiedzi.', caption:'Szukamy architektur sieci neuronowej na granicy opłacalności: wysoka dokładność przy niskiej latencji. Punkty na czole Pareto to kandydaci, z których żaden nie jest jednoznacznie gorszy od innego.' },
+  { id:'nsganetv2', label:'NSGANetV2', kind:'iframe', domain:'nas', href:'./explainers/nsganetv2.html', title:'NSGANetV2 — projektowanie architektury sieci', problem:'Ten sam problem co NSGA-Net (dokładność vs. szybkość), ale oceniając od razu wielu kandydatów zamiast jednego na raz.', caption:'Ten sam problem co NSGA-Net (dokładność vs. latencja), ale z szybszą, wstępną oceną wielu kandydatów naraz.' },
 ];
 
 class Component extends DCLogic {
@@ -425,14 +572,34 @@ class Component extends DCLogic {
     if (id !== 'sudoku') this.initSearch(id);
   }
 
+  makeGenome(){ return Array.from({length:8}, () => Math.random()<0.5?0:1); }
+  genomeScore(bits){ return Math.round(bits.reduce((a,b)=>a+b,0)/8*100); }
   initSearch(id){
     this.pauseSearch();
-    const budgets = { p3:14, p3net:14, 'random-search':16, tpe:14, 'nsga-net':14, nsganetv2:10, 'sh-emoa':5, 'mo-bohb':6 };
-    this.search = {
-      id, gen:0, budget: budgets[id] || 14, done:false,
-      target: { x: 0.25 + Math.random()*0.5, y: 0.25 + Math.random()*0.5 },
-      pool: [], rungPop: id==='sh-emoa' || id==='mo-bohb' ? 16 : null,
-    };
+    if (id === 'p3') {
+      const leaves = Array.from({length:8}, () => { const bits = this.makeGenome(); return { bits, score: this.genomeScore(bits) }; });
+      this.search = { id, visual:'pyramid', gen:0, budget:7, done:false, levels:[leaves, [], [], []] };
+    } else if (id === 'random-search') {
+      this.search = { id, visual:'dartboard', gen:0, budget:16, done:false, darts:[] };
+    } else if (id === 'tpe') {
+      this.search = { id, visual:'terrain', gen:0, budget:14, done:false, target:{ x:0.25+Math.random()*0.5, y:0.25+Math.random()*0.5 }, pool:[], hot:{ x:0.5, y:0.5, r:0.32 } };
+    } else if (id === 'sh-emoa') {
+      const noiseByRound = [35, 20, 10, 3];
+      const round0 = Array.from({length:16}, () => { const trueScore = Math.round(20+Math.random()*75); return { trueScore, score: Math.max(0,Math.min(100, Math.round(trueScore + (Math.random()-0.5)*2*noiseByRound[0]))) }; });
+      this.search = { id, visual:'bracket', gen:0, budget:4, done:false, rounds:[round0], noiseByRound };
+    } else if (id === 'mo-bohb') {
+      const target = Math.round(78 + Math.random()*15);
+      const baseAmp = [30, 20, 12, 6];
+      const rungs = [
+        { budget:81, samples:0, baseAmp: baseAmp[0], score: Math.max(0,Math.min(100, Math.round(target + (Math.random()-0.5)*2*baseAmp[0]))) },
+        { budget:27, samples:0, baseAmp: baseAmp[1], score: Math.max(0,Math.min(100, Math.round(target + (Math.random()-0.5)*2*baseAmp[1]))) },
+        { budget:9, samples:0, baseAmp: baseAmp[2], score: Math.max(0,Math.min(100, Math.round(target + (Math.random()-0.5)*2*baseAmp[2]))) },
+        { budget:3, samples:0, baseAmp: baseAmp[3], score: Math.max(0,Math.min(100, Math.round(target + (Math.random()-0.5)*2*baseAmp[3]))) },
+      ];
+      this.search = { id, visual:'staircase', gen:0, budget:10, done:false, rungs, target };
+    } else {
+      this.search = { id, visual:'nas-pool', gen:0, budget: id==='nsga-net' ? 14 : 10, done:false, target:{ x:0.25+Math.random()*0.5, y:0.25+Math.random()*0.5 }, pool:[] };
+    }
     this.setState({ searchGen:0 });
   }
   scoreOf(p, t){ const d = Math.hypot(p.x-t.x, p.y-t.y); return Math.max(0, Math.round((1-d/0.75)*100)); }
@@ -440,39 +607,68 @@ class Component extends DCLogic {
   stepSearch(){
     const s = this.search;
     if (!s || s.done || s.gen >= s.budget) { this.pauseSearch(); return; }
-    const t = s.target;
-    const withScore = (p) => ({ ...p, f: this.scoreOf(p, t) });
-    switch(s.id){
-      case 'random-search': {
-        s.pool.push(withScore(this.randPt()));
-        break;
+    if (s.visual === 'pyramid') {
+      const levels = s.levels;
+      let target = -1;
+      for (let L=1; L<levels.length; L++) { if (levels[L].length < levels[L-1].length/2) { target = L; break; } }
+      if (target === -1) { s.done = true; }
+      else {
+        const idx = levels[target].length;
+        const a = levels[target-1][idx*2], b = levels[target-1][idx*2+1];
+        const cut = 4;
+        const better = a.score >= b.score ? a.bits : b.bits;
+        const other = better === a.bits ? b.bits : a.bits;
+        const child = better.slice(0,cut).concat(other.slice(cut));
+        const childObj = { bits: child, score: this.genomeScore(child) };
+        levels[target].push(childObj);
+        if (target === levels.length-1) s.done = true;
       }
-      case 'p3': case 'p3net': {
-        if (s.pool.length < 3) { s.pool.push(withScore(this.randPt())); break; }
-        const sorted = s.pool.slice().sort((a,b)=>b.f-a.f);
-        const a = sorted[Math.floor(Math.random()*Math.min(3,sorted.length))];
-        const b = sorted[Math.floor(Math.random()*Math.min(6,sorted.length))];
-        const child = { x: clamp((a.x+b.x)/2 + (Math.random()-0.5)*0.12), y: clamp((a.y+b.y)/2 + (Math.random()-0.5)*0.12) };
-        s.pool.push(withScore(child));
-        if (s.pool.length > 22) s.pool.sort((a,b)=>b.f-a.f).splice(20);
-        break;
-      }
-      case 'tpe': {
-        if (s.pool.length < 4) { s.pool.push(withScore(this.randPt())); break; }
+    } else if (s.visual === 'dartboard') {
+      const r = Math.sqrt(Math.random());
+      const theta = Math.random()*Math.PI*2;
+      s.darts.push({ r, theta, score: Math.round((1-r)*100) });
+    } else if (s.visual === 'terrain') {
+      const t = s.target;
+      const withScore = (p) => ({ ...p, f: this.scoreOf(p, t) });
+      if (s.pool.length < 4) { s.pool.push(withScore(this.randPt())); }
+      else {
         const sorted = s.pool.slice().sort((a,b)=>b.f-a.f);
         const good = sorted.slice(0, Math.max(1, Math.ceil(sorted.length*0.25)));
         const gx = good.reduce((a,p)=>a+p.x,0)/good.length, gy = good.reduce((a,p)=>a+p.y,0)/good.length;
-        const spread = Math.max(0.04, 0.3 - s.gen*0.02);
+        const spread = Math.max(0.05, 0.32 - s.gen*0.02);
+        s.hot = { x:gx, y:gy, r:spread };
         s.pool.push(withScore({ x: clamp(gx + (Math.random()-0.5)*spread), y: clamp(gy + (Math.random()-0.5)*spread) }));
-        break;
       }
-      case 'nsga-net': case 'nsganetv2': {
-        const cap = 16;
-        if (s.pool.length < cap) { s.pool.push(withScore(this.randPt())); break; }
+    } else if (s.visual === 'bracket') {
+      const last = s.rounds[s.rounds.length-1];
+      if (last.length <= 1) { s.done = true; }
+      else {
+        const nextRoundIdx = s.rounds.length;
+        const noise = s.noiseByRound[Math.min(nextRoundIdx, s.noiseByRound.length-1)];
+        const next = [];
+        for (let i=0;i<last.length;i+=2) {
+          const winner = last[i].score >= last[i+1].score ? last[i] : last[i+1];
+          const refined = Math.max(0, Math.min(100, Math.round(winner.trueScore + (Math.random()-0.5)*2*noise)));
+          next.push({ trueScore: winner.trueScore, score: refined });
+        }
+        s.rounds.push(next);
+        if (next.length <= 1) s.done = true;
+      }
+    } else if (s.visual === 'staircase') {
+      const idx = Math.floor(Math.random()*s.rungs.length);
+      const rung = s.rungs[idx];
+      rung.score = Math.min(100, Math.round(rung.score + (100-rung.score)*(0.12+Math.random()*0.1)));
+    } else if (s.visual === 'nas-pool') {
+      const t = s.target;
+      const withScore = (p) => ({ ...p, f: this.scoreOf(p, t) });
+      const cap = 16;
+      if (s.pool.length < cap) { s.pool.push(withScore(this.randPt())); }
+      else {
         const scored = s.pool.map(p => ({ ...p, sx: -Math.abs(p.x-t.x), sy: -Math.abs(p.y-t.y) }));
         const front = scored.filter(p => !scored.some(q => q!==p && q.sx>=p.sx && q.sy>=p.sy && (q.sx>p.sx || q.sy>p.sy)));
         const rest = scored.filter(p => !front.includes(p)).sort((a,b)=>a.f-b.f);
         const kids = s.id === 'nsganetv2' ? 4 : 2;
+        // (p3net shares this branch: 2 kids/gen, same as nsga-net)
         for (let i=0;i<kids && rest.length;i++){
           const parentPool = front.length ? front : scored;
           const a = parentPool[Math.floor(Math.random()*parentPool.length)];
@@ -481,30 +677,7 @@ class Component extends DCLogic {
           const worstIdx = s.pool.indexOf(rest[i]);
           if (worstIdx >= 0) s.pool[worstIdx] = child;
         }
-        break;
       }
-      case 'sh-emoa': {
-        if (!s.pool.length) { for(let i=0;i<s.rungPop;i++) s.pool.push(withScore(this.randPt())); break; }
-        const sorted = s.pool.map(withScore).sort((a,b)=>b.f-a.f);
-        const keep = Math.max(1, Math.floor(sorted.length/2));
-        const survivors = sorted.slice(0, keep);
-        const refilled = survivors.concat(survivors.map(p => withScore({ x: clamp(p.x+(Math.random()-0.5)*0.08), y: clamp(p.y+(Math.random()-0.5)*0.08) })));
-        s.pool = refilled;
-        s.rungPop = keep;
-        break;
-      }
-      case 'mo-bohb': {
-        if (!s.pool.length) { for(let i=0;i<s.rungPop;i++) s.pool.push(withScore(this.randPt())); break; }
-        const sorted = s.pool.map(withScore).sort((a,b)=>b.f-a.f);
-        const keep = Math.max(1, Math.floor(sorted.length/2));
-        const survivors = sorted.slice(0, keep);
-        const gx = survivors.reduce((a,p)=>a+p.x,0)/survivors.length, gy = survivors.reduce((a,p)=>a+p.y,0)/survivors.length;
-        const refilled = survivors.concat(survivors.map(() => withScore({ x: clamp(gx+(Math.random()-0.5)*0.15), y: clamp(gy+(Math.random()-0.5)*0.15) })));
-        s.pool = refilled;
-        s.rungPop = keep;
-        break;
-      }
-      default: s.pool.push(withScore(this.randPt()));
     }
     s.gen++;
     if (s.gen >= s.budget) s.done = true;
@@ -535,7 +708,6 @@ class Component extends DCLogic {
 
   componentDidMount(){
     this.initGA();
-    this.initSearch('p3');
     this.startStackAutoScroll();
     if (this.props.playfulMode ?? true) {
       console.log('%cHej, ciekawski.', 'color:#9CAF6B;font-family:monospace;font-size:14px;');
@@ -698,6 +870,106 @@ class Component extends DCLogic {
 
     const s = this.search;
     const searchPool = (s && s.pool) || [];
+    const t = (s && s.target) || { x:0.5, y:0.5 };
+    const isNasExhibit = activeEx.domain === 'nas';
+    const isHpoExhibit = activeEx.domain === 'hpo';
+    const bestPoint = searchPool.length ? searchPool.reduce((a,b) => b.f > a.f ? b : a) : null;
+    const bestScoreVal = bestPoint ? bestPoint.f : 0;
+
+    const isPyramid = s && s.visual === 'pyramid';
+    const isDartboard = s && s.visual === 'dartboard';
+    const isTerrain = s && s.visual === 'terrain';
+    const isBracket = s && s.visual === 'bracket';
+    const isStaircase = s && s.visual === 'staircase';
+
+    let pyramidRows = [], pyramidGoal = null, pyramidBest = 0;
+    if (isPyramid) {
+      pyramidGoal = Array.from({length:8}, (_,i) => ({ key:i, style:{ width:'8px', height:'8px', borderRadius:'1px', background: accent.solid } }));
+      const allTiles = s.levels.flat();
+      pyramidBest = allTiles.length ? Math.max(...allTiles.map(t=>t.score)) : 0;
+      pyramidRows = s.levels.slice().reverse().map((lvl, li) => lvl.map((tile, ti) => {
+        const score = tile.score;
+        const strong = score >= 87;
+        return {
+          key: li+'-'+ti,
+          score: tile.predicted != null ? `≈${tile.predicted}` : score,
+          wrapStyle: { display:'flex', flexDirection:'column', alignItems:'center', gap:'4px', padding:'6px', borderRadius:'4px', border:`1px solid ${strong ? accent.solid : 'rgba(255,255,255,0.12)'}`, background:'oklch(0.16 0.006 250)' },
+          bitsGridStyle: { display:'grid', gridTemplateColumns:'repeat(4,8px)', gap:'2px' },
+          scoreLabelStyle: { fontFamily:"'IBM Plex Mono', monospace", fontSize:'10px', color: strong ? accent.text : 'oklch(0.6 0.006 250)' },
+          bits: tile.bits.map((b,bi) => ({ key:bi, style:{ width:'8px', height:'8px', borderRadius:'1px', background: b ? accent.solid : 'rgba(255,255,255,0.12)' } })),
+        };
+      }));
+    }
+
+    let dartRings = [], dartMarkers = [];
+    if (isDartboard) {
+      dartRings = [200,150,100,50].map((size,i) => ({
+        key:i, style:{ position:'absolute', left:'170px', top:'115px', width:size+'px', height:size+'px', transform:'translate(-50%,-50%)', borderRadius:'50%', border:`1px solid ${accent.border}`, background: i%2===0 ? 'rgba(255,255,255,0.02)' : 'transparent' }
+      }));
+      const darts = s.darts.map((d,i) => ({ i, x: 170+d.r*100*Math.cos(d.theta), y: 115+d.r*100*Math.sin(d.theta), score:d.score }));
+      const best = darts.length ? darts.reduce((a,b)=>b.score>a.score?b:a) : null;
+      dartMarkers = darts.map(d => ({
+        key:d.i,
+        style:{ position:'absolute', left:d.x+'px', top:d.y+'px', transform:'translate(-50%,-50%)',
+          width: best && d.score===best.score ? '14px':'9px', height: best && d.score===best.score ? '14px':'9px',
+          borderRadius:'50%', background: best && d.score===best.score ? accent.solid : accent.dim, border:`1px solid ${accent.solid}` }
+      }));
+    }
+
+    let terrainBgStyle = 'oklch(0.14 0.006 250)', hotCircleStyle = { display:'none' }, terrainPoints = [];
+    if (isTerrain) {
+      const hot = s.hot || { x:0.5, y:0.5, r:0.32 };
+      terrainBgStyle = `radial-gradient(circle at ${(hot.x*100).toFixed(0)}% ${(hot.y*100).toFixed(0)}%, ${accent.dim} 0%, oklch(0.14 0.006 250) 75%)`;
+      hotCircleStyle = { position:'absolute', left:(hot.x*100)+'%', top:(hot.y*100)+'%', width:(hot.r*300)+'px', height:(hot.r*300)+'px', transform:'translate(-50%,-50%)', borderRadius:'50%', border:`1.5px dashed ${accent.solid}`, transition:'all 0.4s' };
+      const bestF = s.pool.length ? Math.max(...s.pool.map(p=>p.f)) : 0;
+      terrainPoints = s.pool.map((p,i) => ({
+        key:i, style:{ position:'absolute', left:(p.x*100)+'%', top:(p.y*100)+'%', transform:'translate(-50%,-50%)',
+          width: p.f===bestF ? '14px':'8px', height: p.f===bestF ? '14px':'8px', borderRadius:'50%',
+          background: p.f===bestF ? accent.solid : accent.dim, border: p.f===bestF ? `2px solid ${accent.solid}` : '1px solid rgba(255,255,255,0.15)', transition:'left 0.3s, top 0.3s' }
+      }));
+    }
+
+    let bracketRounds = [];
+    if (isBracket) {
+      bracketRounds = s.rounds.map((round, ri) => ({
+        key: ri,
+        contestants: round.map((c, ci) => ({
+          key: ci, label: c.score,
+          slotStyle: { flex:'1', display:'flex', alignItems:'flex-end' },
+          style: { width:'100%', height: Math.max(6,c.score) + '%', minHeight:'14px', display:'flex', alignItems:'flex-start', justifyContent:'center', paddingTop:'2px', boxSizing:'border-box',
+            fontFamily:"'IBM Plex Mono', monospace", fontSize:'10px', borderRadius:'2px 2px 0 0',
+            background: `color-mix(in srgb, ${accent.solid} ${c.score}%, oklch(0.2 0.006 250) ${100-c.score}%)`, color: c.score>55?'#12160f':'oklch(0.85 0.004 250)' }
+        }))
+      }));
+    }
+
+    let staircaseRungs = [];
+    if (isStaircase) {
+      staircaseRungs = s.rungs.map((r,i) => ({
+        key:i, label:`budżet ${r.budget} próbek`, scoreLabel: r.score+'%',
+        trackStyle: { position:'relative', width:'100%', height:'28px', borderRadius:'2px', background:'oklch(0.16 0.006 250)', border:'1px solid rgba(255,255,255,0.1)', overflow:'hidden' },
+        fillStyle: { width: r.score+'%', height:'100%', display:'flex', alignItems:'center', justifyContent:'flex-end', paddingRight:'6px', boxSizing:'border-box',
+          fontFamily:"'IBM Plex Mono', monospace", fontSize:'11px', color: r.score>55?'#12160f':'oklch(0.85 0.004 250)',
+          background: accent.solid, transition:'width 0.3s' },
+        targetMarkerStyle: { position:'absolute', top:0, bottom:0, left:s.target+'%', width:'2px', background:'#e07a5f' },
+      }));
+    }
+
+    const genomeFor = (p, n) => Array.from({length:n}, (_, k) =>
+      0.2 + 0.8 * (0.5 + 0.5*Math.sin((p.x*7.3 + p.y*11.1 + k*2.37)*3.6))
+    );
+    const archBlockTypes = ['#7A9E8E','#8FA876','#B0A16E','#9C8EBF','#6E9CAF','#AF8E76'];
+    const archBlocks = bestPoint ? genomeFor(bestPoint, 6).map((h, i) => ({
+      key: i,
+      style: {
+        width:'14%', height: (20 + h*80) + '%', borderRadius:'2px',
+        background: archBlockTypes[i % archBlockTypes.length],
+        transition:'height 0.4s ease',
+      }
+    })) : [];
+    const archAccuracy = Math.round(bestScoreVal);
+    const archLatency = bestPoint ? Math.round(20 + bestPoint.x*180) : 0;
+
     const searchPoints = searchPool.map((p, i) => {
       const isBest = searchPool.length && p.f === Math.max(...searchPool.map(q=>q.f));
       return {
@@ -711,16 +983,25 @@ class Component extends DCLogic {
         }
       };
     });
-    const bestScore = searchPool.length ? Math.max(...searchPool.map(p=>p.f)) : 0;
     let searchStatus = 'Gotowy do startu.';
-    if (s && s.done) searchStatus = `Zakończono. Najlepszy wynik: ${bestScore}.`;
-    else if (s && s.gen > 0) searchStatus = `Krok ${s.gen} · najlepszy wynik: ${bestScore} · próbek: ${searchPool.length}`;
+    if (s && s.gen > 0) {
+      if (isPyramid) searchStatus = s.done ? `Zbudowano finałowy łańcuch — wynik ${s.levels[3][0] ? s.levels[3][0].score : '-'}.` : `Krok ${s.gen}/${s.budget} · łączenie klocków bitowych...`;
+      else if (isDartboard) { const b = s.darts.length ? Math.max(...s.darts.map(d=>d.score)) : 0; searchStatus = s.done ? `Zakończono. Najlepszy rzut: ${b}.` : `Rzut ${s.gen} · najlepszy: ${b}`; }
+      else if (isTerrain) { const b = s.pool.length ? Math.max(...s.pool.map(p=>p.f)) : 0; searchStatus = s.done ? `Zakończono. Najlepszy wynik: ${b}.` : `Krok ${s.gen} · najlepszy wynik: ${b}`; }
+      else if (isBracket) { const last = s.rounds[s.rounds.length-1]; searchStatus = s.done ? `Zwycięzca turnieju: prawdziwa jakość ${last[0].trueScore}, oceniona na ${last[0].score} (dokładna ocena — duży budżet).` : `Runda ${s.gen} · zawodników: ${last.length} · większy budżet = dokładniejsza ocena, nie przypadek`; }
+      else if (isStaircase) { const b = Math.max(...s.rungs.map(r=>r.score)); searchStatus = s.done ? `Zakończono. Oceny zbiegły w stronę celu: ${s.target}%.` : `Krok ${s.gen} · więcej próbek na tym budżecie = mniejszy szum, ocena bliżej celu (${s.target}%)`; }
+      else { const b = searchPool.length ? Math.max(...searchPool.map(p=>p.f)) : 0; searchStatus = s.done ? `Zakończono. Najlepszy wynik: ${b}.` : `Krok ${s.gen} · najlepszy wynik: ${b} · próbek: ${searchPool.length}`; }
+    }
 
     return {
       accent, cells, status, stepIndex: generation, totalSteps: 300, playing, done,
-      exhibitTabs, isSudokuExhibit: activeEx.kind === 'sudoku', isIframeExhibit: activeEx.kind === 'iframe',
-      activeExhibitTitle: activeEx.title, activeExhibitCaption: activeEx.caption, activeExhibitHref: activeEx.href,
-      searchPoints, searchStatus, searchStepIndex: s ? s.gen : 0, searchTotal: s ? s.budget : 0,
+      exhibitTabs, isSudokuExhibit: activeEx.kind === 'sudoku',
+      activeExhibitTitle: activeEx.title, activeExhibitCaption: activeEx.caption, activeExhibitHref: activeEx.href, activeExhibitProblem: activeEx.problem,
+      searchStatus, searchStepIndex: s ? s.gen : 0, searchTotal: s ? s.budget : 0,
+      isNasExhibit, archBlocks, archAccuracy, archLatency,
+      isPyramid, isDartboard, isTerrain, isBracket, isStaircase, pyramidGoal, pyramidBest,
+      staircaseTarget: s && s.visual === 'staircase' ? s.target : 0,
+      pyramidRows, dartRings, dartMarkers, terrainBgStyle, hotCircleStyle, terrainPoints, bracketRounds, staircaseRungs,
       searchStartLabel: this.searchPlaying ? 'Pauza' : (s && s.done ? 'Gotowe' : 'Start'),
       onSearchStart: () => this.startSearch(), onSearchStep: () => this.stepSearch(), onSearchReset: () => this.resetSearch(),
       railRef: this.railRef,
