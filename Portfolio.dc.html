@@ -1,0 +1,790 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" crossorigin="anonymous">
+<style id="__om-edit-overrides">
+html{scroll-behavior:smooth;}
+body{margin:0;background:#14170f;color:#e4e6de;font-family:'IBM Plex Sans',sans-serif;}
+a{color:#9CAF6B;text-decoration:none;}
+a:hover{color:#b3c98a;text-decoration:underline;}
+::selection{background:rgba(156,175,107,0.35);}
+@keyframes blink{0%,50%{opacity:1;}50.01%,100%{opacity:0;}}
+@keyframes stackScroll{from{transform:translateX(0);}to{transform:translateX(-50%);}}
+.stack-rail::-webkit-scrollbar{display:none;}
+h1,h2,h3{font-family:'IBM Plex Sans',sans-serif;}
+</style>
+</helmet>
+
+<div style="min-height:100vh;">
+
+<nav style="position:sticky;top:0;z-index:50;display:flex;align-items:center;justify-content:space-between;padding:18px 48px;background:oklch(0.16 0.006 250 / 0.85);backdrop-filter:blur(8px);border-bottom:1px solid rgba(255,255,255,0.06);">
+  <div style="font-family:'IBM Plex Mono',monospace;font-size:18px;font-weight:600;color:oklch(0.92 0.004 250);">JP.<span style="animation:blink 1s step-end infinite;color:{{ accent.text }};">_</span></div>
+  <div style="display:flex;gap:32px;font-family:'IBM Plex Mono',monospace;font-size:14px;">
+    <a href="#" onClick="{{ goHome }}" style="{{ navStyle.home }}">strona główna</a>
+    <a href="#" onClick="{{ goSolutions }}" style="{{ navStyle.solutions }}">:solutions</a>
+    <a href="#" onClick="{{ goBadania }}" style="{{ navStyle.badania }}">:badania</a>
+    <a href="#" onClick="{{ goKontakt }}" style="{{ navStyle.kontakt }}">:kontakt</a>
+  </div>
+</nav>
+
+<sc-if value="{{ isHome }}" hint-placeholder-val="{{ true }}">
+<header id="home" style="max-width:1160px;margin:0 auto;padding:120px 48px 80px;">
+  <div style="font-family:'IBM Plex Mono',monospace;font-size:14px;color:{{ accent.text }};letter-spacing:0.05em;margin-bottom:20px;">ai engineer / architect</div>
+  <h1 style="font-size:64px;line-height:1.05;font-weight:600;margin:0 0 20px;max-width:820px;text-wrap:pretty;font-family:'IBM Plex Sans',sans-serif;">Jędrzej Polaczek</h1>
+  <div style="font-family:'IBM Plex Mono',monospace;font-size:16px;color:{{ accent.text }};margin:0 0 40px;">$ specjalizacja --target=neural-architecture-search,algorytmy-ewolucyjne</div>
+  <div style="display:flex;gap:16px;">
+    <a href="#" onClick="{{ goSolutions }}" style="display:inline-flex;align-items:center;padding:12px 24px;background:{{ accent.solid }};color:#12160f;font-weight:600;border-radius:2px;font-size:15px;">Zobacz projekty</a>
+    <a href="#" onClick="{{ goKontakt }}" style="display:inline-flex;align-items:center;padding:12px 24px;border:1px solid rgba(255,255,255,0.15);border-radius:2px;font-size:15px;color:oklch(0.92 0.004 250);">Napisz</a>
+  </div>
+</header>
+
+<section style="padding:56px 0 8px;">
+  <div style="font-family:'IBM Plex Mono',monospace;font-size:18px;color:oklch(0.72 0.006 250);font-weight:600;letter-spacing:0.08em;margin-bottom:24px;max-width:1160px;margin-left:auto;margin-right:auto;padding:0 48px;display:flex;align-items:center;justify-content:space-between;">
+    <span>STACK</span>
+    <button onClick="{{ onStackTogglePause }}" aria-label="{{ stackPauseLabel }}" style="font-family:'IBM Plex Mono',monospace;font-size:12px;font-weight:400;padding:8px 14px;border:1px solid rgba(255,255,255,0.15);border-radius:2px;background:transparent;color:oklch(0.75 0.006 250);cursor:pointer;">{{ stackPauseLabel }}</button>
+  </div>
+  <div class="stack-rail" onMouseEnter="{{ onStackEnter }}" onMouseLeave="{{ onStackLeave }}" onMouseDown="{{ onStackMouseDown }}" onMouseMove="{{ onStackMouseMove }}" onMouseUp="{{ onStackMouseUp }}" onWheel="{{ onStackWheelH }}" ref="{{ stackRailRef }}" style="{{ stackRailStyle }}">
+    <div style="display:flex;gap:16px;width:max-content;">
+      <sc-for list="{{ stackLogos }}" as="s" hint-placeholder-count="34">
+        <div style="flex:none;display:flex;flex-direction:column;align-items:center;gap:8px;width:104px;">
+          <sc-if value="{{ s.icon }}" hint-placeholder-val="{{ true }}">
+            <div style="width:44px;height:44px;display:flex;align-items:center;justify-content:center;background:oklch(0.185 0.006 250);border:1px solid rgba(255,255,255,0.08);border-radius:6px;">
+              <img src="{{ s.icon }}" alt="{{ s.name }}" style="width:24px;height:24px;object-fit:contain;"></img>
+            </div>
+          </sc-if>
+          <sc-if value="{{ s.noIcon }}" hint-placeholder-val="{{ false }}">
+            <div style="width:44px;height:44px;display:flex;align-items:center;justify-content:center;background:oklch(0.185 0.006 250);border:1px solid rgba(255,255,255,0.08);border-radius:6px;font-family:'IBM Plex Mono',monospace;font-size:11px;color:oklch(0.5 0.006 250);">{{ s.initials }}</div>
+          </sc-if>
+          <span style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:oklch(0.65 0.006 250);white-space:nowrap;">{{ s.name }}</span>
+        </div>
+      </sc-for>
+    </div>
+  </div>
+</section>
+
+<section style="background:oklch(0.20 0.006 250);padding:64px 48px;margin-top:56px;">
+  <div style="max-width:1160px;margin:0 auto;">
+    <div style="font-family:'IBM Plex Mono',monospace;font-size:18px;color:oklch(0.72 0.006 250);font-weight:600;letter-spacing:0.08em;margin-bottom:32px;text-align:center;">MANIFESTO</div>
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:32px;">
+      <div>
+        <h3 style="font-size:19px;font-weight:600;margin:0 0 10px;color:{{ accent.text }};">Testy dowodem działania</h3>
+        <p style="font-size:15px;line-height:1.6;color:oklch(0.7 0.006 250);margin:0;">Kod, który nie jest sprawdzony, nie jest gotowy — testy to nie formalność, to dowód.</p>
+      </div>
+      <div>
+        <h3 style="font-size:19px;font-weight:600;margin:0 0 10px;color:{{ accent.text }};">Dokumentacja to komunikacja</h3>
+        <p style="font-size:15px;line-height:1.6;color:oklch(0.7 0.006 250);margin:0;">Pisana, więc trudniejsza niż rozmowa, ale niezbędna — dlatego ma być krótka, prosta i łatwa do przeskanowania. Nikt nie czyta ściany tekstu.</p>
+      </div>
+      <div>
+        <h3 style="font-size:19px;font-weight:600;margin:0 0 10px;color:{{ accent.text }};">WIP = 1</h3>
+        <p style="font-size:15px;line-height:1.6;color:oklch(0.7 0.006 250);margin:0;">Jedna rzecz na raz, dokończona, zamiast dziesięciu w połowie — limit pracy w toku to nie biurokracja, to sposób, żeby coś w ogóle wyjechało z linii produkcyjnej.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section style="max-width:1160px;margin:0 auto;padding:64px 48px 8px;">
+  <div style="display:flex;align-items:baseline;justify-content:space-between;margin-bottom:24px;">
+    <div style="font-family:'IBM Plex Mono',monospace;font-size:18px;color:oklch(0.72 0.006 250);font-weight:600;letter-spacing:0.08em;">OSTATNIE PROJEKTY</div>
+    <a href="#" onClick="{{ goSolutions }}" style="font-family:'IBM Plex Mono',monospace;font-size:13px;">wszystkie projekty →</a>
+  </div>
+  <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:16px;">
+    <sc-for list="{{ featuredProjects }}" as="fp" hint-placeholder-count="5">
+      <a href="#" onClick="{{ goSolutions }}" style="display:block;border:1px solid rgba(255,255,255,0.08);border-radius:2px;padding:16px;background:oklch(0.185 0.006 250);color:oklch(0.85 0.004 250);">
+        <div style="font-size:14px;font-weight:600;margin-bottom:10px;line-height:1.3;">{{ fp.title }}</div>
+        <span style="font-family:'IBM Plex Mono',monospace;font-size:11px;padding:2px 7px;background:rgba(255,255,255,0.05);color:oklch(0.6 0.006 250);border-radius:2px;">{{ fp.tag }}</span>
+      </a>
+    </sc-for>
+  </div>
+</section>
+
+<section style="max-width:820px;margin:0 auto;padding:64px 48px;">
+  <div style="font-family:'IBM Plex Mono',monospace;font-size:13px;color:oklch(0.55 0.006 250);letter-spacing:0.08em;margin-bottom:20px;">O MNIE</div>
+  <p style="font-size:17px;line-height:1.6;color:oklch(0.72 0.006 250);margin:0 0 14px;">Buduję i architekturuję systemy ML/AI na poważnie — a po godzinach rozkładam na czynniki pierwsze wszystko, co da się rozłożyć: algorytmy ewolucyjne, łamigłówki, ceny kart do gry.</p>
+  <p style="font-size:17px;line-height:1.6;color:oklch(0.72 0.006 250);margin:0;">Ten sam odruch stoi za jednym i drugim: satysfakcja z momentu "aha!", kiedy coś nieoczywistego wreszcie się domyka — to właśnie ten odruch prowadzi mnie teraz w badaniach nad NAS.</p>
+</section>
+</sc-if>
+
+<sc-if value="{{ isSolutions }}" hint-placeholder-val="{{ false }}">
+<section id="projects" style="max-width:1160px;margin:0 auto;padding:120px 48px 100px;">
+  <div style="display:flex;align-items:baseline;justify-content:space-between;flex-wrap:wrap;gap:16px;margin-bottom:40px;">
+    <h2 style="font-size:36px;font-weight:600;margin:0;font-family:'IBM Plex Sans',sans-serif;">:solutions</h2>
+    <div style="font-family:'IBM Plex Mono',monospace;font-size:13px;color:oklch(0.55 0.006 250);">filtruj po tagach</div>
+  </div>
+
+  <div style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:48px;">
+    <sc-for list="{{ tagChips }}" as="chip" hint-placeholder-count="6">
+      <button onClick="{{ chip.onClick }}" style="{{ chip.style }}">{{ chip.label }}</button>
+    </sc-for>
+  </div>
+
+  <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:28px;">
+    <sc-for list="{{ filteredProjects }}" as="p" hint-placeholder-count="4">
+      <div style="border:1px solid rgba(255,255,255,0.08);border-radius:2px;overflow:hidden;background:oklch(0.185 0.006 250);">
+        <div style="height:180px;background:repeating-linear-gradient(135deg, rgba(255,255,255,0.03) 0px, rgba(255,255,255,0.03) 10px, transparent 10px, transparent 20px);display:flex;align-items:center;justify-content:center;border-bottom:1px solid rgba(255,255,255,0.08);">
+          <span style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:oklch(0.5 0.006 250);">// {{ p.placeholder }}</span>
+        </div>
+        <div style="padding:24px;">
+          <h3 style="font-size:20px;font-weight:600;margin:0 0 10px;">{{ p.title }}</h3>
+          <p style="font-size:15px;line-height:1.55;color:oklch(0.68 0.006 250);margin:0 0 16px;">{{ p.desc }}</p>
+          <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px;">
+            <sc-for list="{{ p.tagLabels }}" as="t" hint-placeholder-count="3">
+              <span style="font-family:'IBM Plex Mono',monospace;font-size:12px;padding:3px 8px;background:rgba(255,255,255,0.05);color:oklch(0.6 0.006 250);border-radius:2px;">{{ t }}</span>
+            </sc-for>
+          </div>
+          <div style="display:flex;gap:18px;font-family:'IBM Plex Mono',monospace;font-size:13px;align-items:center;">
+            <sc-if value="{{ p.github }}" hint-placeholder-val="{{ true }}">
+              <a href="{{ p.github }}">GitHub ↗</a>
+            </sc-if>
+            <sc-if value="{{ p.demo }}" hint-placeholder-val="{{ false }}">
+              <a href="{{ p.demo }}">Demo ↗</a>
+            </sc-if>
+            <sc-if value="{{ p.linkedin }}" hint-placeholder-val="{{ false }}">
+              <a href="{{ p.linkedin }}">LinkedIn ↗</a>
+            </sc-if>
+            <sc-if value="{{ p.website }}" hint-placeholder-val="{{ false }}">
+              <a href="{{ p.website }}">Strona ↗</a>
+            </sc-if>
+            <sc-if value="{{ p.website2 }}" hint-placeholder-val="{{ false }}">
+              <a href="{{ p.website2 }}">Fundacja ↗</a>
+            </sc-if>
+            <sc-if value="{{ p.note }}" hint-placeholder-val="{{ false }}">
+              <span style="color:oklch(0.5 0.006 250);font-style:italic;">{{ p.note }}</span>
+            </sc-if>
+          </div>
+        </div>
+      </div>
+    </sc-for>
+  </div>
+</section>
+</sc-if>
+
+<sc-if value="{{ isBadania }}" hint-placeholder-val="{{ false }}">
+<section id="research" style="background:oklch(0.20 0.006 250);padding:120px 48px;">
+  <div style="max-width:1160px;margin:0 auto;">
+    <h2 style="font-size:36px;font-weight:600;margin:0 0 24px;font-family:'IBM Plex Sans',sans-serif;">:badania</h2>
+    <p style="font-size:17px;line-height:1.65;color:oklch(0.7 0.006 250);max-width:720px;margin:0 0 56px;">Interesuje mnie, jak proste, mechaniczne reguły — powtarzane wystarczająco cierpliwie — potrafią rozwiązywać problemy, których nie da się ogarnąć naraz. Skupiam się na algorytmach przeszukiwania i optymalizacji (m.in. rodzina metod P3) oraz na tym, jak zrozumiale je pokazywać, żeby intuicja nie ginęła w notacji.</p>
+
+    <div style="position:relative;height:460px;margin-bottom:64px;border:1px solid rgba(255,255,255,0.06);border-radius:2px;background:#0b0c1a;overflow:hidden;">
+      <svg viewBox="0 0 800 460" preserveAspectRatio="none" style="position:absolute;inset:0;width:100%;height:100%;">
+        <circle cx="300" cy="230" r="220" fill="{{ accent.dim }}" stroke="{{ accent.solid }}" stroke-width="1.5" opacity="0.9"></circle>
+        <circle cx="500" cy="230" r="220" fill="rgba(255,255,255,0.05)" stroke="rgba(255,255,255,0.3)" stroke-width="1.5" opacity="0.9"></circle>
+      </svg>
+      <div style="position:absolute;left:14%;top:8%;font-family:'IBM Plex Mono',monospace;font-size:14px;color:{{ accent.text }};font-weight:600;">Algorytmy genetyczne</div>
+      <div style="position:absolute;left:68%;top:8%;font-family:'IBM Plex Mono',monospace;font-size:14px;color:oklch(0.85 0.004 250);font-weight:600;">NAS</div>
+      <sc-for list="{{ vennNodes }}" as="n" hint-placeholder-count="9">
+        <button onClick="{{ n.onClick }}" style="{{ n.style }}">{{ n.label }}</button>
+      </sc-for>
+    </div>
+
+    <div style="display:grid;grid-template-columns:1.1fr 1fr;gap:48px;margin-bottom:64px;">
+      <div>
+        <div style="font-family:'IBM Plex Mono',monospace;font-size:13px;color:{{ accent.text }};letter-spacing:0.06em;margin-bottom:16px;display:flex;align-items:center;gap:8px;">
+          <span style="width:7px;height:7px;border-radius:50%;background:{{ accent.solid }};display:inline-block;"></span>
+          OBECNE KIERUNKI
+        </div>
+        <p style="font-size:15px;line-height:1.6;color:oklch(0.68 0.006 250);margin:0;">Praca w toku nad algorytmami P3 (Parameter-less Population Pyramid) — jak strukturalnie odkrywają zależności między zmiennymi problemu, bez ręcznego dostrajania parametrów. Testowane i porównywane na własnej platformie do rygorystycznego benchmarkingu algorytmów HPO (Corvus Corone).</p>
+      </div>
+      <div>
+        <div style="font-family:'IBM Plex Mono',monospace;font-size:13px;color:oklch(0.55 0.006 250);letter-spacing:0.06em;margin-bottom:16px;">PUBLIKACJE</div>
+        <div style="border:1px solid rgba(255,255,255,0.08);border-radius:2px;padding:16px;margin-bottom:20px;">
+          <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px;">
+            <span style="font-family:'IBM Plex Mono',monospace;font-size:11px;padding:2px 8px;background:rgba(255,255,255,0.06);color:oklch(0.65 0.006 250);border-radius:2px;">W PRZYGOTOWANIU</span>
+          </div>
+          <p style="font-size:14px;line-height:1.5;color:oklch(0.75 0.006 250);margin:0 0 8px;">Praca dot. algorytmu P3 — cel: GECCO 2027.</p>
+          <a href="https://github.com/jedrzejpolaczek/p3net_gecco2027" style="font-family:'IBM Plex Mono',monospace;font-size:13px;">Repozytorium ↗</a>
+        </div>
+        <div style="display:flex;gap:18px;font-family:'IBM Plex Mono',monospace;font-size:13px;">
+          <a href="https://scholar.google.com/scholar?hl=pl&as_sdt=0%2C5&q=J%C4%99drzej+Polaczek&btnG=">Google Scholar ↗</a>
+          <a href="#">ORCID ↗</a>
+        </div>
+      </div>
+    </div>
+
+    <div style="border:1px solid rgba(255,255,255,0.08);border-radius:2px;padding:40px;background:oklch(0.16 0.006 250);">
+      <div style="font-family:'IBM Plex Mono',monospace;font-size:13px;color:oklch(0.55 0.006 250);letter-spacing:0.06em;margin-bottom:8px;">EKSPONATY INTERAKTYWNE</div>
+      <h3 style="font-size:24px;font-weight:600;margin:0 0 8px;">{{ activeExhibitTitle }}</h3>
+      <p style="font-size:14px;line-height:1.6;color:oklch(0.62 0.006 250);max-width:640px;margin:0 0 24px;">{{ activeExhibitCaption }}</p>
+
+      <div ref="{{ railRef }}" style="display:flex;gap:10px;overflow-x:auto;padding-bottom:14px;margin-bottom:32px;scroll-behavior:smooth;">
+        <sc-for list="{{ exhibitTabs }}" as="ex" hint-placeholder-count="9">
+          <button onClick="{{ ex.onClick }}" style="{{ ex.style }}">{{ ex.label }}</button>
+        </sc-for>
+      </div>
+
+      <sc-if value="{{ isSudokuExhibit }}" hint-placeholder-val="{{ true }}">
+        <div style="display:flex;gap:40px;flex-wrap:wrap;align-items:flex-start;">
+          <div style="display:grid;grid-template-columns:repeat(9,1fr);width:378px;aspect-ratio:1;border:2px solid {{ accent.border }};background:oklch(0.14 0.006 250);flex-shrink:0;">
+            <sc-for list="{{ cells }}" as="cell" hint-placeholder-count="81">
+              <div style="{{ cell.style }}">{{ cell.text }}</div>
+            </sc-for>
+          </div>
+          <div style="flex:1;min-width:220px;">
+            <div style="font-family:'IBM Plex Mono',monospace;font-size:14px;color:oklch(0.85 0.004 250);margin-bottom:8px;min-height:20px;" aria-live="polite">{{ status }}</div>
+            <div style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:oklch(0.5 0.006 250);margin-bottom:24px;">pokolenie {{ stepIndex }} / {{ totalSteps }}</div>
+            <div style="display:flex;gap:10px;margin-bottom:24px;">
+              <button onClick="{{ onStart }}" style="padding:12px 20px;background:{{ accent.solid }};color:#12160f;font-weight:600;border:none;border-radius:2px;font-size:14px;cursor:pointer;min-height:44px;">{{ startLabel }}</button>
+              <button onClick="{{ onStep }}" style="padding:12px 20px;background:transparent;color:oklch(0.9 0.004 250);border:1px solid rgba(255,255,255,0.15);border-radius:2px;font-size:14px;cursor:pointer;min-height:44px;">Krok</button>
+              <button onClick="{{ onReset }}" style="padding:12px 20px;background:transparent;color:oklch(0.6 0.006 250);border:1px solid rgba(255,255,255,0.1);border-radius:2px;font-size:14px;cursor:pointer;min-height:44px;">Reset</button>
+            </div>
+            <a href="https://github.com/jedrzejpolaczek/aviarium.pavo" style="font-family:'IBM Plex Mono',monospace;font-size:13px;">Zobacz kod źródłowy ↗</a>
+          </div>
+        </div>
+      </sc-if>
+
+      <sc-if value="{{ isIframeExhibit }}" hint-placeholder-val="{{ false }}">
+        <div style="display:flex;gap:40px;flex-wrap:wrap;align-items:flex-start;">
+          <div style="position:relative;width:340px;height:230px;border:2px solid {{ accent.border }};background:oklch(0.14 0.006 250);flex-shrink:0;overflow:hidden;">
+            <sc-for list="{{ searchPoints }}" as="sp" hint-placeholder-count="16">
+              <div style="{{ sp.style }}"></div>
+            </sc-for>
+          </div>
+          <div style="flex:1;min-width:220px;">
+            <div style="font-family:'IBM Plex Mono',monospace;font-size:14px;color:oklch(0.85 0.004 250);margin-bottom:8px;min-height:20px;" aria-live="polite">{{ searchStatus }}</div>
+            <div style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:oklch(0.5 0.006 250);margin-bottom:24px;">krok {{ searchStepIndex }} / {{ searchTotal }}</div>
+            <div style="display:flex;gap:10px;margin-bottom:24px;">
+              <button onClick="{{ onSearchStart }}" style="padding:12px 20px;background:{{ accent.solid }};color:#12160f;font-weight:600;border:none;border-radius:2px;font-size:14px;cursor:pointer;min-height:44px;">{{ searchStartLabel }}</button>
+              <button onClick="{{ onSearchStep }}" style="padding:12px 20px;background:transparent;color:oklch(0.9 0.004 250);border:1px solid rgba(255,255,255,0.15);border-radius:2px;font-size:14px;cursor:pointer;min-height:44px;">Krok</button>
+              <button onClick="{{ onSearchReset }}" style="padding:12px 20px;background:transparent;color:oklch(0.6 0.006 250);border:1px solid rgba(255,255,255,0.1);border-radius:2px;font-size:14px;cursor:pointer;min-height:44px;">Reset</button>
+            </div>
+            <a href="{{ activeExhibitHref }}" style="font-family:'IBM Plex Mono',monospace;font-size:13px;">Zobacz cały przewodnik ↗</a>
+          </div>
+        </div>
+      </sc-if>
+    </div>
+  </div>
+</section>
+</sc-if>
+
+<sc-if value="{{ isKontakt }}" hint-placeholder-val="{{ false }}">
+<section id="contact" style="max-width:1160px;margin:0 auto;padding:120px 48px 100px;">
+  <h2 style="font-size:36px;font-weight:600;margin:0 0 20px;font-family:'IBM Plex Sans',sans-serif;">:kontakt</h2>
+  <p style="font-size:17px;line-height:1.6;color:oklch(0.7 0.006 250);max-width:600px;margin:0 0 48px;">Projekt, konsultacja, albo po prostu chcesz podyskutować o algorytmach ewolucyjnych — pisz.</p>
+
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:48px;">
+    <div>
+      <div style="font-family:'IBM Plex Mono',monospace;font-size:14px;line-height:2;">
+        <div><a href="mailto:jedrzej.polaczek@gmail.com">jedrzej.polaczek@gmail.com</a></div>
+        <div><a href="https://github.com/jedrzejpolaczek" target="_blank">GitHub ↗</a></div>
+        <div><a href="https://www.linkedin.com/in/jedrzej-polaczek/" target="_blank">LinkedIn ↗</a></div>
+      </div>
+    </div>
+    <div>
+      <sc-if value="{{ submitted }}" hint-placeholder-val="{{ false }}">
+        <div style="font-size:15px;color:{{ accent.text }};">Wysłane — no, właściwie nie: to statyczna makieta. Napisz na maila powyżej. ↑</div>
+      </sc-if>
+      <sc-if value="{{ notSubmitted }}" hint-placeholder-val="{{ true }}">
+        <form onSubmit="{{ onSubmitForm }}" style="display:flex;flex-direction:column;gap:12px;">
+          <div>
+            <label htmlFor="contact-name" style="display:block;font-size:12px;color:oklch(0.6 0.006 250);margin-bottom:4px;">Imię</label>
+            <input id="contact-name" required style="width:100%;padding:12px;background:oklch(0.20 0.006 250);border:1px solid rgba(255,255,255,0.1);border-radius:2px;color:oklch(0.9 0.004 250);font-family:'IBM Plex Sans',sans-serif;font-size:14px;box-sizing:border-box;"></input>
+          </div>
+          <div>
+            <label htmlFor="contact-email" style="display:block;font-size:12px;color:oklch(0.6 0.006 250);margin-bottom:4px;">Email</label>
+            <input id="contact-email" type="email" required style="width:100%;padding:12px;background:oklch(0.20 0.006 250);border:1px solid rgba(255,255,255,0.1);border-radius:2px;color:oklch(0.9 0.004 250);font-family:'IBM Plex Sans',sans-serif;font-size:14px;box-sizing:border-box;"></input>
+          </div>
+          <div>
+            <label htmlFor="contact-message" style="display:block;font-size:12px;color:oklch(0.6 0.006 250);margin-bottom:4px;">Wiadomość</label>
+            <textarea id="contact-message" required placeholder="{{ formPlaceholder }}" rows="4" style="width:100%;padding:12px;background:oklch(0.20 0.006 250);border:1px solid rgba(255,255,255,0.1);border-radius:2px;color:oklch(0.9 0.004 250);font-family:'IBM Plex Sans',sans-serif;font-size:14px;resize:vertical;box-sizing:border-box;"></textarea>
+          </div>
+          <button type="submit" style="align-self:flex-start;padding:12px 24px;background:{{ accent.solid }};color:#12160f;font-weight:600;border:none;border-radius:2px;font-size:14px;cursor:pointer;">Wyślij</button>
+        </form>
+      </sc-if>
+    </div>
+  </div>
+</section>
+</sc-if>
+
+<footer style="border-top:1px solid rgba(255,255,255,0.06);padding:32px 48px;display:flex;justify-content:space-between;font-family:'IBM Plex Mono',monospace;font-size:12px;color:oklch(0.45 0.006 250);">
+  <div>© 2026 Jędrzej Polaczek</div>
+  <div>{{ footerNote }}</div>
+</footer>
+
+</div>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1280,&quot;height&quot;:900},&quot;accentColor&quot;:{&quot;editor&quot;:&quot;color&quot;,&quot;default&quot;:&quot;#8FA876&quot;,&quot;options&quot;:[&quot;#8FA876&quot;,&quot;#7FA88F&quot;,&quot;#8BAA6E&quot;,&quot;#6FAE96&quot;],&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Wygląd&quot;},&quot;sudokuSpeedMs&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:70,&quot;min&quot;:30,&quot;max&quot;:200,&quot;step&quot;:10,&quot;unit&quot;:&quot;ms&quot;,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Sudoku&quot;},&quot;playfulMode&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Ton&quot;}}">
+function clamp(v){ return Math.max(0, Math.min(1, v)); }
+
+const PUZZLE = [
+  [5,3,0,0,7,0,0,0,0],
+  [6,0,0,1,9,5,0,0,0],
+  [0,9,8,0,0,0,0,6,0],
+  [8,0,0,0,6,0,0,0,3],
+  [4,0,0,8,0,3,0,0,1],
+  [7,0,0,0,2,0,0,0,6],
+  [0,6,0,0,0,0,2,8,0],
+  [0,0,0,4,1,9,0,0,5],
+  [0,0,0,0,8,0,0,7,9],
+];
+
+const PROJECTS = [
+  { id:3, title:'Corvus Corone — benchmarking algorytmów HPO', desc:'Biblioteka i AI-wspomagany pilot do rygorystycznego, powtarzalnego testowania algorytmów optymalizacji hiperparametrów — z pre-rejestracją hipotez i kontrolą ziarna losowości, zgodnie z metodyką naukową.', tags:['research','dziala'], placeholder:'screenshot: corvus-corone', github:'https://github.com/jedrzejpolaczek/aviarium.corvidae.corvus_corone', demo:null },
+  { id:1, title:'aviarium.columbarius — predyktor cen kart MtG', desc:'Silnik predykcji cen kart Magic: The Gathering — pipeline Bronze/Silver/Gold na danych ze Scryfall i MTGJson, model LightGBM, API i UI do sprawdzania wycen i niedowartościowanych kart.', tags:['ml','dziala','hobby'], placeholder:'screenshot: aviarium.columbarius', github:'https://github.com/jedrzejpolaczek/aviarium.columbarius', demo:null },
+  { id:2, title:'aviarium.garrulus — RAG dla reguł MtG', desc:'System pytań i odpowiedzi po zasadach Magic: The Gathering z cytowanym źródłem i progiem pewności — odpowiada "nie wiem", zamiast zgadywać. Wczesna faza: korpus i retriever w budowie.', tags:['ml','eksperyment','hobby'], placeholder:'screenshot: aviarium.garrulus', github:'https://github.com/jedrzejpolaczek/aviarium.garrulus', demo:null },
+  { id:5, title:'wednesday_frogs', desc:'GAN (DCGAN, docelowo PGGAN) trenowany na CIFAR10, który co środę generuje nową żabę i wysyła ją mailem albo przez bota na Discordzie — bo świat potrzebuje rytuału bez powodu.', tags:['ml','hobby','dziala'], placeholder:'screenshot: wednesday_frogs', github:'https://github.com/jedrzejpolaczek/wednesday_frogs', demo:null },
+  { id:4, title:'Herbatnik', desc:'Inteligentny asystent głosowy dla seniorów, który słucha, zapamiętuje i pomaga. Dzięki rozpoznawaniu mowy i RAG zapisuje ważne informacje z rozmów — leki, nawyki, upodobania — i pozwala opiekunom błyskawicznie sprawdzić, co dzieje się z ich bliskimi. Pełnię rolę architekta (podwykonawca: havenocode).', tags:['dziala','komercyjne','startup'], placeholder:'screenshot: herbatnik', github:null, demo:null, linkedin:'https://www.linkedin.com/company/109125981', website:'https://herbatnik.com.pl/', website2:'https://fundacjaherbatnik.pl/' },
+  { id:6, title:'PetHealth App', desc:'Aplikacja zdrowia zwierząt dla właścicieli, zasilana automatycznie danymi z systemu klinicznego (PMS) — pełna historia leczenia bez ręcznego wprowadzania danych. W zespole (backend/dane) budujemy MVP pod partnerstwo z liderem rynku weterynaryjnego w Polsce.', tags:['komercyjne','startup'], placeholder:'screenshot: pethealth-app', github:null, demo:null },
+];
+
+const SI = (slug) => `https://cdn.simpleicons.org/${slug}/9CAF6B`;
+const STACK_DEFS = [
+  { name:'TensorFlow', slug:'tensorflow' },
+  { name:'PyTorch', slug:'pytorch' },
+  { name:'LightGBM', initials:'GBM' },
+  { name:'scikit-learn', slug:'scikitlearn' },
+  { name:'YOLO', initials:'Y' },
+  { name:'LangChain', slug:'langchain' },
+  { name:'Langflow', initials:'LF' },
+  { name:'FastAPI', slug:'fastapi' },
+  { name:'SQLAlchemy', slug:'sqlalchemy' },
+  { name:'PostgreSQL', slug:'postgresql' },
+  { name:'DuckDB', slug:'duckdb' },
+  { name:'SQL', initials:'SQL' },
+  { name:'Docker', slug:'docker' },
+  { name:'GitHub Actions', slug:'githubactions' },
+  { name:'Azure', initials:'AZ' },
+  { name:'MLflow', slug:'mlflow' },
+  { name:'SHAP', initials:'SHAP' },
+  { name:'Algorytmy genetyczne', initials:'GA' },
+];
+const STACK_ONCE = STACK_DEFS.map((s,i) => ({ name:s.name, id:'logo-'+i, icon: s.slug ? SI(s.slug) : null, noIcon: !s.slug, initials: s.initials }));
+const STACK = [...STACK_ONCE, ...STACK_ONCE.map(s => ({ ...s, id: s.id + '-b' }))];
+
+const TAGS = ['all','ml','research','dziala','hobby','eksperyment','komercyjne','startup'];
+const TAG_LABELS = { all:'Wszystkie', ml:'#ml', research:'#research', dziala:'#działa', hobby:'#hobby', eksperyment:'#eksperyment', komercyjne:'#komercyjne', startup:'#startup' };
+
+const EXHIBITS = [
+  { id:'sudoku', label:'Sudoku (GA)', kind:'sudoku', title:'Algorytm genetyczny rozwiązujący Sudoku 9×9', caption:'Populacja osobników (permutacje cyfr w blokach 3×3) ewoluuje przez selekcję turniejową, krzyżowanie blokowe i mutację — fitness to liczba konfliktów w wierszach i kolumnach.' },
+  { id:'p3', label:'P3', kind:'iframe', href:'./explainers/p3.html', title:'Jak naprawdę działa P3', caption:'Interaktywny przewodnik po algorytmie P3 (Parameter-less Population Pyramid).' },
+  { id:'p3net', label:'P3Net', kind:'iframe', href:'./explainers/p3net.html', title:'Jak naprawdę działa P3Net', caption:'Wariant P3 z surogatowym modelem oceny — przewodnik krok po kroku.' },
+  { id:'random-search', label:'Random search', kind:'iframe', href:'./explainers/random-search.html', title:'Jak naprawdę działa Random search', caption:'Najprostszy punkt odniesienia dla optymalizacji hiperparametrów.' },
+  { id:'tpe', label:'TPE', kind:'iframe', href:'./explainers/tpe.html', title:'Jak naprawdę działa TPE', caption:'Tree-structured Parzen Estimator — probabilistyczne modelowanie dobrych i słabych prób.' },
+  { id:'nsga-net', label:'NSGA-Net', kind:'iframe', href:'./explainers/nsga-net.html', title:'Jak naprawdę działa NSGA-Net', caption:'Ewolucyjne przeszukiwanie architektur sieci z wieloma celami naraz.' },
+  { id:'nsganetv2', label:'NSGANetV2', kind:'iframe', href:'./explainers/nsganetv2.html', title:'Jak naprawdę działa NSGANetV2', caption:'Rozwinięcie NSGA-Net z szybszą oceną kandydatów.' },
+  { id:'sh-emoa', label:'SH-EMOA', kind:'iframe', href:'./explainers/sh-emoa.html', title:'Jak naprawdę działa SH-EMOA', caption:'Successive Halving połączone z wieloobiektywową ewolucją.' },
+  { id:'mo-bohb', label:'MO-BOHB', kind:'iframe', href:'./explainers/mo-bohb.html', title:'Jak naprawdę działa MO-BOHB', caption:'Bayesowska optymalizacja i Hyperband dla wielu celów jednocześnie.' },
+];
+
+class Component extends DCLogic {
+  state = { activeTag:'all', population:[], generation:0, bestIndividual:null, bestFitness:null, playing:false, done:false, submitted:false, activeExhibit:'sudoku', view:'home' };
+  railRef = React.createRef();
+  stackRailRef = React.createRef();
+  stackPaused = false;
+  stackManuallyPaused = false;
+
+  startStackAutoScroll(){
+    this._stackTimer = setInterval(() => {
+      const el = this.stackRailRef.current;
+      if (!el || this.stackPaused || this.stackManuallyPaused) return;
+      el.scrollLeft += 0.6;
+      const half = el.scrollWidth / 2;
+      if (el.scrollLeft >= half) el.scrollLeft -= half;
+    }, 16);
+  }
+  onStackMouseDown(e){
+    const el = this.stackRailRef.current;
+    if (!el) return;
+    this._stackDragging = true;
+    this.stackPaused = true;
+    this._stackDragStartX = e.clientX;
+    this._stackDragStartScroll = el.scrollLeft;
+    this.forceUpdate();
+  }
+  onStackMouseMove(e){
+    if (!this._stackDragging) return;
+    const el = this.stackRailRef.current;
+    if (!el) return;
+    el.scrollLeft = this._stackDragStartScroll - (e.clientX - this._stackDragStartX);
+  }
+  onStackMouseUp(){
+    this._stackDragging = false;
+    this.stackPaused = false;
+    this.forceUpdate();
+  }
+  toggleStackPause(){
+    this.stackManuallyPaused = !this.stackManuallyPaused;
+    this.forceUpdate();
+  }
+  onStackWheel(e){
+    const el = this.stackRailRef.current;
+    if (!el) return;
+    el.scrollLeft += e.deltaY !== 0 ? e.deltaY : e.deltaX;
+    e.preventDefault();
+  }
+
+  selectExhibit(id){
+    this.setState({ activeExhibit:id }, () => this.centerRail(id));
+    if (id !== 'sudoku') this.initSearch(id);
+  }
+
+  initSearch(id){
+    this.pauseSearch();
+    const budgets = { p3:14, p3net:14, 'random-search':16, tpe:14, 'nsga-net':14, nsganetv2:10, 'sh-emoa':5, 'mo-bohb':6 };
+    this.search = {
+      id, gen:0, budget: budgets[id] || 14, done:false,
+      target: { x: 0.25 + Math.random()*0.5, y: 0.25 + Math.random()*0.5 },
+      pool: [], rungPop: id==='sh-emoa' || id==='mo-bohb' ? 16 : null,
+    };
+    this.setState({ searchGen:0 });
+  }
+  scoreOf(p, t){ const d = Math.hypot(p.x-t.x, p.y-t.y); return Math.max(0, Math.round((1-d/0.75)*100)); }
+  randPt(){ return { x: Math.random(), y: Math.random() }; }
+  stepSearch(){
+    const s = this.search;
+    if (!s || s.done || s.gen >= s.budget) { this.pauseSearch(); return; }
+    const t = s.target;
+    const withScore = (p) => ({ ...p, f: this.scoreOf(p, t) });
+    switch(s.id){
+      case 'random-search': {
+        s.pool.push(withScore(this.randPt()));
+        break;
+      }
+      case 'p3': case 'p3net': {
+        if (s.pool.length < 3) { s.pool.push(withScore(this.randPt())); break; }
+        const sorted = s.pool.slice().sort((a,b)=>b.f-a.f);
+        const a = sorted[Math.floor(Math.random()*Math.min(3,sorted.length))];
+        const b = sorted[Math.floor(Math.random()*Math.min(6,sorted.length))];
+        const child = { x: clamp((a.x+b.x)/2 + (Math.random()-0.5)*0.12), y: clamp((a.y+b.y)/2 + (Math.random()-0.5)*0.12) };
+        s.pool.push(withScore(child));
+        if (s.pool.length > 22) s.pool.sort((a,b)=>b.f-a.f).splice(20);
+        break;
+      }
+      case 'tpe': {
+        if (s.pool.length < 4) { s.pool.push(withScore(this.randPt())); break; }
+        const sorted = s.pool.slice().sort((a,b)=>b.f-a.f);
+        const good = sorted.slice(0, Math.max(1, Math.ceil(sorted.length*0.25)));
+        const gx = good.reduce((a,p)=>a+p.x,0)/good.length, gy = good.reduce((a,p)=>a+p.y,0)/good.length;
+        const spread = Math.max(0.04, 0.3 - s.gen*0.02);
+        s.pool.push(withScore({ x: clamp(gx + (Math.random()-0.5)*spread), y: clamp(gy + (Math.random()-0.5)*spread) }));
+        break;
+      }
+      case 'nsga-net': case 'nsganetv2': {
+        const cap = 16;
+        if (s.pool.length < cap) { s.pool.push(withScore(this.randPt())); break; }
+        const scored = s.pool.map(p => ({ ...p, sx: -Math.abs(p.x-t.x), sy: -Math.abs(p.y-t.y) }));
+        const front = scored.filter(p => !scored.some(q => q!==p && q.sx>=p.sx && q.sy>=p.sy && (q.sx>p.sx || q.sy>p.sy)));
+        const rest = scored.filter(p => !front.includes(p)).sort((a,b)=>a.f-b.f);
+        const kids = s.id === 'nsganetv2' ? 4 : 2;
+        for (let i=0;i<kids && rest.length;i++){
+          const parentPool = front.length ? front : scored;
+          const a = parentPool[Math.floor(Math.random()*parentPool.length)];
+          const b = parentPool[Math.floor(Math.random()*parentPool.length)];
+          const child = withScore({ x: clamp((a.x+b.x)/2 + (Math.random()-0.5)*0.1), y: clamp((a.y+b.y)/2 + (Math.random()-0.5)*0.1) });
+          const worstIdx = s.pool.indexOf(rest[i]);
+          if (worstIdx >= 0) s.pool[worstIdx] = child;
+        }
+        break;
+      }
+      case 'sh-emoa': {
+        if (!s.pool.length) { for(let i=0;i<s.rungPop;i++) s.pool.push(withScore(this.randPt())); break; }
+        const sorted = s.pool.map(withScore).sort((a,b)=>b.f-a.f);
+        const keep = Math.max(1, Math.floor(sorted.length/2));
+        const survivors = sorted.slice(0, keep);
+        const refilled = survivors.concat(survivors.map(p => withScore({ x: clamp(p.x+(Math.random()-0.5)*0.08), y: clamp(p.y+(Math.random()-0.5)*0.08) })));
+        s.pool = refilled;
+        s.rungPop = keep;
+        break;
+      }
+      case 'mo-bohb': {
+        if (!s.pool.length) { for(let i=0;i<s.rungPop;i++) s.pool.push(withScore(this.randPt())); break; }
+        const sorted = s.pool.map(withScore).sort((a,b)=>b.f-a.f);
+        const keep = Math.max(1, Math.floor(sorted.length/2));
+        const survivors = sorted.slice(0, keep);
+        const gx = survivors.reduce((a,p)=>a+p.x,0)/survivors.length, gy = survivors.reduce((a,p)=>a+p.y,0)/survivors.length;
+        const refilled = survivors.concat(survivors.map(() => withScore({ x: clamp(gx+(Math.random()-0.5)*0.15), y: clamp(gy+(Math.random()-0.5)*0.15) })));
+        s.pool = refilled;
+        s.rungPop = keep;
+        break;
+      }
+      default: s.pool.push(withScore(this.randPt()));
+    }
+    s.gen++;
+    if (s.gen >= s.budget) s.done = true;
+    this.setState({ searchGen: s.gen });
+    if (s.done) this.pauseSearch();
+  }
+  startSearch(){
+    if (!this.search || this.search.done) return;
+    if (this.searchPlaying) { this.pauseSearch(); return; }
+    this.searchPlaying = true;
+    this.forceUpdate();
+    this._searchTimer = setInterval(() => {
+      this.stepSearch();
+      if (!this.search || this.search.done) this.pauseSearch();
+    }, 450);
+  }
+  pauseSearch(){ if (this._searchTimer) { clearInterval(this._searchTimer); this._searchTimer = null; } this.searchPlaying = false; }
+  resetSearch(){ this.pauseSearch(); this.initSearch(this.search ? this.search.id : this.state.activeExhibit); this.forceUpdate(); }
+  centerRail(id){
+    const rail = this.railRef.current;
+    if(!rail) return;
+    const idx = EXHIBITS.findIndex(e => e.id === id);
+    const btn = rail.children[idx];
+    if(!btn) return;
+    const target = btn.offsetLeft - (rail.clientWidth / 2 - btn.offsetWidth / 2);
+    rail.scrollTo({ left: Math.max(0, target), behavior:'smooth' });
+  }
+
+  componentDidMount(){
+    this.initGA();
+    this.initSearch('p3');
+    this.startStackAutoScroll();
+    if (this.props.playfulMode ?? true) {
+      console.log('%cHej, ciekawski.', 'color:#9CAF6B;font-family:monospace;font-size:14px;');
+      console.log('Skoro zaglądasz do konsoli, pewnie lubisz też czytać kod źródłowy — link w sekcji Badania.');
+    }
+  }
+  componentWillUnmount(){ this.pause(); this.pauseSearch(); if(this._stackTimer) clearInterval(this._stackTimer); }
+
+  clone(b){ return b.map(r=>r.slice()); }
+
+  initGA(){
+    this.boxes = [];
+    for(let br=0; br<3; br++) for(let bc=0; bc<3; bc++){
+      const cells = [];
+      for(let r=br*3; r<br*3+3; r++) for(let c=bc*3; c<bc*3+3; c++) cells.push([r,c]);
+      const fixed = new Set(cells.filter(([r,c])=>PUZZLE[r][c]!==0).map(([r,c])=>PUZZLE[r][c]));
+      const freeCells = cells.filter(([r,c])=>PUZZLE[r][c]===0);
+      const freeDigits = [1,2,3,4,5,6,7,8,9].filter(d=>!fixed.has(d));
+      this.boxes.push({ freeCells, freeDigits });
+    }
+    const POP_SIZE = 30;
+    const population = Array.from({length:POP_SIZE}, () => this.randomIndividual());
+    this.setState({ population, generation:0, done:false, playing:false, ...this.evalPopulation(population) });
+  }
+  shuffle(arr){ const a = arr.slice(); for(let i=a.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [a[i],a[j]]=[a[j],a[i]]; } return a; }
+  randomIndividual(){ return this.boxes.map(b => this.shuffle(b.freeDigits)); }
+  decode(ind){
+    const board = PUZZLE.map(r=>r.slice());
+    this.boxes.forEach((box,i) => box.freeCells.forEach(([r,c],k) => { board[r][c] = ind[i][k]; }));
+    return board;
+  }
+  conflictMask(board){
+    const mask = Array.from({length:9},()=>Array(9).fill(false));
+    let count = 0;
+    for(let r=0;r<9;r++){ const seen={}; for(let c=0;c<9;c++){ (seen[board[r][c]]=seen[board[r][c]]||[]).push(c); } Object.values(seen).forEach(cols=>{ if(cols.length>1){ cols.forEach(c=>mask[r][c]=true); count += cols.length-1; } }); }
+    for(let c=0;c<9;c++){ const seen={}; for(let r=0;r<9;r++){ (seen[board[r][c]]=seen[board[r][c]]||[]).push(r); } Object.values(seen).forEach(rows=>{ if(rows.length>1){ rows.forEach(r=>mask[r][c]=true); count += rows.length-1; } }); }
+    return { mask, count };
+  }
+  fitness(ind){ return this.conflictMask(this.decode(ind)).count; }
+  evalPopulation(population){
+    const scored = population.map(ind => ({ ind, f: this.fitness(ind) })).sort((a,b)=>a.f-b.f);
+    return { bestIndividual: scored[0].ind, bestFitness: scored[0].f };
+  }
+  tournamentPick(population, fits){
+    let best = null, bestF = Infinity;
+    for(let i=0;i<3;i++){ const idx = Math.floor(Math.random()*population.length); if(fits[idx] < bestF){ bestF = fits[idx]; best = population[idx]; } }
+    return best;
+  }
+  crossover(a,b){ return a.map((geneA,i) => Math.random() < 0.5 ? geneA.slice() : b[i].slice()); }
+  mutate(ind){
+    if(Math.random() > 0.3) return ind;
+    const eligible = ind.map((g,i)=>i).filter(i => ind[i].length >= 2);
+    if(!eligible.length) return ind;
+    const i = eligible[Math.floor(Math.random()*eligible.length)];
+    const gene = ind[i].slice();
+    const p1 = Math.floor(Math.random()*gene.length), p2 = Math.floor(Math.random()*gene.length);
+    [gene[p1],gene[p2]] = [gene[p2],gene[p1]];
+    const next = ind.slice(); next[i] = gene;
+    return next;
+  }
+
+  advance(){
+    const { population, generation } = this.state;
+    if(this.state.done || generation >= 300){ this.pause(); return; }
+    const scored = population.map(ind => ({ ind, f: this.fitness(ind) })).sort((a,b)=>a.f-b.f);
+    const fits = population.map(ind => this.fitness(ind));
+    const next = [scored[0].ind, scored[1] ? scored[1].ind : scored[0].ind];
+    while(next.length < population.length){
+      const pa = this.tournamentPick(population, fits);
+      const pb = this.tournamentPick(population, fits);
+      next.push(this.mutate(this.crossover(pa, pb)));
+    }
+    const done = scored[0].f === 0;
+    this.setState({ population: next, generation: generation+1, bestIndividual: scored[0].ind, bestFitness: scored[0].f, done });
+    if(done) this.pause();
+  }
+
+  start(){
+    if(this.state.done) return;
+    if(this.state.playing){ this.pause(); return; }
+    this.setState({ playing:true });
+    const speed = this.props.sudokuSpeedMs ?? 70;
+    this._interval = setInterval(() => {
+      this.advance();
+      if(this.state.done || this.state.generation >= 300) this.pause();
+    }, speed);
+  }
+  pause(){ if(this._interval){ clearInterval(this._interval); this._interval = null; } this.setState({ playing:false }); }
+  reset(){ this.pause(); this.initGA(); }
+
+  renderVals(){
+    const hex = this.props.accentColor || '#8FA876';
+    const accent = {
+      text: hex,
+      solid: hex,
+      dim: `color-mix(in srgb, ${hex} 18%, transparent)`,
+      border: `color-mix(in srgb, ${hex} 45%, transparent)`,
+      dark: `color-mix(in srgb, ${hex} 45%, black)`,
+    };
+
+    const { generation, bestIndividual, bestFitness, playing, done, activeTag, submitted } = this.state;
+    const board = bestIndividual ? this.decode(bestIndividual) : PUZZLE.map(r=>r.slice());
+    const { mask } = bestIndividual ? this.conflictMask(board) : { mask: Array.from({length:9},()=>Array(9).fill(false)) };
+    const cells = [];
+    for(let r=0;r<9;r++){
+      for(let c=0;c<9;c++){
+        const given = PUZZLE[r][c] !== 0;
+        const val = board[r][c];
+        let bg = 'transparent', color = '#dfe6df', fw = 400;
+        if(given){ bg = 'rgba(255,255,255,0.04)'; color = 'oklch(0.88 0.006 250)'; fw = 600; }
+        else if(mask[r][c]){ bg = 'rgba(217,119,107,0.28)'; color = '#f0b6ae'; fw = 700; }
+        else if(val !== 0){ bg = accent.dim; color = accent.text; fw = 600; }
+        cells.push({
+          key: r*9+c,
+          text: val || '',
+          style: {
+            display:'flex', alignItems:'center', justifyContent:'center',
+            fontFamily:"'IBM Plex Mono', monospace", fontSize:'16px', fontWeight:fw,
+            background:bg, color, transition:'background 0.15s, color 0.15s',
+            borderRight: (c%3===2 && c!==8) ? `2px solid ${accent.border}` : '1px solid rgba(255,255,255,0.06)',
+            borderBottom: (r%3===2 && r!==8) ? `2px solid ${accent.border}` : '1px solid rgba(255,255,255,0.06)',
+          }
+        });
+      }
+    }
+
+    let status = 'Gotowy do startu.';
+    if(done) status = (this.props.playfulMode ?? true) ? 'Rozwiązane. Eureka.' : 'Rozwiązane.';
+    else if(generation > 0) status = `Pokolenie ${generation} · konflikty: ${bestFitness}`;
+
+    const filteredProjects = (activeTag === 'all' ? PROJECTS : PROJECTS.filter(p => p.tags.includes(activeTag)))
+      .map(p => ({ ...p, tagLabels: p.tags.map(t => TAG_LABELS[t]) }));
+
+    const tagChips = TAGS.map(t => ({
+      id: t, label: (t === activeTag ? '✓ ' : '') + TAG_LABELS[t],
+      onClick: () => this.setState({ activeTag: t }),
+      style: {
+        fontFamily:"'IBM Plex Mono', monospace", fontSize:'13px', padding:'10px 16px', minHeight:'40px', borderRadius:'2px', cursor:'pointer',
+        border: t === activeTag ? `1px solid ${accent.solid}` : '1px solid rgba(255,255,255,0.12)',
+        background: t === activeTag ? accent.dim : 'transparent',
+        fontWeight: t === activeTag ? 700 : 400,
+        color: t === activeTag ? accent.text : 'oklch(0.7 0.006 250)',
+      }
+    }));
+
+    const { activeExhibit } = this.state;
+    const activeEx = EXHIBITS.find(e => e.id === activeExhibit) || EXHIBITS[0];
+    const exhibitTabs = EXHIBITS.map(e => ({
+      id: e.id, label: (e.id === activeExhibit ? '✓ ' : '') + e.label,
+      onClick: () => this.selectExhibit(e.id),
+      style: {
+        flex:'none', padding:'12px 18px', minHeight:'44px', borderRadius:'20px', cursor:'pointer',
+        fontFamily:"'IBM Plex Mono', monospace", fontSize:'13px', whiteSpace:'nowrap',
+        border: e.id === activeExhibit ? `1px solid ${accent.solid}` : '1px solid rgba(255,255,255,0.12)',
+        background: e.id === activeExhibit ? accent.dim : 'transparent',
+        fontWeight: e.id === activeExhibit ? 700 : 400,
+        color: e.id === activeExhibit ? accent.text : 'oklch(0.7 0.006 250)',
+      }
+    }));
+
+    const s = this.search;
+    const searchPool = (s && s.pool) || [];
+    const searchPoints = searchPool.map((p, i) => {
+      const isBest = searchPool.length && p.f === Math.max(...searchPool.map(q=>q.f));
+      return {
+        key: i,
+        style: {
+          position:'absolute', left:(p.x*100)+'%', top:(p.y*100)+'%', transform:'translate(-50%,-50%)',
+          width: isBest ? '14px':'8px', height: isBest ? '14px':'8px', borderRadius:'50%',
+          background: isBest ? accent.solid : accent.dim,
+          border: isBest ? `2px solid ${accent.solid}` : '1px solid rgba(255,255,255,0.15)',
+          transition:'left 0.3s, top 0.3s',
+        }
+      };
+    });
+    const bestScore = searchPool.length ? Math.max(...searchPool.map(p=>p.f)) : 0;
+    let searchStatus = 'Gotowy do startu.';
+    if (s && s.done) searchStatus = `Zakończono. Najlepszy wynik: ${bestScore}.`;
+    else if (s && s.gen > 0) searchStatus = `Krok ${s.gen} · najlepszy wynik: ${bestScore} · próbek: ${searchPool.length}`;
+
+    return {
+      accent, cells, status, stepIndex: generation, totalSteps: 300, playing, done,
+      exhibitTabs, isSudokuExhibit: activeEx.kind === 'sudoku', isIframeExhibit: activeEx.kind === 'iframe',
+      activeExhibitTitle: activeEx.title, activeExhibitCaption: activeEx.caption, activeExhibitHref: activeEx.href,
+      searchPoints, searchStatus, searchStepIndex: s ? s.gen : 0, searchTotal: s ? s.budget : 0,
+      searchStartLabel: this.searchPlaying ? 'Pauza' : (s && s.done ? 'Gotowe' : 'Start'),
+      onSearchStart: () => this.startSearch(), onSearchStep: () => this.stepSearch(), onSearchReset: () => this.resetSearch(),
+      railRef: this.railRef,
+      stackRailRef: this.stackRailRef,
+      onStackEnter: () => { this.stackPaused = true; },
+      onStackLeave: () => { this.stackPaused = false; },
+      onStackWheelH: (e) => this.onStackWheel(e),
+      onStackMouseDown: (e) => this.onStackMouseDown(e),
+      onStackMouseMove: (e) => this.onStackMouseMove(e),
+      onStackMouseUp: () => this.onStackMouseUp(),
+      onStackTogglePause: () => this.toggleStackPause(),
+      stackPauseLabel: this.stackManuallyPaused ? '▶ wznów' : '⏸ pauza',
+      stackRailStyle: { overflowX:'auto', overflowY:'hidden', cursor: this._stackDragging ? 'grabbing' : 'grab', scrollbarWidth:'none', userSelect: this._stackDragging ? 'none' : 'auto' },
+      stackLogos: STACK,
+      featuredProjects: [
+        { title: 'Przewidywanie cen kart MtG', tag: '#' + PROJECTS.find(p=>p.id===1).tags[0] },
+        { title: 'RAG dla reguł gry MtG', tag: '#' + PROJECTS.find(p=>p.id===2).tags[0] },
+        { title: 'Benchmarking algorytmów HPO', tag: '#' + PROJECTS.find(p=>p.id===3).tags[0] },
+        { title: 'Asystent głosowy dla osób starszych', tag: '#startup' },
+        { title: 'PetHealthApp', tag: '#' + PROJECTS.find(p=>p.id===6).tags[0] },
+      ],
+      isHome: this.state.view === 'home', isSolutions: this.state.view === 'solutions', isBadania: this.state.view === 'badania', isKontakt: this.state.view === 'kontakt',
+      goHome: (e)=>{ e.preventDefault(); this.setState({view:'home'}); },
+      goSolutions: (e)=>{ e.preventDefault(); this.setState({view:'solutions'}); },
+      goBadania: (e)=>{ e.preventDefault(); this.setState({view:'badania'}); },
+      goKontakt: (e)=>{ e.preventDefault(); this.setState({view:'kontakt'}); },
+      navStyle: (() => {
+        const base = { padding:'10px 6px', display:'inline-flex', alignItems:'center' };
+        const item = (key) => ({ ...base, color: this.state.view===key ? accent.text : 'oklch(0.85 0.004 250)', fontWeight: this.state.view===key ? 700 : 400, borderBottom: this.state.view===key ? `2px solid ${accent.text}` : '2px solid transparent' });
+        return { home:item('home'), solutions:item('solutions'), badania:item('badania'), kontakt:item('kontakt') };
+      })(),
+      vennNodes: (() => {
+        const W=800, H=460;
+        const pill = (extra) => ({position:'absolute', transform:'translate(-50%,-50%)', padding:'11px 16px', minHeight:'40px', borderRadius:'20px', border:'1px solid rgba(255,255,255,0.2)', background:'#0b0c1a', color:'#d6d6d6', fontFamily:"'IBM Plex Mono', monospace", fontSize:'12px', cursor:'pointer', whiteSpace:'nowrap', boxSizing:'border-box', display:'flex', alignItems:'center', ...extra});
+        const pos = (x,y) => ({left:(x/W*100)+'%', top:(y/H*100)+'%'});
+        const items = [
+          { id:'p3', label:'P3', x:130, y:130 },
+          { id:'sudoku-node', label:'Sudoku (GA)', x:130, y:330 },
+          { id:'p3net', label:'P3Net', x:400, y:110, overlap:true },
+          { id:'nsga-net', label:'NSGA-Net', x:400, y:230, overlap:true },
+          { id:'nsganetv2', label:'NSGANetV2', x:400, y:350, overlap:true },
+          { id:'tpe', label:'TPE', x:670, y:110 },
+          { id:'random-search', label:'Random search', x:670, y:200 },
+          { id:'sh-emoa', label:'SH-EMOA', x:670, y:290 },
+          { id:'mo-bohb', label:'MO-BOHB', x:670, y:380 },
+        ];
+        return items.map(it => ({
+          id: it.id, label: it.label,
+          onClick: (e) => { e.preventDefault(); this.selectExhibit(it.id === 'sudoku-node' ? 'sudoku' : it.id); },
+          style: { ...pos(it.x, it.y), ...pill(it.overlap ? { border:`1px solid ${accent.solid}` } : {}) }
+        }));
+      })(),
+
+      onStart: () => this.start(), onStep: () => this.advance(), onReset: () => this.reset(),
+      startLabel: playing ? 'Pauza' : (done ? 'Gotowe' : 'Start'),
+      filteredProjects, tagChips,
+      submitted, notSubmitted: !submitted,
+      onSubmitForm: (e) => { e.preventDefault(); this.setState({ submitted:true }); },
+      formPlaceholder: (this.props.playfulMode ?? true) ? 'Wiadomość (nie musi być poważna)' : 'Wiadomość',
+      footerNote: (this.props.playfulMode ?? true) ? 'zbudowane z ciekawości, nie z konieczności' : '',
+    };
+  }
+}
+
+</script>
+</body>
+</html>
