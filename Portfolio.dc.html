@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="pl">
+<html>
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -27,11 +27,12 @@ h1,h2,h3{font-family:'IBM Plex Sans',sans-serif;}
 
 <nav style="position:sticky;top:0;z-index:50;display:flex;align-items:center;justify-content:space-between;padding:18px 48px;background:oklch(0.16 0.006 250 / 0.85);backdrop-filter:blur(8px);border-bottom:1px solid rgba(255,255,255,0.06);">
   <div style="font-family:'IBM Plex Mono',monospace;font-size:18px;font-weight:600;color:oklch(0.92 0.004 250);">JP.<span style="animation:blink 1s step-end infinite;color:{{ accent.text }};">_</span></div>
-  <div style="display:flex;gap:32px;font-family:'IBM Plex Mono',monospace;font-size:14px;">
-    <a href="#" onClick="{{ goHome }}" style="{{ navStyle.home }}">strona główna</a>
+  <div style="display:flex;gap:32px;align-items:center;font-family:'IBM Plex Mono',monospace;font-size:14px;">
+    <a href="#" onClick="{{ goHome }}" style="{{ navStyle.home }}">{{ T.navHome }}</a>
     <a href="#" onClick="{{ goSolutions }}" style="{{ navStyle.solutions }}">:solutions</a>
-    <a href="#" onClick="{{ goBadania }}" style="{{ navStyle.badania }}">:badania</a>
-    <a href="#" onClick="{{ goKontakt }}" style="{{ navStyle.kontakt }}">:kontakt</a>
+    <a href="#" onClick="{{ goBadania }}" style="{{ navStyle.badania }}">:{{ T.navBadaniaSlug }}</a>
+    <a href="#" onClick="{{ goKontakt }}" style="{{ navStyle.kontakt }}">:{{ T.navKontaktSlug }}</a>
+    <button onClick="{{ toggleLang }}" style="font-family:'IBM Plex Mono',monospace;font-size:13px;font-weight:700;padding:8px 14px;border:1px solid {{ accent.solid }};border-radius:2px;background:{{ accent.dim }};color:{{ accent.text }};cursor:pointer;">{{ langButtonLabel }}</button>
   </div>
 </nav>
 
@@ -39,10 +40,10 @@ h1,h2,h3{font-family:'IBM Plex Sans',sans-serif;}
 <header id="home" style="max-width:1160px;margin:0 auto;padding:120px 48px 80px;">
   <div style="font-family:'IBM Plex Mono',monospace;font-size:14px;color:{{ accent.text }};letter-spacing:0.05em;margin-bottom:20px;">ai engineer / architect</div>
   <h1 style="font-size:64px;line-height:1.05;font-weight:600;margin:0 0 20px;max-width:820px;text-wrap:pretty;font-family:'IBM Plex Sans',sans-serif;">Jędrzej Polaczek</h1>
-  <div style="font-family:'IBM Plex Mono',monospace;font-size:16px;color:{{ accent.text }};margin:0 0 40px;">$ specjalizacja --target=neural-architecture-search,algorytmy-ewolucyjne</div>
+  <div style="font-family:'IBM Plex Mono',monospace;font-size:16px;color:{{ accent.text }};margin:0 0 40px;">{{ T.heroCmd }}</div>
   <div style="display:flex;gap:16px;">
-    <a href="#" onClick="{{ goSolutions }}" style="display:inline-flex;align-items:center;padding:12px 24px;background:{{ accent.solid }};color:#12160f;font-weight:600;border-radius:2px;font-size:15px;">Zobacz projekty</a>
-    <a href="#" onClick="{{ goKontakt }}" style="display:inline-flex;align-items:center;padding:12px 24px;border:1px solid rgba(255,255,255,0.15);border-radius:2px;font-size:15px;color:oklch(0.92 0.004 250);">Napisz</a>
+    <a href="#" onClick="{{ goSolutions }}" style="display:inline-flex;align-items:center;padding:12px 24px;background:{{ accent.solid }};color:#12160f;font-weight:600;border-radius:2px;font-size:15px;">{{ T.heroCtaProjects }}</a>
+    <a href="#" onClick="{{ goKontakt }}" style="display:inline-flex;align-items:center;padding:12px 24px;border:1px solid rgba(255,255,255,0.15);border-radius:2px;font-size:15px;color:oklch(0.92 0.004 250);">{{ T.heroCtaContact }}</a>
   </div>
 </header>
 
@@ -74,26 +75,20 @@ h1,h2,h3{font-family:'IBM Plex Sans',sans-serif;}
   <div style="max-width:1160px;margin:0 auto;">
     <div style="font-family:'IBM Plex Mono',monospace;font-size:18px;color:oklch(0.72 0.006 250);font-weight:600;letter-spacing:0.08em;margin-bottom:32px;text-align:center;">MANIFESTO</div>
     <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:32px;">
-      <div>
-        <h3 style="font-size:19px;font-weight:600;margin:0 0 10px;color:{{ accent.text }};">Testy dowodem działania</h3>
-        <p style="font-size:15px;line-height:1.6;color:oklch(0.7 0.006 250);margin:0;">Kod, który nie jest sprawdzony, nie jest gotowy — testy to nie formalność, to dowód.</p>
-      </div>
-      <div>
-        <h3 style="font-size:19px;font-weight:600;margin:0 0 10px;color:{{ accent.text }};">Dokumentacja to komunikacja</h3>
-        <p style="font-size:15px;line-height:1.6;color:oklch(0.7 0.006 250);margin:0;">Pisana, więc trudniejsza niż rozmowa, ale niezbędna — dlatego ma być krótka, prosta i łatwa do przeskanowania. Nikt nie czyta ściany tekstu.</p>
-      </div>
-      <div>
-        <h3 style="font-size:19px;font-weight:600;margin:0 0 10px;color:{{ accent.text }};">WIP = 1</h3>
-        <p style="font-size:15px;line-height:1.6;color:oklch(0.7 0.006 250);margin:0;">Jedna rzecz na raz, dokończona, zamiast dziesięciu w połowie — limit pracy w toku to nie biurokracja, to sposób, żeby coś w ogóle wyjechało z linii produkcyjnej.</p>
-      </div>
+      <sc-for list="{{ manifestoItems }}" as="m" hint-placeholder-count="3">
+        <div>
+          <h3 style="font-size:19px;font-weight:600;margin:0 0 10px;color:{{ accent.text }};">{{ m.title }}</h3>
+          <p style="font-size:15px;line-height:1.6;color:oklch(0.7 0.006 250);margin:0;">{{ m.body }}</p>
+        </div>
+      </sc-for>
     </div>
   </div>
 </section>
 
 <section style="max-width:1160px;margin:0 auto;padding:64px 48px 8px;">
   <div style="display:flex;align-items:baseline;justify-content:space-between;margin-bottom:24px;">
-    <div style="font-family:'IBM Plex Mono',monospace;font-size:18px;color:oklch(0.72 0.006 250);font-weight:600;letter-spacing:0.08em;">OSTATNIE PROJEKTY</div>
-    <a href="#" onClick="{{ goSolutions }}" style="font-family:'IBM Plex Mono',monospace;font-size:13px;">wszystkie projekty →</a>
+    <div style="font-family:'IBM Plex Mono',monospace;font-size:18px;color:oklch(0.72 0.006 250);font-weight:600;letter-spacing:0.08em;">{{ T.featuredTitle }}</div>
+    <a href="#" onClick="{{ goSolutions }}" style="font-family:'IBM Plex Mono',monospace;font-size:13px;">{{ T.featuredAll }}</a>
   </div>
   <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:16px;">
     <sc-for list="{{ featuredProjects }}" as="fp" hint-placeholder-count="5">
@@ -106,9 +101,9 @@ h1,h2,h3{font-family:'IBM Plex Sans',sans-serif;}
 </section>
 
 <section style="max-width:820px;margin:0 auto;padding:64px 48px;">
-  <div style="font-family:'IBM Plex Mono',monospace;font-size:13px;color:oklch(0.55 0.006 250);letter-spacing:0.08em;margin-bottom:20px;">O MNIE</div>
-  <p style="font-size:17px;line-height:1.6;color:oklch(0.72 0.006 250);margin:0 0 14px;">Buduję i architekturuję systemy ML/AI na poważnie — a po godzinach rozkładam na czynniki pierwsze wszystko, co da się rozłożyć: algorytmy ewolucyjne, łamigłówki, ceny kart do gry.</p>
-  <p style="font-size:17px;line-height:1.6;color:oklch(0.72 0.006 250);margin:0;">Ten sam odruch stoi za jednym i drugim: satysfakcja z momentu "aha!", kiedy coś nieoczywistego wreszcie się domyka — to właśnie ten odruch prowadzi mnie teraz w badaniach nad NAS.</p>
+  <div style="font-family:'IBM Plex Mono',monospace;font-size:13px;color:oklch(0.55 0.006 250);letter-spacing:0.08em;margin-bottom:20px;">{{ T.aboutTitle }}</div>
+  <p style="font-size:17px;line-height:1.6;color:oklch(0.72 0.006 250);margin:0 0 14px;">{{ T.aboutP1 }}</p>
+  <p style="font-size:17px;line-height:1.6;color:oklch(0.72 0.006 250);margin:0;">{{ T.aboutP2 }}</p>
 </section>
 </sc-if>
 
@@ -116,7 +111,7 @@ h1,h2,h3{font-family:'IBM Plex Sans',sans-serif;}
 <section id="projects" style="max-width:1160px;margin:0 auto;padding:120px 48px 100px;">
   <div style="display:flex;align-items:baseline;justify-content:space-between;flex-wrap:wrap;gap:16px;margin-bottom:40px;">
     <h2 style="font-size:36px;font-weight:600;margin:0;font-family:'IBM Plex Sans',sans-serif;">:solutions</h2>
-    <div style="font-family:'IBM Plex Mono',monospace;font-size:13px;color:oklch(0.55 0.006 250);">filtruj po tagach</div>
+    <div style="font-family:'IBM Plex Mono',monospace;font-size:13px;color:oklch(0.55 0.006 250);">{{ T.filterLabel }}</div>
   </div>
 
   <div style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:48px;">
@@ -144,16 +139,16 @@ h1,h2,h3{font-family:'IBM Plex Sans',sans-serif;}
               <a href="{{ p.github }}">GitHub ↗</a>
             </sc-if>
             <sc-if value="{{ p.demo }}" hint-placeholder-val="{{ false }}">
-              <a href="{{ p.demo }}">Demo ↗</a>
+              <a href="{{ p.demo }}">{{ T.demoLabel }}</a>
             </sc-if>
             <sc-if value="{{ p.linkedin }}" hint-placeholder-val="{{ false }}">
               <a href="{{ p.linkedin }}">LinkedIn ↗</a>
             </sc-if>
             <sc-if value="{{ p.website }}" hint-placeholder-val="{{ false }}">
-              <a href="{{ p.website }}">Strona ↗</a>
+              <a href="{{ p.website }}">{{ T.websiteLabel }}</a>
             </sc-if>
             <sc-if value="{{ p.website2 }}" hint-placeholder-val="{{ false }}">
-              <a href="{{ p.website2 }}">Fundacja ↗</a>
+              <a href="{{ p.website2 }}">{{ T.foundationLabel }}</a>
             </sc-if>
             <sc-if value="{{ p.note }}" hint-placeholder-val="{{ false }}">
               <span style="color:oklch(0.5 0.006 250);font-style:italic;">{{ p.note }}</span>
@@ -169,15 +164,15 @@ h1,h2,h3{font-family:'IBM Plex Sans',sans-serif;}
 <sc-if value="{{ isBadania }}" hint-placeholder-val="{{ false }}">
 <section id="research" style="background:oklch(0.20 0.006 250);padding:120px 48px;">
   <div style="max-width:1160px;margin:0 auto;">
-    <h2 style="font-size:36px;font-weight:600;margin:0 0 24px;font-family:'IBM Plex Sans',sans-serif;">:badania</h2>
-    <p style="font-size:17px;line-height:1.65;color:oklch(0.7 0.006 250);max-width:720px;margin:0 0 56px;">Interesuje mnie, jak proste, mechaniczne reguły — powtarzane wystarczająco cierpliwie — potrafią rozwiązywać problemy, których nie da się ogarnąć naraz. Skupiam się na algorytmach przeszukiwania i optymalizacji (m.in. rodzina metod P3) oraz na tym, jak zrozumiale je pokazywać, żeby intuicja nie ginęła w notacji.</p>
+    <h2 style="font-size:36px;font-weight:600;margin:0 0 24px;font-family:'IBM Plex Sans',sans-serif;">:{{ T.navBadaniaSlug }}</h2>
+    <p style="font-size:17px;line-height:1.65;color:oklch(0.7 0.006 250);max-width:720px;margin:0 0 56px;">{{ T.researchStatement }}</p>
 
     <div style="position:relative;height:460px;margin-bottom:64px;border:1px solid rgba(255,255,255,0.06);border-radius:2px;background:#0b0c1a;overflow:hidden;">
       <svg viewBox="0 0 800 460" preserveAspectRatio="none" style="position:absolute;inset:0;width:100%;height:100%;">
         <circle cx="300" cy="230" r="220" fill="{{ accent.dim }}" stroke="{{ accent.solid }}" stroke-width="1.5" opacity="0.9"></circle>
         <circle cx="500" cy="230" r="220" fill="rgba(255,255,255,0.05)" stroke="rgba(255,255,255,0.3)" stroke-width="1.5" opacity="0.9"></circle>
       </svg>
-      <div style="position:absolute;left:14%;top:8%;font-family:'IBM Plex Mono',monospace;font-size:14px;color:{{ accent.text }};font-weight:600;">Algorytmy genetyczne</div>
+      <div style="position:absolute;left:14%;top:8%;font-family:'IBM Plex Mono',monospace;font-size:14px;color:{{ accent.text }};font-weight:600;">{{ T.gaLabel }}</div>
       <div style="position:absolute;left:68%;top:8%;font-family:'IBM Plex Mono',monospace;font-size:14px;color:oklch(0.85 0.004 250);font-weight:600;">NAS</div>
       <sc-for list="{{ vennNodes }}" as="n" hint-placeholder-count="9">
         <button onClick="{{ n.onClick }}" style="{{ n.style }}">{{ n.label }}</button>
@@ -188,18 +183,18 @@ h1,h2,h3{font-family:'IBM Plex Sans',sans-serif;}
       <div>
         <div style="font-family:'IBM Plex Mono',monospace;font-size:13px;color:{{ accent.text }};letter-spacing:0.06em;margin-bottom:16px;display:flex;align-items:center;gap:8px;">
           <span style="width:7px;height:7px;border-radius:50%;background:{{ accent.solid }};display:inline-block;"></span>
-          OBECNE KIERUNKI
+          {{ T.currentDirTitle }}
         </div>
-        <p style="font-size:15px;line-height:1.6;color:oklch(0.68 0.006 250);margin:0;">Praca w toku nad algorytmami P3 (Parameter-less Population Pyramid) — jak strukturalnie odkrywają zależności między zmiennymi problemu, bez ręcznego dostrajania parametrów. Testowane i porównywane na własnej platformie do rygorystycznego benchmarkingu algorytmów HPO (Corvus Corone).</p>
+        <p style="font-size:15px;line-height:1.6;color:oklch(0.68 0.006 250);margin:0;">{{ T.currentDirBody }}</p>
       </div>
       <div>
-        <div style="font-family:'IBM Plex Mono',monospace;font-size:13px;color:oklch(0.55 0.006 250);letter-spacing:0.06em;margin-bottom:16px;">PUBLIKACJE</div>
+        <div style="font-family:'IBM Plex Mono',monospace;font-size:13px;color:oklch(0.55 0.006 250);letter-spacing:0.06em;margin-bottom:16px;">{{ T.pubTitle }}</div>
         <div style="border:1px solid rgba(255,255,255,0.08);border-radius:2px;padding:16px;margin-bottom:20px;">
           <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px;">
-            <span style="font-family:'IBM Plex Mono',monospace;font-size:11px;padding:2px 8px;background:rgba(255,255,255,0.06);color:oklch(0.65 0.006 250);border-radius:2px;">W PRZYGOTOWANIU</span>
+            <span style="font-family:'IBM Plex Mono',monospace;font-size:11px;padding:2px 8px;background:rgba(255,255,255,0.06);color:oklch(0.65 0.006 250);border-radius:2px;">{{ T.inProgress }}</span>
           </div>
-          <p style="font-size:14px;line-height:1.5;color:oklch(0.75 0.006 250);margin:0 0 8px;">Praca dot. algorytmu P3 — cel: GECCO 2027.</p>
-          <a href="https://github.com/jedrzejpolaczek/p3net_gecco2027" style="font-family:'IBM Plex Mono',monospace;font-size:13px;">Repozytorium ↗</a>
+          <p style="font-size:14px;line-height:1.5;color:oklch(0.75 0.006 250);margin:0 0 8px;">{{ T.pubBody }}</p>
+          <a href="https://github.com/jedrzejpolaczek/p3net_gecco2027" style="font-family:'IBM Plex Mono',monospace;font-size:13px;">{{ T.repoLabel }}</a>
         </div>
         <div style="display:flex;gap:18px;font-family:'IBM Plex Mono',monospace;font-size:13px;">
           <a href="https://scholar.google.com/scholar?hl=pl&as_sdt=0%2C5&q=J%C4%99drzej+Polaczek&btnG=">Google Scholar ↗</a>
@@ -209,9 +204,9 @@ h1,h2,h3{font-family:'IBM Plex Sans',sans-serif;}
     </div>
 
     <div style="border:1px solid rgba(255,255,255,0.08);border-radius:2px;padding:40px;background:oklch(0.16 0.006 250);">
-      <div style="font-family:'IBM Plex Mono',monospace;font-size:13px;color:oklch(0.55 0.006 250);letter-spacing:0.06em;margin-bottom:8px;">EKSPONATY INTERAKTYWNE</div>
+      <div style="font-family:'IBM Plex Mono',monospace;font-size:13px;color:oklch(0.55 0.006 250);letter-spacing:0.06em;margin-bottom:8px;">{{ T.exhibitsTitle }}</div>
       <h3 style="font-size:24px;font-weight:600;margin:0 0 8px;">{{ activeExhibitTitle }}</h3>
-      <p style="font-family:'IBM Plex Mono',monospace;font-size:13px;color:{{ accent.text }};margin:0 0 10px;"><strong>Problem:</strong> {{ activeExhibitProblem }}</p>
+      <p style="font-family:'IBM Plex Mono',monospace;font-size:13px;color:{{ accent.text }};margin:0 0 10px;"><strong>{{ T.problemLabel }}</strong> {{ activeExhibitProblem }}</p>
       <p style="font-size:14px;line-height:1.6;color:oklch(0.62 0.006 250);max-width:640px;margin:0 0 24px;">{{ activeExhibitCaption }}</p>
 
       <div ref="{{ railRef }}" style="display:flex;gap:10px;overflow-x:auto;padding-bottom:14px;margin-bottom:32px;scroll-behavior:smooth;">
@@ -229,13 +224,13 @@ h1,h2,h3{font-family:'IBM Plex Sans',sans-serif;}
           </div>
           <div style="flex:1;min-width:220px;">
             <div style="font-family:'IBM Plex Mono',monospace;font-size:14px;color:oklch(0.85 0.004 250);margin-bottom:8px;min-height:20px;" aria-live="polite">{{ status }}</div>
-            <div style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:oklch(0.5 0.006 250);margin-bottom:24px;">pokolenie {{ stepIndex }} / {{ totalSteps }}</div>
+            <div style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:oklch(0.5 0.006 250);margin-bottom:24px;">{{ T.genLabel }} {{ stepIndex }} / {{ totalSteps }}</div>
             <div style="display:flex;gap:10px;margin-bottom:24px;">
               <button onClick="{{ onStart }}" style="padding:12px 20px;background:{{ accent.solid }};color:#12160f;font-weight:600;border:none;border-radius:2px;font-size:14px;cursor:pointer;min-height:44px;">{{ startLabel }}</button>
-              <button onClick="{{ onStep }}" style="padding:12px 20px;background:transparent;color:oklch(0.9 0.004 250);border:1px solid rgba(255,255,255,0.15);border-radius:2px;font-size:14px;cursor:pointer;min-height:44px;">Krok</button>
-              <button onClick="{{ onReset }}" style="padding:12px 20px;background:transparent;color:oklch(0.6 0.006 250);border:1px solid rgba(255,255,255,0.1);border-radius:2px;font-size:14px;cursor:pointer;min-height:44px;">Reset</button>
+              <button onClick="{{ onStep }}" style="padding:12px 20px;background:transparent;color:oklch(0.9 0.004 250);border:1px solid rgba(255,255,255,0.15);border-radius:2px;font-size:14px;cursor:pointer;min-height:44px;">{{ T.btnStep }}</button>
+              <button onClick="{{ onReset }}" style="padding:12px 20px;background:transparent;color:oklch(0.6 0.006 250);border:1px solid rgba(255,255,255,0.1);border-radius:2px;font-size:14px;cursor:pointer;min-height:44px;">{{ T.btnReset }}</button>
             </div>
-            <a href="https://github.com/jedrzejpolaczek/aviarium.pavo" style="font-family:'IBM Plex Mono',monospace;font-size:13px;">Zobacz kod źródłowy ↗</a>
+            <a href="https://github.com/jedrzejpolaczek/aviarium.pavo" style="font-family:'IBM Plex Mono',monospace;font-size:13px;">{{ T.viewSource }}</a>
           </div>
         </div>
       </sc-if>
@@ -249,7 +244,7 @@ h1,h2,h3{font-family:'IBM Plex Sans',sans-serif;}
                   <div style="{{ g.style }}"></div>
                 </sc-for>
               </div>
-              <div style="font-family:'IBM Plex Mono',monospace;font-size:10px;color:oklch(0.55 0.006 250);">cel: 8/8 · najlepszy dotąd: {{ pyramidBest }}/100</div>
+              <div style="font-family:'IBM Plex Mono',monospace;font-size:10px;color:oklch(0.55 0.006 250);">{{ pyramidGoalLabel }}</div>
             </div>
             <sc-for list="{{ pyramidRows }}" as="row" hint-placeholder-count="4">
               <div style="display:flex;gap:8px;">
@@ -268,13 +263,13 @@ h1,h2,h3{font-family:'IBM Plex Sans',sans-serif;}
           </div>
           <div style="flex:1;min-width:220px;">
             <div style="font-family:'IBM Plex Mono',monospace;font-size:14px;color:oklch(0.85 0.004 250);margin-bottom:8px;min-height:20px;" aria-live="polite">{{ searchStatus }}</div>
-            <div style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:oklch(0.5 0.006 250);margin-bottom:24px;">krok {{ searchStepIndex }} / {{ searchTotal }}</div>
+            <div style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:oklch(0.5 0.006 250);margin-bottom:24px;">{{ T.stepLabel }} {{ searchStepIndex }} / {{ searchTotal }}</div>
             <div style="display:flex;gap:10px;margin-bottom:24px;">
               <button onClick="{{ onSearchStart }}" style="padding:12px 20px;background:{{ accent.solid }};color:#12160f;font-weight:600;border:none;border-radius:2px;font-size:14px;cursor:pointer;min-height:44px;">{{ searchStartLabel }}</button>
-              <button onClick="{{ onSearchStep }}" style="padding:12px 20px;background:transparent;color:oklch(0.9 0.004 250);border:1px solid rgba(255,255,255,0.15);border-radius:2px;font-size:14px;cursor:pointer;min-height:44px;">Krok</button>
-              <button onClick="{{ onSearchReset }}" style="padding:12px 20px;background:transparent;color:oklch(0.6 0.006 250);border:1px solid rgba(255,255,255,0.1);border-radius:2px;font-size:14px;cursor:pointer;min-height:44px;">Reset</button>
+              <button onClick="{{ onSearchStep }}" style="padding:12px 20px;background:transparent;color:oklch(0.9 0.004 250);border:1px solid rgba(255,255,255,0.15);border-radius:2px;font-size:14px;cursor:pointer;min-height:44px;">{{ T.btnStep }}</button>
+              <button onClick="{{ onSearchReset }}" style="padding:12px 20px;background:transparent;color:oklch(0.6 0.006 250);border:1px solid rgba(255,255,255,0.1);border-radius:2px;font-size:14px;cursor:pointer;min-height:44px;">{{ T.btnReset }}</button>
             </div>
-            <a href="{{ activeExhibitHref }}" style="font-family:'IBM Plex Mono',monospace;font-size:13px;">Zobacz cały przewodnik ↗</a>
+            <a href="{{ activeExhibitHref }}" style="font-family:'IBM Plex Mono',monospace;font-size:13px;">{{ T.viewGuide }}</a>
           </div>
         </div>
       </sc-if>
@@ -291,13 +286,13 @@ h1,h2,h3{font-family:'IBM Plex Sans',sans-serif;}
           </div>
           <div style="flex:1;min-width:220px;">
             <div style="font-family:'IBM Plex Mono',monospace;font-size:14px;color:oklch(0.85 0.004 250);margin-bottom:8px;min-height:20px;" aria-live="polite">{{ searchStatus }}</div>
-            <div style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:oklch(0.5 0.006 250);margin-bottom:24px;">krok {{ searchStepIndex }} / {{ searchTotal }}</div>
+            <div style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:oklch(0.5 0.006 250);margin-bottom:24px;">{{ T.stepLabel }} {{ searchStepIndex }} / {{ searchTotal }}</div>
             <div style="display:flex;gap:10px;margin-bottom:24px;">
               <button onClick="{{ onSearchStart }}" style="padding:12px 20px;background:{{ accent.solid }};color:#12160f;font-weight:600;border:none;border-radius:2px;font-size:14px;cursor:pointer;min-height:44px;">{{ searchStartLabel }}</button>
-              <button onClick="{{ onSearchStep }}" style="padding:12px 20px;background:transparent;color:oklch(0.9 0.004 250);border:1px solid rgba(255,255,255,0.15);border-radius:2px;font-size:14px;cursor:pointer;min-height:44px;">Krok</button>
-              <button onClick="{{ onSearchReset }}" style="padding:12px 20px;background:transparent;color:oklch(0.6 0.006 250);border:1px solid rgba(255,255,255,0.1);border-radius:2px;font-size:14px;cursor:pointer;min-height:44px;">Reset</button>
+              <button onClick="{{ onSearchStep }}" style="padding:12px 20px;background:transparent;color:oklch(0.9 0.004 250);border:1px solid rgba(255,255,255,0.15);border-radius:2px;font-size:14px;cursor:pointer;min-height:44px;">{{ T.btnStep }}</button>
+              <button onClick="{{ onSearchReset }}" style="padding:12px 20px;background:transparent;color:oklch(0.6 0.006 250);border:1px solid rgba(255,255,255,0.1);border-radius:2px;font-size:14px;cursor:pointer;min-height:44px;">{{ T.btnReset }}</button>
             </div>
-            <a href="{{ activeExhibitHref }}" style="font-family:'IBM Plex Mono',monospace;font-size:13px;">Zobacz cały przewodnik ↗</a>
+            <a href="{{ activeExhibitHref }}" style="font-family:'IBM Plex Mono',monospace;font-size:13px;">{{ T.viewGuide }}</a>
           </div>
         </div>
       </sc-if>
@@ -312,13 +307,13 @@ h1,h2,h3{font-family:'IBM Plex Sans',sans-serif;}
           </div>
           <div style="flex:1;min-width:220px;">
             <div style="font-family:'IBM Plex Mono',monospace;font-size:14px;color:oklch(0.85 0.004 250);margin-bottom:8px;min-height:20px;" aria-live="polite">{{ searchStatus }}</div>
-            <div style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:oklch(0.5 0.006 250);margin-bottom:24px;">krok {{ searchStepIndex }} / {{ searchTotal }}</div>
+            <div style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:oklch(0.5 0.006 250);margin-bottom:24px;">{{ T.stepLabel }} {{ searchStepIndex }} / {{ searchTotal }}</div>
             <div style="display:flex;gap:10px;margin-bottom:24px;">
               <button onClick="{{ onSearchStart }}" style="padding:12px 20px;background:{{ accent.solid }};color:#12160f;font-weight:600;border:none;border-radius:2px;font-size:14px;cursor:pointer;min-height:44px;">{{ searchStartLabel }}</button>
-              <button onClick="{{ onSearchStep }}" style="padding:12px 20px;background:transparent;color:oklch(0.9 0.004 250);border:1px solid rgba(255,255,255,0.15);border-radius:2px;font-size:14px;cursor:pointer;min-height:44px;">Krok</button>
-              <button onClick="{{ onSearchReset }}" style="padding:12px 20px;background:transparent;color:oklch(0.6 0.006 250);border:1px solid rgba(255,255,255,0.1);border-radius:2px;font-size:14px;cursor:pointer;min-height:44px;">Reset</button>
+              <button onClick="{{ onSearchStep }}" style="padding:12px 20px;background:transparent;color:oklch(0.9 0.004 250);border:1px solid rgba(255,255,255,0.15);border-radius:2px;font-size:14px;cursor:pointer;min-height:44px;">{{ T.btnStep }}</button>
+              <button onClick="{{ onSearchReset }}" style="padding:12px 20px;background:transparent;color:oklch(0.6 0.006 250);border:1px solid rgba(255,255,255,0.1);border-radius:2px;font-size:14px;cursor:pointer;min-height:44px;">{{ T.btnReset }}</button>
             </div>
-            <a href="{{ activeExhibitHref }}" style="font-family:'IBM Plex Mono',monospace;font-size:13px;">Zobacz cały przewodnik ↗</a>
+            <a href="{{ activeExhibitHref }}" style="font-family:'IBM Plex Mono',monospace;font-size:13px;">{{ T.viewGuide }}</a>
           </div>
         </div>
       </sc-if>
@@ -326,7 +321,7 @@ h1,h2,h3{font-family:'IBM Plex Sans',sans-serif;}
       <sc-if value="{{ isBracket }}" hint-placeholder-val="{{ false }}">
         <div style="display:flex;gap:40px;flex-wrap:wrap;align-items:flex-start;">
           <div style="width:340px;flex-shrink:0;">
-            <div style="font-family:'IBM Plex Mono',monospace;font-size:10px;color:oklch(0.5 0.006 250);margin-bottom:4px;">każdy słupek = jeden kandydat; wyższy = lepsza oceniona jakość. Z każdą rundą ocena zwycięzców jest dokładniejsza (mniejszy szum pomiaru), nie losowo wyższa.</div>
+            <div style="font-family:'IBM Plex Mono',monospace;font-size:10px;color:oklch(0.5 0.006 250);margin-bottom:4px;">{{ T.bracketLegend }}</div>
             <div style="height:200px;display:flex;gap:6px;border:2px solid {{ accent.border }};padding:10px;box-sizing:border-box;overflow:hidden;">
               <sc-for list="{{ bracketRounds }}" as="round" hint-placeholder-count="5">
                 <div style="flex:1;display:flex;flex-direction:column;justify-content:space-around;gap:3px;height:100%;">
@@ -341,13 +336,13 @@ h1,h2,h3{font-family:'IBM Plex Sans',sans-serif;}
           </div>
           <div style="flex:1;min-width:220px;">
             <div style="font-family:'IBM Plex Mono',monospace;font-size:14px;color:oklch(0.85 0.004 250);margin-bottom:8px;min-height:20px;" aria-live="polite">{{ searchStatus }}</div>
-            <div style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:oklch(0.5 0.006 250);margin-bottom:24px;">krok {{ searchStepIndex }} / {{ searchTotal }}</div>
+            <div style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:oklch(0.5 0.006 250);margin-bottom:24px;">{{ T.stepLabel }} {{ searchStepIndex }} / {{ searchTotal }}</div>
             <div style="display:flex;gap:10px;margin-bottom:24px;">
               <button onClick="{{ onSearchStart }}" style="padding:12px 20px;background:{{ accent.solid }};color:#12160f;font-weight:600;border:none;border-radius:2px;font-size:14px;cursor:pointer;min-height:44px;">{{ searchStartLabel }}</button>
-              <button onClick="{{ onSearchStep }}" style="padding:12px 20px;background:transparent;color:oklch(0.9 0.004 250);border:1px solid rgba(255,255,255,0.15);border-radius:2px;font-size:14px;cursor:pointer;min-height:44px;">Krok</button>
-              <button onClick="{{ onSearchReset }}" style="padding:12px 20px;background:transparent;color:oklch(0.6 0.006 250);border:1px solid rgba(255,255,255,0.1);border-radius:2px;font-size:14px;cursor:pointer;min-height:44px;">Reset</button>
+              <button onClick="{{ onSearchStep }}" style="padding:12px 20px;background:transparent;color:oklch(0.9 0.004 250);border:1px solid rgba(255,255,255,0.15);border-radius:2px;font-size:14px;cursor:pointer;min-height:44px;">{{ T.btnStep }}</button>
+              <button onClick="{{ onSearchReset }}" style="padding:12px 20px;background:transparent;color:oklch(0.6 0.006 250);border:1px solid rgba(255,255,255,0.1);border-radius:2px;font-size:14px;cursor:pointer;min-height:44px;">{{ T.btnReset }}</button>
             </div>
-            <a href="{{ activeExhibitHref }}" style="font-family:'IBM Plex Mono',monospace;font-size:13px;">Zobacz cały przewodnik ↗</a>
+            <a href="{{ activeExhibitHref }}" style="font-family:'IBM Plex Mono',monospace;font-size:13px;">{{ T.viewGuide }}</a>
           </div>
         </div>
       </sc-if>
@@ -355,7 +350,7 @@ h1,h2,h3{font-family:'IBM Plex Sans',sans-serif;}
       <sc-if value="{{ isStaircase }}" hint-placeholder-val="{{ false }}">
         <div style="display:flex;gap:40px;flex-wrap:wrap;align-items:flex-start;">
           <div style="width:340px;flex-shrink:0;display:flex;flex-direction:column;gap:12px;">
-            <div style="font-family:'IBM Plex Mono',monospace;font-size:10px;color:oklch(0.5 0.006 250);">czerwona linia = prawdziwa wartość (cel: {{ staircaseTarget }}%). Każdy pasek to ta sama ocena mierzona z innym budżetem — im więcej próbek, tym mniejszy szum i pasek trafia bliżej linii.</div>
+            <div style="font-family:'IBM Plex Mono',monospace;font-size:10px;color:oklch(0.5 0.006 250);">{{ staircaseLegend }}</div>
             <sc-for list="{{ staircaseRungs }}" as="rg" hint-placeholder-count="4">
               <div>
                 <div style="{{ rg.trackStyle }}">
@@ -368,13 +363,13 @@ h1,h2,h3{font-family:'IBM Plex Sans',sans-serif;}
           </div>
           <div style="flex:1;min-width:220px;">
             <div style="font-family:'IBM Plex Mono',monospace;font-size:14px;color:oklch(0.85 0.004 250);margin-bottom:8px;min-height:20px;" aria-live="polite">{{ searchStatus }}</div>
-            <div style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:oklch(0.5 0.006 250);margin-bottom:24px;">krok {{ searchStepIndex }} / {{ searchTotal }}</div>
+            <div style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:oklch(0.5 0.006 250);margin-bottom:24px;">{{ T.stepLabel }} {{ searchStepIndex }} / {{ searchTotal }}</div>
             <div style="display:flex;gap:10px;margin-bottom:24px;">
               <button onClick="{{ onSearchStart }}" style="padding:12px 20px;background:{{ accent.solid }};color:#12160f;font-weight:600;border:none;border-radius:2px;font-size:14px;cursor:pointer;min-height:44px;">{{ searchStartLabel }}</button>
-              <button onClick="{{ onSearchStep }}" style="padding:12px 20px;background:transparent;color:oklch(0.9 0.004 250);border:1px solid rgba(255,255,255,0.15);border-radius:2px;font-size:14px;cursor:pointer;min-height:44px;">Krok</button>
-              <button onClick="{{ onSearchReset }}" style="padding:12px 20px;background:transparent;color:oklch(0.6 0.006 250);border:1px solid rgba(255,255,255,0.1);border-radius:2px;font-size:14px;cursor:pointer;min-height:44px;">Reset</button>
+              <button onClick="{{ onSearchStep }}" style="padding:12px 20px;background:transparent;color:oklch(0.9 0.004 250);border:1px solid rgba(255,255,255,0.15);border-radius:2px;font-size:14px;cursor:pointer;min-height:44px;">{{ T.btnStep }}</button>
+              <button onClick="{{ onSearchReset }}" style="padding:12px 20px;background:transparent;color:oklch(0.6 0.006 250);border:1px solid rgba(255,255,255,0.1);border-radius:2px;font-size:14px;cursor:pointer;min-height:44px;">{{ T.btnReset }}</button>
             </div>
-            <a href="{{ activeExhibitHref }}" style="font-family:'IBM Plex Mono',monospace;font-size:13px;">Zobacz cały przewodnik ↗</a>
+            <a href="{{ activeExhibitHref }}" style="font-family:'IBM Plex Mono',monospace;font-size:13px;">{{ T.viewGuide }}</a>
           </div>
         </div>
       </sc-if>
@@ -382,26 +377,26 @@ h1,h2,h3{font-family:'IBM Plex Sans',sans-serif;}
       <sc-if value="{{ isNasExhibit }}" hint-placeholder-val="{{ false }}">
         <div style="display:flex;gap:40px;flex-wrap:wrap;align-items:flex-start;">
           <div style="width:340px;flex-shrink:0;">
-            <div style="font-family:'IBM Plex Mono',monospace;font-size:10px;color:oklch(0.5 0.006 250);margin-bottom:6px;">każdy słupek = jedna warstwa sieci; wysokość = jej rozmiar (liczba neuronów). Kandydat poniżej to CAŁA architektura — im wyższe słupki, tym dokładniejsza, ale wolniejsza sieć.</div>
+            <div style="font-family:'IBM Plex Mono',monospace;font-size:10px;color:oklch(0.5 0.006 250);margin-bottom:6px;">{{ T.archLegend }}</div>
             <div style="display:flex;align-items:flex-end;gap:8px;height:140px;padding:12px;border:2px solid {{ accent.border }};background:oklch(0.14 0.006 250);">
               <sc-for list="{{ archBlocks }}" as="ab" hint-placeholder-count="6">
                 <div style="{{ ab.style }}"></div>
               </sc-for>
             </div>
             <div style="display:flex;justify-content:space-between;margin-top:10px;font-family:'IBM Plex Mono',monospace;font-size:12px;color:oklch(0.6 0.006 250);">
-              <span>dokładność: {{ archAccuracy }}%</span>
-              <span>latencja: {{ archLatency }}ms</span>
+              <span>{{ T.accuracyLabel }}: {{ archAccuracy }}%</span>
+              <span>{{ T.latencyLabel }}: {{ archLatency }}ms</span>
             </div>
           </div>
           <div style="flex:1;min-width:220px;">
             <div style="font-family:'IBM Plex Mono',monospace;font-size:14px;color:oklch(0.85 0.004 250);margin-bottom:8px;min-height:20px;" aria-live="polite">{{ searchStatus }}</div>
-            <div style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:oklch(0.5 0.006 250);margin-bottom:24px;">krok {{ searchStepIndex }} / {{ searchTotal }}</div>
+            <div style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:oklch(0.5 0.006 250);margin-bottom:24px;">{{ T.stepLabel }} {{ searchStepIndex }} / {{ searchTotal }}</div>
             <div style="display:flex;gap:10px;margin-bottom:24px;">
               <button onClick="{{ onSearchStart }}" style="padding:12px 20px;background:{{ accent.solid }};color:#12160f;font-weight:600;border:none;border-radius:2px;font-size:14px;cursor:pointer;min-height:44px;">{{ searchStartLabel }}</button>
-              <button onClick="{{ onSearchStep }}" style="padding:12px 20px;background:transparent;color:oklch(0.9 0.004 250);border:1px solid rgba(255,255,255,0.15);border-radius:2px;font-size:14px;cursor:pointer;min-height:44px;">Krok</button>
-              <button onClick="{{ onSearchReset }}" style="padding:12px 20px;background:transparent;color:oklch(0.6 0.006 250);border:1px solid rgba(255,255,255,0.1);border-radius:2px;font-size:14px;cursor:pointer;min-height:44px;">Reset</button>
+              <button onClick="{{ onSearchStep }}" style="padding:12px 20px;background:transparent;color:oklch(0.9 0.004 250);border:1px solid rgba(255,255,255,0.15);border-radius:2px;font-size:14px;cursor:pointer;min-height:44px;">{{ T.btnStep }}</button>
+              <button onClick="{{ onSearchReset }}" style="padding:12px 20px;background:transparent;color:oklch(0.6 0.006 250);border:1px solid rgba(255,255,255,0.1);border-radius:2px;font-size:14px;cursor:pointer;min-height:44px;">{{ T.btnReset }}</button>
             </div>
-            <a href="{{ activeExhibitHref }}" style="font-family:'IBM Plex Mono',monospace;font-size:13px;">Zobacz cały przewodnik ↗</a>
+            <a href="{{ activeExhibitHref }}" style="font-family:'IBM Plex Mono',monospace;font-size:13px;">{{ T.viewGuide }}</a>
           </div>
         </div>
       </sc-if>
@@ -412,8 +407,8 @@ h1,h2,h3{font-family:'IBM Plex Sans',sans-serif;}
 
 <sc-if value="{{ isKontakt }}" hint-placeholder-val="{{ false }}">
 <section id="contact" style="max-width:1160px;margin:0 auto;padding:120px 48px 100px;">
-  <h2 style="font-size:36px;font-weight:600;margin:0 0 20px;font-family:'IBM Plex Sans',sans-serif;">:kontakt</h2>
-  <p style="font-size:17px;line-height:1.6;color:oklch(0.7 0.006 250);max-width:600px;margin:0 0 48px;">Projekt, konsultacja, albo po prostu chcesz podyskutować o algorytmach ewolucyjnych — pisz.</p>
+  <h2 style="font-size:36px;font-weight:600;margin:0 0 20px;font-family:'IBM Plex Sans',sans-serif;">:{{ T.navKontaktSlug }}</h2>
+  <p style="font-size:17px;line-height:1.6;color:oklch(0.7 0.006 250);max-width:600px;margin:0 0 48px;">{{ T.kontaktBody }}</p>
 
   <div style="display:grid;grid-template-columns:1fr 1fr;gap:48px;">
     <div>
@@ -425,23 +420,23 @@ h1,h2,h3{font-family:'IBM Plex Sans',sans-serif;}
     </div>
     <div>
       <sc-if value="{{ submitted }}" hint-placeholder-val="{{ false }}">
-        <div style="font-size:15px;color:{{ accent.text }};">Wysłane — no, właściwie nie: to statyczna makieta. Napisz na maila powyżej. ↑</div>
+        <div style="font-size:15px;color:{{ accent.text }};">{{ T.formSubmitted }}</div>
       </sc-if>
       <sc-if value="{{ notSubmitted }}" hint-placeholder-val="{{ true }}">
         <form onSubmit="{{ onSubmitForm }}" style="display:flex;flex-direction:column;gap:12px;">
           <div>
-            <label htmlFor="contact-name" style="display:block;font-size:12px;color:oklch(0.6 0.006 250);margin-bottom:4px;">Imię</label>
+            <label htmlFor="contact-name" style="display:block;font-size:12px;color:oklch(0.6 0.006 250);margin-bottom:4px;">{{ T.formName }}</label>
             <input id="contact-name" required style="width:100%;padding:12px;background:oklch(0.20 0.006 250);border:1px solid rgba(255,255,255,0.1);border-radius:2px;color:oklch(0.9 0.004 250);font-family:'IBM Plex Sans',sans-serif;font-size:14px;box-sizing:border-box;"></input>
           </div>
           <div>
-            <label htmlFor="contact-email" style="display:block;font-size:12px;color:oklch(0.6 0.006 250);margin-bottom:4px;">Email</label>
+            <label htmlFor="contact-email" style="display:block;font-size:12px;color:oklch(0.6 0.006 250);margin-bottom:4px;">{{ T.formEmail }}</label>
             <input id="contact-email" type="email" required style="width:100%;padding:12px;background:oklch(0.20 0.006 250);border:1px solid rgba(255,255,255,0.1);border-radius:2px;color:oklch(0.9 0.004 250);font-family:'IBM Plex Sans',sans-serif;font-size:14px;box-sizing:border-box;"></input>
           </div>
           <div>
-            <label htmlFor="contact-message" style="display:block;font-size:12px;color:oklch(0.6 0.006 250);margin-bottom:4px;">Wiadomość</label>
+            <label htmlFor="contact-message" style="display:block;font-size:12px;color:oklch(0.6 0.006 250);margin-bottom:4px;">{{ T.formMessage }}</label>
             <textarea id="contact-message" required placeholder="{{ formPlaceholder }}" rows="4" style="width:100%;padding:12px;background:oklch(0.20 0.006 250);border:1px solid rgba(255,255,255,0.1);border-radius:2px;color:oklch(0.9 0.004 250);font-family:'IBM Plex Sans',sans-serif;font-size:14px;resize:vertical;box-sizing:border-box;"></textarea>
           </div>
-          <button type="submit" style="align-self:flex-start;padding:12px 24px;background:{{ accent.solid }};color:#12160f;font-weight:600;border:none;border-radius:2px;font-size:14px;cursor:pointer;">Wyślij</button>
+          <button type="submit" style="align-self:flex-start;padding:12px 24px;background:{{ accent.solid }};color:#12160f;font-weight:600;border:none;border-radius:2px;font-size:14px;cursor:pointer;">{{ T.formSubmit }}</button>
         </form>
       </sc-if>
     </div>
@@ -473,12 +468,12 @@ const PUZZLE = [
 ];
 
 const PROJECTS = [
-  { id:3, title:'Corvus Corone — benchmarking algorytmów HPO', desc:'Biblioteka i AI-wspomagany pilot do rygorystycznego, powtarzalnego testowania algorytmów optymalizacji hiperparametrów — z pre-rejestracją hipotez i kontrolą ziarna losowości, zgodnie z metodyką naukową.', tags:['research','dziala'], placeholder:'screenshot: corvus-corone', github:'https://github.com/jedrzejpolaczek/aviarium.corvidae.corvus_corone', demo:null },
-  { id:1, title:'aviarium.columbarius — predyktor cen kart MtG', desc:'Silnik predykcji cen kart Magic: The Gathering — pipeline Bronze/Silver/Gold na danych ze Scryfall i MTGJson, model LightGBM, API i UI do sprawdzania wycen i niedowartościowanych kart.', tags:['ml','dziala','hobby'], placeholder:'screenshot: aviarium.columbarius', github:'https://github.com/jedrzejpolaczek/aviarium.columbarius', demo:null },
-  { id:2, title:'aviarium.garrulus — RAG dla reguł MtG', desc:'System pytań i odpowiedzi po zasadach Magic: The Gathering z cytowanym źródłem i progiem pewności — odpowiada "nie wiem", zamiast zgadywać. Wczesna faza: korpus i retriever w budowie.', tags:['ml','eksperyment','hobby'], placeholder:'screenshot: aviarium.garrulus', github:'https://github.com/jedrzejpolaczek/aviarium.garrulus', demo:null },
-  { id:5, title:'wednesday_frogs', desc:'GAN (DCGAN, docelowo PGGAN) trenowany na CIFAR10, który co środę generuje nową żabę i wysyła ją mailem albo przez bota na Discordzie — bo świat potrzebuje rytuału bez powodu.', tags:['ml','hobby','dziala'], placeholder:'screenshot: wednesday_frogs', github:'https://github.com/jedrzejpolaczek/wednesday_frogs', demo:null },
-  { id:4, title:'Herbatnik', desc:'Inteligentny asystent głosowy dla seniorów, który słucha, zapamiętuje i pomaga. Dzięki rozpoznawaniu mowy i RAG zapisuje ważne informacje z rozmów — leki, nawyki, upodobania — i pozwala opiekunom błyskawicznie sprawdzić, co dzieje się z ich bliskimi. Pełnię rolę architekta (podwykonawca: havenocode).', tags:['dziala','komercyjne','startup'], placeholder:'screenshot: herbatnik', github:null, demo:null, linkedin:'https://www.linkedin.com/company/109125981', website:'https://herbatnik.com.pl/', website2:'https://fundacjaherbatnik.pl/' },
-  { id:6, title:'PetHealth App', desc:'Aplikacja zdrowia zwierząt dla właścicieli, zasilana automatycznie danymi z systemu klinicznego (PMS) — pełna historia leczenia bez ręcznego wprowadzania danych. W zespole (backend/dane) budujemy MVP pod partnerstwo z liderem rynku weterynaryjnego w Polsce.', tags:['komercyjne','startup'], placeholder:'screenshot: pethealth-app', github:null, demo:null },
+  { id:3, title:'Corvus Corone — benchmarking algorytmów HPO', title_en:'Corvus Corone — HPO algorithm benchmarking', desc:'Biblioteka i AI-wspomagany pilot do rygorystycznego, powtarzalnego testowania algorytmów optymalizacji hiperparametrów — z pre-rejestracją hipotez i kontrolą ziarna losowości, zgodnie z metodyką naukową.', desc_en:'A library and AI-assisted pilot for rigorous, repeatable testing of hyperparameter optimization algorithms — with hypothesis pre-registration and seed control, following proper scientific methodology.', tags:['research','dziala'], placeholder:'screenshot: corvus-corone', github:'https://github.com/jedrzejpolaczek/aviarium.corvidae.corvus_corone', demo:null },
+  { id:1, title:'aviarium.columbarius — predyktor cen kart MtG', title_en:'aviarium.columbarius — MtG card price predictor', desc:'Silnik predykcji cen kart Magic: The Gathering — pipeline Bronze/Silver/Gold na danych ze Scryfall i MTGJson, model LightGBM, API i UI do sprawdzania wycen i niedowartościowanych kart.', desc_en:'A price prediction engine for Magic: The Gathering cards — a Bronze/Silver/Gold pipeline over Scryfall and MTGJson data, a LightGBM model, and an API/UI for checking valuations and undervalued cards.', tags:['ml','dziala','hobby'], placeholder:'screenshot: aviarium.columbarius', github:'https://github.com/jedrzejpolaczek/aviarium.columbarius', demo:null },
+  { id:2, title:'aviarium.garrulus — RAG dla reguł MtG', title_en:'aviarium.garrulus — RAG for MtG rules', desc:'System pytań i odpowiedzi po zasadach Magic: The Gathering z cytowanym źródłem i progiem pewności — odpowiada "nie wiem", zamiast zgadywać. Wczesna faza: korpus i retriever w budowie.', desc_en:'A Q&A system over Magic: The Gathering rules with cited sources and a confidence threshold — it answers "I don\'t know" instead of guessing. Early stage: corpus and retriever under construction.', tags:['ml','eksperyment','hobby'], placeholder:'screenshot: aviarium.garrulus', github:'https://github.com/jedrzejpolaczek/aviarium.garrulus', demo:null },
+  { id:5, title:'wednesday_frogs', title_en:'wednesday_frogs', desc:'GAN (DCGAN, docelowo PGGAN) trenowany na CIFAR10, który co środę generuje nową żabę i wysyła ją mailem albo przez bota na Discordzie — bo świat potrzebuje rytuału bez powodu.', desc_en:'A GAN (DCGAN, eventually PGGAN) trained on CIFAR10 that generates a new frog every Wednesday and sends it by email or a Discord bot — because the world needs a ritual for no reason.', tags:['ml','hobby','dziala'], placeholder:'screenshot: wednesday_frogs', github:'https://github.com/jedrzejpolaczek/wednesday_frogs', demo:null },
+  { id:4, title:'Herbatnik', title_en:'Herbatnik', desc:'Inteligentny asystent głosowy dla seniorów, który słucha, zapamiętuje i pomaga. Dzięki rozpoznawaniu mowy i RAG zapisuje ważne informacje z rozmów — leki, nawyki, upodobania — i pozwala opiekunom błyskawicznie sprawdzić, co dzieje się z ich bliskimi. Pełnię rolę architekta (podwykonawca: havenocode).', desc_en:'A smart voice assistant for seniors that listens, remembers, and helps. Using speech recognition and RAG it captures key information from conversations — medication, habits, preferences — letting caregivers instantly check on their loved ones. I act as architect (subcontractor: havenocode).', tags:['dziala','komercyjne','startup'], placeholder:'screenshot: herbatnik', github:null, demo:null, linkedin:'https://www.linkedin.com/company/109125981', website:'https://herbatnik.com.pl/', website2:'https://fundacjaherbatnik.pl/' },
+  { id:6, title:'PetHealth App', title_en:'PetHealth App', desc:'Aplikacja zdrowia zwierząt dla właścicieli, zasilana automatycznie danymi z systemu klinicznego (PMS) — pełna historia leczenia bez ręcznego wprowadzania danych. W zespole (backend/dane) budujemy MVP pod partnerstwo z liderem rynku weterynaryjnego w Polsce.', desc_en:'A pet health app for owners, automatically fed by the clinic\'s practice management system — a full treatment history with zero manual entry. On the team (backend/data) building an MVP for a partnership with Poland\'s leading veterinary market player.', tags:['komercyjne','startup'], placeholder:'screenshot: pethealth-app', github:null, demo:null },
 ];
 
 const SI = (slug) => `https://cdn.simpleicons.org/${slug}/9CAF6B`;
@@ -500,28 +495,84 @@ const STACK_DEFS = [
   { name:'Azure', initials:'AZ' },
   { name:'MLflow', slug:'mlflow' },
   { name:'SHAP', initials:'SHAP' },
-  { name:'Algorytmy genetyczne', initials:'GA' },
+  { name:'Algorytmy genetyczne', name_en:'Genetic algorithms', initials:'GA' },
 ];
-const STACK_ONCE = STACK_DEFS.map((s,i) => ({ name:s.name, id:'logo-'+i, icon: s.slug ? SI(s.slug) : null, noIcon: !s.slug, initials: s.initials }));
+const STACK_ONCE = STACK_DEFS.map((s,i) => ({ name:s.name, name_en: s.name_en || s.name, id:'logo-'+i, icon: s.slug ? SI(s.slug) : null, noIcon: !s.slug, initials: s.initials }));
 const STACK = [...STACK_ONCE, ...STACK_ONCE.map(s => ({ ...s, id: s.id + '-b' }))];
 
 const TAGS = ['all','ml','research','dziala','hobby','eksperyment','komercyjne','startup'];
 const TAG_LABELS = { all:'Wszystkie', ml:'#ml', research:'#research', dziala:'#działa', hobby:'#hobby', eksperyment:'#eksperyment', komercyjne:'#komercyjne', startup:'#startup' };
+const TAG_LABELS_EN = { all:'All', ml:'#ml', research:'#research', dziala:'#works', hobby:'#hobby', eksperyment:'#experimental', komercyjne:'#commercial', startup:'#startup' };
 
 const EXHIBITS = [
-  { id:'sudoku', label:'Sudoku (GA)', kind:'sudoku', title:'Algorytm genetyczny rozwiązujący Sudoku 9×9', problem:'Wypełnić siatkę 9×9 tak, by każdy wiersz, kolumna i blok 3×3 zawierał cyfry 1-9 bez powtórzeń.', caption:'Populacja osobników (permutacje cyfr w blokach 3×3) ewoluuje przez selekcję turniejową, krzyżowanie blokowe i mutację — fitness to liczba konfliktów w wierszach i kolumnach.' },
-  { id:'p3', label:'P3', kind:'iframe', domain:'hpo', visual:'pyramid', href:'./explainers/p3.html', title:'P3 — układanie klocków bitowych', problem:'Znaleźć 8-bitowy ciąg z jak największą liczbą jedynek, składając go z dobrych fragmentów mniejszych ciągów.', caption:'Klasyczny problem: zbudować jak najlepszy ciąg bitów (same jedynki) łącząc dobre fragmenty z niższych poziomów piramidy — bez ręcznego ustawiania żadnych parametrów.' },
-  { id:'p3net', label:'P3Net', kind:'iframe', domain:'nas', href:'./explainers/p3net.html', title:'P3Net — projektowanie architektury sieci z surogatem', problem:'Ten sam problem co NSGA-Net (dokładność vs. szybkość sieci), ale kolejni kandydaci są najpierw oceniani przez szybki model zastępczy (surogat), a nie liczeni w całości.', caption:'Wariant P3 zastosowany do projektowania architektur — surogat podpowiada, które architektury warto sprawdzić dokładnie, przyspieszając poszukiwanie kompromisu dokładność/szybkość.' },
-  { id:'random-search', label:'Random search', kind:'iframe', domain:'hpo', visual:'dartboard', href:'./explainers/random-search.html', title:'Random search — rzuty na chybił trafił', problem:'Trafić jak najbliżej niewidocznego środka tarczy, rzucając punkty na chybił trafił.', caption:'Punkt odniesienia: każdy "rzut" ląduje niezależnie od poprzednich, bez uczenia się na wynikach.' },
-  { id:'tpe', label:'TPE', kind:'iframe', domain:'hpo', visual:'terrain', href:'./explainers/tpe.html', title:'TPE — zwężanie poszukiwań', problem:'Znaleźć najniższy punkt na terenie, którego mapy nie widać z góry — tylko wysokość w miejscach, gdzie się stanęło.', caption:'Tree-structured Parzen Estimator modeluje rozkład dobrych i słabych prób, żeby zawężać "gorący obszar" poszukiwań wokół obiecujących miejsc.' },
-  { id:'sh-emoa', label:'SH-EMOA', kind:'iframe', domain:'hpo', visual:'bracket', href:'./explainers/sh-emoa.html', title:'SH-EMOA — turniej na wyłanianie', problem:'Wyłonić najlepszego z 16 kandydatów bez oceniania każdego dokładnie — tylko porównując parami i odsiewając słabszych.', caption:'Successive Halving: co rundę odpada gorsza połowa kandydatów, reszta awansuje do następnej rundy — jak tabela pucharowa.' },
-  { id:'mo-bohb', label:'MO-BOHB', kind:'iframe', domain:'hpo', visual:'staircase', href:'./explainers/mo-bohb.html', title:'MO-BOHB — schody budżetowe', problem:'Ocenić dużo kandydatów tanio (małym budżetem) i tylko najlepszych sprawdzić dokładnie (pełnym budżetem), by nie przepłacać za oceny.', caption:'Łączy odsiewanie słabych prób przy małym budżecie (Hyperband) z modelowaniem obiecujących obszarów przy budżecie pełnym.' },
-  { id:'nsga-net', label:'NSGA-Net', kind:'iframe', domain:'nas', href:'./explainers/nsga-net.html', title:'NSGA-Net — projektowanie architektury sieci', problem:'Zaprojektować sieć neuronową, która jest jednocześnie dokładna i szybka — dwa cele naraz, bez jednej "najlepszej" odpowiedzi.', caption:'Szukamy architektur sieci neuronowej na granicy opłacalności: wysoka dokładność przy niskiej latencji. Punkty na czole Pareto to kandydaci, z których żaden nie jest jednoznacznie gorszy od innego.' },
-  { id:'nsganetv2', label:'NSGANetV2', kind:'iframe', domain:'nas', href:'./explainers/nsganetv2.html', title:'NSGANetV2 — projektowanie architektury sieci', problem:'Ten sam problem co NSGA-Net (dokładność vs. szybkość), ale oceniając od razu wielu kandydatów zamiast jednego na raz.', caption:'Ten sam problem co NSGA-Net (dokładność vs. latencja), ale z szybszą, wstępną oceną wielu kandydatów naraz.' },
+  { id:'sudoku', label:'Sudoku (GA)', kind:'sudoku', title:'Algorytm genetyczny rozwiązujący Sudoku 9×9', title_en:'A genetic algorithm solving 9×9 Sudoku', problem:'Wypełnić siatkę 9×9 tak, by każdy wiersz, kolumna i blok 3×3 zawierał cyfry 1-9 bez powtórzeń.', problem_en:'Fill a 9×9 grid so every row, column, and 3×3 block contains digits 1-9 with no repeats.', caption:'Populacja osobników (permutacje cyfr w blokach 3×3) ewoluuje przez selekcję turniejową, krzyżowanie blokowe i mutację — fitness to liczba konfliktów w wierszach i kolumnach.', caption_en:'A population of individuals (digit permutations within 3×3 blocks) evolves through tournament selection, block crossover, and mutation — fitness is the number of conflicts in rows and columns.' },
+  { id:'p3', label:'P3', kind:'iframe', domain:'hpo', visual:'pyramid', href:'./explainers/p3.html', title:'P3 — układanie klocków bitowych', title_en:'P3 — assembling bit-string building blocks', problem:'Znaleźć 8-bitowy ciąg z jak największą liczbą jedynek, składając go z dobrych fragmentów mniejszych ciągów.', problem_en:'Find an 8-bit string with as many 1s as possible, by assembling it from good fragments of smaller strings.', caption:'Klasyczny problem: zbudować jak najlepszy ciąg bitów (same jedynki) łącząc dobre fragmenty z niższych poziomów piramidy — bez ręcznego ustawiania żadnych parametrów.', caption_en:'A classic problem: build the best possible bit string (all 1s) by merging good fragments from lower pyramid levels — with no manual parameter tuning at all.' },
+  { id:'p3net', label:'P3Net', kind:'iframe', domain:'nas', href:'./explainers/p3net.html', title:'P3Net — projektowanie architektury sieci z surogatem', title_en:'P3Net — network architecture design with a surrogate', problem:'Ten sam problem co NSGA-Net (dokładność vs. szybkość sieci), ale kolejni kandydaci są najpierw oceniani przez szybki model zastępczy (surogat), a nie liczeni w całości.', problem_en:'The same problem as NSGA-Net (accuracy vs. network speed), but each candidate is first scored by a fast surrogate model instead of being fully evaluated.', caption:'Wariant P3 zastosowany do projektowania architektur — surogat podpowiada, które architektury warto sprawdzić dokładnie, przyspieszając poszukiwanie kompromisu dokładność/szybkość.', caption_en:'A P3 variant applied to architecture design — the surrogate suggests which architectures are worth checking in full, speeding up the search for an accuracy/speed trade-off.' },
+  { id:'random-search', label:'Random search', kind:'iframe', domain:'hpo', visual:'dartboard', href:'./explainers/random-search.html', title:'Random search — rzuty na chybił trafił', title_en:'Random search — shots in the dark', problem:'Trafić jak najbliżej niewidocznego środka tarczy, rzucając punkty na chybił trafił.', problem_en:'Land as close as possible to a hidden dartboard center, by throwing points at random.', caption:'Punkt odniesienia: każdy "rzut" ląduje niezależnie od poprzednich, bez uczenia się na wynikach.', caption_en:'A baseline: every "throw" lands independently of the previous ones, with no learning from results.' },
+  { id:'tpe', label:'TPE', kind:'iframe', domain:'hpo', visual:'terrain', href:'./explainers/tpe.html', title:'TPE — zwężanie poszukiwań', title_en:'TPE — narrowing the search', problem:'Znaleźć najniższy punkt na terenie, którego mapy nie widać z góry — tylko wysokość w miejscach, gdzie się stanęło.', problem_en:'Find the lowest point on a terrain you can\'t see from above — only the elevation at spots you\'ve already stood on.', caption:'Tree-structured Parzen Estimator modeluje rozkład dobrych i słabych prób, żeby zawężać "gorący obszar" poszukiwań wokół obiecujących miejsc.', caption_en:'The Tree-structured Parzen Estimator models the distribution of good and bad trials, narrowing the "hot zone" of the search around promising spots.' },
+  { id:'sh-emoa', label:'SH-EMOA', kind:'iframe', domain:'hpo', visual:'bracket', href:'./explainers/sh-emoa.html', title:'SH-EMOA — turniej na wyłanianie', title_en:'SH-EMOA — an elimination tournament', problem:'Wyłonić najlepszego z 16 kandydatów bez oceniania każdego dokładnie — tylko porównując parami i odsiewając słabszych.', problem_en:'Pick the best of 16 candidates without fully evaluating every one — just by comparing pairs and cutting the weaker half.', caption:'Successive Halving: co rundę odpada gorsza połowa kandydatów, reszta awansuje do następnej rundy — jak tabela pucharowa.', caption_en:'Successive Halving: each round the weaker half of candidates is cut, the rest advance to the next round — like a knockout bracket.' },
+  { id:'mo-bohb', label:'MO-BOHB', kind:'iframe', domain:'hpo', visual:'staircase', href:'./explainers/mo-bohb.html', title:'MO-BOHB — schody budżetowe', title_en:'MO-BOHB — budget staircase', problem:'Ocenić dużo kandydatów tanio (małym budżetem) i tylko najlepszych sprawdzić dokładnie (pełnym budżetem), by nie przepłacać za oceny.', problem_en:'Cheaply screen many candidates (small budget) and only fully evaluate the best ones (full budget), to avoid overpaying for evaluations.', caption:'Łączy odsiewanie słabych prób przy małym budżecie (Hyperband) z modelowaniem obiecujących obszarów przy budżecie pełnym.', caption_en:'Combines cutting weak trials at a small budget (Hyperband) with modeling promising regions at full budget.' },
+  { id:'nsga-net', label:'NSGA-Net', kind:'iframe', domain:'nas', href:'./explainers/nsga-net.html', title:'NSGA-Net — projektowanie architektury sieci', title_en:'NSGA-Net — network architecture design', problem:'Zaprojektować sieć neuronową, która jest jednocześnie dokładna i szybka — dwa cele naraz, bez jednej "najlepszej" odpowiedzi.', problem_en:'Design a neural network that is both accurate and fast — two goals at once, with no single "best" answer.', caption:'Szukamy architektur sieci neuronowej na granicy opłacalności: wysoka dokładność przy niskiej latencji. Punkty na czole Pareto to kandydaci, z których żaden nie jest jednoznacznie gorszy od innego.', caption_en:'We search for network architectures on the efficiency frontier: high accuracy at low latency. Points on the Pareto front are candidates none of which is clearly worse than another.' },
+  { id:'nsganetv2', label:'NSGANetV2', kind:'iframe', domain:'nas', href:'./explainers/nsganetv2.html', title:'NSGANetV2 — projektowanie architektury sieci', title_en:'NSGANetV2 — network architecture design', problem:'Ten sam problem co NSGA-Net (dokładność vs. szybkość), ale oceniając od razu wielu kandydatów zamiast jednego na raz.', problem_en:'The same problem as NSGA-Net (accuracy vs. speed), but scoring many candidates at once instead of one at a time.', caption:'Ten sam problem co NSGA-Net (dokładność vs. latencja), ale z szybszą, wstępną oceną wielu kandydatów naraz.', caption_en:'The same problem as NSGA-Net (accuracy vs. latency), but with faster, preliminary scoring of many candidates at once.' },
 ];
 
+const UI = {
+  pl: {
+    navHome:'strona główna', navBadaniaSlug:'badania', navKontaktSlug:'kontakt',
+    heroCmd:'$ specjalizacja --target=neural-architecture-search,algorytmy-ewolucyjne',
+    heroCtaProjects:'Zobacz projekty', heroCtaContact:'Napisz',
+    featuredTitle:'OSTATNIE PROJEKTY', featuredAll:'wszystkie projekty →',
+    aboutTitle:'O MNIE',
+    aboutP1:'Buduję i architekturuję systemy ML/AI na poważnie — a po godzinach rozkładam na czynniki pierwsze wszystko, co da się rozłożyć: algorytmy ewolucyjne, łamigłówki, ceny kart do gry.',
+    aboutP2:'Ten sam odruch stoi za jednym i drugim: satysfakcja z momentu "aha!", kiedy coś nieoczywistego wreszcie się domyka — to właśnie ten odruch prowadzi mnie teraz w badaniach nad NAS.',
+    filterLabel:'filtruj po tagach', demoLabel:'Demo ↗', websiteLabel:'Strona ↗', foundationLabel:'Fundacja ↗',
+    researchStatement:'Interesuje mnie, jak proste, mechaniczne reguły — powtarzane wystarczająco cierpliwie — potrafią rozwiązywać problemy, których nie da się ogarnąć naraz. Skupiam się na algorytmach przeszukiwania i optymalizacji (m.in. rodzina metod P3) oraz na tym, jak zrozumiale je pokazywać, żeby intuicja nie ginęła w notacji.',
+    gaLabel:'Algorytmy genetyczne',
+    currentDirTitle:'OBECNE KIERUNKI',
+    currentDirBody:'Praca w toku nad algorytmami P3 (Parameter-less Population Pyramid) — jak strukturalnie odkrywają zależności między zmiennymi problemu, bez ręcznego dostrajania parametrów. Testowane i porównywane na własnej platformie do rygorystycznego benchmarkingu algorytmów HPO (Corvus Corone).',
+    pubTitle:'PUBLIKACJE', inProgress:'W PRZYGOTOWANIU', pubBody:'Praca dot. algorytmu P3 — cel: GECCO 2027.', repoLabel:'Repozytorium ↗',
+    exhibitsTitle:'EKSPONATY INTERAKTYWNE', problemLabel:'Problem:',
+    btnStep:'Krok', btnReset:'Reset', viewGuide:'Zobacz cały przewodnik ↗', viewSource:'Zobacz kod źródłowy ↗',
+    genLabel:'pokolenie', stepLabel:'krok',
+    bracketLegend:'każdy słupek = jeden kandydat; wyższy = lepsza oceniona jakość. Z każdą rundą ocena zwycięzców jest dokładniejsza (mniejszy szum pomiaru), nie losowo wyższa.',
+    archLegend:'każdy słupek = jedna warstwa sieci; wysokość = jej rozmiar (liczba neuronów). Kandydat poniżej to CAŁA architektura — im wyższe słupki, tym dokładniejsza, ale wolniejsza sieć.',
+    accuracyLabel:'dokładność', latencyLabel:'latencja',
+    kontaktBody:'Projekt, konsultacja, albo po prostu chcesz podyskutować o algorytmach ewolucyjnych — pisz.',
+    formName:'Imię', formEmail:'Email', formMessage:'Wiadomość',
+    formPlaceholderPlayful:'Wiadomość (nie musi być poważna)', formPlaceholderPlain:'Wiadomość',
+    formSubmit:'Wyślij', formSubmitted:'Wysłane — no, właściwie nie: to statyczna makieta. Napisz na maila powyżej. ↑',
+    footerNotePlayful:'zbudowane z ciekawości, nie z konieczności', footerNotePlain:'',
+  },
+  en: {
+    navHome:'home', navBadaniaSlug:'research', navKontaktSlug:'contact',
+    heroCmd:'$ specialization --target=neural-architecture-search,evolutionary-algorithms',
+    heroCtaProjects:'See projects', heroCtaContact:'Get in touch',
+    featuredTitle:'RECENT PROJECTS', featuredAll:'all projects →',
+    aboutTitle:'ABOUT ME',
+    aboutP1:'I build and architect ML/AI systems for a living — and off the clock I take apart anything that can be taken apart: evolutionary algorithms, puzzles, trading card prices.',
+    aboutP2:'The same reflex drives both: the satisfaction of the "aha" moment when something non-obvious finally clicks — that reflex is exactly what leads me into NAS research now.',
+    filterLabel:'filter by tags', demoLabel:'Demo ↗', websiteLabel:'Website ↗', foundationLabel:'Foundation ↗',
+    researchStatement:'I\'m interested in how simple, mechanical rules — repeated patiently enough — can solve problems too large to grasp all at once. I focus on search and optimization algorithms (the P3 family among others) and on presenting them clearly, so the intuition doesn\'t get lost in notation.',
+    gaLabel:'Genetic algorithms',
+    currentDirTitle:'CURRENT DIRECTIONS',
+    currentDirBody:'Ongoing work on P3 algorithms (Parameter-less Population Pyramid) — how they structurally discover dependencies between problem variables without manual parameter tuning. Tested and compared on my own platform for rigorous HPO algorithm benchmarking (Corvus Corone).',
+    pubTitle:'PUBLICATIONS', inProgress:'IN PROGRESS', pubBody:'Paper on the P3 algorithm — target: GECCO 2027.', repoLabel:'Repository ↗',
+    exhibitsTitle:'INTERACTIVE EXHIBITS', problemLabel:'Problem:',
+    btnStep:'Step', btnReset:'Reset', viewGuide:'See the full guide ↗', viewSource:'See the source code ↗',
+    genLabel:'generation', stepLabel:'step',
+    bracketLegend:'each bar = one candidate; taller = better estimated quality. Each round the winners\' estimate gets more accurate (less measurement noise), not randomly higher.',
+    archLegend:'each bar = one network layer; height = its size (number of neurons). The candidate below is a WHOLE architecture — taller bars mean more accurate but slower.',
+    accuracyLabel:'accuracy', latencyLabel:'latency',
+    kontaktBody:'A project, a consultation, or you just want to talk about evolutionary algorithms — write to me.',
+    formName:'Name', formEmail:'Email', formMessage:'Message',
+    formPlaceholderPlayful:'Message (doesn\'t have to be serious)', formPlaceholderPlain:'Message',
+    formSubmit:'Send', formSubmitted:'Sent — well, not really: this is a static mockup. Email me above instead. ↑',
+    footerNotePlayful:'built out of curiosity, not necessity', footerNotePlain:'',
+  },
+};
+
 class Component extends DCLogic {
-  state = { activeTag:'all', population:[], generation:0, bestIndividual:null, bestFitness:null, playing:false, done:false, submitted:false, activeExhibit:'sudoku', view:'home' };
+  state = { activeTag:'all', population:[], generation:0, bestIndividual:null, bestFitness:null, playing:false, done:false, submitted:false, activeExhibit:'sudoku', view:'home', lang:'en' };
   railRef = React.createRef();
   stackRailRef = React.createRef();
   stackPaused = false;
@@ -657,7 +708,9 @@ class Component extends DCLogic {
     } else if (s.visual === 'staircase') {
       const idx = Math.floor(Math.random()*s.rungs.length);
       const rung = s.rungs[idx];
-      rung.score = Math.min(100, Math.round(rung.score + (100-rung.score)*(0.12+Math.random()*0.1)));
+      rung.samples++;
+      const amp = rung.baseAmp * Math.pow(0.65, rung.samples);
+      rung.score = Math.max(0, Math.min(100, Math.round(s.target + (Math.random()-0.5)*2*amp)));
     } else if (s.visual === 'nas-pool') {
       const t = s.target;
       const withScore = (p) => ({ ...p, f: this.scoreOf(p, t) });
@@ -668,7 +721,6 @@ class Component extends DCLogic {
         const front = scored.filter(p => !scored.some(q => q!==p && q.sx>=p.sx && q.sy>=p.sy && (q.sx>p.sx || q.sy>p.sy)));
         const rest = scored.filter(p => !front.includes(p)).sort((a,b)=>a.f-b.f);
         const kids = s.id === 'nsganetv2' ? 4 : 2;
-        // (p3net shares this branch: 2 kids/gen, same as nsga-net)
         for (let i=0;i<kids && rest.length;i++){
           const parentPool = front.length ? front : scored;
           const a = parentPool[Math.floor(Math.random()*parentPool.length)];
@@ -707,6 +759,11 @@ class Component extends DCLogic {
   }
 
   componentDidMount(){
+    try {
+      const params = new URLSearchParams(window.location.search);
+      const v = params.get('view');
+      if (v && ['home','solutions','badania','kontakt'].includes(v)) this.setState({ view: v });
+    } catch(e) {}
     this.initGA();
     this.startStackAutoScroll();
     if (this.props.playfulMode ?? true) {
@@ -808,6 +865,10 @@ class Component extends DCLogic {
       dark: `color-mix(in srgb, ${hex} 45%, black)`,
     };
 
+    const lang = this.state.lang || 'pl';
+    const T = UI[lang];
+    const isEn = lang === 'en';
+
     const { generation, bestIndividual, bestFitness, playing, done, activeTag, submitted } = this.state;
     const board = bestIndividual ? this.decode(bestIndividual) : PUZZLE.map(r=>r.slice());
     const { mask } = bestIndividual ? this.conflictMask(board) : { mask: Array.from({length:9},()=>Array(9).fill(false)) };
@@ -834,15 +895,16 @@ class Component extends DCLogic {
       }
     }
 
-    let status = 'Gotowy do startu.';
-    if(done) status = (this.props.playfulMode ?? true) ? 'Rozwiązane. Eureka.' : 'Rozwiązane.';
-    else if(generation > 0) status = `Pokolenie ${generation} · konflikty: ${bestFitness}`;
+    let status = isEn ? 'Ready to start.' : 'Gotowy do startu.';
+    if(done) status = (this.props.playfulMode ?? true) ? (isEn ? 'Solved. Eureka.' : 'Rozwiązane. Eureka.') : (isEn ? 'Solved.' : 'Rozwiązane.');
+    else if(generation > 0) status = isEn ? `Generation ${generation} · conflicts: ${bestFitness}` : `Pokolenie ${generation} · konflikty: ${bestFitness}`;
 
+    const tagLabelsMap = isEn ? TAG_LABELS_EN : TAG_LABELS;
     const filteredProjects = (activeTag === 'all' ? PROJECTS : PROJECTS.filter(p => p.tags.includes(activeTag)))
-      .map(p => ({ ...p, tagLabels: p.tags.map(t => TAG_LABELS[t]) }));
+      .map(p => ({ ...p, title: isEn ? p.title_en : p.title, desc: isEn ? p.desc_en : p.desc, tagLabels: p.tags.map(t => tagLabelsMap[t]) }));
 
     const tagChips = TAGS.map(t => ({
-      id: t, label: (t === activeTag ? '✓ ' : '') + TAG_LABELS[t],
+      id: t, label: (t === activeTag ? '✓ ' : '') + tagLabelsMap[t],
       onClick: () => this.setState({ activeTag: t }),
       style: {
         fontFamily:"'IBM Plex Mono', monospace", fontSize:'13px', padding:'10px 16px', minHeight:'40px', borderRadius:'2px', cursor:'pointer',
@@ -870,9 +932,7 @@ class Component extends DCLogic {
 
     const s = this.search;
     const searchPool = (s && s.pool) || [];
-    const t = (s && s.target) || { x:0.5, y:0.5 };
     const isNasExhibit = activeEx.domain === 'nas';
-    const isHpoExhibit = activeEx.domain === 'hpo';
     const bestPoint = searchPool.length ? searchPool.reduce((a,b) => b.f > a.f ? b : a) : null;
     const bestScoreVal = bestPoint ? bestPoint.f : 0;
 
@@ -946,7 +1006,7 @@ class Component extends DCLogic {
     let staircaseRungs = [];
     if (isStaircase) {
       staircaseRungs = s.rungs.map((r,i) => ({
-        key:i, label:`budżet ${r.budget} próbek`, scoreLabel: r.score+'%',
+        key:i, label: isEn ? `${r.budget}-sample budget` : `budżet ${r.budget} próbek`, scoreLabel: r.score+'%',
         trackStyle: { position:'relative', width:'100%', height:'28px', borderRadius:'2px', background:'oklch(0.16 0.006 250)', border:'1px solid rgba(255,255,255,0.1)', overflow:'hidden' },
         fillStyle: { width: r.score+'%', height:'100%', display:'flex', alignItems:'center', justifyContent:'flex-end', paddingRight:'6px', boxSizing:'border-box',
           fontFamily:"'IBM Plex Mono', monospace", fontSize:'11px', color: r.score>55?'#12160f':'oklch(0.85 0.004 250)',
@@ -970,39 +1030,35 @@ class Component extends DCLogic {
     const archAccuracy = Math.round(bestScoreVal);
     const archLatency = bestPoint ? Math.round(20 + bestPoint.x*180) : 0;
 
-    const searchPoints = searchPool.map((p, i) => {
-      const isBest = searchPool.length && p.f === Math.max(...searchPool.map(q=>q.f));
-      return {
-        key: i,
-        style: {
-          position:'absolute', left:(p.x*100)+'%', top:(p.y*100)+'%', transform:'translate(-50%,-50%)',
-          width: isBest ? '14px':'8px', height: isBest ? '14px':'8px', borderRadius:'50%',
-          background: isBest ? accent.solid : accent.dim,
-          border: isBest ? `2px solid ${accent.solid}` : '1px solid rgba(255,255,255,0.15)',
-          transition:'left 0.3s, top 0.3s',
-        }
-      };
-    });
-    let searchStatus = 'Gotowy do startu.';
+    let searchStatus = isEn ? 'Ready to start.' : 'Gotowy do startu.';
     if (s && s.gen > 0) {
-      if (isPyramid) searchStatus = s.done ? `Zbudowano finałowy łańcuch — wynik ${s.levels[3][0] ? s.levels[3][0].score : '-'}.` : `Krok ${s.gen}/${s.budget} · łączenie klocków bitowych...`;
-      else if (isDartboard) { const b = s.darts.length ? Math.max(...s.darts.map(d=>d.score)) : 0; searchStatus = s.done ? `Zakończono. Najlepszy rzut: ${b}.` : `Rzut ${s.gen} · najlepszy: ${b}`; }
-      else if (isTerrain) { const b = s.pool.length ? Math.max(...s.pool.map(p=>p.f)) : 0; searchStatus = s.done ? `Zakończono. Najlepszy wynik: ${b}.` : `Krok ${s.gen} · najlepszy wynik: ${b}`; }
-      else if (isBracket) { const last = s.rounds[s.rounds.length-1]; searchStatus = s.done ? `Zwycięzca turnieju: prawdziwa jakość ${last[0].trueScore}, oceniona na ${last[0].score} (dokładna ocena — duży budżet).` : `Runda ${s.gen} · zawodników: ${last.length} · większy budżet = dokładniejsza ocena, nie przypadek`; }
-      else if (isStaircase) { const b = Math.max(...s.rungs.map(r=>r.score)); searchStatus = s.done ? `Zakończono. Oceny zbiegły w stronę celu: ${s.target}%.` : `Krok ${s.gen} · więcej próbek na tym budżecie = mniejszy szum, ocena bliżej celu (${s.target}%)`; }
-      else { const b = searchPool.length ? Math.max(...searchPool.map(p=>p.f)) : 0; searchStatus = s.done ? `Zakończono. Najlepszy wynik: ${b}.` : `Krok ${s.gen} · najlepszy wynik: ${b} · próbek: ${searchPool.length}`; }
+      if (isPyramid) searchStatus = s.done
+        ? (isEn ? `Final chain built — score ${s.levels[3][0] ? s.levels[3][0].score : '-'}.` : `Zbudowano finałowy łańcuch — wynik ${s.levels[3][0] ? s.levels[3][0].score : '-'}.`)
+        : (isEn ? `Step ${s.gen}/${s.budget} · merging bit blocks...` : `Krok ${s.gen}/${s.budget} · łączenie klocków bitowych...`);
+      else if (isDartboard) { const b = s.darts.length ? Math.max(...s.darts.map(d=>d.score)) : 0; searchStatus = s.done ? (isEn?`Done. Best throw: ${b}.`:`Zakończono. Najlepszy rzut: ${b}.`) : (isEn?`Throw ${s.gen} · best: ${b}`:`Rzut ${s.gen} · najlepszy: ${b}`); }
+      else if (isTerrain) { const b = s.pool.length ? Math.max(...s.pool.map(p=>p.f)) : 0; searchStatus = s.done ? (isEn?`Done. Best score: ${b}.`:`Zakończono. Najlepszy wynik: ${b}.`) : (isEn?`Step ${s.gen} · best score: ${b}`:`Krok ${s.gen} · najlepszy wynik: ${b}`); }
+      else if (isBracket) { const last = s.rounds[s.rounds.length-1]; searchStatus = s.done ? (isEn?`Tournament winner: true quality ${last[0].trueScore}, scored ${last[0].score} (accurate estimate — large budget).`:`Zwycięzca turnieju: prawdziwa jakość ${last[0].trueScore}, oceniona na ${last[0].score} (dokładna ocena — duży budżet).`) : (isEn?`Round ${s.gen} · contestants: ${last.length} · bigger budget = more accurate estimate, not luck`:`Runda ${s.gen} · zawodników: ${last.length} · większy budżet = dokładniejsza ocena, nie przypadek`); }
+      else if (isStaircase) { searchStatus = s.done ? (isEn?`Done. Estimates converged toward the target: ${s.target}%.`:`Zakończono. Oceny zbiegły w stronę celu: ${s.target}%.`) : (isEn?`Step ${s.gen} · more samples at this budget = less noise, estimate closer to target (${s.target}%)`:`Krok ${s.gen} · więcej próbek na tym budżecie = mniejszy szum, ocena bliżej celu (${s.target}%)`); }
+      else { const b = searchPool.length ? Math.max(...searchPool.map(p=>p.f)) : 0; searchStatus = s.done ? (isEn?`Done. Best score: ${b}.`:`Zakończono. Najlepszy wynik: ${b}.`) : (isEn?`Step ${s.gen} · best score: ${b} · samples: ${searchPool.length}`:`Krok ${s.gen} · najlepszy wynik: ${b} · próbek: ${searchPool.length}`); }
     }
 
     return {
-      accent, cells, status, stepIndex: generation, totalSteps: 300, playing, done,
+      T, accent, cells, status, stepIndex: generation, totalSteps: 300, playing, done,
       exhibitTabs, isSudokuExhibit: activeEx.kind === 'sudoku',
-      activeExhibitTitle: activeEx.title, activeExhibitCaption: activeEx.caption, activeExhibitHref: activeEx.href, activeExhibitProblem: activeEx.problem,
+      activeExhibitTitle: isEn ? activeEx.title_en : activeEx.title,
+      activeExhibitCaption: isEn ? activeEx.caption_en : activeEx.caption,
+      activeExhibitHref: activeEx.href,
+      activeExhibitProblem: isEn ? activeEx.problem_en : activeEx.problem,
       searchStatus, searchStepIndex: s ? s.gen : 0, searchTotal: s ? s.budget : 0,
       isNasExhibit, archBlocks, archAccuracy, archLatency,
-      isPyramid, isDartboard, isTerrain, isBracket, isStaircase, pyramidGoal, pyramidBest,
-      staircaseTarget: s && s.visual === 'staircase' ? s.target : 0,
+      isPyramid, isDartboard, isTerrain, isBracket, isStaircase,
+      pyramidGoalLabel: isEn ? `target: 8/8 · best so far: ${pyramidBest}/100` : `cel: 8/8 · najlepszy dotąd: ${pyramidBest}/100`,
+      staircaseLegend: isEn
+        ? `red line = true value (target: ${s && s.visual==='staircase' ? s.target : 0}%). Each bar is the same estimate measured with a different budget — more samples, less noise, closer to the line.`
+        : `czerwona linia = prawdziwa wartość (cel: ${s && s.visual==='staircase' ? s.target : 0}%). Każdy pasek to ta sama ocena mierzona z innym budżetem — im więcej próbek, tym mniejszy szum i pasek trafia bliżej linii.`,
+      pyramidGoal, pyramidBest,
       pyramidRows, dartRings, dartMarkers, terrainBgStyle, hotCircleStyle, terrainPoints, bracketRounds, staircaseRungs,
-      searchStartLabel: this.searchPlaying ? 'Pauza' : (s && s.done ? 'Gotowe' : 'Start'),
+      searchStartLabel: this.searchPlaying ? (isEn?'Pause':'Pauza') : (s && s.done ? (isEn?'Done':'Gotowe') : (isEn?'Start':'Start')),
       onSearchStart: () => this.startSearch(), onSearchStep: () => this.stepSearch(), onSearchReset: () => this.resetSearch(),
       railRef: this.railRef,
       stackRailRef: this.stackRailRef,
@@ -1013,21 +1069,32 @@ class Component extends DCLogic {
       onStackMouseMove: (e) => this.onStackMouseMove(e),
       onStackMouseUp: () => this.onStackMouseUp(),
       onStackTogglePause: () => this.toggleStackPause(),
-      stackPauseLabel: this.stackManuallyPaused ? '▶ wznów' : '⏸ pauza',
+      stackPauseLabel: this.stackManuallyPaused ? (isEn?'▶ resume':'▶ wznów') : (isEn?'⏸ pause':'⏸ pauza'),
       stackRailStyle: { overflowX:'auto', overflowY:'hidden', cursor: this._stackDragging ? 'grabbing' : 'grab', scrollbarWidth:'none', userSelect: this._stackDragging ? 'none' : 'auto' },
-      stackLogos: STACK,
+      stackLogos: STACK.map(s2 => ({ ...s2, name: isEn ? s2.name_en : s2.name })),
       featuredProjects: [
-        { title: 'Przewidywanie cen kart MtG', tag: '#' + PROJECTS.find(p=>p.id===1).tags[0] },
-        { title: 'RAG dla reguł gry MtG', tag: '#' + PROJECTS.find(p=>p.id===2).tags[0] },
-        { title: 'Benchmarking algorytmów HPO', tag: '#' + PROJECTS.find(p=>p.id===3).tags[0] },
-        { title: 'Asystent głosowy dla osób starszych', tag: '#startup' },
+        { title: isEn?'MtG card price prediction':'Przewidywanie cen kart MtG', tag: '#' + PROJECTS.find(p=>p.id===1).tags[0] },
+        { title: isEn?'RAG for MtG rules':'RAG dla reguł gry MtG', tag: '#' + PROJECTS.find(p=>p.id===2).tags[0] },
+        { title: isEn?'HPO algorithm benchmarking':'Benchmarking algorytmów HPO', tag: '#' + PROJECTS.find(p=>p.id===3).tags[0] },
+        { title: isEn?'Voice assistant for seniors':'Asystent głosowy dla osób starszych', tag: '#startup' },
         { title: 'PetHealthApp', tag: '#' + PROJECTS.find(p=>p.id===6).tags[0] },
+      ],
+      manifestoItems: isEn ? [
+        { title:'Tests are proof of behavior', body:"Code that isn't tested isn't done — tests aren't a formality, they're proof." },
+        { title:'Docs are communication', body:'Written, so harder than talking, but necessary — which is why it should be short, simple, and easy to scan. Nobody reads a wall of text.' },
+        { title:'WIP = 1', body:'One thing at a time, finished, instead of ten half-done — a work-in-progress limit isn\'t bureaucracy, it\'s how anything actually ships.' },
+      ] : [
+        { title:'Testy dowodem działania', body:'Kod, który nie jest sprawdzony, nie jest gotowy — testy to nie formalność, to dowód.' },
+        { title:'Dokumentacja to komunikacja', body:'Pisana, więc trudniejsza niż rozmowa, ale niezbędna — dlatego ma być krótka, prosta i łatwa do przeskanowania. Nikt nie czyta ściany tekstu.' },
+        { title:'WIP = 1', body:'Jedna rzecz na raz, dokończona, zamiast dziesięciu w połowie — limit pracy w toku to nie biurokracja, to sposób, żeby coś w ogóle wyjechało z linii produkcyjnej.' },
       ],
       isHome: this.state.view === 'home', isSolutions: this.state.view === 'solutions', isBadania: this.state.view === 'badania', isKontakt: this.state.view === 'kontakt',
       goHome: (e)=>{ e.preventDefault(); this.setState({view:'home'}); },
       goSolutions: (e)=>{ e.preventDefault(); this.setState({view:'solutions'}); },
       goBadania: (e)=>{ e.preventDefault(); this.setState({view:'badania'}); },
       goKontakt: (e)=>{ e.preventDefault(); this.setState({view:'kontakt'}); },
+      toggleLang: () => this.setState({ lang: isEn ? 'pl' : 'en' }),
+      langButtonLabel: isEn ? 'PL' : 'EN',
       navStyle: (() => {
         const base = { padding:'10px 6px', display:'inline-flex', alignItems:'center' };
         const item = (key) => ({ ...base, color: this.state.view===key ? accent.text : 'oklch(0.85 0.004 250)', fontWeight: this.state.view===key ? 700 : 400, borderBottom: this.state.view===key ? `2px solid ${accent.text}` : '2px solid transparent' });
@@ -1056,12 +1123,12 @@ class Component extends DCLogic {
       })(),
 
       onStart: () => this.start(), onStep: () => this.advance(), onReset: () => this.reset(),
-      startLabel: playing ? 'Pauza' : (done ? 'Gotowe' : 'Start'),
+      startLabel: playing ? (isEn?'Pause':'Pauza') : (done ? (isEn?'Done':'Gotowe') : 'Start'),
       filteredProjects, tagChips,
       submitted, notSubmitted: !submitted,
       onSubmitForm: (e) => { e.preventDefault(); this.setState({ submitted:true }); },
-      formPlaceholder: (this.props.playfulMode ?? true) ? 'Wiadomość (nie musi być poważna)' : 'Wiadomość',
-      footerNote: (this.props.playfulMode ?? true) ? 'zbudowane z ciekawości, nie z konieczności' : '',
+      formPlaceholder: (this.props.playfulMode ?? true) ? T.formPlaceholderPlayful : T.formPlaceholderPlain,
+      footerNote: (this.props.playfulMode ?? true) ? T.footerNotePlayful : T.footerNotePlain,
     };
   }
 }

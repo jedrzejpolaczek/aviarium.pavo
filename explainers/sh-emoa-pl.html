@@ -1,4 +1,4 @@
-<title>How SH-EMOA actually works</title>
+<title>Jak naprawdę działa SH-EMOA</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
@@ -494,22 +494,22 @@
 <nav style="position:sticky;top:0;z-index:60;display:flex;align-items:center;justify-content:space-between;padding:18px 48px;background:oklch(0.16 0.006 250 / 0.85);backdrop-filter:blur(8px);border-bottom:1px solid rgba(255,255,255,0.06);font-family:'IBM Plex Mono',monospace;">
   <a href="../Portfolio.dc.html" style="font-size:18px;font-weight:600;color:oklch(0.92 0.004 250);text-decoration:none;">JP.<span style="color:#9CAF6B;">_</span></a>
   <div style="display:flex;gap:32px;align-items:center;font-size:14px;">
-    <a href="../Portfolio.dc.html" style="color:oklch(0.85 0.004 250);text-decoration:none;">home</a>
+    <a href="../Portfolio.dc.html" style="color:var(--ink-muted);text-decoration:none;">strona główna</a>
     <a href="../Portfolio.dc.html?view=solutions" style="color:oklch(0.85 0.004 250);text-decoration:none;">:solutions</a>
-    <a href="../Portfolio.dc.html?view=badania" style="color:oklch(0.85 0.004 250);text-decoration:none;">:research</a>
-    <a href="../Portfolio.dc.html?view=kontakt" style="color:oklch(0.85 0.004 250);text-decoration:none;">:contact</a>
-    <a href="sh-emoa-pl.html" style="font-size:12px;font-weight:700;padding:6px 12px;border:1px solid #9CAF6B;border-radius:2px;background:rgba(156,175,107,0.15);color:#9CAF6B;text-decoration:none;">PL</a>
+    <a href="../Portfolio.dc.html?view=badania" style="color:var(--ink-muted);text-decoration:none;">:badania</a>
+    <a href="../Portfolio.dc.html?view=kontakt" style="color:var(--ink-muted);text-decoration:none;">:kontakt</a>
+    <a href="sh-emoa.html" style="font-size:12px;font-weight:700;padding:6px 12px;border:1px solid #9CAF6B;border-radius:2px;background:rgba(156,175,107,0.15);color:#9CAF6B;text-decoration:none;">EN</a>
   </div>
 </nav>
 <div class="topnav">
   <div class="topnav-inner">
-    <span class="topnav-mark">SH-EMOA / guide</span>
-    <a href="#context">1&nbsp;Context</a>
-    <a href="#bigpicture">2&nbsp;Big picture</a>
-    <a href="#components">3&nbsp;Components</a>
-    <a href="#live">4&nbsp;See it live</a>
-    <a href="#code">5&nbsp;Pseudocode</a>
-    <a href="#practice">6&nbsp;What you design yourself</a>
+    <span class="topnav-mark">SH-EMOA / przewodnik</span>
+    <a href="#context">1&nbsp;Kontekst</a>
+    <a href="#bigpicture">2&nbsp;Ogólny obraz</a>
+    <a href="#components">3&nbsp;Komponenty</a>
+    <a href="#live">4&nbsp;Zobacz na żywo</a>
+    <a href="#code">5&nbsp;Pseudokod</a>
+    <a href="#practice">6&nbsp;Co wymyślasz sam</a>
   </div>
 </div>
 
@@ -517,214 +517,214 @@
 
 <section id="top">
   <div class="eyebrow"><span>SH-EMOA — Successive Halving Evolutionary Multi-Objective Algorithm</span></div>
-  <h1>How SH-EMOA actually works</h1>
-  <p class="lede">One of the seven arms in the P3Net paper's ablation table — ordinary multi-objective evolution (Pareto sorting + crowding distance), with one thing added: the evaluation budget is cut <em class="term">inside</em> every generation, in waves of fidelity reduction, before anyone even reaches Pareto sorting.</p>
-  <p class="subdek">Laid out like a C4 diagram: context, then the big moving parts, then each one broken down in detail, then code, and finally a practical checklist.</p>
+  <h1>Jak naprawdę działa SH-EMOA</h1>
+  <p class="lede">Jeden z siedmiu ramion w tabeli ablacji z artykułu o P3Net — zwykła wielokryterialna ewolucja (sortowanie Pareto + crowding distance), do której dołożono jedną rzecz: budżet ewaluacji jest cięty <em class="term">wewnątrz</em> każdego pokolenia, falami redukcji wierności, zanim ktokolwiek w ogóle trafi do sortowania Pareto.</p>
+  <p class="subdek">Ułożone jak diagram C4: kontekst, potem duże ruchome elementy, potem każdy z nich rozłożony na czynniki pierwsze, potem kod, na końcu praktyczna checklista.</p>
 </section>
 
 <hr class="rule">
 
 <section id="context">
-  <h3><span class="num">1</span>Context — two problems at once, one algorithm</h3>
-  <p class="lede" style="font-size:17px;">In one sentence: SH-EMOA is an NSGA-II-like multi-objective evolution in which every offspring evaluation is first tested cheaply, and only the survivors get a full, expensive assessment.</p>
-  <p>Take any standard EMOA (evolutionary multi-objective algorithm) — a population, offspring through mutation and crossover, selection into the next generation based on Pareto non-domination and crowding distance, exactly like NSGA-II. Now assume a single evaluation is expensive — for us: a full neural network training run. Fully evaluating <em>every</em> offspring in <em>every</em> generation quickly becomes unaffordable. SH-EMOA answers this exactly the way Hyperband answers the same problem in a single-objective context: instead of training every candidate fully, train cheaply, stop the weaker half, train the survivors a bit longer, repeat — until only a handful remain that deserve the full budget.</p>
+  <h3><span class="num">1</span>Kontekst — dwa problemy naraz, jednym algorytmem</h3>
+  <p class="lede" style="font-size:17px;">Jednym zdaniem: SH-EMOA to NSGA-II-podobna ewolucja wielokryterialna, w której każda ewaluacja potomka jest najpierw testowana tanio, a dopiero przetrwali dostają pełną, kosztowną ocenę.</p>
+  <p>Weź dowolny standardowy EMOA (evolutionary multi-objective algorithm) — populacja, potomstwo przez mutację i krzyżowanie, selekcja do następnego pokolenia oparta o niezdominowanie Pareto i crowding distance, dokładnie jak w NSGA-II. Teraz załóż, że pojedyncza ewaluacja jest droga — dla nas: pełny trening sieci neuronowej. Pełna ewaluacja <em>każdego</em> potomka w <em>każdym</em> pokoleniu szybko staje się nie do udźwignięcia. SH-EMOA odpowiada na to dokładnie tak samo, jak Hyperband odpowiada na ten sam problem w kontekście jednokryterialnym: zamiast trenować każdego kandydata w pełni, trenuj tanio, zatrzymaj słabszą połowę, trenuj przetrwałych trochę dłużej, powtórz — aż zostanie garstka, która zasługuje na pełny budżet.</p>
 
   <div class="callout">
-    <span class="tag">Place in the ablation table</span>
-    <p>In the nine-armed comparison grid from the P3Net paper (JAHS-Bench-201, NAS-HPO-Bench-II; see <span class="mono">implementation/lib/README.md</span>), SH-EMOA stands alongside NSGA-Net, NSGANetV2, MO-BOHB, TPE, and random search. It's the arm that combines <strong>evolution with budget cutting</strong> — but without learning any structure. Mutation and crossover stay naive: no information at all about which genes of the architecture genotype are functionally linked. This is exactly the gap P3Net's linkage tree targets — the algorithm below shows what a multi-objective search looks like that cuts evaluation cost just as cleverly as P3Net, but still recombines blindly.</p>
+    <span class="tag">Miejsce w tabeli ablacji</span>
+    <p>W dziewięcioramiennej siatce porównawczej z artykułu o P3Net (JAHS-Bench-201, NAS-HPO-Bench-II; zobacz <span class="mono">implementation/lib/README.md</span>) SH-EMOA stoi obok NSGA-Net, NSGANetV2, MO-BOHB, TPE i losowego przeszukiwania. To ramię, które łączy <strong>ewolucję z cięciem budżetu</strong> — ale bez uczenia się struktury. Mutacja i krzyżowanie zostają naiwne: żadnej informacji o tym, które geny genotypu architektury są ze sobą funkcjonalnie powiązane. To dokładnie ta luka, w którą celuje drzewo powiązań P3Net — algorytm poniżej pokazuje, jak wygląda multi-objective search, który tnie koszt ewaluacji tak samo sprytnie jak P3Net, ale wciąż rekombinuje na ślepo.</p>
   </div>
 
-  <p>In other words: SH-EMOA is the product of two separate, well-known ideas — <strong>Pareto selection</strong> (how to know what's “better” when there's more than one objective) and <strong>the fidelity ladder</strong> (how to know who's even worth evaluating fully). The rest of this page breaks down both, separately and together.</p>
+  <p>Innymi słowy: SH-EMOA to iloczyn dwóch osobnych, dobrze znanych idei — <strong>selekcja Pareto</strong> (skąd wiadomo, co jest „lepsze”, gdy celów jest więcej niż jeden) i <strong>drabinka wierności</strong> (skąd wiadomo, kogo w ogóle warto ocenić w pełni). Reszta tej strony rozkłada obie na czynniki pierwsze, osobno i razem.</p>
 </section>
 
 <section id="bigpicture">
-  <h3><span class="num">2</span>Big picture — one loop, two mechanisms</h3>
-  <p class="lede" style="font-size:17px;">In one sentence: every generation creates offspring naively, sieves them through the fidelity ladder, and only what survives to full evaluation competes for a spot in the next population via Pareto sorting and crowding distance.</p>
+  <h3><span class="num">2</span>Ogólny obraz — jedna pętla, dwa mechanizmy</h3>
+  <p class="lede" style="font-size:17px;">Jednym zdaniem: każde pokolenie generuje potomstwo naiwnie, przesiewa je drabinką wierności, a dopiero to, co przetrwa do pełnej oceny, konkuruje o miejsce w następnej populacji przez sortowanie Pareto i crowding distance.</p>
 
   <div class="tablewrap">
     <table>
-      <thead><tr><th>Part</th><th>Job</th></tr></thead>
+      <thead><tr><th>Element</th><th>Zadanie</th></tr></thead>
       <tbody>
-        <tr><td><strong>Naive variation</strong></td><td>Crossover and mutation with no knowledge of the genotype's structure at all — every gene treated independently of the rest.</td></tr>
-        <tr><td><strong>Fidelity ladder</strong></td><td>Successive, increasingly expensive evaluation levels; after every level half the candidates drop out, before anyone gets the full training budget.</td></tr>
-        <tr><td><strong>Pareto selection</strong></td><td>Those who make it to full evaluation join a shared pool with the parents; non-domination sorting and crowding distance pick the next population.</td></tr>
+        <tr><td><strong>Naiwna wariacja</strong></td><td>Krzyżowanie i mutacja bez żadnej wiedzy o strukturze genotypu — każdy gen traktowany niezależnie od pozostałych.</td></tr>
+        <tr><td><strong>Drabinka wierności</strong></td><td>Kolejne, coraz droższe poziomy oceny; po każdym poziomie odpada połowa kandydatów, zanim ktokolwiek dostanie pełny budżet treningowy.</td></tr>
+        <tr><td><strong>Selekcja Pareto</strong></td><td>Ci, którzy dotrwali do pełnej oceny, wchodzą do wspólnej puli z rodzicami; sortowanie po niezdominowaniu i crowding distance wybiera następną populację.</td></tr>
       </tbody>
     </table>
   </div>
 
   <figure class="bleed">
-    <svg viewBox="0 0 900 460" role="img" aria-label="One SH-EMOA loop: a parent population creates offspring through naive crossover and mutation, the offspring pass through the fidelity ladder (elimination waves from the cheapest level up), survivors join the parents, and Pareto sorting with crowding distance picks a new population, after which the loop repeats.">
+    <svg viewBox="0 0 900 460" role="img" aria-label="Jedna pętla SH-EMOA: populacja rodzicielska generuje potomstwo przez naiwne krzyżowanie i mutację, potomstwo przechodzi przez drabinkę wierności (fale eliminacji od najtańszego poziomu), przetrwali łączą się z rodzicami, a sortowanie Pareto z crowding distance wybiera nową populację, po czym pętla się powtarza.">
       <defs>
         <marker id="arrBP" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
           <path d="M0,0 L10,5 L0,10 z" fill="currentColor"></path>
         </marker>
       </defs>
 
-      <rect x="300" y="10" width="300" height="52" rx="9" fill="var(--accent-soft)" stroke="var(--accent)" stroke-width="1.6" pointer-events="all" tabindex="0" data-tt="μ individuals, each already fully evaluated on both objectives. The result of selection from the previous generation — or random initialization if this is the first generation."></rect>
-      <text x="450" y="42" text-anchor="middle" class="diagram-label" font-size="13" fill="var(--ink)">Parent population P (full fidelity)</text>
+      <rect x="300" y="10" width="300" height="52" rx="9" fill="var(--accent-soft)" stroke="var(--accent)" stroke-width="1.6" pointer-events="all" tabindex="0" data-tt="μ osobników, każdy już w pełni oceniony na obu celach. Wynik selekcji z poprzedniego pokolenia — albo losowa inicjalizacja, jeśli to pierwsze pokolenie."></rect>
+      <text x="450" y="42" text-anchor="middle" class="diagram-label" font-size="13" fill="var(--ink)">Populacja rodzicielska P (pełna wierność)</text>
       <path d="M450,62 L450,90" stroke="currentColor" stroke-width="1.3" marker-end="url(#arrBP)"></path>
 
-      <rect x="300" y="92" width="300" height="52" rx="9" fill="none" stroke="currentColor" stroke-width="1.4" pointer-events="all" tabindex="0" data-tt="Uniform crossover + independent per-gene mutation — no information about which genes are linked. Details in 3.1."></rect>
-      <text x="450" y="123" text-anchor="middle" class="diagram-label" font-size="13">Naive crossover + mutation</text>
+      <rect x="300" y="92" width="300" height="52" rx="9" fill="none" stroke="currentColor" stroke-width="1.4" pointer-events="all" tabindex="0" data-tt="Krzyżowanie jednolite + niezależna mutacja na gen — żadnej informacji o tym, które geny są ze sobą powiązane. Szczegóły w 3.1."></rect>
+      <text x="450" y="123" text-anchor="middle" class="diagram-label" font-size="13">Naiwne krzyżowanie + mutacja</text>
       <path d="M450,144 L450,172" stroke="currentColor" stroke-width="1.3" marker-end="url(#arrBP)"></path>
 
       <rect x="140" y="174" width="620" height="150" rx="10" fill="var(--bg-sunken)" stroke="currentColor" stroke-width="1" opacity="0.9"></rect>
-      <text x="164" y="198" class="diagram-label" font-size="11" letter-spacing="0.06em" fill="currentColor" opacity="0.6">FIDELITY LADDER — from the cheapest level upward</text>
+      <text x="164" y="198" class="diagram-label" font-size="11" letter-spacing="0.06em" fill="currentColor" opacity="0.6">DRABINKA WIERNOŚCI — od najtańszego poziomu w górę</text>
 
-      <rect x="170" y="212" width="170" height="44" rx="8" fill="none" stroke="currentColor" stroke-width="1.3" pointer-events="all" tabindex="0" data-tt="The cheapest level: a high-variance evaluation, e.g. training on a small data subset or with few epochs. Details in 3.2."></rect>
-      <text x="255" y="238" text-anchor="middle" class="diagram-label" font-size="11.5">cheap rung</text>
+      <rect x="170" y="212" width="170" height="44" rx="8" fill="none" stroke="currentColor" stroke-width="1.3" pointer-events="all" tabindex="0" data-tt="Najtańszy poziom: ocena z dużą wariancją, np. trening na małym podzbiorze danych albo z małą liczbą epok. Szczegóły w 3.2."></rect>
+      <text x="255" y="238" text-anchor="middle" class="diagram-label" font-size="11.5">tani poziom</text>
       <path d="M340,234 L385,234" stroke="currentColor" stroke-width="1.2" marker-end="url(#arrBP)"></path>
-      <text x="362" y="222" text-anchor="middle" class="diagram-label" font-size="9.5" fill="currentColor" opacity="0.65">drop half</text>
+      <text x="362" y="222" text-anchor="middle" class="diagram-label" font-size="9.5" fill="currentColor" opacity="0.65">odrzuć połowę</text>
 
-      <rect x="387" y="212" width="170" height="44" rx="8" fill="none" stroke="currentColor" stroke-width="1.3" pointer-events="all" tabindex="0" data-tt="The medium level: a more accurate, still-incomplete evaluation only for those who survived the first wave."></rect>
-      <text x="472" y="238" text-anchor="middle" class="diagram-label" font-size="11.5">medium rung</text>
+      <rect x="387" y="212" width="170" height="44" rx="8" fill="none" stroke="currentColor" stroke-width="1.3" pointer-events="all" tabindex="0" data-tt="Średni poziom: dokładniejsza, wciąż niepełna ocena tylko dla tych, którzy przetrwali pierwszą falę."></rect>
+      <text x="472" y="238" text-anchor="middle" class="diagram-label" font-size="11.5">średni poziom</text>
       <path d="M557,234 L602,234" stroke="currentColor" stroke-width="1.2" marker-end="url(#arrBP)"></path>
-      <text x="579" y="222" text-anchor="middle" class="diagram-label" font-size="9.5" fill="currentColor" opacity="0.65">drop half</text>
+      <text x="579" y="222" text-anchor="middle" class="diagram-label" font-size="9.5" fill="currentColor" opacity="0.65">odrzuć połowę</text>
 
-      <rect x="604" y="212" width="140" height="44" rx="8" fill="var(--accent-soft)" stroke="var(--accent)" stroke-width="1.7" pointer-events="all" tabindex="0" data-tt="Full fidelity — only now does a candidate get a real, expensive score on both objectives. This is the only stage that's allowed to be directly compared with parents in Pareto sorting."></rect>
-      <text x="674" y="238" text-anchor="middle" class="diagram-label" font-size="11.5" fill="var(--ink)">full fidelity</text>
+      <rect x="604" y="212" width="140" height="44" rx="8" fill="var(--accent-soft)" stroke="var(--accent)" stroke-width="1.7" pointer-events="all" tabindex="0" data-tt="Pełna wierność — dopiero teraz kandydat dostaje prawdziwy, kosztowny wynik na obu celach. To jedyny etap, który wolno bezpośrednio porównywać z rodzicami w sortowaniu Pareto."></rect>
+      <text x="674" y="238" text-anchor="middle" class="diagram-label" font-size="11.5" fill="var(--ink)">pełna wierność</text>
 
-      <text x="450" y="298" text-anchor="middle" class="diagram-label" font-size="10.5" fill="currentColor" opacity="0.65">only the handful of offspring that survived every wave get here — the rest of the budget went to cheap filtering</text>
+      <text x="450" y="298" text-anchor="middle" class="diagram-label" font-size="10.5" fill="currentColor" opacity="0.65">tylko garstka potomków, która przetrwała każdą falę, dociera tutaj — reszta budżetu poszła na tanie odsiewanie</text>
       <path d="M674,256 L674,290" stroke="var(--accent)" stroke-width="1.3" marker-end="url(#arrBP)"></path>
-      <text x="702" y="278" class="diagram-label" font-size="10.5" fill="var(--accent)">survivors</text>
+      <text x="702" y="278" class="diagram-label" font-size="10.5" fill="var(--accent)">przetrwali</text>
 
-      <rect x="300" y="330" width="300" height="52" rx="9" fill="none" stroke="currentColor" stroke-width="1.4" pointer-events="all" tabindex="0" data-tt="The selection pool: parents (already fully evaluated) plus offspring who made it to full fidelity. This pool's size is usually smaller than μ+λ, since most of the offspring dropped out along the way."></rect>
-      <text x="450" y="362" text-anchor="middle" class="diagram-label" font-size="13">Merge: parents ∪ survivors</text>
+      <rect x="300" y="330" width="300" height="52" rx="9" fill="none" stroke="currentColor" stroke-width="1.4" pointer-events="all" tabindex="0" data-tt="Pula do selekcji: rodzice (już ocenieni w pełni) plus potomkowie, którzy dotrwali do pełnej wierności. Rozmiar tej puli jest zwykle mniejszy niż μ+λ, bo większość potomstwa odpadła po drodze."></rect>
+      <text x="450" y="362" text-anchor="middle" class="diagram-label" font-size="13">Połącz: rodzice ∪ przetrwali</text>
 
       <path d="M300,356 L165,320 L165,234" fill="none" stroke="var(--accent)" stroke-width="1.2" stroke-dasharray="2 4" marker-end="url(#arrBP)"></path>
 
       <path d="M450,382 L450,410" stroke="currentColor" stroke-width="1.3" marker-end="url(#arrBP)"></path>
-      <rect x="300" y="412" width="300" height="42" rx="9" fill="var(--accent-soft)" stroke="var(--accent)" stroke-width="1.6" pointer-events="all" tabindex="0" data-tt="Non-dominated sorting into fronts + crowding distance as a tie-break inside the boundary front. Details in 3.3."></rect>
-      <text x="450" y="438" text-anchor="middle" class="diagram-label" font-size="12.5" fill="var(--ink)">Pareto sort + crowding → new P</text>
+      <rect x="300" y="412" width="300" height="42" rx="9" fill="var(--accent-soft)" stroke="var(--accent)" stroke-width="1.6" pointer-events="all" tabindex="0" data-tt="Niezdominowane sortowanie na fronty + crowding distance jako tie-break wewnątrz frontu granicznego. Szczegóły w 3.3."></rect>
+      <text x="450" y="438" text-anchor="middle" class="diagram-label" font-size="12.5" fill="var(--ink)">Sortowanie Pareto + crowding → nowa P</text>
 
       <path d="M600,433 C820,433 820,36 600,36" fill="none" stroke="currentColor" stroke-width="1.2" marker-end="url(#arrBP)"></path>
-      <text x="700" y="20" text-anchor="middle" class="diagram-label" font-size="10.5" fill="currentColor" opacity="0.7">next generation</text>
+      <text x="700" y="20" text-anchor="middle" class="diagram-label" font-size="10.5" fill="currentColor" opacity="0.7">kolejne pokolenie</text>
     </svg>
-    <figcaption><span class="k">What this diagram shows —</span> the gray box in the middle is the only part that plain NSGA-II doesn't have: before an offspring even earns the right to appear in Pareto sorting, it has to survive successive, increasingly expensive evaluation waves. Everything outside that box is exactly the same skeleton as any EMOA. Hover any box for detail.</figcaption>
+    <figcaption><span class="k">Co pokazuje ten diagram —</span> szara ramka w środku to jedyna część, której nie ma w zwykłym NSGA-II: zanim potomek w ogóle dostanie prawo wystąpić w sortowaniu Pareto, musi przetrwać kolejne, coraz droższe fale oceny. Wszystko poza tą ramką to dokładnie ten sam szkielet, co w dowolnym EMOA. Najedź na dowolne pudełko po szczegóły.</figcaption>
   </figure>
 </section>
 
 <section id="components">
-  <h2>3&nbsp; Components — breaking down each part</h2>
-  <p class="subdek">The same three parts as above, now at the level of detail needed to implement them.</p>
+  <h2>3&nbsp; Komponenty — rozkładanie każdego elementu na czynniki</h2>
+  <p class="subdek">Te same trzy elementy co wyżej, teraz na poziomie szczegółowości potrzebnym do ich zaimplementowania.</p>
 
-  <h3><span class="num">3.1</span>Naive variation operators — crossover and mutation without structure</h3>
-  <p class="lede" style="font-size:16px;">In one sentence: every gene is treated as if it has nothing to do with any other gene — because, for these operators, it truly doesn't.</p>
-  <p>Crossover is usually uniform: for every gene position, independently draw whether the value comes from parent A or parent B. Mutation is usually independent per gene: with a fixed probability <span class="mono">p_m</span>, perturb the value at that one locus, without looking at the rest of the genotype. Neither operator knows, or tries to find out, which genes tend to move together — there's no frequency table, no linkage tree, no clusters.</p>
-  <p>This works fine as long as the objective function is roughly separable — improving one gene on its own genuinely moves you toward a better solution. It fails exactly where several genes have to change <em>together</em> to see any improvement at all (exactly the same problem the trap function in the P3 guide illustrates) — uniform crossover with a 50% chance per gene almost never copies a whole such group at once, so the beneficial combination practically never arises.</p>
+  <h3><span class="num">3.1</span>Naiwne operatory wariacji — krzyżowanie i mutacja bez struktury</h3>
+  <p class="lede" style="font-size:16px;">Jednym zdaniem: każdy gen jest traktowany tak, jakby nie miał nic wspólnego z żadnym innym genem — bo dla tych operatorów faktycznie nie ma.</p>
+  <p>Krzyżowanie jest zwykle jednolite (uniform crossover): dla każdej pozycji genu niezależnie wylosuj, czy wartość pochodzi od rodzica A, czy od rodzica B. Mutacja jest zwykle niezależna na gen: z ustalonym prawdopodobieństwem <span class="mono">p_m</span> zaburz wartość tego jednego locus, bez patrzenia na resztę genotypu. Żaden z tych operatorów nie wie ani nie próbuje się dowiedzieć, które geny mają tendencję do wspólnego przemieszczania się — nie ma tabeli częstości, nie ma drzewa powiązań, nie ma klastrów.</p>
+  <p>To działa dobrze, dopóki funkcja celu jest w przybliżeniu separowalna — poprawa jednego genu z osobna faktycznie przybliża do lepszego rozwiązania. Zawodzi dokładnie tam, gdzie kilka genów trzeba zmienić <em>razem</em>, żeby zobaczyć jakąkolwiek poprawę (dokładnie ten sam problem, który ilustruje funkcja pułapki w przewodniku po P3) — jednolite krzyżowanie z szansą 50% na gen prawie nigdy nie skopiuje całej takiej grupy naraz, więc korzystna kombinacja praktycznie nigdy nie powstaje.</p>
 
   <div class="callout">
-    <span class="tag">This is exactly the gap P3Net attacks</span>
-    <p>In a neural network architecture genotype, genes describing, say, two edges of the same computational cell often have to change together to produce a sensible, better architecture — a single edge change alone can be neutral or harmful. Uniform crossover has no idea these two genes are linked; P3Net learns this explicitly through the linkage tree and recombines whole learned clusters at once. Section 6 returns to this with a concrete comparison.</p>
+    <span class="tag">To jest dokładnie ta luka, którą P3Net atakuje</span>
+    <p>W genotypie architektury sieci neuronowej geny opisujące np. dwie krawędzie tej samej komórki obliczeniowej często muszą zmienić się razem, żeby dać sensowną, lepszą architekturę — pojedyncza zmiana jednej krawędzi bywa neutralna albo szkodliwa. Jednolite krzyżowanie nie ma pojęcia, że te dwa geny są powiązane; P3Net uczy się tego jawnie drzewem powiązań i rekombinuje całymi wyuczonymi klastrami naraz. Sekcja 6 wraca do tego z konkretnym porównaniem.</p>
   </div>
 
-  <h3><span class="num">3.2</span>The fidelity ladder — the halving rule</h3>
-  <p class="lede" style="font-size:16px;">In one sentence: evaluate cheaply, stop the worse half, repeat on a more expensive level, until only as many candidates remain as you can afford to evaluate fully.</p>
-  <p>The ladder is a sequence of fidelity levels of increasing cost — e.g. training on 1/9, then 1/3, then all of the training data; or 10, then 30, then 100 epochs. At every level, every still-alive candidate gets an evaluation at that level, candidates are ranked, and the top half (hence “successive halving”) moves on to the next, more expensive level. The rest are dropped — they get no further chance in this generation.</p>
-  <p>The key design decision: <strong>what the ranking at an intermediate level even is</strong>, given that there are two (or more) objectives, and full Pareto sorting only makes sense on fully evaluated points. The typical solution — also used in the section 4 demo — is a simple scalar proxy score (e.g. a sum of normalized objectives, or hypervolume contribution) just for the purposes of one elimination wave; proper, full Pareto sorting with crowding distance is reserved for once candidates already have real, full evaluations.</p>
+  <h3><span class="num">3.2</span>Drabinka wierności — reguła halvingu</h3>
+  <p class="lede" style="font-size:16px;">Jednym zdaniem: oceń tanio, zatrzymaj gorszą połowę, powtórz na droższym poziomie, aż zostanie tylko tylu kandydatów, ilu stać Cię ocenić w pełni.</p>
+  <p>Drabinka to ciąg poziomów wierności o rosnącym koszcie — np. trening na 1/9, potem 1/3, potem całości danych treningowych; albo 10, potem 30, potem 100 epok. Na każdym poziomie każdy wciąż żywy kandydat dostaje ocenę na tym poziomie, kandydaci są rankowani, a górna połowa (stąd „successive halving") przechodzi na kolejny, droższy poziom. Reszta jest odrzucana — nie dostanie już żadnej kolejnej szansy w tym pokoleniu.</p>
+  <p>Kluczowa decyzja projektowa: <strong>czym jest ranking na pośrednim poziomie</strong>, skoro cele mamy dwa (albo więcej), a pełne sortowanie Pareto ma sens tylko na w pełni ocenionych punktach. Typowe rozwiązanie — użyte też w demie sekcji 4 — to prosty skalarny wynik zastępczy (np. suma znormalizowanych celów albo wkład do hiperwolumenu) tylko na potrzeby jednej fali eliminacji; właściwe, pełne sortowanie Pareto z crowding distance jest zarezerwowane dla momentu, gdy kandydaci mają już prawdziwe, pełne oceny.</p>
 
   <figure class="bleed">
-    <svg viewBox="0 0 880 210" role="img" aria-label="A three-level fidelity ladder: 12 candidates enter the cheap level, 6 advance to the medium level, 3 reach the full level — exactly half drops out at every transition.">
+    <svg viewBox="0 0 880 210" role="img" aria-label="Drabinka wierności o trzech poziomach: 12 kandydatów wchodzi na poziom tani, 6 przechodzi na poziom średni, 3 dochodzi do poziomu pełnego — na każdym przejściu odpada dokładnie połowa.">
       <defs>
         <marker id="arrLad" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
           <path d="M0,0 L10,5 L0,10 z" fill="currentColor"></path>
         </marker>
       </defs>
       <g class="mono">
-        <rect x="20" y="60" width="180" height="90" rx="8" fill="none" stroke="currentColor" stroke-width="1.3" pointer-events="all" tabindex="0" data-tt="12 freshly created offspring, not yet evaluated at all. Bar height ∝ number of candidates."></rect>
-        <text x="110" y="46" text-anchor="middle" font-size="12" fill="currentColor" opacity="0.7">cheap rung</text>
+        <rect x="20" y="60" width="180" height="90" rx="8" fill="none" stroke="currentColor" stroke-width="1.3" pointer-events="all" tabindex="0" data-tt="12 świeżo utworzonych potomków, jeszcze bez żadnej oceny. Wysokość słupka ∝ liczba kandydatów."></rect>
+        <text x="110" y="46" text-anchor="middle" font-size="12" fill="currentColor" opacity="0.7">tani poziom</text>
         <text x="110" y="110" text-anchor="middle" font-size="20" fill="currentColor">12</text>
 
         <path d="M200,105 L250,105" stroke="currentColor" stroke-width="1.3" marker-end="url(#arrLad)"></path>
         <text x="225" y="93" text-anchor="middle" font-size="10" fill="currentColor" opacity="0.6">−50%</text>
 
-        <rect x="260" y="85" width="180" height="65" rx="8" fill="none" stroke="currentColor" stroke-width="1.3" pointer-events="all" tabindex="0" data-tt="6 candidates who won the ranking at the cheap level. Each of them now gets a more expensive, more accurate evaluation."></rect>
-        <text x="350" y="71" text-anchor="middle" font-size="12" fill="currentColor" opacity="0.7">medium rung</text>
+        <rect x="260" y="85" width="180" height="65" rx="8" fill="none" stroke="currentColor" stroke-width="1.3" pointer-events="all" tabindex="0" data-tt="6 kandydatów, którzy wygrali ranking na poziomie tanim. Każdy z nich dostaje teraz droższą, dokładniejszą ocenę."></rect>
+        <text x="350" y="71" text-anchor="middle" font-size="12" fill="currentColor" opacity="0.7">średni poziom</text>
         <text x="350" y="122" text-anchor="middle" font-size="20" fill="currentColor">6</text>
 
         <path d="M440,117 L490,117" stroke="currentColor" stroke-width="1.3" marker-end="url(#arrLad)"></path>
         <text x="465" y="105" text-anchor="middle" font-size="10" fill="currentColor" opacity="0.6">−50%</text>
 
-        <rect x="500" y="103" width="180" height="47" rx="8" fill="var(--accent-soft)" stroke="var(--accent)" stroke-width="1.7" pointer-events="all" tabindex="0" data-tt="3 finalists of this halving wave. Only they get a full, real evaluation — exactly this number then enters Pareto sorting together with the parents."></rect>
-        <text x="590" y="89" text-anchor="middle" font-size="12" fill="var(--accent)">full rung</text>
+        <rect x="500" y="103" width="180" height="47" rx="8" fill="var(--accent-soft)" stroke="var(--accent)" stroke-width="1.7" pointer-events="all" tabindex="0" data-tt="3 finaliści tej fali halvingu. Dopiero oni dostają pełną, prawdziwą ocenę — dokładnie ta liczba wchodzi potem do sortowania Pareto razem z rodzicami."></rect>
+        <text x="590" y="89" text-anchor="middle" font-size="12" fill="var(--accent)">pełny poziom</text>
         <text x="590" y="132" text-anchor="middle" font-size="20" fill="var(--ink)">3</text>
 
         <text x="760" y="105" text-anchor="middle" font-size="20" fill="currentColor" opacity="0.35">→</text>
-        <text x="820" y="60" text-anchor="middle" font-size="11" fill="currentColor" opacity="0.6">to the</text>
-        <text x="820" y="76" text-anchor="middle" font-size="11" fill="currentColor" opacity="0.6">selection</text>
+        <text x="820" y="60" text-anchor="middle" font-size="11" fill="currentColor" opacity="0.6">do puli</text>
+        <text x="820" y="76" text-anchor="middle" font-size="11" fill="currentColor" opacity="0.6">selekcji</text>
         <text x="820" y="92" text-anchor="middle" font-size="11" fill="currentColor" opacity="0.6">(§3.3)</text>
       </g>
-      <text x="20" y="185" class="diagram-label" font-size="11" fill="currentColor" opacity="0.6">12 → 6 → 3: evaluating all 12 candidates fully would cost 12 full evaluations; this same handful of finalists cost only 3 full + 12 cheap + 6 medium.</text>
+      <text x="20" y="185" class="diagram-label" font-size="11" fill="currentColor" opacity="0.6">12 → 6 → 3: 4 pełne ewaluacje kosztowałoby 12 kandydatów wprost; ta sama garstka finalistów kosztowała tu tylko 3 pełne + 12 tanich + 6 średnich.</text>
     </svg>
-    <figcaption><span class="k">What this diagram shows —</span> these are exactly the numbers the section 4 demo will use: 12 offspring to start, halving to 6, then to 3. Every arrow is one elimination wave by proxy ranking, not Pareto sorting — full sorting waits until the end of the ladder.</figcaption>
+    <figcaption><span class="k">Co pokazuje ten diagram —</span> to dokładnie liczby, których użyje demo w sekcji 4: 12 potomków na start, halving do 6, potem do 3. Każda strzałka to jedna fala eliminacji rankingiem zastępczym, nie sortowaniem Pareto — pełne sortowanie czeka na koniec drabinki.</figcaption>
   </figure>
 
-  <h3><span class="num">3.3</span>Selection — non-domination sorting and crowding distance</h3>
-  <p class="lede" style="font-size:16px;">In one sentence: build the new population front by front from the best, and when a front doesn't fit entirely, keep the individuals spread furthest apart in objective space from it.</p>
-  <p>Individual <em>x</em> dominates individual <em>y</em> if <em>x</em> is no worse than <em>y</em> on any objective and strictly better on at least one. <strong>Front 1</strong> is the set of individuals dominated by nobody in the pool. Remove it, recompute domination on what's left — that's <strong>front 2</strong>. Repeat. The new population fills up front by front from the first, as long as the next whole front fits.</p>
-  <p>The problem arises when the boundary front <em>doesn't</em> fit entirely — some of its individuals have to be picked and the rest dropped, even though they're formally equal (none dominates any other). <strong>Crowding distance</strong> breaks this tie: for each objective separately, sort the front by that objective's value; the front's edges (smallest and largest value) get infinite distance (always kept), and every middle individual gets the sum of normalized distances to its neighbors on each objective. Higher distance = less crowded neighborhood = priority in selection. This keeps the front spread evenly along the whole trade-off curve, instead of clumping in one place.</p>
+  <h3><span class="num">3.3</span>Selekcja — sortowanie po niezdominowaniu i crowding distance</h3>
+  <p class="lede" style="font-size:16px;">Jednym zdaniem: buduj nową populację front po froncie od najlepszego, a gdy front nie mieści się w całości, zatrzymaj z niego osobniki najdalej rozstawione w przestrzeni celów.</p>
+  <p>Osobnik <em>x</em> dominuje osobnika <em>y</em>, jeśli <em>x</em> nie jest gorszy od <em>y</em> na żadnym celu i ściśle lepszy na przynajmniej jednym. <strong>Front 1</strong> to zbiór osobników niezdominowanych przez nikogo w puli. Usuń go, policz dominację od nowa na tym, co zostało — to <strong>front 2</strong>. Powtarzaj. Nowa populacja wypełnia się frontami od pierwszego, dopóki cały kolejny front się mieści.</p>
+  <p>Problem pojawia się, gdy front graniczny <em>nie</em> mieści się w całości — trzeba wybrać część jego osobników i odrzucić resztę, mimo że formalnie są sobie równi (żaden nie dominuje żadnego). <strong>Crowding distance</strong> rozstrzyga ten remis: dla każdego celu osobno posortuj front po wartości tego celu, brzegi frontu (najmniejsza i największa wartość) dostają dystans nieskończony (zawsze zachowywane), a każdy środkowy osobnik dostaje sumę znormalizowanych odległości do swoich sąsiadów na każdym celu. Wyższy dystans = mniej zatłoczona okolica = pierwszeństwo w selekcji. To utrzymuje front rozłożony równomiernie wzdłuż całej krzywej kompromisu, zamiast zbijać się w jednym miejscu.</p>
 
   <figure class="bleed">
-    <svg viewBox="0 0 880 260" role="img" aria-label="A five-point boundary front in two-objective space; edge points get infinite crowding distance, middle points get the sum of distances to their neighbors on both objectives, and three of the five with the largest distance have to be chosen.">
+    <svg viewBox="0 0 880 260" role="img" aria-label="Front graniczny pięciu punktów w przestrzeni dwóch celów; punkty brzegowe dostają nieskończony crowding distance, punkty środkowe dostają sumę odległości do sąsiadów po obu celach, a z pięciu trzeba wybrać trzech o największym dystansie.">
       <g class="mono">
         <line x1="60" y1="220" x2="820" y2="220" stroke="currentColor" stroke-width="1.1" opacity="0.35"></line>
         <line x1="60" y1="220" x2="60" y2="30" stroke="currentColor" stroke-width="1.1" opacity="0.35"></line>
-        <text fill="currentColor" x="440" y="242" text-anchor="middle" font-size="11" opacity="0.6">objective f₁ (less = better) →</text>
-        <text fill="currentColor" x="30" y="120" text-anchor="middle" font-size="11" opacity="0.6" transform="rotate(-90 30 120)">objective f₂ ↑</text>
+        <text fill="currentColor" x="440" y="242" text-anchor="middle" font-size="11" opacity="0.6">cel f₁ (mniej = lepiej) →</text>
+        <text fill="currentColor" x="30" y="120" text-anchor="middle" font-size="11" opacity="0.6" transform="rotate(-90 30 120)">cel f₂ ↑</text>
 
-        <circle cx="100" cy="60" r="7" fill="var(--accent)" pointer-events="all" tabindex="0" data-tt="The extreme on the f₂ axis — a front edge. Crowding distance = ∞, always kept."></circle>
+        <circle cx="100" cy="60" r="7" fill="var(--accent)" pointer-events="all" tabindex="0" data-tt="Skrajny na osi f₂ — brzeg frontu. Crowding distance = ∞, zawsze zachowywany."></circle>
         <text x="100" y="44" text-anchor="middle" font-size="10.5" fill="var(--accent)">∞</text>
 
-        <circle cx="260" cy="110" r="7" fill="var(--accent)" pointer-events="all" tabindex="0" data-tt="Neighbors on both sides are close (a small enclosing rectangle) → a small sum of normalized distances → a low crowding distance."></circle>
-        <text x="260" y="94" text-anchor="middle" font-size="10.5" fill="currentColor" opacity="0.8">0.18</text>
+        <circle cx="260" cy="110" r="7" fill="var(--accent)" pointer-events="all" tabindex="0" data-tt="Sąsiedzi po obu stronach są blisko (mały prostokąt otaczający) → mała suma znormalizowanych odległości → niski crowding distance."></circle>
+        <text x="260" y="94" text-anchor="middle" font-size="10.5" fill="currentColor" opacity="0.8">0,18</text>
 
-        <circle cx="430" cy="150" r="7" fill="var(--accent)" pointer-events="all" tabindex="0" data-tt="Also tightly surrounded by neighbors on both sides on both objectives — low distance, a candidate for dropping in a tie."></circle>
-        <text x="430" y="134" text-anchor="middle" font-size="10.5" fill="currentColor" opacity="0.8">0.15</text>
+        <circle cx="430" cy="150" r="7" fill="var(--accent)" pointer-events="all" tabindex="0" data-tt="Też ciasno otoczony sąsiadami po obu stronach na obu celach — niski dystans, kandydat do odrzucenia przy remisie."></circle>
+        <text x="430" y="134" text-anchor="middle" font-size="10.5" fill="currentColor" opacity="0.8">0,15</text>
 
-        <circle cx="620" cy="185" r="7" fill="var(--accent)" pointer-events="all" tabindex="0" data-tt="A clear gap to the nearest neighbors on both objectives → a large rectangle → a high crowding distance, filling a sparsely occupied part of the front."></circle>
-        <text x="620" y="169" text-anchor="middle" font-size="10.5" fill="currentColor" opacity="0.9">0.52</text>
+        <circle cx="620" cy="185" r="7" fill="var(--accent)" pointer-events="all" tabindex="0" data-tt="Wyraźna luka do najbliższych sąsiadów po obu celach → duży prostokąt → wysoki crowding distance, wypełnia rzadko obsadzoną część frontu."></circle>
+        <text x="620" y="169" text-anchor="middle" font-size="10.5" fill="currentColor" opacity="0.9">0,52</text>
 
-        <circle cx="780" cy="205" r="7" fill="var(--accent)" pointer-events="all" tabindex="0" data-tt="The extreme on the f₁ axis — the other front edge. Crowding distance = ∞, always kept."></circle>
+        <circle cx="780" cy="205" r="7" fill="var(--accent)" pointer-events="all" tabindex="0" data-tt="Skrajny na osi f₁ — drugi brzeg frontu. Crowding distance = ∞, zawsze zachowywany."></circle>
         <text x="780" y="189" text-anchor="middle" font-size="10.5" fill="var(--accent)">∞</text>
 
         <path d="M100,60 L260,110 L430,150 L620,185 L780,205" fill="none" stroke="currentColor" stroke-width="1.1" stroke-dasharray="3 3" opacity="0.4"></path>
 
         <rect x="60" y="242" width="16" height="10" rx="2" fill="var(--kept)"></rect>
-        <text x="84" y="251" font-size="10.5" fill="currentColor" opacity="0.75">kept at a limit of 3 of 5 (two edges + the sparsest middle one)</text>
+        <text x="84" y="251" font-size="10.5" fill="currentColor" opacity="0.75">zachowany przy limicie 3 z 5 (dwa brzegi + najrzadszy środek)</text>
       </g>
     </svg>
-    <figcaption><span class="k">What this diagram shows —</span> five points on the same front, all formally indistinguishable by non-domination alone. If only three of them had to be picked, crowding distance would keep both edges (∞) and the middle point with the biggest gap to its neighbors (0.52) — dropping the two most crowded points (0.18 and 0.15).</figcaption>
+    <figcaption><span class="k">Co pokazuje ten diagram —</span> pięć punktów tego samego frontu, wszystkie formalnie nierozróżnialne przez samo niezdominowanie. Gdyby trzeba było wybrać z nich tylko trzech, crowding distance zachowa oba brzegi (∞) i punkt środkowy z największą luką do sąsiadów (0,52) — odrzucając dwa punkty najbardziej stłoczone (0,18 i 0,15).</figcaption>
   </figure>
 </section>
 
 <section id="live">
-  <h2>4&nbsp; See it in action</h2>
-  <p class="subdek">Not an animation of one fixed example — this is SH-EMOA actually running, computing in your browser, on a two-objective test function similar to ZDT1.</p>
+  <h2>4&nbsp; Zobacz to w akcji</h2>
+  <p class="subdek">Nie animacja jednego ustalonego przykładu — to naprawdę uruchomiony SH-EMOA, licząc w Twojej przeglądarce, na dwucelowej funkcji testowej podobnej do ZDT1.</p>
 
-  <h3><span class="num">4.1</span>The problem: what SH-EMOA actually has to prove itself on</h3>
-  <p>The genotype is six real-valued genes in [0, 1]: <span class="mono">x₀</span> and five “distance genes” <span class="mono">x₁…x₅</span>. The first objective is simply <span class="mono">f₁ = x₀</span> — smaller is better. The second objective depends on how close to zero the distance genes are: <span class="mono">g = 1 + 9 · average(x₁…x₅)</span>, <span class="mono">f₂ = g · (1 − √(f₁/g))</span> — also smaller is better. The true Pareto front lies where all distance genes are close to zero (<span class="mono">g ≈ 1</span>); any distance gene that stays high drags the whole front up and to the right, i.e. toward worse solutions.</p>
-  <p>The fidelity ladder trick: <strong>low fidelity computes <span class="mono">g</span> from just one randomly chosen distance gene instead of all five</strong> — exactly as a cheap architecture evaluation might train on a small data subset instead of the whole thing. Medium fidelity uses three genes. Full fidelity uses all five and gives the true value. The fewer genes a given level sees, the noisier (but still correlated) its estimate is — this is exactly the cost/accuracy trade-off the whole ladder is meant to exploit.</p>
+  <h3><span class="num">4.1</span>Problem: na czym SH-EMOA właściwie ma się wykazać</h3>
+  <p>Genotyp to sześć genów rzeczywistych w przedziale [0, 1]: <span class="mono">x₀</span> i pięć „genów dystansu" <span class="mono">x₁…x₅</span>. Pierwszy cel to po prostu <span class="mono">f₁ = x₀</span> — im mniejszy, tym lepiej. Drugi cel zależy od tego, jak blisko zera są geny dystansu: <span class="mono">g = 1 + 9 · średnia(x₁…x₅)</span>, <span class="mono">f₂ = g · (1 − √(f₁/g))</span> — też im mniejszy, tym lepiej. Prawdziwy front Pareto leży tam, gdzie wszystkie geny dystansu są bliskie zeru (<span class="mono">g ≈ 1</span>); każdy gen dystansu, który zostaje wysoki, ściąga cały front w górę i w prawo, czyli w stronę gorszych rozwiązań.</p>
+  <p>Sztuczka drabinki wierności: <strong>niska wierność liczy <span class="mono">g</span> tylko z jednego losowo wybranego genu dystansu zamiast wszystkich pięciu</strong> — dokładnie tak, jak tania ocena architektury mogłaby trenować na małym podzbiorze danych zamiast na całości. Średnia wierność używa trzech genów. Pełna wierność używa wszystkich pięciu i daje prawdziwą wartość. Im mniej genów widzi dany poziom, tym bardziej hałaśliwe (ale wciąż skorelowane) jest jego oszacowanie — to jest właśnie ten kompromis koszt/dokładność, który cała drabinka ma wykorzystać.</p>
 
-  <h3><span class="num">4.2</span>The solution: SH-EMOA actually run on this problem</h3>
-  <p>The parent population has 8 individuals. Every generation creates 12 offspring by uniform crossover (a random pair of parents, each gene independently from one of them) and independent per-gene mutation. The fidelity ladder sieves them 12→6→3 (exactly as in the 3.2 diagram), and the 3 full-fidelity finalists join the 8 parents in a pool of 11 candidates. From there, Pareto sorting and crowding distance select the 8 individuals of the new population.</p>
-  <p>Step by step you see both mechanisms separately: the <strong>elimination wave</strong> (who drops out before anyone pays the full price) and <strong>Pareto selection</strong> (who stays in the population once everyone already has real scores). These are two different questions, solved by two different mechanisms of the same algorithm.</p>
+  <h3><span class="num">4.2</span>Rozwiązanie: SH-EMOA naprawdę uruchomiony na tym problemie</h3>
+  <p>Populacja rodzicielska liczy 8 osobników. Każde pokolenie tworzy 12 potomków przez jednolite krzyżowanie (losowa para rodziców, każdy gen niezależnie od jednego z nich) i niezależną mutację na gen. Drabinka wierności przesiewa ich 12→6→3 (dokładnie jak w diagramie 3.2), a 3 finalistów w pełnej wierności łączy się z 8 rodzicami w pulę 11 kandydatów. Stamtąd sortowanie Pareto i crowding distance wybierają 8 osobników nowej populacji.</p>
+  <p>Krok po kroku widać oba mechanizmy osobno: <strong>fala eliminacji</strong> (kto odpada, zanim ktokolwiek zapłaci pełną cenę) i <strong>selekcja Pareto</strong> (kto zostaje w populacji, gdy wszyscy już mają prawdziwe wyniki). To dwa różne pytania, rozwiązywane dwoma różnymi mechanizmami tego samego algorytmu.</p>
 
   <div class="demo-bleed-wrap">
   <div class="demo" id="shdemo">
     <div class="demo-legend" id="legendMain">
-      <span class="demo-legend-item"><span class="swatch sw-parent"></span>parent</span>
-      <span class="demo-legend-item"><span class="swatch sw-offspring"></span>offspring (unevaluated)</span>
-      <span class="demo-legend-item"><span class="swatch sw-elim"></span>dropped in a wave</span>
-      <span class="demo-legend-item"><span class="swatch sw-survivor"></span>survived to full fidelity</span>
+      <span class="demo-legend-item"><span class="swatch sw-parent"></span>rodzic</span>
+      <span class="demo-legend-item"><span class="swatch sw-offspring"></span>potomek (nieoceniony)</span>
+      <span class="demo-legend-item"><span class="swatch sw-elim"></span>odrzucony w fali</span>
+      <span class="demo-legend-item"><span class="swatch sw-survivor"></span>przetrwał do pełnej wierności</span>
       <span class="demo-legend-item"><span class="swatch sw-f1"></span>front 1</span>
       <span class="demo-legend-item"><span class="swatch sw-f2"></span>front 2</span>
       <span class="demo-legend-item"><span class="swatch sw-f3"></span>front 3+</span>
-      <span class="demo-legend-item demo-legend-phases">Click “Step” or “Run” — the chart below shows the current population state live.</span>
+      <span class="demo-legend-item demo-legend-phases">Kliknij „Krok" albo „Uruchom" — wykres poniżej pokazuje bieżący stan populacji na żywo.</span>
     </div>
 
     <div class="hero-block">
       <div class="map-strip">
-        <svg id="plotSvg" viewBox="0 0 900 480" role="img" aria-label="A two-objective space chart: horizontal axis f1, vertical axis f2, both minimized, so better = closer to the bottom-left corner. Points represent population and offspring individuals at the current demo step.">
+        <svg id="plotSvg" viewBox="0 0 900 480" role="img" aria-label="Wykres przestrzeni dwóch celów: oś pozioma f1, oś pionowa f2, oba minimalizowane, więc lepiej = bliżej lewego dolnego rogu. Punkty reprezentują osobników populacji i potomstwa w bieżącym kroku demonstracji.">
           <defs>
             <marker id="arrPlot" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
               <path d="M0,0 L10,5 L0,10 z" fill="currentColor"></path>
@@ -732,8 +732,8 @@
           </defs>
           <line x1="70" y1="420" x2="860" y2="420" stroke="currentColor" stroke-width="1.2" opacity="0.35" marker-end="url(#arrPlot)"></line>
           <line x1="70" y1="420" x2="70" y2="20" stroke="currentColor" stroke-width="1.2" opacity="0.35" marker-end="url(#arrPlot)"></line>
-          <text x="465" y="452" text-anchor="middle" class="diagram-label" font-size="13" fill="currentColor" opacity="0.65">objective f₁ — smaller = better</text>
-          <text x="40" y="220" text-anchor="middle" class="diagram-label" font-size="13" fill="currentColor" opacity="0.65" transform="rotate(-90 40 220)">objective f₂ — smaller = better</text>
+          <text x="465" y="452" text-anchor="middle" class="diagram-label" font-size="13" fill="currentColor" opacity="0.65">cel f₁ — mniejsze = lepsze</text>
+          <text x="40" y="220" text-anchor="middle" class="diagram-label" font-size="13" fill="currentColor" opacity="0.65" transform="rotate(-90 40 220)">cel f₂ — mniejsze = lepsze</text>
           <text x="90" y="404" class="diagram-label" font-size="10.5" fill="currentColor" opacity="0.5">0</text>
           <text x="840" y="404" class="diagram-label" font-size="10.5" fill="currentColor" opacity="0.5" text-anchor="end">1</text>
           <text x="76" y="34" class="diagram-label" font-size="10.5" fill="currentColor" opacity="0.5">10</text>
@@ -742,81 +742,81 @@
       </div>
     </div>
 
-    <div class="demo-phase-caption" id="phaseCaption">Click “Step” or “Run” to see the algorithm in action.</div>
-    <div class="demo-log" id="demoLog">Click “Step” or “Run” to begin.</div>
+    <div class="demo-phase-caption" id="phaseCaption">Kliknij „Krok" albo „Uruchom", żeby zobaczyć algorytm w akcji.</div>
+    <div class="demo-log" id="demoLog">Kliknij „Krok" albo „Uruchom", żeby zacząć.</div>
 
-    <div class="zone-caption" pointer-events="all" tabindex="0" data-tt="Four panels showing details of the current step: the fidelity ladder, the ranking at the current level, the Pareto fronts of the current pool, and the active individual's genotype.">③ current step details</div>
+    <div class="zone-caption" pointer-events="all" tabindex="0" data-tt="Cztery panele pokazujące szczegóły bieżącego kroku: drabinkę wierności, ranking na aktualnym poziomie, fronty Pareto obecnej puli oraz genotyp aktywnego osobnika.">③ szczegóły bieżącego kroku</div>
     <div class="result-row">
       <div class="demo-panel">
-        <h4 pointer-events="all" tabindex="0" data-tt="How many candidates are still alive at each fidelity level this generation. Highlighted row = the level you're currently on. Section 3.2.">Fidelity ladder</h4>
+        <h4 pointer-events="all" tabindex="0" data-tt="Ile kandydatów wciąż żyje na każdym poziomie wierności w tym pokoleniu. Podświetlony wiersz = poziom, na którym właśnie jesteś. Sekcja 3.2.">Drabinka wierności</h4>
         <div class="rung-list" id="rungView"></div>
       </div>
       <div class="demo-panel">
-        <h4 pointer-events="all" tabindex="0" data-tt="Ranking of candidates at the current fidelity level (a scalar proxy score — not full Pareto sorting). The top half moves on.">Ranking at this level</h4>
+        <h4 pointer-events="all" tabindex="0" data-tt="Ranking kandydatów na aktualnym poziomie wierności (skalarny wynik zastępczy — nie pełne sortowanie Pareto). Górna połowa przechodzi dalej.">Ranking na tym poziomie</h4>
         <div class="rank-list" id="rankView"></div>
       </div>
       <div class="demo-panel">
-        <h4 pointer-events="all" tabindex="0" data-tt="Sizes of the Pareto fronts in the current selection pool (parents + survivors to full fidelity). Front 1 = non-dominated. Section 3.3.">Pareto fronts (selection pool)</h4>
+        <h4 pointer-events="all" tabindex="0" data-tt="Rozmiary frontów Pareto w bieżącej puli selekcyjnej (rodzice + przetrwali do pełnej wierności). Front 1 = niezdominowani. Sekcja 3.3.">Fronty Pareto (pula selekcji)</h4>
         <div class="front-list" id="frontView"></div>
       </div>
       <div class="demo-panel">
-        <h4 pointer-events="all" tabindex="0" data-tt="The six genes of the active individual: the first bar is x₀ (drives f₁), the other five are distance genes (the lower, the closer to the true Pareto front).">Active individual's genotype</h4>
+        <h4 pointer-events="all" tabindex="0" data-tt="Sześć genów aktywnego osobnika: pierwszy słupek to x₀ (steruje f₁), pozostałe pięć to geny dystansu (im niższe, tym bliżej prawdziwego frontu Pareto).">Genotyp aktywnego osobnika</h4>
         <div class="gene-bars" id="geneBars"></div>
-        <div class="gene-caption"><span>x₀ (f₁)</span><span>x₁…x₅ (distance)</span></div>
+        <div class="gene-caption"><span>x₀ (f₁)</span><span>x₁…x₅ (dystans)</span></div>
       </div>
     </div>
 
-    <div class="zone-caption" pointer-events="all" tabindex="0" data-tt="Controls for the demo and stats accumulated since reset.">④ controls, stats</div>
+    <div class="zone-caption" pointer-events="all" tabindex="0" data-tt="Sterowanie demem i statystyki skumulowane od resetu.">④ sterowanie, statystyki</div>
     <div class="card-row">
       <div class="demo-panel">
-        <h4>Controls</h4>
+        <h4>Sterowanie</h4>
         <div class="demo-controls">
-          <button class="demo-btn primary" id="btnStep" type="button">Step</button>
-          <button class="demo-btn" id="btnRun" type="button">Run</button>
-          <button class="demo-btn" id="btnFF" type="button">⏩ 5 generations</button>
+          <button class="demo-btn primary" id="btnStep" type="button">Krok</button>
+          <button class="demo-btn" id="btnRun" type="button">Uruchom</button>
+          <button class="demo-btn" id="btnFF" type="button">⏩ 5 pokoleń</button>
           <button class="demo-btn" id="btnReset" type="button">Reset</button>
         </div>
       </div>
       <div class="demo-panel">
-        <h4>Stats</h4>
+        <h4>Statystyki</h4>
         <div class="demo-stats">
-          <div class="demo-stat" pointer-events="all" tabindex="0" data-tt="How many times the main SH-EMOA loop has started from a new parent generation.">
-            <div class="lbl">Generation</div><div class="val" id="statGen">0</div>
+          <div class="demo-stat" pointer-events="all" tabindex="0" data-tt="Ile razy pętla główna SH-EMOA wystartowała od nowego pokolenia rodzicielskiego.">
+            <div class="lbl">Pokolenie</div><div class="val" id="statGen">0</div>
           </div>
-          <div class="demo-stat" pointer-events="all" tabindex="0" data-tt="Total number of evaluations at the full-fidelity level — this is the real cost the ladder is meant to minimize.">
-            <div class="lbl">Full evaluations</div><div class="val" id="statFull">0</div>
+          <div class="demo-stat" pointer-events="all" tabindex="0" data-tt="Łączna liczba ewaluacji na poziomie pełnej wierności — to jest prawdziwy koszt, który drabinka ma zminimalizować.">
+            <div class="lbl">Pełne ewaluacje</div><div class="val" id="statFull">0</div>
           </div>
-          <div class="demo-stat" pointer-events="all" tabindex="0" data-tt="Total number of evaluations at the cheap and medium levels combined — much cheaper than full, but still a non-zero cost.">
-            <div class="lbl">Cheap + medium</div><div class="val" id="statCheap">0</div>
+          <div class="demo-stat" pointer-events="all" tabindex="0" data-tt="Łączna liczba ewaluacji na poziomach tanim i średnim razem — dużo tańszych niż pełna, ale wciąż niezerowy koszt.">
+            <div class="lbl">Tanie + średnie</div><div class="val" id="statCheap">0</div>
           </div>
-          <div class="demo-stat" pointer-events="all" tabindex="0" data-tt="Size of front 1 (non-dominated) in the current parent population.">
+          <div class="demo-stat" pointer-events="all" tabindex="0" data-tt="Rozmiar frontu 1 (niezdominowanych) w bieżącej populacji rodzicielskiej.">
             <div class="lbl">|Front 1|</div><div class="val" id="statFront1">0</div>
           </div>
         </div>
       </div>
     </div>
-    <p class="demo-note">If SH-EMOA fully trained all 12 offspring every generation (like NSGA-Net, section 6), the full-evaluation cost would grow 4× faster than the counter above.</p>
+    <p class="demo-note">Gdyby SH-EMOA trenowało w pełni wszystkich 12 potomków w każdym pokoleniu (tak jak NSGA-Net, sekcja 6), koszt pełnych ewaluacji rósłby 4× szybciej niż licznik powyżej.</p>
   </div>
   </div>
 </section>
 
 <section id="code">
-  <h2>5&nbsp; Pseudocode — what you'd actually have to write</h2>
-  <p class="subdek">Four procedures. The first two are plain NSGA-II; the third is the only thing SH-EMOA adds.</p>
+  <h2>5&nbsp; Pseudokod — co naprawdę trzeba by napisać</h2>
+  <p class="subdek">Cztery procedury. Pierwsze dwie to zwykły NSGA-II; trzecia to jedyna rzecz, którą SH-EMOA dokłada.</p>
 
 <pre class="code"><span class="kw">procedure</span> SH-EMOA
-    P ← INIT-POPULATION(μ)                    <span class="cm">// μ random genotypes</span>
-    EVALUATE-FULL(P)                           <span class="cm">// every individual evaluated at full fidelity</span>
+    P ← INIT-POPULATION(μ)                    <span class="cm">// μ losowych genotypów</span>
+    EVALUATE-FULL(P)                           <span class="cm">// każdy osobnik oceniony w pełnej wierności</span>
     (F1, F2, …) ← NON-DOMINATED-SORT(P)        <span class="cm">// §3.3</span>
-    <span class="kw">while</span> evaluation budget <span class="kw">not</span> exhausted <span class="kw">do</span>
+    <span class="kw">while</span> budżet ewaluacji <span class="kw">not</span> wyczerpany <span class="kw">do</span>
         O ← ∅
         <span class="kw">for</span> i <span class="kw">in</span> 1..λ <span class="kw">do</span>
-            pa, pb ← pick 2 parents from P (tournament by (rank, crowding))
-            child ← CROSSOVER(pa, pb)          <span class="cm">// §3.1, uniform, no structure</span>
-            child ← MUTATE(child)              <span class="cm">// §3.1, independent per gene</span>
+            pa, pb ← wybierz 2 rodziców z P (turniej po (rank, crowding))
+            child ← CROSSOVER(pa, pb)          <span class="cm">// §3.1, jednolite, bez struktury</span>
+            child ← MUTATE(child)              <span class="cm">// §3.1, niezależna na gen</span>
             O.add(child)
-        O ← FIDELITY-LADDER(O)                 <span class="cm">// §3.2 — this is where halving happens</span>
-        Q ← P ∪ O                              <span class="cm">// parents + those who made it to full fidelity</span>
+        O ← FIDELITY-LADDER(O)                 <span class="cm">// §3.2 — tu dzieje się halving</span>
+        Q ← P ∪ O                              <span class="cm">// rodzice + ci, którzy dotrwali do pełnej wierności</span>
         (F1, F2, …) ← NON-DOMINATED-SORT(Q)
         P ← ∅; i ← 1
         <span class="kw">while</span> |P| + |Fi| ≤ μ <span class="kw">do</span>
@@ -824,19 +824,19 @@
             P ← P ∪ Fi; i ← i + 1
         <span class="kw">if</span> |P| &lt; μ <span class="kw">then</span>
             ASSIGN-CROWDING-DISTANCE(Fi)
-            sort Fi descending by crowding distance
-            P ← P ∪ first (μ − |P|) of Fi     <span class="cm">// filling in at the front boundary</span>
-    <span class="kw">return</span> F1                                  <span class="cm">// non-dominated front of the final population</span></pre>
+            posortuj Fi malejąco po crowding distance
+            P ← P ∪ pierwsze (μ − |P|) z Fi     <span class="cm">// dogęszczenie po granicy frontu</span>
+    <span class="kw">return</span> F1                                  <span class="cm">// niezdominowany front populacji końcowej</span></pre>
 
 <pre class="code"><span class="kw">procedure</span> FIDELITY-LADDER(O)
-    <span class="kw">for</span> rung r <span class="kw">in</span> [cheap, medium, …, full] <span class="kw">do</span>
+    <span class="kw">for</span> rung r <span class="kw">in</span> [tani, średni, …, pełny] <span class="kw">do</span>
         <span class="kw">for</span> x <span class="kw">in</span> O <span class="kw">do</span>
-            score(x) ← EVALUATE-AT(x, r)        <span class="cm">// a cheaper, biased evaluation; YOU define this cost</span>
-        <span class="kw">if</span> r ≠ full <span class="kw">then</span>
-            O ← top half of O by score(r)      <span class="cm">// halving — scalar ranking, not full Pareto</span>
+            score(x) ← EVALUATE-AT(x, r)        <span class="cm">// tańsza, obciążona ocena; TY definiujesz ten koszt</span>
+        <span class="kw">if</span> r ≠ pełny <span class="kw">then</span>
+            O ← górna połowa O wg score(r)      <span class="cm">// halving — skalarny ranking, nie pełne Pareto</span>
         <span class="kw">else</span>
-            EVALUATE-FULL(O)                    <span class="cm">// only now the real (f1, f2, …)</span>
-    <span class="kw">return</span> O                                   <span class="cm">// those who made it to full fidelity</span></pre>
+            EVALUATE-FULL(O)                    <span class="cm">// dopiero teraz prawdziwe (f1, f2, …)</span>
+    <span class="kw">return</span> O                                   <span class="cm">// ci, którzy dotrwali do pełnej wierności</span></pre>
 
 <pre class="code"><span class="kw">procedure</span> NON-DOMINATED-SORT(Q)
     <span class="kw">for</span> x <span class="kw">in</span> Q <span class="kw">do</span> x.dominatedBy ← 0; x.dominates ← ∅
@@ -855,77 +855,77 @@
 
 <pre class="code"><span class="kw">procedure</span> ASSIGN-CROWDING-DISTANCE(F)
     <span class="kw">for</span> x <span class="kw">in</span> F <span class="kw">do</span> x.crowd ← 0
-    <span class="kw">for</span> each objective m <span class="kw">do</span>
-        sort F ascending by objective m's value
-        F[first].crowd ← F[last].crowd ← ∞      <span class="cm">// front edges always preferred</span>
+    <span class="kw">for</span> każdy cel m <span class="kw">do</span>
+        posortuj F rosnąco po wartości celu m
+        F[pierwszy].crowd ← F[ostatni].crowd ← ∞      <span class="cm">// brzegi frontu zawsze preferowane</span>
         <span class="kw">for</span> i <span class="kw">in</span> 2..|F|−1 <span class="kw">do</span>
             F[i].crowd += (F[i+1].m − F[i−1].m) / (max_m − min_m)
-    <span class="kw">return</span> F                                        <span class="cm">// sorted descending by crowd at selection time</span></pre>
+    <span class="kw">return</span> F                                        <span class="cm">// posortowane malejąco po crowd przy selekcji</span></pre>
 
-  <p>That's the whole algorithm. There's no procedure at all that learns the genotype's structure — <span class="mono">CROSSOVER</span> and <span class="mono">MUTATE</span> work identically regardless of whether genes are linked or not.</p>
+  <p>To cały algorytm. Nie ma tu żadnej procedury uczącej się struktury genotypu — <span class="mono">CROSSOVER</span> i <span class="mono">MUTATE</span> działają identycznie niezależnie od tego, czy geny są ze sobą powiązane, czy nie.</p>
 </section>
 
 <section id="practice">
-  <h2>6&nbsp; What you design yourself — applying SH-EMOA to a real problem</h2>
-  <p>The selection mechanism (Pareto + crowding) and the budget-cutting mechanism (halving) are fixed by the algorithm. What changes every time you plug this into a new problem is the genotype, the variation operators, and the ladder itself.</p>
+  <h2>6&nbsp; Co wymyślasz sam — zastosowanie SH-EMOA do rzeczywistego problemu</h2>
+  <p>Mechanizm selekcji (Pareto + crowding) i mechanizm cięcia budżetu (halving) są ustalone przez algorytm. To, co zmienia się za każdym razem, gdy podłączasz to do nowego problemu, to genotyp, operatory wariacji i sama drabinka.</p>
 
   <div class="tablewrap">
     <table>
-      <thead><tr><th style="width:26%">Decision point</th><th>Fixed by SH-EMOA</th><th>You decide, per problem</th></tr></thead>
+      <thead><tr><th style="width:26%">Punkt decyzyjny</th><th>Ustalone przez SH-EMOA</th><th>Ty decydujesz, dla każdego problemu</th></tr></thead>
       <tbody>
         <tr>
-          <td><strong>Non-domination rule</strong></td>
-          <td class="fixed-col">x dominates y if x is no worse on any objective and strictly better on at least one; fronts are built iteratively from F1.</td>
-          <td class="decide-col">Which objectives even enter the comparison, and whether each is minimized or maximized (e.g. accuracy to maximize, cost to minimize — this has to be unified before comparison).</td>
+          <td><strong>Reguła niezdominowania</strong></td>
+          <td class="fixed-col">x dominuje y, jeśli x nie jest gorsze na żadnym celu i ściśle lepsze na przynajmniej jednym; fronty budowane iteracyjnie od F1.</td>
+          <td class="decide-col">Które cele w ogóle wchodzą do porównania i czy każdy jest minimalizowany czy maksymalizowany (np. dokładność do maksymalizacji, koszt do minimalizacji — trzeba to ujednolicić przed porównaniem).</td>
         </tr>
         <tr>
-          <td><strong>Tie-break on the front</strong></td>
-          <td class="fixed-col">Crowding distance: the sum of normalized distances to neighbors on each objective, front edges always kept.</td>
-          <td class="decide-col">Nothing — this is the one point in the table usually left unchanged even between problems.</td>
+          <td><strong>Tie-break przy remisie na froncie</strong></td>
+          <td class="fixed-col">Crowding distance: suma znormalizowanych odległości do sąsiadów po każdym celu, brzegi frontu zawsze zachowywane.</td>
+          <td class="decide-col">Nic — to jedyny punkt w tabeli, który zwykle zostawia się bez zmian nawet między problemami.</td>
         </tr>
         <tr>
-          <td><strong>Ladder promotion rule</strong></td>
-          <td class="fixed-col">The top half of the ranking at a given level moves on to the next, more expensive level; the rest drops out with no further chance this generation.</td>
-          <td class="decide-col">What the proxy ranking at an intermediate level even is, given that full Pareto doesn't work there yet — scalar, hypervolume, something else.</td>
+          <td><strong>Reguła promocji w drabince</strong></td>
+          <td class="fixed-col">Górna połowa rankingu na danym poziomie przechodzi na kolejny, droższy poziom; reszta odpada bez dalszych szans w tym pokoleniu.</td>
+          <td class="decide-col">Czym jest ranking zastępczy na poziomie pośrednim, skoro pełne Pareto tam jeszcze nie działa — skalar, hiperwolumen, coś innego.</td>
         </tr>
         <tr>
-          <td><strong>Genotype</strong></td>
-          <td class="fixed-col">A vector of values, compared solely through the evaluation result.</td>
-          <td class="decide-col">How your problem becomes that vector — for a network architecture: genes for cell-graph edges plus genes for training hyperparameters.</td>
+          <td><strong>Genotyp</strong></td>
+          <td class="fixed-col">Wektor wartości, porównywanych wyłącznie przez wynik ewaluacji.</td>
+          <td class="decide-col">Jak Twój problem staje się tym wektorem — dla architektury sieci: geny na krawędzie grafu komórki plus geny na hiperparametry treningowe.</td>
         </tr>
         <tr>
-          <td><strong>Crossover and mutation</strong></td>
-          <td class="fixed-col">Uniform crossover, independent per-gene mutation — a scheme, not concrete parameters.</td>
-          <td class="decide-col">The mutation probability, the perturbation strength, possibly a different crossover operator — but no “structure-aware” version without going beyond the algorithm itself.</td>
+          <td><strong>Krzyżowanie i mutacja</strong></td>
+          <td class="fixed-col">Jednolite krzyżowanie, niezależna mutacja na gen — schemat, nie konkretne parametry.</td>
+          <td class="decide-col">Prawdopodobieństwo mutacji, siła zaburzenia, ewentualnie inny operator krzyżowania — ale bez żadnej wersji „świadomej struktury" bez wyjścia poza sam algorytm.</td>
         </tr>
         <tr>
-          <td><strong>Ladder budgets and halving rate</strong></td>
-          <td class="fixed-col">The number of levels, and that each one drops half, is the scheme — the concrete numbers aren't.</td>
-          <td class="decide-col">How many levels, at what cost each (epochs, data subset, proxy-network size), and whether the reduction factor really has to be 2.</td>
+          <td><strong>Budżety drabinki i współczynnik halvingu</strong></td>
+          <td class="fixed-col">Liczba poziomów i to, że każdy odrzuca połowę, jest schematem — konkretne liczby nie.</td>
+          <td class="decide-col">Ile poziomów, jakim kosztem każdy (epoki, podzbiór danych, rozmiar sieci-proxy) i czy współczynnik redukcji rzeczywiście musi wynosić 2.</td>
         </tr>
         <tr>
-          <td><strong>Population size μ and offspring λ</strong></td>
-          <td class="fixed-col">Not fixed by the algorithm — unlike P3, SH-EMOA doesn't derive them automatically.</td>
-          <td class="decide-col">Both have to be chosen up front, just as in a plain GA — SH-EMOA doesn't solve this problem, only the evaluation-cost one.</td>
+          <td><strong>Rozmiar populacji μ i potomstwa λ</strong></td>
+          <td class="fixed-col">Nieustalone przez algorytm — w przeciwieństwie do P3, SH-EMOA ich nie wyprowadza automatycznie.</td>
+          <td class="decide-col">Oba trzeba dobrać z góry, tak jak w zwykłym GA — SH-EMOA nie rozwiązuje tego problemu, tylko ten z kosztem ewaluacji.</td>
         </tr>
       </tbody>
     </table>
   </div>
 
   <div class="callout">
-    <span class="tag">The blind spot this page reveals</span>
-    <p>SH-EMOA cuts evaluation cost exactly the same way MO-BOHB does — via the fidelity ladder — and does multi-objective selection correctly, with full Pareto sorting and crowding distance. But the variation operators (§3.1) have no idea at all which genes of the genotype are functionally linked. Uniform crossover recombines genes one at a time and blindly — if a good architecture requires changing three specific edges together, the probability that uniform crossover copies exactly those three at once from the same parent drops exponentially with the number of genes.</p>
-    <p>This is exactly the gap P3Net targets: the linkage tree learns which genes usually change value together, and linkage-guided crossover recombines <em>whole learned clusters</em> at once, instead of individual genes. SH-EMOA and P3Net can both cut evaluation cost with the same kind of trick (fidelity ladder vs. relative surrogate) — the difference that actually decides the quality of the architectures found lies in whether recombination even knows what to change together.</p>
+    <span class="tag">Ślepy punkt, który ta strona odsłania</span>
+    <p>SH-EMOA tnie koszt ewaluacji dokładnie tym samym sposobem co MO-BOHB — drabinką wierności — i robi selekcję wielokryterialną poprawnie, z pełnym sortowaniem Pareto i crowding distance. Ale operatory wariacji (§3.1) nie mają żadnego pojęcia, które geny genotypu są ze sobą funkcjonalnie powiązane. Jednolite krzyżowanie rekombinuje geny pojedynczo i na ślepo — jeśli dobra architektura wymaga zmiany trzech konkretnych krawędzi razem, prawdopodobieństwo, że jednolite krzyżowanie skopiuje akurat te trzy naraz od tego samego rodzica, spada wykładniczo z liczbą genów.</p>
+    <p>To dokładnie ta luka, w którą celuje P3Net: drzewo powiązań uczy się, które geny zwykle zmieniają wartość razem, a krzyżowanie sterowane powiązaniami rekombinuje <em>całymi wyuczonymi klastrami</em> naraz, zamiast pojedynczymi genami. SH-EMOA i P3Net mogą ciąć koszt ewaluacji tym samym rodzajem sztuczki (fidelity ladder vs. relatywny surogat) — różnica, która naprawdę decyduje o jakości znalezionych architektur, leży w tym, czy rekombinacja w ogóle wie, co ze sobą zmieniać naraz.</p>
   </div>
 
-  <h3 style="margin-top:32px;"><span class="num">✓</span>Checklist for applying SH-EMOA to a new problem</h3>
+  <h3 style="margin-top:32px;"><span class="num">✓</span>Checklista przy stosowaniu SH-EMOA do nowego problemu</h3>
   <ul class="checklist">
-    <li><span class="box"></span><span>Define the genotype and search space, just as for any GA.</span></li>
-    <li><span class="box"></span><span>Define all objectives and unify the optimization direction (minimize or maximize) for each.</span></li>
-    <li><span class="box"></span><span>Design the fidelity ladder: how many levels, at what real cost each, and whether the cost difference between levels actually translates into savings.</span></li>
-    <li><span class="box"></span><span>Decide what the proxy ranking at intermediate levels even is, given that full Pareto sorting doesn't make sense there yet.</span></li>
-    <li><span class="box"></span><span>Choose μ, λ, and the halving rate — SH-EMOA won't guess these for you.</span></li>
-    <li><span class="box"></span><span>If you suspect strong gene linkage (and in architecture genotypes there usually is), that's a real design problem, not a parameter to tune — P3Net's answer: the linkage tree and linkage-guided crossover.</span></li>
+    <li><span class="box"></span><span>Zdefiniuj genotyp i przestrzeń przeszukiwania, tak jak dla dowolnego GA.</span></li>
+    <li><span class="box"></span><span>Zdefiniuj wszystkie cele i ujednolić kierunek optymalizacji (minimalizacja albo maksymalizacja) dla każdego z nich.</span></li>
+    <li><span class="box"></span><span>Zaprojektuj drabinkę wierności: ile poziomów, jakim realnym kosztem każdy, i czy różnica kosztu między poziomami faktycznie przekłada się na oszczędność.</span></li>
+    <li><span class="box"></span><span>Zdecyduj, czym jest ranking zastępczy na poziomach pośrednich, skoro pełne sortowanie Pareto tam jeszcze nie ma sensu.</span></li>
+    <li><span class="box"></span><span>Dobierz μ, λ i współczynnik halvingu — SH-EMOA nie zgadnie tego za Ciebie.</span></li>
+    <li><span class="box"></span><span>Jeśli podejrzewasz silne powiązania między genami (a w genotypach architektur zwykle są), to jest faktyczny problem projektowy, nie parametr do dostrojenia — odpowiedź P3Net: drzewo powiązań i krzyżowanie nim sterowane.</span></li>
   </ul>
 
 </section>
@@ -933,7 +933,7 @@
 </main>
 
 <footer class="page-end">
-  Context: the P3Net paper's (GECCO 2027) nine-armed ablation table — SH-EMOA as one of the seven comparison arms, see <span class="mono">implementation/lib/README.md</span>, “Relationship to the experiments repository.”
+  Kontekst: dziewięcioramienna tabela ablacji artykułu o P3Net (GECCO 2027) — SH-EMOA jako jedno z siedmiu ramion porównawczych, zob. <span class="mono">implementation/lib/README.md</span>, „Relationship to the experiments repository".
 </footer>
 
 <script>
@@ -1099,15 +1099,15 @@
 
     yield { type: "init", parents: parents, offspring: [], rung: null, rankInfo: null,
       fronts: poolFronts, active: null, statFull: statFull, statCheap: statCheap, genNum: genNum,
-      caption: "Initialization: " + MU + " random genotypes, each immediately evaluated at full fidelity.",
-      log: "Starting population ready. Front 1 contains " + poolFronts[0].length + " individuals." };
+      caption: "Inicjalizacja: " + MU + " losowych genotypów, każdy od razu oceniony w pełnej wierności.",
+      log: "Populacja startowa gotowa. Front 1 zawiera " + poolFronts[0].length + " osobników." };
 
     while (true) {
       genNum++;
       yield { type: "gen-start", parents: parents, offspring: [], rung: null, rankInfo: null,
         fronts: poolFronts, active: null, statFull: statFull, statCheap: statCheap, genNum: genNum,
-        caption: "Generation " + genNum + ": parent population P (" + parents.length + " individuals, all already at full fidelity).",
-        log: "Start of generation " + genNum + " — every parent already has real (f1, f2)." };
+        caption: "Pokolenie " + genNum + ": populacja rodzicielska P (" + parents.length + " osobników, wszyscy już w pełnej wierności).",
+        log: "Start pokolenia " + genNum + " — każdy rodzic ma już prawdziwe (f1, f2)." };
 
       // --- generate offspring: naive uniform crossover + mutation ---
       var offspring = [];
@@ -1121,15 +1121,15 @@
       }
       yield { type: "offspring", parents: parents, offspring: offspring, rung: null, rankInfo: null,
         fronts: poolFronts, active: null, statFull: statFull, statCheap: statCheap, genNum: genNum,
-        caption: LAMBDA + " offspring via uniform crossover + independent per-gene mutation — with no knowledge at all of which genes are linked.",
-        log: "Generated " + LAMBDA + " offspring. None have been evaluated yet." };
+        caption: LAMBDA + " potomków przez jednolite krzyżowanie + niezależną mutację na gen — bez żadnej wiedzy o tym, które geny są powiązane.",
+        log: "Wygenerowano " + LAMBDA + " potomków. Jeszcze żaden nie został oceniony." };
 
       // --- fidelity ladder: two halving waves, then full evaluation ---
-      var rungs = [{ name: "cheap", m: 1 }, { name: "medium", m: 3 }, { name: "full", m: NDIST }];
+      var rungs = [{ name: "tani", m: 1 }, { name: "średni", m: 3 }, { name: "pełny", m: NDIST }];
       var alive = offspring.slice();
       for (var ri = 0; ri < rungs.length; ri++) {
         var rung = rungs[ri];
-        var isFull = rung.name === "full";
+        var isFull = rung.name === "pełny";
         alive.forEach(function (x) {
           var r = evalAt(x, rung.m);
           x._score = rungScore(r.f1, r.f2);
@@ -1144,8 +1144,8 @@
         yield { type: "rung-eval", parents: parents, offspring: offspring, alive: alive.slice(),
           rung: { name: rung.name, idx: ri, keepN: keepN }, rankInfo: ranked, fronts: poolFronts,
           active: alive[0] || null, statFull: statFull, statCheap: statCheap, genNum: genNum,
-          caption: "Level \u201c" + rung.name + "\u201d: each of the " + alive.length + " live candidates gets an evaluation using " + rung.m + " of " + NDIST + " distance genes.",
-          log: "Evaluated " + alive.length + " candidates at the \u201c" + rung.name + "\u201d level." };
+          caption: "Poziom „" + rung.name + "”: każdy z " + alive.length + " żywych kandydatów dostaje ocenę korzystającą z " + rung.m + " z " + NDIST + " genów dystansu.",
+          log: "Oceniono " + alive.length + " kandydatów na poziomie „" + rung.name + "”." };
 
         if (!isFull) {
           alive.forEach(function (x) { x.state = keptSet.has(x) ? "offspring" : "eliminated"; });
@@ -1153,16 +1153,16 @@
           yield { type: "rung-elim", parents: parents, offspring: offspring, alive: alive.slice(),
             rung: { name: rung.name, idx: ri, keepN: keepN }, rankInfo: ranked, fronts: poolFronts,
             active: null, statFull: statFull, statCheap: statCheap, genNum: genNum,
-            caption: "Elimination wave at the \u201c" + rung.name + "\u201d level: " + eliminated.length + " of " + alive.length + " drop out (the worse half of the proxy ranking).",
-            log: "Survived: " + keepN + " candidates. Dropped " + eliminated.length + " with no further chance this generation." };
+            caption: "Fala eliminacji na poziomie „" + rung.name + "”: odpada " + eliminated.length + " z " + alive.length + " (gorsza połowa rankingu zastępczego).",
+            log: "Przetrwało " + keepN + " kandydatów. Odrzucono " + eliminated.length + " bez dalszych szans w tym pokoleniu." };
           alive = ranked.slice(0, keepN);
         } else {
           alive.forEach(function (x) { evalFull(x); x.state = "survivor"; });
           yield { type: "survivors", parents: parents, offspring: offspring, alive: alive.slice(),
             rung: { name: rung.name, idx: ri, keepN: keepN }, rankInfo: null, fronts: poolFronts,
             active: null, statFull: statFull, statCheap: statCheap, genNum: genNum,
-            caption: alive.length + " ladder finalists got a real, full evaluation (f1, f2).",
-            log: alive.length + " candidates made it to full fidelity out of " + LAMBDA + " offspring generated." };
+            caption: alive.length + " finalistów drabinki dostało prawdziwą, pełną ocenę (f1, f2).",
+            log: alive.length + " kandydatów dotrwało do pełnej wierności z " + LAMBDA + " wygenerowanych potomków." };
         }
       }
       var survivors = alive;
@@ -1172,16 +1172,16 @@
       yield { type: "merge", parents: parents, offspring: offspring, alive: survivors, mergedPool: pool,
         rung: null, rankInfo: null, fronts: poolFronts, active: null,
         statFull: statFull, statCheap: statCheap, genNum: genNum,
-        caption: "Selection pool: " + parents.length + " parents + " + survivors.length + " survivors = " + pool.length + " candidates, all with a real evaluation.",
-        log: "Merged parents and survivors. Ready for Pareto sorting." };
+        caption: "Pula selekcji: " + parents.length + " rodziców + " + survivors.length + " przetrwałych = " + pool.length + " kandydatów, wszyscy z prawdziwą oceną.",
+        log: "Połączono rodziców i przetrwałych. Gotowe do sortowania Pareto." };
 
       // --- non-dominated sort ---
       var fronts = nonDominatedSort(pool);
       yield { type: "sort", parents: parents, offspring: offspring, mergedPool: pool,
         rung: null, rankInfo: null, fronts: fronts, active: null,
         statFull: statFull, statCheap: statCheap, genNum: genNum,
-        caption: "Pareto sorting on a pool of " + pool.length + " candidates: " + fronts.length + " front(s), front 1 has " + fronts[0].length + " individuals.",
-        log: "Fronts: " + fronts.map(function (f) { return f.length; }).join(" / ") + " (from F1)." };
+        caption: "Sortowanie Pareto na puli " + pool.length + " kandydatów: " + fronts.length + " fronty(ów), front 1 ma " + fronts[0].length + " osobników.",
+        log: "Fronty: " + fronts.map(function (f) { return f.length; }).join(" / ") + " (od F1)." };
 
       // --- crowding + fill next generation ---
       var nextPop = [];
@@ -1209,8 +1209,8 @@
         rung: null, rankInfo: null, fronts: fronts, active: null,
         boundaryFront: boundaryFront, boundarySelected: boundarySelected, boundaryCut: boundaryCut,
         statFull: statFull, statCheap: statCheap, genNum: genNum,
-        caption: boundaryFront ? ("The boundary front has " + boundaryFront.length + " individuals for " + (MU - (nextPop.length - (boundarySelected ? boundarySelected.length : 0))) + " open slots — crowding distance picks " + (boundarySelected ? boundarySelected.length : 0) + ".") : "The successive full fronts fit exactly within the μ limit — crowding distance had nothing to decide this generation.",
-        log: boundaryFront ? ("Crowding distance kept " + boundarySelected.length + " of " + boundaryFront.length + " on the boundary front.") : "No tie to break this generation." };
+        caption: boundaryFront ? ("Front graniczny ma " + boundaryFront.length + " osobników na " + (MU - (nextPop.length - (boundarySelected ? boundarySelected.length : 0))) + " wolnych miejsc — crowding distance wybiera " + (boundarySelected ? boundarySelected.length : 0) + ".") : "Kolejne pełne fronty zmieściły się dokładnie w limicie μ — crowding distance nie musiał nic rozstrzygać w tym pokoleniu.",
+        log: boundaryFront ? ("Crowding distance zachował " + boundarySelected.length + " z " + boundaryFront.length + " na froncie granicznym.") : "Brak remisu do rozstrzygnięcia w tym pokoleniu." };
 
       nextPop.forEach(function (x) { x.state = "parent"; });
       parents = nextPop;
@@ -1219,8 +1219,8 @@
 
       yield { type: "next-gen", parents: parents, offspring: [], rung: null, rankInfo: null,
         fronts: poolFronts, active: null, statFull: statFull, statCheap: statCheap, genNum: genNum,
-        caption: "New population P assembled: " + parents.length + " individuals, front 1 now has " + poolFronts[0].length + ".",
-        log: "Generation " + genNum + " complete. The next generation will start from this population." };
+        caption: "Nowa populacja P zebrana: " + parents.length + " osobników, front 1 ma teraz " + poolFronts[0].length + ".",
+        log: "Pokolenie " + genNum + " zakończone. Kolejne pokolenie zacznie się od tej populacji." };
     }
   }
 
@@ -1330,7 +1330,7 @@
 
   function renderRungs(step) {
     el.rung.innerHTML = "";
-    var rungs = [{ name: "cheap", key: 0 }, { name: "medium", key: 1 }, { name: "full", key: 2 }];
+    var rungs = [{ name: "tani", key: 0 }, { name: "średni", key: 1 }, { name: "pełny", key: 2 }];
     var counts = [LAMBDA, Math.ceil(LAMBDA / 2), Math.ceil(Math.ceil(LAMBDA / 2) / 2)];
     var activeIdx = step.rung ? step.rung.idx : -1;
     rungs.forEach(function (r, i) {
@@ -1353,7 +1353,7 @@
     if (!step.rankInfo) {
       var empty = document.createElement("div");
       empty.className = "demo-note";
-      empty.textContent = "No ranking at this step.";
+      empty.textContent = "Brak rankingu na tym kroku.";
       el.rank.appendChild(empty);
       return;
     }
@@ -1382,7 +1382,7 @@
       dot.className = "fdot";
       dot.style.background = frontColor(i + 1);
       var label = document.createElement("span");
-      label.textContent = "Front " + (i + 1) + " — " + fr.length + (fr.length === 1 ? " individual" : " individuals");
+      label.textContent = "Front " + (i + 1) + " — " + fr.length + (fr.length === 1 ? " osobnik" : " osobników");
       row.appendChild(dot); row.appendChild(label);
       el.front.appendChild(row);
     });
@@ -1445,10 +1445,10 @@
 
   function setRunning(on) {
     if (on) {
-      el.run.textContent = "Pause";
+      el.run.textContent = "Pauza";
       runTimer = setInterval(step, 260);
     } else {
-      el.run.textContent = "Run";
+      el.run.textContent = "Uruchom";
       clearInterval(runTimer);
       runTimer = null;
     }
@@ -1460,8 +1460,8 @@
   el.reset.addEventListener("click", function () {
     setRunning(false);
     newGen();
-    el.phase.textContent = "Click \u201cStep\u201d or \u201cRun\u201d to see the algorithm in action.";
-    el.log.textContent = "Click \u201cStep\u201d or \u201cRun\u201d to begin.";
+    el.phase.textContent = "Kliknij „Krok” albo „Uruchom”, żeby zobaczyć algorytm w akcji.";
+    el.log.textContent = "Kliknij „Krok” albo „Uruchom”, żeby zacząć.";
     while (el.plot.firstChild) el.plot.removeChild(el.plot.firstChild);
     el.rung.innerHTML = ""; el.rank.innerHTML = ""; el.front.innerHTML = ""; el.genes.innerHTML = "";
     el.statGen.textContent = "0"; el.statFull.textContent = "0"; el.statCheap.textContent = "0"; el.statFront1.textContent = "0";

@@ -1,4 +1,4 @@
-<title>How Random search actually works</title>
+<title>Jak naprawdę działa Random search</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
@@ -500,284 +500,284 @@
 <nav style="position:sticky;top:0;z-index:60;display:flex;align-items:center;justify-content:space-between;padding:18px 48px;background:oklch(0.16 0.006 250 / 0.85);backdrop-filter:blur(8px);border-bottom:1px solid rgba(255,255,255,0.06);font-family:'IBM Plex Mono',monospace;">
   <a href="../Portfolio.dc.html" style="font-size:18px;font-weight:600;color:oklch(0.92 0.004 250);text-decoration:none;">JP.<span style="color:#9CAF6B;">_</span></a>
   <div style="display:flex;gap:32px;align-items:center;font-size:14px;">
-    <a href="../Portfolio.dc.html" style="color:oklch(0.85 0.004 250);text-decoration:none;">home</a>
+    <a href="../Portfolio.dc.html" style="color:var(--ink-muted);text-decoration:none;">strona główna</a>
     <a href="../Portfolio.dc.html?view=solutions" style="color:oklch(0.85 0.004 250);text-decoration:none;">:solutions</a>
-    <a href="../Portfolio.dc.html?view=badania" style="color:oklch(0.85 0.004 250);text-decoration:none;">:research</a>
-    <a href="../Portfolio.dc.html?view=kontakt" style="color:oklch(0.85 0.004 250);text-decoration:none;">:contact</a>
-    <a href="random-search-pl.html" style="font-size:12px;font-weight:700;padding:6px 12px;border:1px solid #9CAF6B;border-radius:2px;background:rgba(156,175,107,0.15);color:#9CAF6B;text-decoration:none;">PL</a>
+    <a href="../Portfolio.dc.html?view=badania" style="color:var(--ink-muted);text-decoration:none;">:badania</a>
+    <a href="../Portfolio.dc.html?view=kontakt" style="color:var(--ink-muted);text-decoration:none;">:kontakt</a>
+    <a href="random-search.html" style="font-size:12px;font-weight:700;padding:6px 12px;border:1px solid #9CAF6B;border-radius:2px;background:rgba(156,175,107,0.15);color:#9CAF6B;text-decoration:none;">EN</a>
   </div>
 </nav>
 <div class="topnav">
   <div class="topnav-inner">
-    <span class="topnav-mark">Random search / guide</span>
-    <a href="#context">1&nbsp;Context</a>
-    <a href="#bigpicture">2&nbsp;Big picture</a>
-    <a href="#components">3&nbsp;Components</a>
-    <a href="#live">4&nbsp;See it live</a>
-    <a href="#code">5&nbsp;Pseudocode</a>
-    <a href="#practice">6&nbsp;What you design yourself</a>
+    <span class="topnav-mark">Random search / przewodnik</span>
+    <a href="#context">1&nbsp;Kontekst</a>
+    <a href="#bigpicture">2&nbsp;Ogólny obraz</a>
+    <a href="#components">3&nbsp;Komponenty</a>
+    <a href="#live">4&nbsp;Zobacz na żywo</a>
+    <a href="#code">5&nbsp;Pseudokod</a>
+    <a href="#practice">6&nbsp;Co wymyślasz sam</a>
   </div>
 </div>
 
 <main>
 
 <section id="top">
-  <div class="eyebrow"><span>Random search — the reference baseline</span></div>
-  <h1>How Random search actually works</h1>
-  <p class="lede">Not a smarter cousin of P3 — its opposite. Zero structure, zero memory, zero learning from history. From one idea, through the two procedures needed to implement it, to the question this simplicity poses to every more sophisticated algorithm that gets compared against it.</p>
-  <p class="subdek">Laid out like a C4 diagram: context, then the big moving parts (there aren't many), then each one broken down in detail, then code, and finally a practical checklist.</p>
+  <div class="eyebrow"><span>Random search — punkt odniesienia</span></div>
+  <h1>Jak naprawdę działa Random search</h1>
+  <p class="lede">Nie sprytniejszy kuzyn P3 — jego przeciwieństwo. Zero struktury, zero pamięci, zero uczenia się z historii. Od jednej idei, przez dwie procedury wystarczające, by go zaimplementować, po pytanie, które ta prostota zadaje każdemu bardziej wyrafinowanemu algorytmowi, jaki się z nią porównuje.</p>
+  <p class="subdek">Ułożone jak diagram C4: kontekst, potem duże ruchome elementy (jest ich niewiele), potem każdy z nich rozłożony na czynniki pierwsze, potem kod, na końcu praktyczna checklista.</p>
 </section>
 
 <hr class="rule">
 
 <section id="context">
-  <h3><span class="num">1</span>Context — why bother comparing against something this simple</h3>
-  <p class="lede" style="font-size:17px;">In one sentence: random search draws points from the search space independently of each other, remembers the best result seen so far, and does literally nothing else.</p>
-  <p>No density model, no population, no linkage tree, no fidelity. Every evaluation is blind to all previous ones — neither where sampling has already happened nor what was found there. This makes it the cheapest possible baseline: if a method can't beat it at the same evaluation budget, all its extra machinery — surrogate, population, fidelity schedule — isn't earning its cost.</p>
+  <h3><span class="num">1</span>Kontekst — dlaczego w ogóle porównywać się z czymś tak prostym</h3>
+  <p class="lede" style="font-size:17px;">Jednym zdaniem: random search losuje punkty z przestrzeni przeszukiwania niezależnie od siebie, zapamiętuje najlepszy wynik widziany do tej pory, i dosłownie nic więcej nie robi.</p>
+  <p>Żadnego modelu gęstości, żadnej populacji, żadnego drzewa powiązań, żadnej fidelity. Każda ewaluacja jest ślepa na wszystkie poprzednie — ani na to, gdzie już próbkowano, ani na to, co tam znaleziono. To czyni go najtańszym możliwym punktem odniesienia: jeśli jakaś metoda nie potrafi go pokonać przy tym samym budżecie ewaluacji, cała jej dodatkowa maszyneria — surogat, populacja, harmonogram fidelity — nie zarabia na swój koszt.</p>
 
-  <p>This is where this page differs from the rest of the series: the other pages describe methods that build <em>something</em> — a model, a population, a tree. This one describes a method that builds nothing, and that's exactly why it's the zero point of the GECCO 2027 P3Net paper. The paper compares P3Net in a nine-armed ablation grid against six other methods — NSGA-Net, NSGANetV2, SH-EMOA, MO-BOHB, TPE, and random search itself — on JAHS-Bench-201 and NAS-HPO-Bench-II. Random search stands at one end of that grid as the floor: no structure, no learning, no fidelity. Everything to the right of it in the series adds exactly one of those three things at a time.</p>
+  <p>W tym miejscu ta strona różni się od reszty serii: pozostałe strony opisują metody, które <em>coś</em> budują — model, populację, drzewo. Ta opisuje metodę, która nic nie buduje, i właśnie dlatego jest punktem zerowym artykułu GECCO 2027 o P3Net. Praca porównuje P3Net w dziewięcioramiennej siatce ablacyjnej z sześcioma innymi metodami — NSGA-Net, NSGANetV2, SH-EMOA, MO-BOHB, TPE i właśnie random search — na JAHS-Bench-201 i NAS-HPO-Bench-II. Random search stoi na jednym końcu tej siatki jako podłoga: brak struktury, brak uczenia się, brak fidelity. Wszystko po prawej stronie tej strony w serii dokłada dokładnie jeden z tych trzech elementów naraz.</p>
 
   <figure class="bleed">
-    <svg viewBox="0 0 900 230" role="img" aria-label="Seven methods from the ablation grid arranged on an axis from no structure to full structure: random search on the left with no memory at all, TPE and MO-BOHB with a sequential model, SH-EMOA and NSGA-Net with a population, NSGANetV2 with a cheap predictor, P3Net on the right with a full linkage tree and relative surrogate.">
-      <text x="20" y="24" class="diagram-label" font-size="11" fill="currentColor" opacity="0.6">ABLATION GRID — “how much structure and memory each method adds”</text>
+    <svg viewBox="0 0 900 230" role="img" aria-label="Siedem metod z siatki ablacyjnej ułożonych na osi od braku struktury po pełną strukturę: random search po lewej bez żadnej pamięci, TPE i MO-BOHB z modelem sekwencyjnym, SH-EMOA i NSGA-Net z populacją, NSGANetV2 z tanim predyktorem, P3Net po prawej z pełnym drzewem powiązań i relatywnym surogatem.">
+      <text x="20" y="24" class="diagram-label" font-size="11" fill="currentColor" opacity="0.6">SIATKA ABLACYJNA — „ile struktury i pamięci dokłada każda metoda”</text>
       <line x1="30" y1="140" x2="870" y2="140" stroke="currentColor" stroke-width="1.2" opacity="0.35"></line>
 
-      <g pointer-events="all" tabindex="0" data-tt="Zero memory between evaluations. Every point sampled independently of all previous ones — exactly the method this page describes.">
+      <g pointer-events="all" tabindex="0" data-tt="Zero pamięci między ewaluacjami. Każdy punkt losowany niezależnie od wszystkich poprzednich — dokładnie ta metoda, którą opisuje ta strona.">
         <rect x="30" y="112" width="90" height="56" rx="7" fill="var(--accent-soft)" stroke="var(--accent)" stroke-width="1.7"></rect>
         <text x="75" y="145" text-anchor="middle" class="diagram-label" font-size="11.5" fill="var(--ink)">Random</text>
         <text x="75" y="160" text-anchor="middle" class="diagram-label" font-size="11.5" fill="var(--ink)">search</text>
       </g>
 
-      <g pointer-events="all" tabindex="0" data-tt="A sequential density model over raw configurations — splits observations into good/bad and samples from their ratio. There's memory, but no notion of dependencies between variables.">
+      <g pointer-events="all" tabindex="0" data-tt="Sekwencyjny model gęstości nad surowymi konfiguracjami — dzieli obserwacje na dobre/złe i próbkuje z ich ilorazu. Pamięć jest, ale nie ma pojęcia o powiązaniach między zmiennymi.">
         <rect x="150" y="120" width="90" height="48" rx="7" fill="none" stroke="currentColor" stroke-width="1.3"></rect>
         <text x="195" y="149" text-anchor="middle" class="diagram-label" font-size="11.5">TPE</text>
       </g>
 
-      <g pointer-events="all" tabindex="0" data-tt="TPE plus Hyperband-style fidelity rungs — model-based sampling, but cuts cost through cheap, early evaluations instead of learning the problem's structure.">
+      <g pointer-events="all" tabindex="0" data-tt="TPE plus pasma fidelity w stylu Hyperband — próbkowanie modelowe, ale tnie koszt przez tanie, wczesne ewaluacje zamiast przez uczenie się struktury problemu.">
         <rect x="270" y="112" width="110" height="56" rx="7" fill="none" stroke="currentColor" stroke-width="1.3"></rect>
         <text x="325" y="145" text-anchor="middle" class="diagram-label" font-size="11.5">MO-BOHF</text>
         <text x="325" y="160" text-anchor="middle" class="diagram-label" font-size="10" opacity="0.6">MO-BOHB</text>
       </g>
 
-      <g pointer-events="all" tabindex="0" data-tt="Population plus non-dominated sorting plus early fidelity cuts — evolution with budgeting, but crossover and mutation remain blind to the genotype's structure.">
+      <g pointer-events="all" tabindex="0" data-tt="Populacja plus niezdominowane sortowanie plus wczesne cięcia fidelity — ewolucja z budżetowaniem, ale krzyżowanie i mutacja pozostają ślepe na strukturę genotypu.">
         <rect x="400" y="100" width="110" height="68" rx="7" fill="none" stroke="currentColor" stroke-width="1.3"></rect>
         <text x="455" y="133" text-anchor="middle" class="diagram-label" font-size="11.5">SH-EMOA</text>
       </g>
 
-      <g pointer-events="all" tabindex="0" data-tt="Classic NSGA-II on architecture genotypes, every candidate trained fully — population and Pareto front, but zero fidelity and zero linkage.">
+      <g pointer-events="all" tabindex="0" data-tt="Klasyczne NSGA-II na genotypach architektur, każdy kandydat trenowany w pełni — populacja i front Pareto, ale zero fidelity i zero linkage.">
         <rect x="530" y="92" width="110" height="76" rx="7" fill="none" stroke="currentColor" stroke-width="1.3"></rect>
         <text x="585" y="126" text-anchor="middle" class="diagram-label" font-size="11.5">NSGA-Net</text>
       </g>
 
-      <g pointer-events="all" tabindex="0" data-tt="The same NSGA-II loop, but real training replaced by a cheap predictor/supernet — a surrogate, but not relative and not linkage-aware.">
+      <g pointer-events="all" tabindex="0" data-tt="Ta sama pętla NSGA-II, ale prawdziwy trening zastąpiony tanim predyktorem/supersiecią — surogat, lecz nie relatywny i nie świadomy powiązań.">
         <rect x="660" y="84" width="115" height="84" rx="7" fill="none" stroke="currentColor" stroke-width="1.3"></rect>
         <text x="717" y="122" text-anchor="middle" class="diagram-label" font-size="11.5">NSGANetV2</text>
       </g>
 
-      <g pointer-events="all" tabindex="0" data-tt="A linkage tree, a population pyramid, and a relative, linkage-aware surrogate δ̂F — full structure and full memory. The method the rest of this page holds to account.">
+      <g pointer-events="all" tabindex="0" data-tt="Drzewo powiązań, piramida populacji i relatywny, świadomy powiązań surogat δ̂F — pełna struktura i pełna pamięć. Metoda, którą reszta tej strony rozlicza.">
         <rect x="795" y="72" width="80" height="96" rx="7" fill="none" stroke="var(--accent)" stroke-width="1.6" stroke-dasharray="4 3"></rect>
         <text x="835" y="118" text-anchor="middle" class="diagram-label" font-size="11.5" fill="var(--accent)">P3Net</text>
       </g>
 
-      <text x="75" y="200" text-anchor="middle" class="diagram-label" font-size="10.5" fill="var(--accent)">no structure</text>
-      <text x="835" y="200" text-anchor="middle" class="diagram-label" font-size="10.5" fill="var(--accent)">full structure</text>
+      <text x="75" y="200" text-anchor="middle" class="diagram-label" font-size="10.5" fill="var(--accent)">brak struktury</text>
+      <text x="835" y="200" text-anchor="middle" class="diagram-label" font-size="10.5" fill="var(--accent)">pełna struktura</text>
     </svg>
-    <figcaption><span class="k">What this diagram shows —</span> the seven methods from the paper's ablation grid, arranged from left (no memory, no model) to right (P3Net's full linkage tree and relative surrogate). Box height is just a visual shorthand for “how much machinery” — the higher, the more structure that method adds on top of plain sampling. Hover any box for detail.</figcaption>
+    <figcaption><span class="k">Co pokazuje ten diagram —</span> siedem metod z siatki ablacyjnej artykułu, ułożone od lewej (brak pamięci, brak modelu) do prawej (pełne drzewo powiązań i relatywny surogat P3Net). Wysokość pudełka to tylko wizualny skrót „ile maszynerii" — im wyżej, tym więcej struktury dana metoda dokłada do gołego próbkowania. Najedź na dowolne pudełko po szczegóły.</figcaption>
   </figure>
 
-  <p>The rest of this page breaks down that left edge of the diagram — exactly the two parts random search is made of, and nothing more.</p>
+  <p>Reszta tej strony rozkłada tę lewą krawędź diagramu — dokładnie te dwa elementy, z których random search się składa, i nic ponad to.</p>
 </section>
 
 <section id="bigpicture">
-  <h3><span class="num">2</span>Big picture — one loop, two parts</h3>
-  <p class="lede" style="font-size:17px;">In one sentence: sample a point, evaluate it, compare against the best so far, repeat — with no step that ever looks back.</p>
+  <h3><span class="num">2</span>Ogólny obraz — jedna pętla, dwa elementy</h3>
+  <p class="lede" style="font-size:17px;">Jednym zdaniem: losuj punkt, oceń go, porównaj z najlepszym dotąd, powtórz — bez żadnego kroku, który zaglądałby wstecz.</p>
 
   <div class="tablewrap">
     <table>
-      <thead><tr><th>Part</th><th>Job</th></tr></thead>
+      <thead><tr><th>Element</th><th>Zadanie</th></tr></thead>
       <tbody>
-        <tr><td><strong>Search-space sampler</strong></td><td>Draws one point, pulling each dimension independently and uniformly from its domain. Knows nothing about the history of previous trials.</td></tr>
-        <tr><td><strong>Best-so-far tracking</strong></td><td>Compares the freshly evaluated point against the current record holder and keeps the better of the two. This is the algorithm's entire “memory.”</td></tr>
+        <tr><td><strong>Sampler przestrzeni przeszukiwania</strong></td><td>Losuje jeden punkt, ciągnąc każdy wymiar niezależnie i jednostajnie z jego dziedziny. Nie zna historii poprzednich prób.</td></tr>
+        <tr><td><strong>Śledzenie najlepszego dotąd</strong></td><td>Porównuje świeżo oceniony punkt z dotychczasowym rekordzistą i zatrzymuje lepszego z dwóch. To cała „pamięć” algorytmu.</td></tr>
       </tbody>
     </table>
   </div>
 
-  <p>That's all of it. Section 3 has nothing more to break down beyond these two points — there's no third part, because none exists.</p>
+  <p>To wszystko. W sekcji 3 nie ma nic więcej do rozłożenia na czynniki poza tymi dwoma punktami — żadnego trzeciego składnika nie ma, bo żaden nie istnieje.</p>
 
   <figure class="bleed">
-    <svg viewBox="0 0 900 260" role="img" aria-label="The random search loop: sample a point, evaluate it, compare against the best so far, go back to sampling another point independently of what just happened. A separate, crossed-out arrow shows the feedback loop back to the sampler that doesn't exist.">
+    <svg viewBox="0 0 900 260" role="img" aria-label="Pętla random search: losuj punkt, oceń go, porównaj z najlepszym dotąd, wróć do losowania kolejnego punktu niezależnie od tego, co się właśnie wydarzyło. Osobna, przekreślona strzałka pokazuje nieistniejące sprzężenie zwrotne z powrotem do samplera.">
       <defs>
         <marker id="arrRS" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
           <path d="M0,0 L10,5 L0,10 z" fill="currentColor"></path>
         </marker>
       </defs>
 
-      <rect x="30" y="80" width="220" height="60" rx="9" fill="none" stroke="currentColor" stroke-width="1.4" pointer-events="all" tabindex="0" data-tt="Every dimension sampled uniformly and independently of the other dimensions and of all previous points. Full detail in 3.1.">
+      <rect x="30" y="80" width="220" height="60" rx="9" fill="none" stroke="currentColor" stroke-width="1.4" pointer-events="all" tabindex="0" data-tt="Każdy wymiar losowany jednostajnie i niezależnie od pozostałych wymiarów i od wszystkich poprzednich punktów. Pełny szczegół w 3.1.">
       </rect>
-      <text x="140" y="115" text-anchor="middle" class="diagram-label" font-size="13" fill="currentColor">Sample a point</text>
+      <text x="140" y="115" text-anchor="middle" class="diagram-label" font-size="13" fill="currentColor">Losuj punkt</text>
       <path d="M250,110 L300,110" stroke="currentColor" stroke-width="1.3" marker-end="url(#arrRS)"></path>
 
-      <rect x="300" y="80" width="220" height="60" rx="9" fill="none" stroke="currentColor" stroke-width="1.4" pointer-events="all" tabindex="0" data-tt="One real objective-function evaluation on this point. Random search has no shortcut and no surrogate — every point costs a full evaluation.">
+      <rect x="300" y="80" width="220" height="60" rx="9" fill="none" stroke="currentColor" stroke-width="1.4" pointer-events="all" tabindex="0" data-tt="Jedna prawdziwa ewaluacja funkcji celu na tym punkcie. Random search nie ma żadnego skrótu ani surogatu — każdy punkt kosztuje pełną ewaluację.">
       </rect>
-      <text x="410" y="115" text-anchor="middle" class="diagram-label" font-size="13" fill="currentColor">Evaluate</text>
+      <text x="410" y="115" text-anchor="middle" class="diagram-label" font-size="13" fill="currentColor">Oceń</text>
       <path d="M520,110 L570,110" stroke="currentColor" stroke-width="1.3" marker-end="url(#arrRS)"></path>
 
-      <rect x="570" y="80" width="240" height="60" rx="9" fill="var(--accent-soft)" stroke="var(--accent)" stroke-width="1.6" pointer-events="all" tabindex="0" data-tt="A strict comparison against the current record holder. This is the only part of the algorithm that remembers anything at all — one number (and the point that achieved it), nothing more. Full detail in 3.2.">
+      <rect x="570" y="80" width="240" height="60" rx="9" fill="var(--accent-soft)" stroke="var(--accent)" stroke-width="1.6" pointer-events="all" tabindex="0" data-tt="Ścisłe porównanie z dotychczasowym rekordzistą. To jedyny fragment algorytmu, który cokolwiek pamięta — jedną liczbę (i punkt, który ją osiągnął), nic poza tym. Pełny szczegół w 3.2.">
       </rect>
-      <text x="690" y="115" text-anchor="middle" class="diagram-label" font-size="13" fill="var(--ink)">Compare against best</text>
+      <text x="690" y="115" text-anchor="middle" class="diagram-label" font-size="13" fill="var(--ink)">Porównaj z najlepszym</text>
 
       <path d="M690,140 C690,210 140,210 140,142" fill="none" stroke="currentColor" stroke-width="1.3" marker-end="url(#arrRS)"></path>
-      <text x="415" y="222" text-anchor="middle" class="diagram-label" font-size="11" fill="currentColor" opacity="0.75">next iteration — point sampled from scratch, independent of everything above</text>
+      <text x="415" y="222" text-anchor="middle" class="diagram-label" font-size="11" fill="currentColor" opacity="0.75">kolejna iteracja — punkt losowany od zera, niezależnie od tego, co powyżej</text>
 
-      <path d="M690,80 C560,-10 260,-10 140,78" fill="none" stroke="var(--ink-faint)" stroke-width="1.3" stroke-dasharray="2 4" opacity="0.7" pointer-events="all" tabindex="0" data-tt="This arrow DOES NOT EXIST in random search. In model-based methods (e.g. TPE) information from this step would flow back here, influencing the next point. Here, nothing flows back."></path>
-      <text x="415" y="34" text-anchor="middle" class="diagram-label" font-size="11" fill="var(--ink-faint)">missing: feedback to the sampler</text>
+      <path d="M690,80 C560,-10 260,-10 140,78" fill="none" stroke="var(--ink-faint)" stroke-width="1.3" stroke-dasharray="2 4" opacity="0.7" pointer-events="all" tabindex="0" data-tt="Ta strzałka NIE ISTNIEJE w random search. W metodach modelowych (np. TPE) informacja z tego kroku wracałaby tutaj, wpływając na kolejny punkt. Tu nic nie wraca."></path>
+      <text x="415" y="34" text-anchor="middle" class="diagram-label" font-size="11" fill="var(--ink-faint)">brak: sprzężenie zwrotne do samplera</text>
       <text x="690" y="60" text-anchor="middle" class="diagram-label" font-size="16" fill="var(--ink-faint)">✕</text>
     </svg>
-    <figcaption><span class="k">What this diagram shows —</span> the whole loop is three boxes, no more. The dashed, crossed-out arrow at the top is a deliberate absence — exactly the one model-based methods (TPE, MO-BOHB) and structural ones (P3, P3Net) close, each their own way. Here, that arrow simply doesn't exist.</figcaption>
+    <figcaption><span class="k">Co pokazuje ten diagram —</span> pełna pętla to trzy pudełka, nie więcej. Przerywana, przekreślona strzałka u góry to celowa nieobecność — dokładnie ta, którą metody modelowe (TPE, MO-BOHB) i strukturalne (P3, P3Net) domykają, każda po swojemu. Tutaj ta strzałka po prostu nie istnieje.</figcaption>
   </figure>
 </section>
 
 <section id="components">
-  <h2>3&nbsp; Components — breaking down what's there</h2>
-  <p class="subdek">The two parts from the table above, now at the level of detail needed to implement them. Deliberately short — because that's really all there is.</p>
+  <h2>3&nbsp; Komponenty — rozkładanie tego, co jest, na czynniki</h2>
+  <p class="subdek">Dwa elementy z tabeli wyżej, teraz na poziomie szczegółowości potrzebnym do ich zaimplementowania. Celowo krótko — bo tyle właśnie tego jest.</p>
 
-  <h3><span class="num">3.1</span>The search-space sampler</h3>
-  <p class="lede" style="font-size:16px;">In one sentence: for each dimension separately, draw a value uniformly from its domain, assemble into one point, done.</p>
-  <p>No dependency between dimensions, no dependency on which points were sampled earlier, no dependency on how good or bad their results were. A categorical dimension draws one of the allowed values with equal probability; a continuous one draws uniformly from its interval (or from another distribution if you choose one, but still with no memory). This is the only place in the whole algorithm where problem-specific randomness appears at all.</p>
+  <h3><span class="num">3.1</span>Sampler przestrzeni przeszukiwania</h3>
+  <p class="lede" style="font-size:16px;">Jednym zdaniem: dla każdego wymiaru osobno wylosuj wartość jednostajnie z jego dziedziny, złóż w jeden punkt, gotowe.</p>
+  <p>Żadnej zależności między wymiarami, żadnej zależności od tego, jakie punkty były próbkowane wcześniej, żadnej zależności od tego, jak dobre czy złe były ich wyniki. Kategoryczny wymiar losuje jedną z dopuszczalnych wartości z równym prawdopodobieństwem; ciągły — jednostajnie z przedziału (albo z innego rozkładu, jeśli akurat taki wybierzesz, ale wciąż bez pamięci). To jedyne miejsce w całym algorytmie, gdzie w ogóle pojawia się losowość specyficzna dla problemu.</p>
 
   <div class="callout">
-    <span class="tag">What's not here</span>
-    <p>No <span class="mono">l(x)</span> or <span class="mono">g(x)</span> like in TPE, no gene-pair frequency table like in the P3 linkage tree, no population to sample a parent from. The sampler keeps no state between calls beyond the random number generator. Call it a million times — the millionth call knows nothing more about the problem than the first.</p>
+    <span class="tag">To, czego tu nie ma</span>
+    <p>Żadnego <span class="mono">l(x)</span> ani <span class="mono">g(x)</span> jak w TPE, żadnej tabeli częstości par genów jak w drzewie powiązań P3, żadnej populacji, z której losować rodzica. Sampler nie utrzymuje żadnego stanu między wywołaniami poza generatorem liczb losowych. Wywołaj go milion razy — millionowe wywołanie nie wie nic więcej o problemie niż pierwsze.</p>
   </div>
 
-  <h3><span class="num">3.2</span>Best-so-far tracking</h3>
-  <p class="lede" style="font-size:16px;">In one sentence: after every evaluation, compare the result against the record holder; if it's strictly better, replace the record holder.</p>
-  <p>This is one variable (or, with multiple objectives, one Pareto front) and one comparison per iteration. No selection mechanism, no diversity pressure, no removing worse solutions from any structure — because there's no structure to remove them from. Points that don't beat the record are simply discarded: they don't join any population, don't influence future sampling, leave no trace beyond being counted against the budget.</p>
+  <h3><span class="num">3.2</span>Śledzenie najlepszego dotąd</h3>
+  <p class="lede" style="font-size:16px;">Jednym zdaniem: po każdej ewaluacji porównaj wynik z rekordzistą; jeśli jest ściśle lepszy, zastąp rekordzistę.</p>
+  <p>To jedna zmienna (albo, przy wielu celach, jeden front Pareto) i jedno porównanie na iterację. Żadnego mechanizmu selekcji, żadnej presji na różnorodność, żadnego usuwania gorszych rozwiązań z jakiejkolwiek struktury — bo nie ma żadnej struktury, z której można by je usunąć. Punkty, które nie pobiją rekordu, są po prostu porzucane: nie trafiają do żadnej populacji, nie wpływają na kolejne próbkowanie, nie zostawiają śladu poza tym, że zostały policzone w budżecie.</p>
 
-  <p>For multiple objectives at once, the only change is the comparison rule: instead of a single strict inequality you use Pareto non-domination, and “best so far” becomes the front of non-dominated points instead of one point. The sampler itself doesn't change at all.</p>
+  <p>Dla wielu celów naraz jedyna zmiana to reguła porównania: zamiast pojedynczej ścisłej nierówności używasz niezdominowania Pareto, a „najlepszy dotąd” staje się frontem punktów niezdominowanych zamiast jednym punktem. Sam sampler nie zmienia się wcale.</p>
 </section>
 
 <section id="live">
-  <h2>4&nbsp; See it live</h2>
-  <p class="subdek">Not an animation of one fixed example — this is a genuinely running random search, exactly per the pseudocode in section&nbsp;5, computing in your browser.</p>
+  <h2>4&nbsp; Zobacz na żywo</h2>
+  <p class="subdek">Nie animacja jednego ustalonego przykładu — to naprawdę działający random search, dokładnie wg pseudokodu z sekcji&nbsp;5, licząc w Twojej przeglądarce.</p>
 
-  <h3><span class="num">4.1</span>The problem: the same deceptive genotype, a different algorithm</h3>
-  <p>The demo below samples the same kind of genotype you'll meet on other pages in this series: <strong>4 independent “traps” of 4 genes each</strong> (16 genes total). Within one trap the goal is a full set of four ones — but every step in that direction, unless it's a change of all four at once, is punished, not rewarded. The maximum possible fitness is 16 (all four traps at <span class="mono">1111</span>).</p>
-  <p>Methods that learn which genes to hold together can deliberately exploit this — copy the whole cluster at once from someone who's already solved it. Random search has no such option: every point is an independent coin flip on each of the 16 genes separately. Watch how slowly the best-so-far curve below climbs — and how rarely it even touches the ceiling.</p>
+  <h3><span class="num">4.1</span>Problem: ten sam zwodniczy genotyp, inny algorytm</h3>
+  <p>Poniższy demonstrator próbkuje ten sam rodzaj genotypu, jaki spotkasz na innych stronach tej serii: <strong>4 niezależne „pułapki” po 4 geny każda</strong> (16 genów łącznie). W obrębie jednej pułapki cel to komplet czterech jedynek — ale każdy krok w tamtą stronę, dopóki nie jest zmianą wszystkich czterech naraz, jest karany, nie nagradzany. Maksymalne możliwe dopasowanie to 16 (wszystkie cztery pułapki na <span class="mono">1111</span>).</p>
+  <p>Metody, które uczą się, które geny trzymać razem, mogą to celowo wykorzystać — skopiować cały klaster naraz od kogoś, kto już ma go rozwiązany. Random search nie ma takiej opcji: każdy punkt to niezależny rzut monetą na każdym z 16 genów osobno. Obserwuj, jak wolno rośnie krzywa najlepszego wyniku poniżej — i jak rzadko w ogóle dotyka górnej granicy.</p>
 
   <div class="demo-bleed-wrap">
   <div class="demo" id="rsdemo">
     <div class="demo-legend">
-      <span class="demo-legend-item"><span class="swatch active"></span>current step</span>
-      <span class="demo-legend-item"><span class="swatch neutral"></span>sampled point (no “good/bad” meaning at the moment of sampling)</span>
-      <span class="demo-legend-item"><span class="swatch kept"></span>new record</span>
-      <span class="demo-legend-item demo-legend-phases">Highlighted background = the step you're currently on. No gene is ever “copied from a donor” — there's no donor here.</span>
+      <span class="demo-legend-item"><span class="swatch active"></span>aktualny krok</span>
+      <span class="demo-legend-item"><span class="swatch neutral"></span>próbkowany punkt (bez znaczenia „dobry/zły” w chwili losowania)</span>
+      <span class="demo-legend-item"><span class="swatch kept"></span>nowy rekord</span>
+      <span class="demo-legend-item demo-legend-phases">Jasne tło = krok, w którym właśnie jesteś. Żaden gen nigdy nie jest „kopiowany od dawcy" — tu dawcy nie ma.</span>
     </div>
 
     <div class="hero-block">
       <div class="demo-map-wrap map-strip">
-        <svg viewBox="0 0 900 260" role="img" aria-label="A horizontal map of one random search iteration: sample a point, evaluate, compare against the best, go back to sampling the next point independently of the previous one. The current step highlights live.">
+        <svg viewBox="0 0 900 260" role="img" aria-label="Pozioma mapa jednej iteracji random search: losuj punkt, oceń, porównaj z najlepszym, wróć do losowania kolejnego punktu niezależnie od poprzedniego. Aktualny krok podświetla się na żywo.">
           <defs>
             <marker id="arrMapRS" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto-start-reverse">
               <path d="M0,0 L10,5 L0,10 z" fill="currentColor"></path>
             </marker>
           </defs>
 
-          <path class="map-arrow" d="M690,138 C690,208 140,208 140,140" fill="none" stroke-width="1.3" stroke-dasharray="2 4" marker-end="url(#arrMapRS)" pointer-events="all" tabindex="0" data-tt="A new iteration, a completely new random point — nothing from the previous iteration influences this choice."></path>
-          <text x="415" y="222" text-anchor="middle" class="diagram-label" font-size="11" fill="var(--accent)" opacity="0.9">next iteration, independent point</text>
+          <path class="map-arrow" d="M690,138 C690,208 140,208 140,140" fill="none" stroke-width="1.3" stroke-dasharray="2 4" marker-end="url(#arrMapRS)" pointer-events="all" tabindex="0" data-tt="Nowa iteracja, zupełnie nowy losowy punkt — nic z poprzedniej iteracji nie wpływa na ten wybór."></path>
+          <text x="415" y="222" text-anchor="middle" class="diagram-label" font-size="11" fill="var(--accent)" opacity="0.9">kolejna iteracja, niezależny punkt</text>
 
-          <rect id="mapBoxSample" class="map-box" data-node="sample" x="30" y="80" width="220" height="60" rx="9" pointer-events="all" tabindex="0" data-tt="Each of the 16 genes sampled independently, uniformly from {0,1}. Section 3.1."></rect>
-          <text id="mapLabelSample" class="map-label" data-node="sample" x="140" y="115" text-anchor="middle" font-size="13">Sample a point</text>
+          <rect id="mapBoxSample" class="map-box" data-node="sample" x="30" y="80" width="220" height="60" rx="9" pointer-events="all" tabindex="0" data-tt="Każdy z 16 genów losowany niezależnie, jednostajnie z {0,1}. Sekcja 3.1."></rect>
+          <text id="mapLabelSample" class="map-label" data-node="sample" x="140" y="115" text-anchor="middle" font-size="13">Losuj punkt</text>
           <path class="map-arrow" d="M250,110 L300,110" stroke-width="1.2" marker-end="url(#arrMapRS)"></path>
 
-          <rect id="mapBoxEvaluate" class="map-box" data-node="evaluate" x="300" y="80" width="220" height="60" rx="9" pointer-events="all" tabindex="0" data-tt="One real evaluation of the trap function — no shortcut, no surrogate."></rect>
-          <text id="mapLabelEvaluate" class="map-label" data-node="evaluate" x="410" y="115" text-anchor="middle" font-size="13">Evaluate</text>
+          <rect id="mapBoxEvaluate" class="map-box" data-node="evaluate" x="300" y="80" width="220" height="60" rx="9" pointer-events="all" tabindex="0" data-tt="Jedna prawdziwa ewaluacja funkcji pułapek — bez skrótu, bez surogatu."></rect>
+          <text id="mapLabelEvaluate" class="map-label" data-node="evaluate" x="410" y="115" text-anchor="middle" font-size="13">Oceń</text>
           <path class="map-arrow" d="M520,110 L570,110" stroke-width="1.2" marker-end="url(#arrMapRS)"></path>
 
-          <rect id="mapBoxCompare" class="map-box" data-node="compare" x="570" y="80" width="220" height="60" rx="9" pointer-events="all" tabindex="0" data-tt="A strict comparison against the current record holder. Section 3.2."></rect>
-          <text id="mapLabelCompare" class="map-label" data-node="compare" x="680" y="115" text-anchor="middle" font-size="13">Compare against best</text>
+          <rect id="mapBoxCompare" class="map-box" data-node="compare" x="570" y="80" width="220" height="60" rx="9" pointer-events="all" tabindex="0" data-tt="Ścisłe porównanie z dotychczasowym rekordzistą. Sekcja 3.2."></rect>
+          <text id="mapLabelCompare" class="map-label" data-node="compare" x="680" y="115" text-anchor="middle" font-size="13">Porównaj z najlepszym</text>
         </svg>
       </div>
       <div class="genome-strip">
-        <span class="glabel" pointer-events="all" tabindex="0" data-tt="The point currently being sampled — there's no “tested/kept/reverted” color, because none of that exists in random search. There's only: sampled, evaluated.">current sample</span>
+        <span class="glabel" pointer-events="all" tabindex="0" data-tt="Punkt właśnie próbkowany przez sampler — nie ma żadnego koloru „testowane/zachowane/cofnięte", bo w random search nic z tego nie istnieje. Jest tylko: wylosowany, oceniony.">obecna próbka</span>
         <div class="demo-genome" id="genomeView"></div>
       </div>
     </div>
 
-    <div class="demo-phase-caption" id="phaseCaption">Click “Step” or “Run” to see the algorithm in action.</div>
-    <div class="demo-log" id="demoLog">Click “Step” or “Run” to begin.</div>
+    <div class="demo-phase-caption" id="phaseCaption">Kliknij „Krok” albo „Uruchom”, żeby zobaczyć algorytm w akcji.</div>
+    <div class="demo-log" id="demoLog">Kliknij „Krok” albo „Uruchom”, żeby zacząć.</div>
 
-    <div class="zone-caption" pointer-events="all" tabindex="0" data-tt="These four cards draw on the whole run's history so far.">③ accumulated result — from the whole run so far</div>
+    <div class="zone-caption" pointer-events="all" tabindex="0" data-tt="Te cztery karty czerpią z całej historii przebiegu do tej pory.">③ nagromadzony wynik — z całego przebiegu do tej pory</div>
     <div class="result-row">
       <div class="demo-panel">
-        <h4 pointer-events="all" tabindex="0" data-tt="The value of the best-so-far point after every iteration. Only jumps when a new record hits — between records the line is flat, since nothing new happens.">Curve: best so far</h4>
-        <svg class="chart-svg" id="chartSvg" viewBox="0 0 480 160" role="img" aria-label="A line chart of best-so-far fitness against iteration.">
+        <h4 pointer-events="all" tabindex="0" data-tt="Wartość najlepszego dotąd punktu po każdej iteracji. Rośnie skokowo tylko wtedy, gdy trafi się nowy rekord — między rekordami linia jest płaska, bo nic nowego się nie dzieje.">Krzywa: najlepszy dotąd</h4>
+        <svg class="chart-svg" id="chartSvg" viewBox="0 0 480 160" role="img" aria-label="Wykres liniowy najlepszego dotąd dopasowania w funkcji iteracji.">
           <line class="chart-cap-line" x1="0" y1="10" x2="480" y2="10"></line>
           <text x="4" y="22" class="diagram-label" font-size="9" fill="currentColor" opacity="0.5">max = 16</text>
           <line class="chart-grid" x1="0" y1="150" x2="480" y2="150"></line>
           <polyline class="chart-line" id="chartLine" points=""></polyline>
           <circle class="chart-dot" id="chartDot" cx="0" cy="150" r="3"></circle>
         </svg>
-        <p class="demo-note">Horizontal axis: iterations (last 120). Vertical axis: 0–16.</p>
+        <p class="demo-note">Oś pozioma: iteracje (ostatnie 120). Oś pionowa: 0–16.</p>
       </div>
       <div class="demo-panel">
-        <h4 pointer-events="all" tabindex="0" data-tt="What other pages in this series call their model, population, or tree. Here, there's none of that — that's the whole point of this page.">What's not here</h4>
+        <h4 pointer-events="all" tabindex="0" data-tt="To, co inne strony tej serii nazywają swoim modelem, populacją albo drzewem. Tutaj tego nie ma — to jest cały punkt tej strony.">Czego tu nie ma</h4>
         <ul class="demo-absent-list">
-          <li><span class="x">✕</span> density model l(x) / g(x)</li>
-          <li><span class="x">✕</span> linkage tree / gene clusters</li>
-          <li><span class="x">✕</span> population or level pyramid</li>
-          <li><span class="x">✕</span> crossover or donor</li>
+          <li><span class="x">✕</span> model gęstości l(x) / g(x)</li>
+          <li><span class="x">✕</span> drzewo powiązań / klastry genów</li>
+          <li><span class="x">✕</span> populacja lub piramida poziomów</li>
+          <li><span class="x">✕</span> krzyżowanie lub dawca</li>
         </ul>
-        <p class="demo-note">Every point in this loop is sampled as if no earlier point ever existed.</p>
+        <p class="demo-note">Każdy punkt w tej pętli jest losowany tak, jakby żaden wcześniejszy punkt nigdy nie istniał.</p>
       </div>
       <div class="demo-panel">
-        <h4 pointer-events="all" tabindex="0" data-tt="Two consecutive samples side by side, so you can see it directly: the new sample isn't a variant of the old one, doesn't inherit any gene from it, doesn't “know” what result its predecessor got.">Previous point vs new point</h4>
+        <h4 pointer-events="all" tabindex="0" data-tt="Dwie kolejne próbki obok siebie, żeby było widać na oczy: nowa próbka nie jest wariantem starej, nie dziedziczy po niej żadnego genu, nie „wie", jaki wynik osiągnęła poprzedniczka.">Poprzedni punkt vs nowy punkt</h4>
         <div class="pair-row">
           <div class="pair-col">
-            <div class="plabel">previous</div>
+            <div class="plabel">poprzedni</div>
             <div class="demo-genome" id="prevGenomeView"></div>
           </div>
-          <div class="pair-arrow" pointer-events="all" tabindex="0" data-tt="This arrow doesn't denote any dependency — it's just the passage of time. The values on the right aren't a function of the values on the left.">≠→</div>
+          <div class="pair-arrow" pointer-events="all" tabindex="0" data-tt="Ta strzałka nie oznacza żadnej zależności — to tylko upływ czasu. Wartości po prawej nie są funkcją wartości po lewej.">≠→</div>
           <div class="pair-col">
-            <div class="plabel">new</div>
+            <div class="plabel">nowy</div>
             <div class="demo-genome" id="currGenomeView"></div>
           </div>
         </div>
-        <p class="demo-note" id="pairNote">No relation — the new point wasn't chosen based on the previous one or its result.</p>
+        <p class="demo-note" id="pairNote">Brak związku — nowy punkt nie został wybrany na podstawie poprzedniego ani jego wyniku.</p>
       </div>
       <div class="demo-panel">
-        <h4 pointer-events="all" tabindex="0" data-tt="The best genotype found since this run started. This is the only thing random search remembers from its whole history.">Best so far</h4>
+        <h4 pointer-events="all" tabindex="0" data-tt="Najlepszy genotyp znaleziony od początku tego uruchomienia. To jedyna rzecz, którą random search pamięta z całej swojej historii.">Najlepszy dotąd</h4>
         <div class="demo-genome" id="bestGenomeView"></div>
-        <p class="demo-note" id="bestNote">No result yet.</p>
+        <p class="demo-note" id="bestNote">Brak jeszcze wyniku.</p>
       </div>
     </div>
 
-    <div class="zone-caption" pointer-events="all" tabindex="0" data-tt="These two concern controlling the demo and the current counters.">④ controls and stats</div>
+    <div class="zone-caption" pointer-events="all" tabindex="0" data-tt="Te dwie dotyczą sterowania demonstratorem i bieżących liczników.">④ sterowanie i statystyki</div>
     <div class="card-row">
       <div class="demo-panel">
-        <h4>Controls</h4>
+        <h4>Sterowanie</h4>
         <div class="demo-controls">
-          <button class="demo-btn primary" id="btnStep" type="button">Step</button>
-          <button class="demo-btn" id="btnRun" type="button">Run</button>
-          <button class="demo-btn" id="btnFF" type="button">⏩ 20 iterations</button>
+          <button class="demo-btn primary" id="btnStep" type="button">Krok</button>
+          <button class="demo-btn" id="btnRun" type="button">Uruchom</button>
+          <button class="demo-btn" id="btnFF" type="button">⏩ 20 iteracji</button>
           <button class="demo-btn" id="btnReset" type="button">Reset</button>
         </div>
-        <p class="demo-note">“Run” repeats the loop automatically at the pace visible on the map above; “⏩” computes 20 iterations at once and shows only the result.</p>
+        <p class="demo-note">„Uruchom" powtarza pętlę automatycznie w tempie widocznym na mapie u góry; „⏩" przelicza 20 iteracji naraz i pokazuje sam wynik.</p>
       </div>
       <div class="demo-panel">
-        <h4>Stats</h4>
+        <h4>Statystyki</h4>
         <div class="demo-stats">
-          <div class="demo-stat" pointer-events="all" tabindex="0" data-tt="How many times the SAMPLE-EVALUATE-COMPARE loop has started from a new random point.">
-            <div class="lbl">Iteration</div><div class="val" id="statIter">0</div>
+          <div class="demo-stat" pointer-events="all" tabindex="0" data-tt="Ile razy pętla LOSUJ-OCEŃ-PORÓWNAJ wystartowała od nowego losowego punktu.">
+            <div class="lbl">Iteracja</div><div class="val" id="statIter">0</div>
           </div>
-          <div class="demo-stat" pointer-events="all" tabindex="0" data-tt="Total number of fitness function calls — in random search always equal to the number of iterations.">
-            <div class="lbl">Evaluations</div><div class="val" id="statEval">0</div>
+          <div class="demo-stat" pointer-events="all" tabindex="0" data-tt="Łączna liczba wywołań funkcji dopasowania — w random search zawsze równa liczbie iteracji.">
+            <div class="lbl">Ewaluacje</div><div class="val" id="statEval">0</div>
           </div>
-          <div class="demo-stat" pointer-events="all" tabindex="0" data-tt="16 is the global optimum: all 4 traps at 1111.">
-            <div class="lbl">Best</div><div class="val" id="statBest">0 / 16</div>
+          <div class="demo-stat" pointer-events="all" tabindex="0" data-tt="16 to globalne optimum: wszystkie 4 pułapki na 1111.">
+            <div class="lbl">Najlepsze</div><div class="val" id="statBest">0 / 16</div>
           </div>
-          <div class="demo-stat" pointer-events="all" tabindex="0" data-tt="How many times a new record has hit since the run started — usually rare on this problem, after a dense start.">
-            <div class="lbl">Records</div><div class="val" id="statRecords">0</div>
+          <div class="demo-stat" pointer-events="all" tabindex="0" data-tt="Ile razy padł nowy rekord od początku przebiegu — na tym problemie zwykle rzadko, po gęstym początku.">
+            <div class="lbl">Rekordy</div><div class="val" id="statRecords">0</div>
           </div>
         </div>
       </div>
@@ -788,72 +788,72 @@
 </section>
 
 <section id="code">
-  <h2>5&nbsp; Pseudocode — what you'd actually have to write</h2>
-  <p class="subdek">Two procedures. Shorter than anything else in this series — and that's the whole point, not an oversight.</p>
+  <h2>5&nbsp; Pseudokod — co naprawdę trzeba by napisać</h2>
+  <p class="subdek">Dwie procedury. Krótsze niż cokolwiek innego w tej serii — i to jest właśnie clou, nie niedopatrzenie.</p>
 
 <pre class="code"><span class="kw">procedure</span> RANDOM-SEARCH(budget)
     best ← null
     <span class="kw">for</span> i <span class="kw">in</span> 1..budget <span class="kw">do</span>
-        x ← SAMPLE()                         <span class="cm">// §3.1, independent of all previous x</span>
-        f ← fitness(x)                        <span class="cm">// one real evaluation, no shortcut</span>
+        x ← SAMPLE()                         <span class="cm">// §3.1, niezależnie od wszystkich poprzednich x</span>
+        f ← fitness(x)                        <span class="cm">// jedna prawdziwa ewaluacja, bez skrótu</span>
         <span class="kw">if</span> best <span class="kw">is</span> null <span class="kw">or</span> f &gt; fitness(best) <span class="kw">then</span>
-            best ← x                          <span class="cm">// §3.2, strict comparison</span>
+            best ← x                          <span class="cm">// §3.2, ścisłe porównanie</span>
     <span class="kw">return</span> best</pre>
 
 <pre class="code"><span class="kw">procedure</span> SAMPLE()
     x ← empty vector
     <span class="kw">for</span> <span class="kw">each</span> dimension d <span class="kw">in</span> search_space <span class="kw">do</span>
-        x[d] ← random value uniformly from domain(d)   <span class="cm">// §5.a: YOU define this domain</span>
+        x[d] ← losowa wartość jednostajnie z dziedziny(d)   <span class="cm">// §5.a: TY definiujesz tę dziedzinę</span>
     <span class="kw">return</span> x</pre>
 
-  <p>That's the whole algorithm. There's no mutation procedure, no crossover, no tree-building, no auxiliary structure at all — <span class="mono">RANDOM-SEARCH</span> calls <span class="mono">SAMPLE</span> once per iteration, and <span class="mono">SAMPLE</span> refers to nothing beyond each dimension's domain. The rest of this series is a description of what gets added to these two procedures — and at what price.</p>
+  <p>To cały algorytm. Nie ma procedury mutacji, krzyżowania, budowania drzewa ani żadnej struktury pomocniczej — <span class="mono">RANDOM-SEARCH</span> woła <span class="mono">SAMPLE</span> raz na iterację, a <span class="mono">SAMPLE</span> nie odwołuje się do niczego poza dziedziną każdego wymiaru. Cała reszta tej serii to opis tego, co dokłada się do tych dwóch procedur — i za jaką cenę.</p>
 </section>
 
 <section id="practice">
-  <h2>6&nbsp; What you design yourself — applying random search to a real problem</h2>
-  <p>The same split as the other pages in this series: the <em>mechanism</em> is fixed by the algorithm and fits into the two short procedures from section 5. What changes every time is how your problem plugs into that mechanism — and, in this case, how much budget you can even give it.</p>
+  <h2>6&nbsp; Co wymyślasz sam — zastosowanie random search do rzeczywistego problemu</h2>
+  <p>Ten sam podział, co na pozostałych stronach tej serii: <em>mechanizm</em> jest ustalony przez algorytm i mieści się w dwóch krótkich procedurach z sekcji 5. To, co zmienia się za każdym razem, to jak Twój problem podłącza się do tego mechanizmu — i, w tym wypadku, ile budżetu w ogóle jesteś w stanie mu dać.</p>
 
   <div class="tablewrap">
     <table>
-      <thead><tr><th style="width:26%">Decision point</th><th>Fixed by the algorithm</th><th>You decide, per problem</th></tr></thead>
+      <thead><tr><th style="width:26%">Punkt decyzyjny</th><th>Ustalone przez algorytm</th><th>Ty decydujesz, dla każdego problemu</th></tr></thead>
       <tbody>
         <tr>
-          <td><strong>Sampling</strong></td>
-          <td class="fixed-col">Uniform, independent sampling of each dimension from its domain, with no memory between trials.</td>
-          <td class="decide-col">The search-space encoding and decoder — how your problem becomes a vector of dimensions that can even be sampled uniformly.</td>
+          <td><strong>Próbkowanie</strong></td>
+          <td class="fixed-col">Jednostajne, niezależne losowanie każdego wymiaru z jego dziedziny, bez żadnej pamięci między próbami.</td>
+          <td class="decide-col">Kodowanie przestrzeni przeszukiwania i dekoder — jak Twój problem staje się wektorem wymiarów, które w ogóle da się jednostajnie losować.</td>
         </tr>
         <tr>
-          <td><strong>Best tracking</strong></td>
-          <td class="fixed-col">A plain <span class="mono">argmax</span> over fitness; ties don't replace the record holder.</td>
-          <td class="decide-col">The fitness/objective definition — and, with multiple objectives, the non-domination rule you compare points by.</td>
+          <td><strong>Śledzenie najlepszego</strong></td>
+          <td class="fixed-col">Proste <span class="mono">argmax</span> po dopasowaniu; remisy nie zastępują rekordzisty.</td>
+          <td class="decide-col">Definicja fitness/celu — i, przy wielu celach, reguła niezdominowania, według której porównujesz punkty.</td>
         </tr>
         <tr>
-          <td><strong>Evaluation budget</strong></td>
-          <td class="fixed-col">The loop stops exactly after the given number of evaluations — no other stopping condition.</td>
-          <td class="decide-col">The budget itself: how many evaluations you can afford. This is the algorithm's one parameter, and you have to choose it yourself every time.</td>
+          <td><strong>Budżet ewaluacji</strong></td>
+          <td class="fixed-col">Pętla zatrzymuje się dokładnie po zadanej liczbie ewaluacji — żadnego innego warunku stopu.</td>
+          <td class="decide-col">Sam budżet: ile ewaluacji Cię stać. To jedyny parametr algorytmu, i musisz go wybrać sam za każdym razem.</td>
         </tr>
         <tr>
-          <td><strong>Invalid points</strong></td>
-          <td class="fixed-col">No built-in handling — the sampler doesn't know something like an “invalid point” exists.</td>
-          <td class="decide-col">What to do with a sample outside the allowed set: reject and resample, repair it, or penalize it in the objective function.</td>
+          <td><strong>Nieprawidłowe punkty</strong></td>
+          <td class="fixed-col">Brak wbudowanej obsługi — sampler nie wie, że coś takiego jak „nieprawidłowy punkt" istnieje.</td>
+          <td class="decide-col">Co zrobić z próbką spoza dopuszczalnego zbioru: odrzucić i losować ponownie, naprawić, czy ukarać w funkcji celu.</td>
         </tr>
       </tbody>
     </table>
   </div>
 
   <div class="callout">
-    <span class="tag">The blind spot this page holds up to P3Net</span>
-    <p>Random search doesn't win on any problem with structure — exactly what the demo in section 4 shows: with no way to copy a whole trap cluster at once, the probability of hitting the global optimum drops exponentially with the number of traps. That's no surprise. The question this page actually answers is different: <strong>does P3Net's extra structure and cost — the linkage tree, the relative surrogate, the population pyramid — actually earn its keep at a given budget, or would blind, uniform sampling reach a comparable result more cheaply?</strong></p>
-    <p>This question has no answer known in advance for every problem — it depends on how much actual structure (dependencies between architecture genes and hyperparameters) a given benchmark even has to exploit, and how expensive one real evaluation is. Random search is what you have to beat for the answer to that question to be “yes” — not because it's a good algorithm, but because it's the cheapest honest test.</p>
+    <span class="tag">Ślepy punkt, który ta strona wystawia P3Net</span>
+    <p>Random search nie wygrywa na żadnym problemie ze strukturą — dokładnie to pokazuje demonstrator w sekcji 4: bez sposobu na skopiowanie całego klastra pułapki naraz, prawdopodobieństwo trafienia globalnego optimum spada wykładniczo z liczbą pułapek. To nie jest zaskoczenie. Pytanie, na które ta strona faktycznie odpowiada, brzmi inaczej: <strong>czy dodatkowa struktura i koszt P3Net — drzewo powiązań, relatywny surogat, piramida populacji — faktycznie zarabiają na swoje utrzymanie przy danym budżecie, czy ślepe, jednostajne próbkowanie osiągnęłoby porównywalny wynik taniej?</strong></p>
+    <p>To pytanie nie ma z góry znanej odpowiedzi dla każdego problemu — zależy od tego, ile faktycznej struktury (powiązań między genami architektury i hiperparametrami) dany benchmark w ogóle ma do wykorzystania, i jak drogo kosztuje jedna prawdziwa ewaluacja. Random search jest tym, co musisz pokonać, żeby odpowiedź na to pytanie brzmiała „tak" — nie dlatego, że jest dobrym algorytmem, tylko dlatego, że jest najtańszym uczciwym testem.</p>
   </div>
 
-  <h3 style="margin-top:32px;"><span class="num">✓</span>Checklist for applying random search to a new problem</h3>
+  <h3 style="margin-top:32px;"><span class="num">✓</span>Checklista przy stosowaniu random search do nowego problemu</h3>
   <ul class="checklist">
-    <li><span class="box"></span><span>Define each dimension's domain: a finite set of values or an interval you can sample uniformly.</span></li>
-    <li><span class="box"></span><span>Define fitness as a single, strict comparison (or a non-domination rule, if there's more than one objective).</span></li>
-    <li><span class="box"></span><span>Decide what happens to samples that don't decode to a valid solution.</span></li>
-    <li><span class="box"></span><span>Set the evaluation budget up front — it's the only parameter you have to choose at all.</span></li>
-    <li><span class="box"></span><span>Run it as a baseline before you believe a more sophisticated method actually helps on your problem.</span></li>
+    <li><span class="box"></span><span>Zdefiniuj dziedzinę każdego wymiaru: skończony zbiór wartości albo przedział, z którego da się losować jednostajnie.</span></li>
+    <li><span class="box"></span><span>Zdefiniuj dopasowanie jako pojedyncze, ścisłe porównanie (lub regułę niezdominowania, jeśli celów jest więcej niż jeden).</span></li>
+    <li><span class="box"></span><span>Zdecyduj, co się dzieje z próbkami, które nie dekodują się do prawidłowego rozwiązania.</span></li>
+    <li><span class="box"></span><span>Ustal budżet ewaluacji z góry — to jedyny parametr, który w ogóle trzeba wybrać.</span></li>
+    <li><span class="box"></span><span>Uruchom go jako punkt odniesienia, zanim uwierzysz, że bardziej wyrafinowana metoda faktycznie pomaga na Twoim problemie.</span></li>
   </ul>
 
 </section>
@@ -861,7 +861,7 @@
 </main>
 
 <footer class="page-end">
-  Source: J. Bergstra and Y. Bengio, “Random Search for Hyper-Parameter Optimization,” JMLR 2012 — the classic argument for random search as a baseline, which is what this method's role in the ablation grid above rests on.
+  Źródło: J. Bergstra i Y. Bengio, „Random Search for Hyper-Parameter Optimization”, JMLR 2012 — klasyczny argument za random search jako punktem odniesienia, na którym opiera się rola tej metody w siatce ablacyjnej powyżej.
 </footer>
 
 <script>
@@ -1043,10 +1043,10 @@
     renderGenome(el.currGenomeView, state.curr, "active");
     renderGenome(el.bestGenomeView, state.best, "kept");
     if (state.prev && state.curr) {
-      el.pairNote.textContent = "No relation — the new point wasn't chosen based on the previous one (" + state.prev.join("") + ") or its result.";
+      el.pairNote.textContent = "Brak związku — nowy punkt nie został wybrany na podstawie poprzedniego (" + state.prev.join("") + ") ani jego wyniku.";
     }
     if (state.best) {
-      el.bestNote.textContent = "Fitness: " + state.bestFit + " / " + MAXFIT + " — remembered as the only piece of information that survived from the whole run's history.";
+      el.bestNote.textContent = "Dopasowanie: " + state.bestFit + " / " + MAXFIT + " — zapamiętane jako jedyna informacja, jaka przetrwała z całej historii przebiegu.";
     }
     refreshStats();
     renderChart();
@@ -1081,20 +1081,20 @@
   function animatedStep(done) {
     clearPhaseTimer();
     setActiveNode("sample");
-    el.phaseCaption.innerHTML = "<strong>Sample a point</strong> — each of the " + N + " genes independently, uniformly from {0,1}.";
+    el.phaseCaption.innerHTML = "<strong>Losuj punkt</strong> — każdy z " + N + " genów niezależnie, jednostajnie z {0,1}.";
     stepPhaseTimer = setTimeout(function () {
       var info = doIteration();
       renderGenome(el.genomeView, info.genome, "active");
       setActiveNode("evaluate");
-      el.phaseCaption.innerHTML = "<strong>Evaluate</strong> — this point's fitness: " + info.fitness + " / " + MAXFIT + ".";
+      el.phaseCaption.innerHTML = "<strong>Oceń</strong> — dopasowanie tego punktu: " + info.fitness + " / " + MAXFIT + ".";
       stepPhaseTimer = setTimeout(function () {
         setActiveNode("compare");
         if (info.isRecord) {
-          el.phaseCaption.innerHTML = "<strong>Compare against best</strong> — new record: " + info.fitness + " / " + MAXFIT + ".";
-          el.demoLog.innerHTML = "Iteration " + state.iter + ": point " + info.genome.join("") + " → fitness " + info.fitness + ". <span class=\"rec\">New record.</span>";
+          el.phaseCaption.innerHTML = "<strong>Porównaj z najlepszym</strong> — nowy rekord: " + info.fitness + " / " + MAXFIT + ".";
+          el.demoLog.innerHTML = "Iteracja " + state.iter + ": punkt " + info.genome.join("") + " → dopasowanie " + info.fitness + ". <span class=\"rec\">Nowy rekord.</span>";
         } else {
-          el.phaseCaption.innerHTML = "<strong>Compare against best</strong> — no improvement, the record holder (" + state.bestFit + ") stays unchanged.";
-          el.demoLog.innerHTML = "Iteration " + state.iter + ": point " + info.genome.join("") + " → fitness " + info.fitness + ". Record (" + state.bestFit + ") unchanged.";
+          el.phaseCaption.innerHTML = "<strong>Porównaj z najlepszym</strong> — bez poprawy, rekordzista (" + state.bestFit + ") zostaje bez zmian.";
+          el.demoLog.innerHTML = "Iteracja " + state.iter + ": punkt " + info.genome.join("") + " → dopasowanie " + info.fitness + ". Rekord (" + state.bestFit + ") bez zmian.";
         }
         refreshPanels();
         stepPhaseTimer = setTimeout(function () {
@@ -1109,7 +1109,7 @@
   function stopRun() {
     state.running = false;
     if (state.runTimer) { clearInterval(state.runTimer); state.runTimer = null; }
-    el.btnRun.textContent = "Run";
+    el.btnRun.textContent = "Uruchom";
   }
 
   el.btnStep.addEventListener("click", function () {
@@ -1120,7 +1120,7 @@
   el.btnRun.addEventListener("click", function () {
     if (state.running) { stopRun(); return; }
     state.running = true;
-    el.btnRun.textContent = "Stop";
+    el.btnRun.textContent = "Zatrzymaj";
     var busy = false;
     state.runTimer = setInterval(function () {
       if (busy) return;
@@ -1134,8 +1134,8 @@
     clearPhaseTimer();
     for (var i = 0; i < 20; i++) doIteration();
     setActiveNode(null);
-    el.phaseCaption.innerHTML = "<strong>⏩ 20 iterations</strong> computed at once — the record and the curve below reflect all of them at once.";
-    el.demoLog.innerHTML = "Computed 20 consecutive, independent points. Current record: " + state.bestFit + " / " + MAXFIT + ".";
+    el.phaseCaption.innerHTML = "<strong>⏩ 20 iteracji</strong> przeliczone naraz — rekordzista i krzywa poniżej odzwierciedlają wszystkie naraz.";
+    el.demoLog.innerHTML = "Przeliczono 20 kolejnych, niezależnych punktów. Aktualny rekord: " + state.bestFit + " / " + MAXFIT + ".";
     refreshPanels();
   });
 
@@ -1152,10 +1152,10 @@
     state.currFit = null;
     state.history = [];
     setActiveNode(null);
-    el.phaseCaption.textContent = "Click \u201cStep\u201d or \u201cRun\u201d to see the algorithm in action.";
-    el.demoLog.textContent = "Click \u201cStep\u201d or \u201cRun\u201d to begin.";
-    el.pairNote.textContent = "No relation — the new point wasn't chosen based on the previous one or its result.";
-    el.bestNote.textContent = "No result yet.";
+    el.phaseCaption.textContent = "Kliknij „Krok” albo „Uruchom”, żeby zobaczyć algorytm w akcji.";
+    el.demoLog.textContent = "Kliknij „Krok” albo „Uruchom”, żeby zacząć.";
+    el.pairNote.textContent = "Brak związku — nowy punkt nie został wybrany na podstawie poprzedniego ani jego wyniku.";
+    el.bestNote.textContent = "Brak jeszcze wyniku.";
     renderGenome(el.genomeView, null);
     renderGenome(el.prevGenomeView, null);
     renderGenome(el.currGenomeView, null);

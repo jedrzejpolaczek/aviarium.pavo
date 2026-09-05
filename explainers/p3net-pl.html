@@ -1,4 +1,4 @@
-<title>How P3Net actually works</title>
+<title>Jak naprawdę działa P3Net</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
@@ -623,118 +623,118 @@
 <nav style="position:sticky;top:0;z-index:60;display:flex;align-items:center;justify-content:space-between;padding:18px 48px;background:oklch(0.16 0.006 250 / 0.85);backdrop-filter:blur(8px);border-bottom:1px solid rgba(255,255,255,0.06);font-family:'IBM Plex Mono',monospace;">
   <a href="../Portfolio.dc.html" style="font-size:18px;font-weight:600;color:oklch(0.92 0.004 250);text-decoration:none;">JP.<span style="color:#9CAF6B;">_</span></a>
   <div style="display:flex;gap:32px;align-items:center;font-size:14px;">
-    <a href="../Portfolio.dc.html" style="color:oklch(0.85 0.004 250);text-decoration:none;">home</a>
+    <a href="../Portfolio.dc.html" style="color:var(--ink-muted);text-decoration:none;">strona główna</a>
     <a href="../Portfolio.dc.html?view=solutions" style="color:oklch(0.85 0.004 250);text-decoration:none;">:solutions</a>
-    <a href="../Portfolio.dc.html?view=badania" style="color:oklch(0.85 0.004 250);text-decoration:none;">:research</a>
-    <a href="../Portfolio.dc.html?view=kontakt" style="color:oklch(0.85 0.004 250);text-decoration:none;">:contact</a>
-    <a href="p3net-pl.html" style="font-size:12px;font-weight:700;padding:6px 12px;border:1px solid #9CAF6B;border-radius:2px;background:rgba(156,175,107,0.15);color:#9CAF6B;text-decoration:none;">PL</a>
+    <a href="../Portfolio.dc.html?view=badania" style="color:var(--ink-muted);text-decoration:none;">:badania</a>
+    <a href="../Portfolio.dc.html?view=kontakt" style="color:var(--ink-muted);text-decoration:none;">:kontakt</a>
+    <a href="p3net.html" style="font-size:12px;font-weight:700;padding:6px 12px;border:1px solid #9CAF6B;border-radius:2px;background:rgba(156,175,107,0.15);color:#9CAF6B;text-decoration:none;">EN</a>
   </div>
 </nav>
 <div class="topnav">
   <div class="topnav-inner">
-    <span class="topnav-mark">P3Net / guide</span>
-    <a href="#context">1&nbsp;Context</a>
-    <a href="#bigpicture">2&nbsp;Big picture</a>
-    <a href="#components">3&nbsp;Components</a>
-    <a href="#live">4&nbsp;See it live</a>
-    <a href="#code">5&nbsp;Pseudocode</a>
-    <a href="#practice">6&nbsp;What P3Net adds</a>
+    <span class="topnav-mark">P3Net / przewodnik</span>
+    <a href="#context">1&nbsp;Kontekst</a>
+    <a href="#bigpicture">2&nbsp;Ogólny obraz</a>
+    <a href="#components">3&nbsp;Komponenty</a>
+    <a href="#live">4&nbsp;Zobacz na żywo</a>
+    <a href="#code">5&nbsp;Pseudokod</a>
+    <a href="#practice">6&nbsp;Co dokłada P3Net</a>
   </div>
 </div>
 
 <main>
 
 <section id="top">
-  <div class="eyebrow"><span>P3Net — P3 + a surrogate for neural architecture search</span></div>
-  <h1>How P3Net actually works</h1>
-  <p class="lede">This document assumes you already know <a href="p3.html">pure P3</a> — the pyramid, hill climbing, the linkage tree, the crossover sweep. P3Net adds exactly one new idea on top of that: a <em class="term">cheap, learned stand-in for a real evaluation</em> inside crossover — plus everything that had to be built to make that stand-in safe to use.</p>
-  <p class="subdek">The same layout as the P3 document: context, then the big moving parts, then each one broken down in detail, then a live simulation, code, and finally a comparison.</p>
+  <div class="eyebrow"><span>P3Net — P3 + surogat dla przeszukiwania architektur sieci</span></div>
+  <h1>Jak naprawdę działa P3Net</h1>
+  <p class="lede">Ten dokument zakłada, że znasz już <a href="p3-pl.html">czyste P3</a> — piramidę, wspinaczkę górską, drzewo powiązań, przemiatanie krzyżowania. P3Net dokłada do tego dokładnie jedną nową ideę: <em class="term">tani, wyuczony zamiennik prawdziwej ewaluacji</em> wewnątrz krzyżowania — plus wszystko, co trzeba było zbudować, żeby ten zamiennik był bezpieczny w użyciu.</p>
+  <p class="subdek">Ten sam układ co w dokumencie o P3: kontekst, potem duże ruchome elementy, potem każdy z nich rozłożony na czynniki pierwsze, potem żywa symulacja, kod, na końcu porównanie.</p>
 </section>
 
 <hr class="rule">
 
 <section id="context">
-  <h3><span class="num">1</span>Context — the problem P3Net answers</h3>
-  <p class="lede" style="font-size:17px;">In one sentence: pure P3 assumes evaluation is cheap. In neural architecture search (NAS), one evaluation means <em>training a neural network</em> — and that assumption simply isn't true.</p>
-  <p>In pure P3, crossing one candidate with one pyramid level spends one real evaluation <em>per cluster</em> in the sweep — for a genotype with a dozen or more linkage clusters, one such event is a dozen to several dozen evaluations at once. On a bit string, where evaluation takes milliseconds, that's a negligible cost. When evaluation means training a network for minutes or hours, that same cost can dominate the entire compute budget before the pyramid manages to grow even one level.</p>
-  <p>There's also a second change, unrelated to cost: network architectures are usually evaluated <strong>two</strong> ways at once — quality (validation error) and compute cost (parameters or FLOPs). P3Net therefore has to define what “improvement” means when improvement is no longer a single number.</p>
+  <h3><span class="num">1</span>Kontekst — problem, na który P3Net jest odpowiedzią</h3>
+  <p class="lede" style="font-size:17px;">Jednym zdaniem: czyste P3 zakłada, że ewaluacja jest tania. W przeszukiwaniu architektur sieci (NAS) jedna ewaluacja to <em>trening sieci neuronowej</em> — i to założenie po prostu nie jest prawdziwe.</p>
+  <p>W czystym P3, krzyżowanie jednego kandydata z jednym poziomem piramidy wydaje jedną prawdziwą ewaluację <em>na każdy klaster</em> w przemiataniu — dla genotypu z kilkunastoma klastrami powiązań, jedno takie zdarzenie to kilkanaście do kilkudziesięciu ewaluacji naraz. Na łańcuchu bitów, gdzie ewaluacja to milisekundy, to nieistotny koszt. Gdy ewaluacja oznacza trening sieci trwający minuty albo godziny, ten sam koszt potrafi zdominować cały budżet obliczeniowy, zanim piramida zdąży urosnąć choćby o jeden poziom.</p>
+  <p>Dochodzi też druga zmiana, niezwiązana z kosztem: architektury sieci ocenia się zwykle na <strong>dwa</strong> sposoby naraz — jakość (błąd walidacji) i koszt obliczeniowy (parametry albo FLOPs). P3Net musi więc zdefiniować, co znaczy „poprawa”, gdy poprawa nie jest już jedną liczbą.</p>
 
   <figure class="bleed">
-    <svg viewBox="0 0 900 460" role="img" aria-label="Comparison of two loops: pure P3 spends a real evaluation on every cluster in the crossover sweep; P3Net replaces those evaluations with a cheap surrogate and spends one real evaluation only at the end of the sweep.">
+    <svg viewBox="0 0 900 460" role="img" aria-label="Porównanie dwóch pętli: czyste P3 wydaje prawdziwą ewaluację na każdy klaster w przemiataniu krzyżowania; P3Net zastępuje te ewaluacje tanim surogatem i wydaje jedną prawdziwą ewaluację dopiero na końcu przemiatania.">
       <defs>
         <marker id="arrH" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
           <path d="M0,0 L10,5 L0,10 z" fill="currentColor"></path>
         </marker>
       </defs>
 
-      <text x="30" y="20" class="diagram-label" font-size="12" letter-spacing="0.06em" fill="currentColor" opacity="0.6">PURE P3 — evaluation at every crossover step</text>
+      <text x="30" y="20" class="diagram-label" font-size="12" letter-spacing="0.06em" fill="currentColor" opacity="0.6">CZYSTE P3 — ewaluacja na każdym kroku krzyżowania</text>
 
-      <rect x="30" y="30" width="280" height="48" rx="8" fill="none" stroke="currentColor" stroke-width="1.4" pointer-events="all" tabindex="0" data-tt="Exactly as in pure P3 — a fresh random genotype at the start of every iteration. P3Net doesn't change this."></rect>
-      <text fill="currentColor" x="170" y="59" text-anchor="middle" class="diagram-label" font-size="12">Random solution</text>
+      <rect x="30" y="30" width="280" height="48" rx="8" fill="none" stroke="currentColor" stroke-width="1.4" pointer-events="all" tabindex="0" data-tt="Dokładnie jak w czystym P3 — świeży losowy genotyp na starcie każdej iteracji. P3Net tego nie zmienia."></rect>
+      <text fill="currentColor" x="170" y="59" text-anchor="middle" class="diagram-label" font-size="12">Losowe rozwiązanie</text>
       <path d="M170,78 L170,110" stroke="currentColor" stroke-width="1.3" marker-end="url(#arrH)"></path>
 
-      <rect x="30" y="110" width="280" height="48" rx="8" fill="none" stroke="currentColor" stroke-width="1.4" pointer-events="all" tabindex="0" data-tt="Also unchanged — FIHC from section 3.1 of the P3 document, each gene test is one real evaluation."></rect>
-      <text fill="currentColor" x="170" y="139" text-anchor="middle" class="diagram-label" font-size="12">Hill climbing</text>
+      <rect x="30" y="110" width="280" height="48" rx="8" fill="none" stroke="currentColor" stroke-width="1.4" pointer-events="all" tabindex="0" data-tt="Też bez zmian — FIHC z sekcji 3.1 dokumentu o P3, każdy test genu to jedna prawdziwa ewaluacja."></rect>
+      <text fill="currentColor" x="170" y="139" text-anchor="middle" class="diagram-label" font-size="12">Wspinaczka górska</text>
       <path d="M170,158 L170,190" stroke="currentColor" stroke-width="1.3" marker-end="url(#arrH)"></path>
 
-      <rect x="30" y="190" width="280" height="48" rx="8" fill="none" stroke="currentColor" stroke-width="1.4" pointer-events="all" tabindex="0" data-tt="Every cluster copy from a donor is immediately evaluated for real, to know whether to keep it."></rect>
-      <text fill="currentColor" x="170" y="212" text-anchor="middle" class="diagram-label" font-size="13">Crossover</text>
-      <text fill="currentColor" x="170" y="229" text-anchor="middle" class="diagram-label" font-size="10.5" opacity="0.75">real evaluation per cluster</text>
+      <rect x="30" y="190" width="280" height="48" rx="8" fill="none" stroke="currentColor" stroke-width="1.4" pointer-events="all" tabindex="0" data-tt="Każde skopiowanie klastra od dawcy jest natychmiast oceniane naprawdę, żeby wiedzieć, czy je zachować."></rect>
+      <text fill="currentColor" x="170" y="212" text-anchor="middle" class="diagram-label" font-size="13">Krzyżowanie</text>
+      <text fill="currentColor" x="170" y="229" text-anchor="middle" class="diagram-label" font-size="10.5" opacity="0.75">prawdziwa ewaluacja na klaster</text>
       <path d="M170,238 L170,270" stroke="currentColor" stroke-width="1.3" marker-end="url(#arrH)"></path>
 
-      <rect x="30" y="270" width="280" height="48" rx="8" fill="var(--accent-soft)" stroke="var(--accent)" stroke-width="1.6" pointer-events="all" tabindex="0" data-tt="Strict improvement of a single number — exactly like pure P3."></rect>
-      <text fill="currentColor" x="170" y="299" text-anchor="middle" class="diagram-label" font-size="12">Improved? → new level</text>
+      <rect x="30" y="270" width="280" height="48" rx="8" fill="var(--accent-soft)" stroke="var(--accent)" stroke-width="1.6" pointer-events="all" tabindex="0" data-tt="Ścisła poprawa jednej liczby — dokładnie jak w czystym P3."></rect>
+      <text fill="currentColor" x="170" y="299" text-anchor="middle" class="diagram-label" font-size="12">Poprawa? → nowy poziom</text>
 
       <path d="M310,294 C405,294 405,54 310,54" fill="none" stroke="currentColor" stroke-width="1.2" marker-end="url(#arrH)"></path>
-      <text x="325" y="217" class="diagram-label" font-size="10.5" fill="currentColor" opacity="0.7" pointer-events="all" tabindex="0" data-tt="A new iteration, a new random restart — the pyramid is the only memory between iterations.">next iteration</text>
+      <text x="325" y="217" class="diagram-label" font-size="10.5" fill="currentColor" opacity="0.7" pointer-events="all" tabindex="0" data-tt="Nowa iteracja, nowy losowy restart — piramida to jedyna pamięć między iteracjami.">kolejna iteracja</text>
 
-      <text x="170" y="345" text-anchor="middle" class="diagram-label" font-size="11" fill="currentColor" opacity="0.8">Evaluations: one per cluster</text>
-      <text x="170" y="362" text-anchor="middle" class="diagram-label" font-size="11" fill="currentColor" opacity="0.8">× levels visited in the iteration</text>
+      <text x="170" y="345" text-anchor="middle" class="diagram-label" font-size="11" fill="currentColor" opacity="0.8">Ewaluacji: tyle, ile klastrów</text>
+      <text x="170" y="362" text-anchor="middle" class="diagram-label" font-size="11" fill="currentColor" opacity="0.8">× poziomów odwiedzonych w iteracji</text>
 
       <line x1="395" y1="10" x2="395" y2="440" stroke="currentColor" stroke-width="1" opacity="0.15"></line>
 
-      <text x="480" y="20" class="diagram-label" font-size="12" letter-spacing="0.06em" fill="currentColor" opacity="0.6">P3NET — cheap scoring inside, real only once</text>
+      <text x="480" y="20" class="diagram-label" font-size="12" letter-spacing="0.06em" fill="currentColor" opacity="0.6">P3NET — tania ocena w środku, prawdziwa tylko raz</text>
 
-      <rect x="480" y="30" width="280" height="48" rx="8" fill="none" stroke="currentColor" stroke-width="1.4" pointer-events="all" tabindex="0" data-tt="Identical to the left — P3Net inherits this step with no change at all."></rect>
-      <text fill="currentColor" x="620" y="59" text-anchor="middle" class="diagram-label" font-size="12">Random solution</text>
+      <rect x="480" y="30" width="280" height="48" rx="8" fill="none" stroke="currentColor" stroke-width="1.4" pointer-events="all" tabindex="0" data-tt="Identyczne jak po lewej — ten krok P3Net dziedziczy bez żadnej zmiany."></rect>
+      <text fill="currentColor" x="620" y="59" text-anchor="middle" class="diagram-label" font-size="12">Losowe rozwiązanie</text>
       <path d="M620,78 L620,110" stroke="currentColor" stroke-width="1.3" marker-end="url(#arrH)"></path>
 
-      <rect x="480" y="110" width="280" height="48" rx="8" fill="none" stroke="currentColor" stroke-width="1.4" pointer-events="all" tabindex="0" data-tt="Also identical — hill climbing always evaluates for real, in both versions of the algorithm. The surrogate applies only to crossover."></rect>
-      <text fill="currentColor" x="620" y="139" text-anchor="middle" class="diagram-label" font-size="12">Hill climbing</text>
+      <rect x="480" y="110" width="280" height="48" rx="8" fill="none" stroke="currentColor" stroke-width="1.4" pointer-events="all" tabindex="0" data-tt="Też identyczne — hill climbing zawsze ocenia naprawdę, w obu wersjach algorytmu. Surogat dotyczy wyłącznie krzyżowania."></rect>
+      <text fill="currentColor" x="620" y="139" text-anchor="middle" class="diagram-label" font-size="12">Wspinaczka górska</text>
       <path d="M620,158 L620,190" stroke="currentColor" stroke-width="1.3" marker-end="url(#arrH)"></path>
 
-      <rect x="480" y="190" width="280" height="48" rx="8" class="tentative-box" pointer-events="all" tabindex="0" data-tt="This is the whole change: instead of training a network for every copied cluster, a cheap learned model δ̂F predicts whether this step will help. Section 3.2 below."></rect>
+      <rect x="480" y="190" width="280" height="48" rx="8" class="tentative-box" pointer-events="all" tabindex="0" data-tt="Tu jest cała zmiana: zamiast trenować sieć dla każdego skopiowanego klastra, tani wyuczony model δ̂F przewiduje, czy ten krok pomoże. Sekcja 3.2 niżej."></rect>
       <text fill="currentColor" x="620" y="212" text-anchor="middle" class="diagram-label" font-size="13">Crossover</text>
-      <text fill="var(--surrogate)" x="620" y="229" text-anchor="middle" class="diagram-label" font-size="10.5" opacity="0.9">surrogate δ̂F scores (cheaply)</text>
+      <text fill="var(--surrogate)" x="620" y="229" text-anchor="middle" class="diagram-label" font-size="10.5" opacity="0.9">surogat δ̂F ocenia (tanio)</text>
       <path d="M620,238 L620,270" stroke="currentColor" stroke-width="1.3" marker-end="url(#arrH)"></path>
 
-      <rect x="480" y="270" width="280" height="48" rx="8" class="real-box" pointer-events="all" tabindex="0" data-tt="A chain of tentative, surrogate-only acceptances can't grow forever — depth κ (section 3.3) forces this one real evaluation before surrogate error can stack up."></rect>
-      <text fill="currentColor" x="620" y="292" text-anchor="middle" class="diagram-label" font-size="12.5">One real evaluation</text>
-      <text fill="var(--real)" x="620" y="309" text-anchor="middle" class="diagram-label" font-size="10" opacity="0.9">at end of sweep (or at κ)</text>
+      <rect x="480" y="270" width="280" height="48" rx="8" class="real-box" pointer-events="all" tabindex="0" data-tt="Łańcuch tymczasowych, surogat-owych akceptacji nie może rosnąć w nieskończoność — głębokość κ (sekcja 3.3) wymusza tę jedną prawdziwą ewaluację, zanim błąd surogatu zdąży się nawarstwić."></rect>
+      <text fill="currentColor" x="620" y="292" text-anchor="middle" class="diagram-label" font-size="12.5">Jedna prawdziwa ewaluacja</text>
+      <text fill="var(--real)" x="620" y="309" text-anchor="middle" class="diagram-label" font-size="10" opacity="0.9">na końcu przemiatania (lub przy κ)</text>
       <path d="M620,318 L620,350" stroke="currentColor" stroke-width="1.3" marker-end="url(#arrH)"></path>
 
-      <rect x="480" y="350" width="280" height="48" rx="8" fill="var(--accent-soft)" stroke="var(--accent)" stroke-width="1.6" pointer-events="all" tabindex="0" data-tt="Two objectives at once (error and cost) instead of one — so “improvement” is now Pareto non-domination, not a plain greater-than. Section 3.4 below."></rect>
-      <text fill="currentColor" x="620" y="379" text-anchor="middle" class="diagram-label" font-size="12">Non-dominated? → new level</text>
+      <rect x="480" y="350" width="280" height="48" rx="8" fill="var(--accent-soft)" stroke="var(--accent)" stroke-width="1.6" pointer-events="all" tabindex="0" data-tt="Dwa cele naraz (błąd i koszt) zamiast jednego — więc „poprawa” to teraz niezdominowanie Pareto, nie zwykłe większe-niż. Sekcja 3.4 niżej."></rect>
+      <text fill="currentColor" x="620" y="379" text-anchor="middle" class="diagram-label" font-size="12">Niezdominowany? → nowy poziom</text>
 
       <path d="M760,374 C855,374 855,54 760,54" fill="none" stroke="var(--accent)" stroke-width="1.3" marker-end="url(#arrH)"></path>
-      <text x="774" y="217" class="diagram-label" font-size="10.5" fill="var(--accent)" pointer-events="all" tabindex="0" data-tt="A new iteration — and since the last one, H_t may have grown with more real evaluations, so the surrogate is retrained and the linkage tree rebuilt before the next sweep runs.">next iteration</text>
+      <text x="774" y="217" class="diagram-label" font-size="10.5" fill="var(--accent)" pointer-events="all" tabindex="0" data-tt="Nowa iteracja — a od czasu poprzedniej mogła urosnąć H_t o kolejne prawdziwe ewaluacje, więc surogat jest retrenowany, a drzewo powiązań przebudowane, zanim ruszy kolejne przemiatanie.">kolejna iteracja</text>
 
-      <text x="620" y="425" text-anchor="middle" class="diagram-label" font-size="11" fill="var(--accent)">Evaluations: one per level</text>
-      <text x="620" y="442" text-anchor="middle" class="diagram-label" font-size="11" fill="var(--accent)">visited — not one per cluster</text>
+      <text x="620" y="425" text-anchor="middle" class="diagram-label" font-size="11" fill="var(--accent)">Ewaluacji: tyle, ile poziomów</text>
+      <text x="620" y="442" text-anchor="middle" class="diagram-label" font-size="11" fill="var(--accent)">odwiedzonych — nie ile klastrów</text>
     </svg>
-    <figcaption><span class="k">What this diagram shows —</span> both columns are the same ITERATE-P3 loop, drawn in the same visual language as the P3 document. The top two steps (random restart, hill climbing) are identical — P3Net doesn't touch them. The difference lives entirely in the crossover step: a dashed, purple box means “tentative, surrogate-only”; a solid green one means “actually evaluated.” This color code returns in every subsequent diagram in this document.</figcaption>
+    <figcaption><span class="k">Co pokazuje ten diagram —</span> obie kolumny to ta sama pętla ITERATE-P3, narysowana tym samym językiem co w dokumencie o P3. Górne dwa kroki (losowy restart, wspinaczka górska) są identyczne — P3Net ich nie rusza. Różnica siedzi wyłącznie w kroku krzyżowania: przerywana, fioletowa ramka oznacza „tymczasowe, tylko wg surogatu”; ciągła, zielona — „naprawdę ocenione”. Ten kod kolorów wraca w każdym kolejnym diagramie tego dokumentu.</figcaption>
   </figure>
 
   <div class="callout">
-    <span class="tag">What exactly doesn't change</span>
-    <p>The pyramid, hill climbing (FIHC), a linkage tree built by UPGMA over measured statistical dependence, the crossover sweep from smallest cluster first, no separate mutation operator — P3Net inherits all of this from pure P3 unchanged. If any of these terms is unclear, the <a href="p3.html">P3 document</a> explains each one from the ground up, live simulation included.</p>
+    <span class="tag">Co dokładnie się nie zmienia</span>
+    <p>Piramida, wspinaczka górska (FIHC), drzewo powiązań budowane metodą UPGMA nad zmierzoną zależnością statystyczną, przemiatanie krzyżowania od najmniejszego klastra, brak osobnego operatora mutacji — wszystko to P3Net dziedziczy z czystego P3 bez jednej zmiany. Jeśli któryś z tych terminów jest niejasny, <a href="p3-pl.html">dokument o P3</a> wyjaśnia każdy z nich od podstaw, z żywą symulacją włącznie.</p>
   </div>
 </section>
 
 <section id="bigpicture">
-  <h3><span class="num">2</span>Big picture — one P3Net iteration</h3>
-  <p class="lede" style="font-size:17px;">Intuitively: take a parent you actually know, try to improve it cheaply and tentatively in as many ways as possible, and pay for a real evaluation only once — at the end, on the one candidate that survived the whole attempt.</p>
-  <p>Before we go into full detail, here's the bird's-eye view:</p>
+  <h3><span class="num">2</span>Ogólny obraz — jedna iteracja P3Net</h3>
+  <p class="lede" style="font-size:17px;">Intuicyjnie: weź rodzica, którego naprawdę znasz, spróbuj go ulepszyć tanio i tymczasowo tyloma sposobami, ile się da, a zapłać za prawdziwą ewaluację dopiero raz — na koniec, na tym jednym kandydacie, który przetrwał całą próbę.</p>
+  <p>Zanim wejdziemy w pełny szczegół, tak wygląda to z lotu ptaka:</p>
 
   <figure class="bleed">
     <svg viewBox="0 0 880 230" role="img" aria-label="P3Net from a bird's-eye view: a parent from H_t enters a surrogate-scored sweep that generates tentative steps, then one candidate gets a real evaluation and possible promotion, after which the loop starts over with another parent.">
@@ -743,250 +743,250 @@
           <path d="M0,0 L10,5 L0,10 z" fill="currentColor"></path>
         </marker>
       </defs>
-      <text fill="currentColor" x="140" y="24" text-anchor="middle" class="diagram-label" font-size="10.5" opacity="0.6">parent + hill climbing</text>
+      <text fill="currentColor" x="140" y="24" text-anchor="middle" class="diagram-label" font-size="10.5" opacity="0.6">rodzic + wspinaczka górska</text>
       <path d="M140,30 L140,58" stroke="currentColor" stroke-width="1.2" marker-end="url(#arrJ)"></path>
 
-      <rect x="20" y="60" width="240" height="60" rx="9" class="real-box" pointer-events="all" tabindex="0" data-tt="Always a genuinely evaluated individual from H_t — never a transient, surrogate-only candidate from the middle of some earlier sweep. Full detail in 3.1.">
+      <rect x="20" y="60" width="240" height="60" rx="9" class="real-box" pointer-events="all" tabindex="0" data-tt="Zawsze prawdziwie oceniony osobnik z H_t — nigdy transient, surogatowy kandydat z połowy jakiegoś wcześniejszego przemiatania. Pełny szczegół w 3.1.">
       </rect>
-      <text fill="currentColor" x="140" y="95" text-anchor="middle" class="diagram-label" font-size="13">Parent (from H_t)</text>
+      <text fill="currentColor" x="140" y="95" text-anchor="middle" class="diagram-label" font-size="13">Rodzic (z H_t)</text>
       <path d="M260,90 L320,90" stroke="currentColor" stroke-width="1.3" marker-end="url(#arrJ)"></path>
 
-      <rect x="320" y="60" width="240" height="60" rx="9" class="tentative-box" pointer-events="all" tabindex="0" data-tt="Cluster by cluster from the linkage tree, each scored by δ̂F instead of by actually training a network — up to κ tentative steps at once. Full detail in 3.2–3.3.">
+      <rect x="320" y="60" width="240" height="60" rx="9" class="tentative-box" pointer-events="all" tabindex="0" data-tt="Klaster po klastrze z drzewa powiązań, każdy oceniony przez δ̂F zamiast przez prawdziwy trening sieci — do κ tymczasowych kroków naraz. Pełny szczegół w 3.2–3.3.">
       </rect>
-      <text fill="currentColor" x="440" y="90" text-anchor="middle" class="diagram-label" font-size="12.5">Sweep</text>
-      <text fill="var(--surrogate)" x="440" y="106" text-anchor="middle" class="diagram-label" font-size="11">with surrogate δ̂F</text>
+      <text fill="currentColor" x="440" y="90" text-anchor="middle" class="diagram-label" font-size="12.5">Przemiatanie</text>
+      <text fill="var(--surrogate)" x="440" y="106" text-anchor="middle" class="diagram-label" font-size="11">z surogatem δ̂F</text>
       <path d="M560,90 L620,90" stroke="currentColor" stroke-width="1.3" marker-end="url(#arrJ)"></path>
 
-      <rect x="620" y="60" width="240" height="60" rx="9" class="real-box" pointer-events="all" tabindex="0" data-tt="One real evaluation at the end, then a non-domination check in the space of two objectives (error, cost) — not a plain “better or worse.” Full detail in 3.4.">
+      <rect x="620" y="60" width="240" height="60" rx="9" class="real-box" pointer-events="all" tabindex="0" data-tt="Jedna prawdziwa ewaluacja na koniec, potem sprawdzenie niezdominowania w przestrzeni dwóch celów (błąd, koszt) — nie zwykłe „lepsze czy gorsze”. Pełny szczegół w 3.4.">
       </rect>
-      <text fill="currentColor" x="740" y="88" text-anchor="middle" class="diagram-label" font-size="12">Select C* +</text>
-      <text fill="currentColor" x="740" y="104" text-anchor="middle" class="diagram-label" font-size="12">real evaluation</text>
+      <text fill="currentColor" x="740" y="88" text-anchor="middle" class="diagram-label" font-size="12">Wybór C* +</text>
+      <text fill="currentColor" x="740" y="104" text-anchor="middle" class="diagram-label" font-size="12">prawdziwa ewaluacja</text>
 
       <path d="M740,120 C740,190 140,190 140,122" fill="none" stroke="var(--accent)" stroke-width="1.3" stroke-dasharray="2 4" marker-end="url(#arrJ)"></path>
-      <text x="440" y="205" text-anchor="middle" class="diagram-label" font-size="11" fill="var(--accent)" pointer-events="all" tabindex="0" data-tt="New real evaluations from this iteration go into H_t, so δ̂F is retrained and the linkage tree rebuilt before the next parent's sweep runs.">next iteration, retrain surrogate</text>
+      <text x="440" y="205" text-anchor="middle" class="diagram-label" font-size="11" fill="var(--accent)" pointer-events="all" tabindex="0" data-tt="Nowe prawdziwe ewaluacje z tej iteracji trafiają do H_t, więc δ̂F jest retrenowany, a drzewo powiązań przebudowane, zanim ruszy przemiatanie następnego rodzica.">kolejna iteracja, retrenuj surogat</text>
     </svg>
-    <figcaption><span class="k">What this diagram shows —</span> the same three big steps that will recur in every following section: a solid green box means “actually evaluated,” a dashed purple one means “surrogate-only, tentative.” This is the skeleton — below is the same skeleton, spelled out into the same nodes as the original diagram from the paper.</figcaption>
+    <figcaption><span class="k">Co pokazuje ten diagram —</span> te same trzy duże kroki, które będą wracać w każdej kolejnej sekcji: zielona, ciągła ramka oznacza „naprawdę ocenione”, fioletowa, przerywana — „tylko wg surogatu, tymczasowe”. To jest szkielet — poniżej ten sam szkielet, rozpisany na te same węzły, co w oryginalnym diagramie z artykułu.</figcaption>
   </figure>
 
-  <p>The full version of the same loop, step by step — this is exactly the diagram from the paper, just drawn out wider:</p>
+  <p>Pełna wersja tej samej pętli, krok po kroku — to jest dokładnie diagram z artykułu, tylko rozrysowany szerzej:</p>
 
   <figure class="bleed">
-    <svg viewBox="0 0 880 620" role="img" aria-label="One P3Net iteration: a parent from H_t, then for each subset F in the sweep in random order up to depth kappa — propose a modification from a donor, score it with the surrogate, tentatively accept if the predicted change is non-negative; when the sweep ends or kappa is reached, select a candidate, run one real evaluation, and update the observation set, surrogate, and linkage tree before the next iteration.">
+    <svg viewBox="0 0 880 620" role="img" aria-label="Jedna iteracja P3Net: rodzic z H_t, potem dla każdego podzbioru F w przemiataniu w losowej kolejności aż do głębokości kappa — zaproponuj modyfikację od dawcy, oceń ją surogatem, tymczasowo zaakceptuj jeśli przewidywana zmiana jest nieujemna; gdy przemiatanie się skończy albo kappa zostanie osiągnięte, wybierz kandydata, wykonaj jedną prawdziwą ewaluację, i zaktualizuj zbiór obserwacji, surogat oraz drzewo powiązań przed kolejną iteracją.">
       <defs>
         <marker id="arrI" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
           <path d="M0,0 L10,5 L0,10 z" fill="currentColor"></path>
         </marker>
       </defs>
 
-      <rect x="300" y="14" width="280" height="44" rx="8" class="real-box" pointer-events="all" tabindex="0" data-tt="Always from H_t — never transient. The ancestor x₀ for the telescoping in 3.3 is always this same parent."></rect>
-      <text x="440" y="41" text-anchor="middle" class="diagram-label" font-size="13" fill="currentColor">Parent x (from H_t)</text>
+      <rect x="300" y="14" width="280" height="44" rx="8" class="real-box" pointer-events="all" tabindex="0" data-tt="Zawsze z H_t — nigdy transient. Ancestor x₀ dla telescopingu w 3.3 to zawsze ten sam rodzic."></rect>
+      <text x="440" y="41" text-anchor="middle" class="diagram-label" font-size="13" fill="currentColor">Rodzic x (z H_t)</text>
       <path d="M440,58 L440,84" stroke="currentColor" stroke-width="1.3" marker-end="url(#arrI)"></path>
 
       <rect x="140" y="86" width="600" height="260" rx="10" fill="var(--bg-sunken)" stroke="currentColor" stroke-width="1" opacity="0.9"></rect>
-      <text x="164" y="112" class="diagram-label" font-size="11" letter-spacing="0.06em" fill="currentColor" opacity="0.6">FOR EACH SUBSET F, IN RANDOM ORDER, UP TO DEPTH κ</text>
+      <text x="164" y="112" class="diagram-label" font-size="11" letter-spacing="0.06em" fill="currentColor" opacity="0.6">DLA KAŻDEGO PODZBIORU F, W LOSOWEJ KOLEJNOŚCI, AŻ DO GŁĘBOKOŚCI κ</text>
 
-      <rect x="260" y="128" width="360" height="44" rx="8" class="tentative-box" pointer-events="all" tabindex="0" data-tt="A donor sampled from the same pyramid level as the parent. The modification is limited to the coordinates of subset F — the rest of the genotype is unchanged. Section 3.2."></rect>
-      <text x="440" y="150" text-anchor="middle" class="diagram-label" font-size="12.5" fill="currentColor">Donor → propose x′ on F</text>
+      <rect x="260" y="128" width="360" height="44" rx="8" class="tentative-box" pointer-events="all" tabindex="0" data-tt="Dawca losowany z tego samego poziomu piramidy co rodzic. Modyfikacja ograniczona do współrzędnych podzbioru F — reszta genotypu bez zmian. Sekcja 3.2."></rect>
+      <text x="440" y="150" text-anchor="middle" class="diagram-label" font-size="12.5" fill="currentColor">Dawca → zaproponuj x′ na F</text>
       <path d="M440,172 L440,196" stroke="currentColor" stroke-width="1.3" marker-end="url(#arrI)"></path>
 
-      <rect x="260" y="200" width="360" height="44" rx="8" fill="none" stroke="currentColor" stroke-width="1.4" pointer-events="all" tabindex="0" data-tt="Not an absolute regression from the encoded genotype (like NSGANetV2) — relative: it predicts the difference against the nearest predecessor in the sweep. Section 3.2."></rect>
-      <text x="440" y="217" text-anchor="middle" class="diagram-label" font-size="12.5" fill="currentColor">Surrogate score</text>
+      <rect x="260" y="200" width="360" height="44" rx="8" fill="none" stroke="currentColor" stroke-width="1.4" pointer-events="all" tabindex="0" data-tt="Nie absolutna regresja z zakodowanego genotypu (jak w NSGANetV2) — relatywna: przewiduje różnicę względem najbliższego poprzednika w przemiataniu. Sekcja 3.2."></rect>
+      <text x="440" y="217" text-anchor="middle" class="diagram-label" font-size="12.5" fill="currentColor">Ocena surogatu</text>
       <text x="440" y="233" text-anchor="middle" class="diagram-label" font-size="11" fill="var(--surrogate)">δ̂F(x, x′)</text>
       <path d="M440,244 L440,268" stroke="currentColor" stroke-width="1.3" marker-end="url(#arrI)"></path>
 
-      <rect x="260" y="272" width="360" height="44" rx="8" class="tentative-box" pointer-events="all" tabindex="0" data-tt="Zero is the paper's default acceptance threshold — a zero or positive predicted change is enough to tentatively move on. If the prediction is negative, x stays unchanged and the sweep moves to the next subset anyway."></rect>
-      <text x="440" y="294" text-anchor="middle" class="diagram-label" font-size="12.5" fill="currentColor">Tentative acceptance</text>
-      <text x="440" y="310" text-anchor="middle" class="diagram-label" font-size="11" fill="var(--surrogate)">if δ̂F ≥ 0</text>
+      <rect x="260" y="272" width="360" height="44" rx="8" class="tentative-box" pointer-events="all" tabindex="0" data-tt="Zero to domyślny próg akceptacji z artykułu — zerowa lub dodatnia przewidywana zmiana wystarcza, żeby tymczasowo przejść dalej. Jeśli przewidywanie jest ujemne, x pozostaje bez zmian i przemiatanie i tak przechodzi do kolejnego podzbioru."></rect>
+      <text x="440" y="294" text-anchor="middle" class="diagram-label" font-size="12.5" fill="currentColor">Tymczasowa akceptacja</text>
+      <text x="440" y="310" text-anchor="middle" class="diagram-label" font-size="11" fill="var(--surrogate)">jeśli δ̂F ≥ 0</text>
 
       <path d="M600,272 C680,272 680,128 600,128" fill="none" stroke="currentColor" stroke-width="1.2" stroke-dasharray="2 4" marker-end="url(#arrI)"></path>
-      <text x="700" y="203" text-anchor="middle" class="diagram-label" font-size="10.5" fill="currentColor" opacity="0.7" transform="rotate(-90 700 203)" pointer-events="all" tabindex="0" data-tt="Accepted or not — the sweep always tries the next subset F, until it exhausts the tree or reaches depth κ.">next subset F</text>
+      <text x="700" y="203" text-anchor="middle" class="diagram-label" font-size="10.5" fill="currentColor" opacity="0.7" transform="rotate(-90 700 203)" pointer-events="all" tabindex="0" data-tt="Zaakceptowane czy nie — przemiatanie zawsze próbuje kolejnego podzbioru F, aż wyczerpie drzewo albo osiągnie głębokość κ.">kolejny podzbiór F</text>
 
       <path d="M440,316 L440,358" stroke="currentColor" stroke-width="1.3" marker-end="url(#arrI)"></path>
 
-      <rect x="260" y="362" width="360" height="44" rx="8" fill="none" stroke="currentColor" stroke-width="1.4" pointer-events="all" tabindex="0" data-tt="Which exact selection criterion — section 3.4. In short: the candidate the sweep actually stopped on."></rect>
-      <text x="440" y="384" text-anchor="middle" class="diagram-label" font-size="12.5" fill="currentColor">End of sweep or κ:</text>
-      <text x="440" y="400" text-anchor="middle" class="diagram-label" font-size="11" fill="currentColor" opacity="0.75">select candidate C*</text>
+      <rect x="260" y="362" width="360" height="44" rx="8" fill="none" stroke="currentColor" stroke-width="1.4" pointer-events="all" tabindex="0" data-tt="Które dokładnie kryterium wyboru — sekcja 3.4. W skrócie: kandydat, na którym przemiatanie faktycznie się zatrzymało."></rect>
+      <text x="440" y="384" text-anchor="middle" class="diagram-label" font-size="12.5" fill="currentColor">Koniec przemiatania lub κ:</text>
+      <text x="440" y="400" text-anchor="middle" class="diagram-label" font-size="11" fill="currentColor" opacity="0.75">wybierz kandydata C*</text>
       <path d="M440,406 L440,432" stroke="currentColor" stroke-width="1.3" marker-end="url(#arrI)"></path>
 
-      <rect x="300" y="436" width="280" height="44" rx="8" class="real-box" pointer-events="all" tabindex="0" data-tt="Exactly one evaluation for the whole sweep — regardless of how many subsets F visited it along the way. f₂ is computed analytically, at no cost, so it needs no separate evaluation."></rect>
-      <text x="440" y="459" text-anchor="middle" class="diagram-label" font-size="12.5" fill="currentColor">Real evaluation</text>
+      <rect x="300" y="436" width="280" height="44" rx="8" class="real-box" pointer-events="all" tabindex="0" data-tt="Dokładnie jedna ewaluacja na całe przemiatanie — niezależnie od tego, ile podzbiorów F odwiedziło je po drodze. f₂ jest liczone analitycznie, bez kosztu, więc nie wymaga osobnej ewaluacji."></rect>
+      <text x="440" y="459" text-anchor="middle" class="diagram-label" font-size="12.5" fill="currentColor">Prawdziwa ewaluacja</text>
       <text x="440" y="474" text-anchor="middle" class="diagram-label" font-size="10.5" fill="var(--real)">f₁(x), f₂(x)</text>
       <path d="M440,480 L440,504" stroke="currentColor" stroke-width="1.3" marker-end="url(#arrI)"></path>
 
-      <rect x="280" y="508" width="320" height="48" rx="8" class="real-box" pointer-events="all" tabindex="0" data-tt="The new observation goes into H_t, δ̂F is retrained on all fitness-difference pairs gathered so far, and the linkage tree is rebuilt — only then does the next parent's sweep run, with this updated state.">
+      <rect x="280" y="508" width="320" height="48" rx="8" class="real-box" pointer-events="all" tabindex="0" data-tt="Nowa obserwacja trafia do H_t, δ̂F jest retrenowany na wszystkich parach różnic dopasowania zebranych do tej pory, a drzewo powiązań przebudowane — dopiero z tym zaktualizowanym stanem rusza przemiatanie kolejnego rodzica.">
       </rect>
-      <text x="440" y="528" text-anchor="middle" class="diagram-label" font-size="12.5" fill="currentColor">Update H_t, retrain δ̂F,</text>
-      <text x="440" y="544" text-anchor="middle" class="diagram-label" font-size="11" fill="currentColor" opacity="0.75">rebuild linkage tree</text>
+      <text x="440" y="528" text-anchor="middle" class="diagram-label" font-size="12.5" fill="currentColor">Aktualizuj H_t, retrenuj δ̂F,</text>
+      <text x="440" y="544" text-anchor="middle" class="diagram-label" font-size="11" fill="currentColor" opacity="0.75">przebuduj drzewo powiązań</text>
 
       <path d="M280,518 C160,518 160,36 300,36" fill="none" stroke="var(--accent)" stroke-width="1.4" stroke-dasharray="2 4" marker-end="url(#arrI)"></path>
-      <text x="120" y="277" text-anchor="middle" class="diagram-label" font-size="10.5" fill="var(--accent)" transform="rotate(-90 120 277)">next iteration</text>
+      <text x="120" y="277" text-anchor="middle" class="diagram-label" font-size="10.5" fill="var(--accent)" transform="rotate(-90 120 277)">kolejna iteracja</text>
 
-      <text x="440" y="588" text-anchor="middle" class="diagram-label" font-size="11.5" fill="currentColor" opacity="0.7">The “propose → score → tentatively accept” steps may repeat up to κ times.</text>
-      <text x="440" y="605" text-anchor="middle" class="diagram-label" font-size="11.5" fill="currentColor" opacity="0.7">A real evaluation lands exactly once per sweep — not once per subset.</text>
+      <text x="440" y="588" text-anchor="middle" class="diagram-label" font-size="11.5" fill="currentColor" opacity="0.7">Kroki „zaproponuj → oceń → tymczasowo zaakceptuj” mogą powtórzyć się do κ razy.</text>
+      <text x="440" y="605" text-anchor="middle" class="diagram-label" font-size="11.5" fill="currentColor" opacity="0.7">Prawdziwa ewaluacja pada dokładnie raz na to przemiatanie — nie raz na podzbiór.</text>
     </svg>
-    <figcaption><span class="k">What this diagram shows —</span> seven nodes, one to one with Figure 1 in the paper. The parent always comes from H_t, never from the middle of someone else's sweep. Inside the gray container, the entire tentative attempt happens — as many times as there are subsets in the tree, up to κ times. Only what survives this loop gets a real evaluation.</figcaption>
+    <figcaption><span class="k">Co pokazuje ten diagram —</span> siedem węzłów, jeden do jednego z rysunkiem 1 w artykule. Rodzic zawsze pochodzi z H_t, nigdy z połowy cudzego przemiatania. Wewnątrz szarego kontenera dzieje się cała tymczasowa próba — tyle razy, ile jest podzbiorów w drzewie, maksymalnie κ razy. Dopiero to, co przetrwa tę pętlę, dostaje prawdziwą ewaluację.</figcaption>
   </figure>
 
-  <p>Notice exactly what was added relative to pure P3: one new inner loop (propose → surrogate score → tentative accept), one new limit (depth κ), and one change of criterion at the end (non-domination instead of plain improvement). The pyramid, hill climbing, and the shape of the linkage tree itself — unchanged.</p>
+  <p>Zwróć uwagę, co dokładnie zostało dodane względem czystego P3: jedna nowa pętla wewnętrzna (propozycja → ocena surogatu → tymczasowa akceptacja), jeden nowy limit (głębokość κ), i jedna zmiana kryterium na końcu (niezdominowanie zamiast zwykłej poprawy). Piramida, wspinaczka górska i sam kształt drzewa powiązań — bez zmian.</p>
 </section>
 
 <section id="components">
-  <h3><span class="num">3</span>Components — four things P3Net adds to P3</h3>
-  <p class="lede" style="font-size:17px;">The pyramid, hill climbing, and the linkage tree are described in the <a href="p3.html#components">P3 document</a> and don't return here. Below are only the four parts that pure P3 doesn't have.</p>
+  <h3><span class="num">3</span>Komponenty — cztery rzeczy, które P3Net dodaje do P3</h3>
+  <p class="lede" style="font-size:17px;">Piramida, wspinaczka górska i drzewo powiązań są opisane w <a href="p3-pl.html#components">dokumencie o P3</a> i tutaj nie wracają. Poniżej są tylko te cztery elementy, których w czystym P3 nie ma.</p>
 
-  <h3><span class="num">3.1</span>Genotype and two objectives at once</h3>
-  <p>Intuitively: the genotype is a list of network design decisions (which operation on each cell edge, plus discretized training hyperparameters), and every genotype is evaluated two independent ways — how well the network performs, and how much it costs to compute.</p>
+  <h3><span class="num">3.1</span>Genotyp i dwa cele naraz</h3>
+  <p>Intuicyjnie: genotyp to lista decyzji projektowych sieci (jaka operacja na każdej krawędzi komórki, plus zdyskretyzowane hiperparametry treningu), a każdy genotyp jest oceniany na dwa, niezależne sposoby — jak dobrze sieć działa, i ile kosztuje jej policzenie.</p>
 
   <figure class="bleed">
-    <svg viewBox="0 0 880 260" role="img" aria-label="A genotype made of edge operations and discretized hyperparameters is first checked for structural validity, then decoded into a network, and finally evaluated two independent ways: costly validation error and free compute cost.">
+    <svg viewBox="0 0 880 260" role="img" aria-label="Genotyp złożony z operacji na krawędziach i zdyskretyzowanych hiperparametrów jest najpierw sprawdzany pod kątem poprawności strukturalnej, potem dekodowany do sieci, a na końcu oceniany na dwa niezależne sposoby: kosztowny błąd walidacji i darmowy koszt obliczeniowy.">
       <defs>
         <marker id="arrK" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
           <path d="M0,0 L10,5 L0,10 z" fill="currentColor"></path>
         </marker>
       </defs>
 
-      <rect x="20" y="90" width="220" height="60" rx="8" fill="none" stroke="currentColor" stroke-width="1.4" pointer-events="all" tabindex="0" data-tt="x = (x₁,…,xₙ,Θ) ∈ Λ₁×⋯×Λₙ×Θ. Each xᵢ is one operation on one edge (e.g. conv3×3, skip, none); Θ is the discretized hyperparameters, e.g. a learning-rate bucket."></rect>
-      <text x="130" y="115" text-anchor="middle" class="diagram-label" font-size="12.5" fill="currentColor">Genotype x</text>
-      <text x="130" y="132" text-anchor="middle" class="diagram-label" font-size="10.5" fill="currentColor" opacity="0.7">operations + hyperparameters</text>
+      <rect x="20" y="90" width="220" height="60" rx="8" fill="none" stroke="currentColor" stroke-width="1.4" pointer-events="all" tabindex="0" data-tt="x = (x₁,…,xₙ,Θ) ∈ Λ₁×⋯×Λₙ×Θ. Każde xᵢ to jedna operacja na jednej krawędzi (np. conv3×3, skip, none); Θ to zdyskretyzowane hiperparametry, np. przedział szybkości uczenia."></rect>
+      <text x="130" y="115" text-anchor="middle" class="diagram-label" font-size="12.5" fill="currentColor">Genotyp x</text>
+      <text x="130" y="132" text-anchor="middle" class="diagram-label" font-size="10.5" fill="currentColor" opacity="0.7">operacje + hiperparametry</text>
       <path d="M240,120 L286,120" stroke="currentColor" stroke-width="1.3" marker-end="url(#arrK)"></path>
 
-      <polygon points="360,90 440,120 360,150 280,120" fill="none" stroke="currentColor" stroke-width="1.4" pointer-events="all" tabindex="0" data-tt="Not every combination of operations forms a network that can even be computed — e.g. no path at all from the cell's input to its output. g(x) ≤ 0 means “valid.”"></polygon>
+      <polygon points="360,90 440,120 360,150 280,120" fill="none" stroke="currentColor" stroke-width="1.4" pointer-events="all" tabindex="0" data-tt="Nie każda kombinacja operacji tworzy sieć, którą da się w ogóle policzyć — np. brak jakiejkolwiek ścieżki z wejścia do wyjścia komórki. g(x) ≤ 0 oznacza „prawidłowy”."></polygon>
       <text x="360" y="116" text-anchor="middle" class="diagram-label" font-size="11" fill="currentColor">g(x) ≤ 0</text>
-      <text x="360" y="130" text-anchor="middle" class="diagram-label" font-size="10" fill="currentColor" opacity="0.7">valid?</text>
+      <text x="360" y="130" text-anchor="middle" class="diagram-label" font-size="10" fill="currentColor" opacity="0.7">prawidłowy?</text>
 
       <path d="M360,150 L360,180" stroke="var(--ink-faint)" stroke-width="1.3" marker-end="url(#arrK)"></path>
-      <text x="378" y="168" class="diagram-label" font-size="10.5" fill="var(--ink-faint)">no</text>
-      <rect x="280" y="184" width="160" height="38" rx="7" fill="none" stroke="var(--ink-faint)" stroke-width="1.2" stroke-dasharray="3 3" pointer-events="all" tabindex="0" data-tt="Rejected before any surrogate score or real evaluation — section 3.2 of the P3Net document."></rect>
-      <text x="360" y="207" text-anchor="middle" class="diagram-label" font-size="11" fill="var(--ink-faint)">rejected</text>
+      <text x="378" y="168" class="diagram-label" font-size="10.5" fill="var(--ink-faint)">nie</text>
+      <rect x="280" y="184" width="160" height="38" rx="7" fill="none" stroke="var(--ink-faint)" stroke-width="1.2" stroke-dasharray="3 3" pointer-events="all" tabindex="0" data-tt="Odrzucony przed jakąkolwiek oceną surogatu czy prawdziwą ewaluacją — sekcja 3.2 dokumentu o P3Net."></rect>
+      <text x="360" y="207" text-anchor="middle" class="diagram-label" font-size="11" fill="var(--ink-faint)">odrzucony</text>
 
       <path d="M440,120 L486,120" stroke="currentColor" stroke-width="1.3" marker-end="url(#arrK)"></path>
-      <text x="463" y="108" text-anchor="middle" class="diagram-label" font-size="10.5" fill="currentColor" opacity="0.7">yes</text>
+      <text x="463" y="108" text-anchor="middle" class="diagram-label" font-size="10.5" fill="currentColor" opacity="0.7">tak</text>
 
-      <rect x="488" y="90" width="140" height="60" rx="8" fill="none" stroke="currentColor" stroke-width="1.4" pointer-events="all" tabindex="0" data-tt="D: Λ → 𝒩 — the function decoding the genotype into a concrete, computable network architecture."></rect>
-      <text x="558" y="115" text-anchor="middle" class="diagram-label" font-size="12" fill="currentColor">Decode D(x)</text>
-      <text x="558" y="132" text-anchor="middle" class="diagram-label" font-size="10.5" fill="currentColor" opacity="0.7">→ network</text>
+      <rect x="488" y="90" width="140" height="60" rx="8" fill="none" stroke="currentColor" stroke-width="1.4" pointer-events="all" tabindex="0" data-tt="D: Λ → 𝒩 — funkcja dekodująca genotyp do konkretnej, policzalnej architektury sieci."></rect>
+      <text x="558" y="115" text-anchor="middle" class="diagram-label" font-size="12" fill="currentColor">Dekoduj D(x)</text>
+      <text x="558" y="132" text-anchor="middle" class="diagram-label" font-size="10.5" fill="currentColor" opacity="0.7">→ sieć</text>
       <path d="M628,120 L674,120" stroke="currentColor" stroke-width="1.3" marker-end="url(#arrK)"></path>
 
       <path d="M700,120 L740,80 M700,120 L740,160" stroke="currentColor" stroke-width="1.2" opacity="0.5"></path>
 
-      <rect x="740" y="20" width="130" height="52" rx="8" class="real-box" pointer-events="all" tabindex="0" data-tt="Requires training the network — exactly the cost P3Net tries to limit with a surrogate inside crossover (section 3.2). Minimized in the paper; this document flips the sign and talks about “quality” instead — see the note below."></rect>
-      <text x="805" y="42" text-anchor="middle" class="diagram-label" font-size="11.5" fill="currentColor">f₁(x): error</text>
-      <text x="805" y="57" text-anchor="middle" class="diagram-label" font-size="10" fill="var(--real)">training = expensive</text>
+      <rect x="740" y="20" width="130" height="52" rx="8" class="real-box" pointer-events="all" tabindex="0" data-tt="Wymaga treningu sieci — dokładnie ten koszt, który P3Net stara się ograniczyć surogatem wewnątrz krzyżowania (sekcja 3.2). Minimalizowany; w tym dokumencie odwracamy znak i mówimy o „jakości” — patrz notka niżej."></rect>
+      <text x="805" y="42" text-anchor="middle" class="diagram-label" font-size="11.5" fill="currentColor">f₁(x): błąd</text>
+      <text x="805" y="57" text-anchor="middle" class="diagram-label" font-size="10" fill="var(--real)">trening = drogie</text>
 
-      <rect x="740" y="168" width="130" height="52" rx="8" fill="none" stroke="currentColor" stroke-width="1.4" pointer-events="all" tabindex="0" data-tt="Computed analytically from the genotype's structure — parameters or FLOPs. Never requires an evaluation, even for tentative, surrogate-only candidates."></rect>
-      <text x="805" y="190" text-anchor="middle" class="diagram-label" font-size="11.5" fill="currentColor">f₂(x): cost</text>
-      <text x="805" y="205" text-anchor="middle" class="diagram-label" font-size="10" fill="currentColor" opacity="0.7">always free</text>
+      <rect x="740" y="168" width="130" height="52" rx="8" fill="none" stroke="currentColor" stroke-width="1.4" pointer-events="all" tabindex="0" data-tt="Liczony analitycznie ze struktury genotypu — parametry albo FLOPy. Nigdy nie wymaga ewaluacji, nawet dla tymczasowych, surogatowych kandydatów."></rect>
+      <text x="805" y="190" text-anchor="middle" class="diagram-label" font-size="11.5" fill="currentColor">f₂(x): koszt</text>
+      <text x="805" y="205" text-anchor="middle" class="diagram-label" font-size="10" fill="currentColor" opacity="0.7">zawsze darmowe</text>
 
-      <text x="130" y="230" class="diagram-label" font-size="11" fill="currentColor" opacity="0.6">Goal: minimize both at once — hence Pareto, not a single number (section 3.4).</text>
+      <text x="130" y="230" class="diagram-label" font-size="11" fill="currentColor" opacity="0.6">Cel: minimalizować oba naraz — stąd Pareto, nie jedna liczba (sekcja 3.4).</text>
     </svg>
-    <figcaption><span class="k">What this diagram shows —</span> an important asymmetry: f₁ requires real work (training), f₂ is practically free, since it's computed straight from the structure. That's why all the surrogate effort in this document is about f₁ alone — f₂ never has to be guessed.</figcaption>
+    <figcaption><span class="k">Co pokazuje ten diagram —</span> ważna asymetria: f₁ wymaga prawdziwej pracy (treningu), f₂ jest praktycznie darmowy, bo liczy się go wprost ze struktury. To dlatego cały wysiłek surogatu w tym dokumencie dotyczy wyłącznie f₁ — f₂ nigdy nie musi być zgadywany.</figcaption>
   </figure>
 
-  <p class="tt-hint" style="font-size:12px; margin: -6px 0 20px;">A note on sign: the paper minimizes f₁ as an error. This document and the live simulation below flip the sign and maximize “quality” instead — a purely cosmetic swap to avoid a min/max tangle in the code; the mechanics (relative surrogate, sweep, non-dominated selection) are identical.</p>
+  <p class="tt-hint" style="font-size:12px; margin: -6px 0 20px;">Notka o znaku: artykuł minimalizuje f₁ jako błąd. Ten dokument i żywa symulacja niżej odwracają znak i maksymalizują „jakość” — czysto kosmetyczna zamiana, żeby uniknąć plątaniny min/max w kodzie; mechanika (relatywny surogat, przemiatanie, wybór niezdominowanych) jest identyczna.</p>
 
-  <h3><span class="num">3.2</span>The surrogate δ̂F — relative, linkage-aware</h3>
-  <p>Intuitively: instead of learning to guess network quality from scratch from the raw encoded genotype, the surrogate learns something much narrower and easier: <em>how much quality will change if I change only these specific few genes that happen to differ between the candidate and a parent whose quality I already know</em>.</p>
+  <h3><span class="num">3.2</span>Surogat δ̂F — relatywny, świadomy powiązań</h3>
+  <p>Intuicyjnie: zamiast uczyć się zgadywać jakość sieci od zera z samego zakodowanego genotypu, surogat uczy się czegoś dużo węższego i łatwiejszego: <em>o ile zmieni się jakość, jeśli zmienię tylko te konkretne kilka genów, które akurat różnią kandydata od rodzica, którego jakość już znam</em>.</p>
 
   <figure class="bleed">
-    <svg viewBox="0 0 880 300" role="img" aria-label="Comparison of two surrogate approaches: absolute, like NSGANetV2, learns to predict quality straight from the encoded genotype; relative, like P3Net, predicts only the change in quality against a known parent, on the subset of genes that actually differ.">
+    <svg viewBox="0 0 880 300" role="img" aria-label="Porównanie dwóch podejść do surogatu: absolutne, jak w NSGANetV2, uczy się przewidywać jakość wprost z zakodowanego genotypu; relatywne, jak w P3Net, przewiduje tylko zmianę jakości względem znanego rodzica, na podzbiorze genów, które faktycznie się różnią.">
       <defs>
         <marker id="arrL" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
           <path d="M0,0 L10,5 L0,10 z" fill="currentColor"></path>
         </marker>
       </defs>
 
-      <text x="20" y="20" class="diagram-label" font-size="12" letter-spacing="0.06em" fill="currentColor" opacity="0.6">ABSOLUTE (e.g. NSGANetV2) — guesses from scratch</text>
-      <rect x="20" y="40" width="200" height="50" rx="8" fill="none" stroke="currentColor" stroke-width="1.4" pointer-events="all" tabindex="0" data-tt="The whole encoded genotype at once, with no reference to any other known solution."></rect>
-      <text x="120" y="70" text-anchor="middle" class="diagram-label" font-size="12" fill="currentColor">genotype x′ (whole)</text>
+      <text x="20" y="20" class="diagram-label" font-size="12" letter-spacing="0.06em" fill="currentColor" opacity="0.6">ABSOLUTNE (np. NSGANetV2) — zgaduje od zera</text>
+      <rect x="20" y="40" width="200" height="50" rx="8" fill="none" stroke="currentColor" stroke-width="1.4" pointer-events="all" tabindex="0" data-tt="Cały zakodowany genotyp naraz, bez odniesienia do jakiegokolwiek innego, znanego rozwiązania."></rect>
+      <text x="120" y="70" text-anchor="middle" class="diagram-label" font-size="12" fill="currentColor">genotyp x′ (cały)</text>
       <path d="M220,65 L266,65" stroke="currentColor" stroke-width="1.3" marker-end="url(#arrL)"></path>
-      <rect x="268" y="40" width="170" height="50" rx="8" fill="none" stroke="currentColor" stroke-width="1.4" pointer-events="all" tabindex="0" data-tt="It has to learn the entire relationship between the encoded genotype and quality from scratch — the less training data, the harder this is."></rect>
+      <rect x="268" y="40" width="170" height="50" rx="8" fill="none" stroke="currentColor" stroke-width="1.4" pointer-events="all" tabindex="0" data-tt="Musi się nauczyć całej zależności między zakodowanym genotypem a jakością od podstaw — im mniej danych treningowych, tym trudniej."></rect>
       <text x="353" y="70" text-anchor="middle" class="diagram-label" font-size="12" fill="currentColor">model f̂₁(x′)</text>
-      <text x="200" y="115" class="diagram-label" font-size="11" fill="currentColor" opacity="0.65">Has to infer the whole genotype → quality relationship at once.</text>
+      <text x="200" y="115" class="diagram-label" font-size="11" fill="currentColor" opacity="0.65">Musi wywnioskować całą zależność genotyp → jakość naraz.</text>
 
       <line x1="0" y1="145" x2="880" y2="145" stroke="currentColor" stroke-width="1" opacity="0.15"></line>
 
-      <text x="20" y="170" class="diagram-label" font-size="12" letter-spacing="0.06em" fill="currentColor" opacity="0.6">RELATIVE (P3Net) — a correction against a known parent</text>
+      <text x="20" y="170" class="diagram-label" font-size="12" letter-spacing="0.06em" fill="currentColor" opacity="0.6">RELATYWNE (P3Net) — poprawka względem znanego rodzica</text>
 
-      <rect x="20" y="190" width="170" height="50" rx="8" class="real-box" pointer-events="all" tabindex="0" data-tt="Parent x always comes from H_t — its f₁(x) is genuinely known, not guessed."></rect>
-      <text x="105" y="212" text-anchor="middle" class="diagram-label" font-size="12" fill="currentColor">parent x</text>
-      <text x="105" y="227" text-anchor="middle" class="diagram-label" font-size="10" fill="var(--real)">f₁(x) genuinely known</text>
+      <rect x="20" y="190" width="170" height="50" rx="8" class="real-box" pointer-events="all" tabindex="0" data-tt="Rodzic x zawsze pochodzi z H_t — jego f₁(x) jest prawdziwie znane, nie zgadywane."></rect>
+      <text x="105" y="212" text-anchor="middle" class="diagram-label" font-size="12" fill="currentColor">rodzic x</text>
+      <text x="105" y="227" text-anchor="middle" class="diagram-label" font-size="10" fill="var(--real)">f₁(x) znane naprawdę</text>
 
-      <rect x="20" y="256" width="170" height="34" rx="7" fill="none" stroke="currentColor" stroke-width="1.2" pointer-events="all" tabindex="0" data-tt="F: the subset of loci from the linkage tree where x′ differs from x — the rest of the genotype is identical."></rect>
-      <text x="105" y="278" text-anchor="middle" class="diagram-label" font-size="10.5" fill="currentColor">+ subset F (from the tree)</text>
+      <rect x="20" y="256" width="170" height="34" rx="7" fill="none" stroke="currentColor" stroke-width="1.2" pointer-events="all" tabindex="0" data-tt="F: podzbiór loci z drzewa powiązań, na których x′ różni się od x — reszta genotypu identyczna."></rect>
+      <text x="105" y="278" text-anchor="middle" class="diagram-label" font-size="10.5" fill="currentColor">+ podzbiór F (z drzewa)</text>
 
       <path d="M190,220 L236,220" stroke="currentColor" stroke-width="1.3" marker-end="url(#arrL)"></path>
 
-      <rect x="238" y="195" width="190" height="50" rx="8" fill="none" stroke="currentColor" stroke-width="1.4" pointer-events="all" tabindex="0" data-tt="Trained on fitness-difference pairs from H_t: for every pair of observations differing on the same subset, δ = f₁(a) − f₁(b)."></rect>
+      <rect x="238" y="195" width="190" height="50" rx="8" fill="none" stroke="currentColor" stroke-width="1.4" pointer-events="all" tabindex="0" data-tt="Wytrenowany na parach różnic dopasowania z H_t: dla każdej pary obserwacji różniących się na tym samym podzbiorze, δ = f₁(a) − f₁(b)."></rect>
       <text x="333" y="216" text-anchor="middle" class="diagram-label" font-size="12" fill="currentColor">δ̂F(x, x′)</text>
-      <text x="333" y="232" text-anchor="middle" class="diagram-label" font-size="10" fill="var(--surrogate)">learns ONLY the difference</text>
+      <text x="333" y="232" text-anchor="middle" class="diagram-label" font-size="10" fill="var(--surrogate)">uczy się TYLKO różnicy</text>
       <path d="M428,220 L474,220" stroke="currentColor" stroke-width="1.3" marker-end="url(#arrL)"></path>
 
-      <rect x="476" y="195" width="230" height="50" rx="8" fill="none" stroke="currentColor" stroke-width="1.4" pointer-events="all" tabindex="0" data-tt="Not an absolute value — a predicted CHANGE. Positive = x′ is predicted better than x."></rect>
-      <text x="591" y="216" text-anchor="middle" class="diagram-label" font-size="12" fill="currentColor">predicted change</text>
-      <text x="591" y="232" text-anchor="middle" class="diagram-label" font-size="10.5" fill="currentColor" opacity="0.7">in quality, not its value</text>
+      <rect x="476" y="195" width="230" height="50" rx="8" fill="none" stroke="currentColor" stroke-width="1.4" pointer-events="all" tabindex="0" data-tt="Nie absolutna wartość — przewidywana ZMIANA. Dodatnia = x′ przewidywalnie lepszy od x."></rect>
+      <text x="591" y="216" text-anchor="middle" class="diagram-label" font-size="12" fill="currentColor">przewidywana zmiana</text>
+      <text x="591" y="232" text-anchor="middle" class="diagram-label" font-size="10.5" fill="currentColor" opacity="0.7">jakości, nie jej wartość</text>
 
-      <text x="200" y="280" class="diagram-label" font-size="11" fill="currentColor" opacity="0.65">Only learns a local correction — an easier task than guessing from scratch.</text>
+      <text x="200" y="280" class="diagram-label" font-size="11" fill="currentColor" opacity="0.65">Uczy się tylko lokalnej poprawki — łatwiejsze zadanie niż zgadywanie od zera.</text>
     </svg>
-    <figcaption><span class="k">What this diagram shows —</span> the same difference as between “what is this house worth?” and “how much more would this house be worth with a new roof?” — the second question is narrower and easier to learn from few examples, because it uses exactly the structure (subset F) the linkage tree has already discovered.</figcaption>
+    <figcaption><span class="k">Co pokazuje ten diagram —</span> ta sama różnica, co między „ile jest wart ten dom?” a „o ile więcej byłby wart ten dom z nowym dachem?” — drugie pytanie jest węższe i łatwiejsze do nauczenia się na niewielkiej liczbie przykładów, bo wykorzystuje dokładnie tę strukturę (podzbiór F), którą drzewo powiązań już odkryło.</figcaption>
   </figure>
 
-  <p>The training data for δ̂F comes exclusively from <span class="mono">H_t</span> — the set of all <em>genuinely</em> evaluated solutions collected so far: for every pair of observations differing on the same subset of loci F, the difference in their real f₁ values is one training example. The more real evaluations, the more such pairs, the better the surrogate — this is exactly the “retrain δ̂F” in the loop diagram in section 2.</p>
+  <p>Dane treningowe δ̂F pochodzą wyłącznie z <span class="mono">H_t</span> — zbioru wszystkich <em>naprawdę</em> ocenionych rozwiązań zebranych do tej pory: dla każdej pary obserwacji różniących się na tym samym podzbiorze loci F, różnica ich prawdziwych wartości f₁ to jeden przykład treningowy. Im więcej prawdziwych ewaluacji, tym więcej takich par, tym lepszy surogat — to jest dokładnie to „retrenuj δ̂F” z diagramu pętli w sekcji 2.</p>
 
-  <h3><span class="num">3.3</span>The tentative-acceptance chain and depth κ</h3>
-  <p>Intuitively: one tentative, surrogate-based step is a small, manageable risk. Ten such steps in a row, stacked on each other with no real check at all — that's a prediction error that can accumulate in an unknown direction. κ is a hard limit on how many such steps are allowed to stack up before a real evaluation resets the error to zero.</p>
+  <h3><span class="num">3.3</span>Łańcuch tymczasowych akceptacji i głębokość κ</h3>
+  <p>Intuicyjnie: jeden tymczasowy krok oparty na surogacie to mały, zarządzalny ryzyk. Dziesięć takich kroków z rzędu, jeden na drugim, bez żadnego rzeczywistego sprawdzenia — to błąd predykcji, który może się nawarstwiać w nieznanym kierunku. κ to twardy limit na to, ile takich kroków wolno skumulować, zanim prawdziwa ewaluacja zresetuje błąd do zera.</p>
 
   <figure class="bleed">
-    <svg viewBox="0 0 880 260" role="img" aria-label="A chain of tentative modifications from a known ancestor: each step adds its predicted change to a cumulative estimate, up to a depth limit kappa, when one real evaluation replaces the whole chain of estimates with an exact value.">
+    <svg viewBox="0 0 880 260" role="img" aria-label="Łańcuch tymczasowych modyfikacji od znanego przodka: każdy krok dokłada swoją przewidywaną zmianę do skumulowanego szacunku, aż do limitu głębokości kappa, kiedy jedna prawdziwa ewaluacja zastępuje cały łańcuch szacunków dokładną wartością.">
       <defs>
         <marker id="arrM" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
           <path d="M0,0 L10,5 L0,10 z" fill="currentColor"></path>
         </marker>
       </defs>
 
-      <rect x="20" y="30" width="130" height="50" rx="8" class="real-box" pointer-events="all" tabindex="0" data-tt="Ancestor x₀ — always the parent from H_t, with a genuinely known f₁(x₀). Telescoping always starts from a real value, never from another estimate."></rect>
+      <rect x="20" y="30" width="130" height="50" rx="8" class="real-box" pointer-events="all" tabindex="0" data-tt="Ancestor x₀ — zawsze rodzic z H_t, z prawdziwie znanym f₁(x₀). Telescoping zawsze zaczyna się od realnej wartości, nigdy od innego szacunku."></rect>
       <text x="85" y="52" text-anchor="middle" class="diagram-label" font-size="12" fill="currentColor">x₀</text>
-      <text x="85" y="67" text-anchor="middle" class="diagram-label" font-size="9.5" fill="var(--real)">f₁(x₀) — real</text>
+      <text x="85" y="67" text-anchor="middle" class="diagram-label" font-size="9.5" fill="var(--real)">f₁(x₀) — realne</text>
 
       <path d="M150,55 L188,55" stroke="var(--surrogate)" stroke-width="1.3" marker-end="url(#arrM)"></path>
       <text x="169" y="43" text-anchor="middle" class="diagram-label" font-size="9.5" fill="var(--surrogate)">+δ̂F₁</text>
 
-      <rect x="190" y="30" width="130" height="50" rx="8" class="tentative-box" pointer-events="all" tabindex="0" data-tt="Estimate: f̂₁(x₁) = f₁(x₀) + δ̂F₁(x₀,x₁). Never verified for real — unless the sweep happens to stop exactly here."></rect>
+      <rect x="190" y="30" width="130" height="50" rx="8" class="tentative-box" pointer-events="all" tabindex="0" data-tt="Szacunek: f̂₁(x₁) = f₁(x₀) + δ̂F₁(x₀,x₁). Nigdy nie zweryfikowany naprawdę — chyba że to właśnie tu przemiatanie się zatrzyma."></rect>
       <text x="255" y="52" text-anchor="middle" class="diagram-label" font-size="12" fill="currentColor">x₁</text>
-      <text x="255" y="67" text-anchor="middle" class="diagram-label" font-size="9.5" fill="var(--surrogate)">estimate, step 1</text>
+      <text x="255" y="67" text-anchor="middle" class="diagram-label" font-size="9.5" fill="var(--surrogate)">szacunek, krok 1</text>
 
       <path d="M320,55 L358,55" stroke="var(--surrogate)" stroke-width="1.3" marker-end="url(#arrM)"></path>
       <text x="339" y="43" text-anchor="middle" class="diagram-label" font-size="9.5" fill="var(--surrogate)">+δ̂F₂</text>
 
-      <rect x="360" y="30" width="130" height="50" rx="8" class="tentative-box" pointer-events="all" tabindex="0" data-tt="Estimate: f̂₁(x₂) = f₁(x₀) + δ̂F₁ + δ̂F₂. Error from step 1 and step 2 may have compounded."></rect>
+      <rect x="360" y="30" width="130" height="50" rx="8" class="tentative-box" pointer-events="all" tabindex="0" data-tt="Szacunek: f̂₁(x₂) = f₁(x₀) + δ̂F₁ + δ̂F₂. Błąd z kroku 1 i kroku 2 mógł się skumulować."></rect>
       <text x="425" y="52" text-anchor="middle" class="diagram-label" font-size="12" fill="currentColor">x₂</text>
-      <text x="425" y="67" text-anchor="middle" class="diagram-label" font-size="9.5" fill="var(--surrogate)">estimate, step 2</text>
+      <text x="425" y="67" text-anchor="middle" class="diagram-label" font-size="9.5" fill="var(--surrogate)">szacunek, krok 2</text>
 
       <text x="530" y="55" text-anchor="middle" class="diagram-label" font-size="16" fill="currentColor" opacity="0.5">···</text>
 
       <path d="M560,55 L598,55" stroke="var(--surrogate)" stroke-width="1.3" marker-end="url(#arrM)"></path>
       <text x="579" y="43" text-anchor="middle" class="diagram-label" font-size="9.5" fill="var(--surrogate)">+δ̂Fₘ</text>
 
-      <rect x="600" y="30" width="140" height="50" rx="8" class="tentative-box" pointer-events="all" tabindex="0" data-tt="f̂₁(xₘ) = f₁(x₀) − Σδ̂Fᵢ in the paper's convention (error, minimized); in this document's convention (quality, maximized) it's f₁(x₀) + Σδ̂Fᵢ. m ≤ κ always."></rect>
+      <rect x="600" y="30" width="140" height="50" rx="8" class="tentative-box" pointer-events="all" tabindex="0" data-tt="f̂₁(xₘ) = f₁(x₀) − Σδ̂Fᵢ w konwencji artykułu (błąd, minimalizowany); w konwencji tego dokumentu (jakość, maksymalizowana) to f₁(x₀) + Σδ̂Fᵢ. m ≤ κ zawsze."></rect>
       <text x="670" y="52" text-anchor="middle" class="diagram-label" font-size="12" fill="currentColor">xₘ = x′</text>
-      <text x="670" y="67" text-anchor="middle" class="diagram-label" font-size="9.5" fill="var(--surrogate)">m ≤ κ steps</text>
+      <text x="670" y="67" text-anchor="middle" class="diagram-label" font-size="9.5" fill="var(--surrogate)">m ≤ κ kroków</text>
 
       <line x1="20" y1="120" x2="740" y2="120" stroke="currentColor" stroke-width="1" opacity="0.15"></line>
 
-      <text x="20" y="145" class="diagram-label" font-size="12" fill="currentColor" opacity="0.7">Cumulative telescoping estimate:</text>
+      <text x="20" y="145" class="diagram-label" font-size="12" fill="currentColor" opacity="0.7">Skumulowany szacunek telescopingu:</text>
       <text x="20" y="166" class="mono" font-size="13" fill="currentColor">f̂₁(xₘ) = f₁(x₀) + δ̂F₁(x₀,x₁) + δ̂F₂(x₁,x₂) + ⋯ + δ̂Fₘ(xₘ₋₁,xₘ)</text>
 
-      <rect x="20" y="190" width="740" height="50" rx="8" fill="var(--accent-soft)" stroke="var(--accent)" stroke-width="1.6" pointer-events="all" tabindex="0" data-tt="κ = 2⌈log₂ n⌉, where n is the dimension of the whole, extended genotype — a heuristic default threshold from eLyMPuS, not a mathematical derivation. Sensitivity to this value is studied empirically in the paper."></rect>
-      <text x="390" y="212" text-anchor="middle" class="diagram-label" font-size="12.5" fill="var(--ink)">At m = κ: the chain of estimates ends by forcing</text>
-      <text x="390" y="228" text-anchor="middle" class="diagram-label" font-size="11" fill="var(--ink)" opacity="0.85">one real evaluation — the error resets to zero</text>
+      <rect x="20" y="190" width="740" height="50" rx="8" fill="var(--accent-soft)" stroke="var(--accent)" stroke-width="1.6" pointer-events="all" tabindex="0" data-tt="κ = 2⌈log₂ n⌉, gdzie n to wymiar całego, rozszerzonego genotypu — heurystyczny domyślny próg z eLyMPuS, nie wyprowadzenie matematyczne. Wrażliwość na tę wartość jest badana empirycznie w artykule."></rect>
+      <text x="390" y="212" text-anchor="middle" class="diagram-label" font-size="12.5" fill="var(--ink)">Przy m = κ: łańcuch szacunków kończy się wymuszeniem</text>
+      <text x="390" y="228" text-anchor="middle" class="diagram-label" font-size="11" fill="var(--ink)" opacity="0.85">jednej prawdziwej ewaluacji — błąd resetuje się do zera</text>
     </svg>
-    <figcaption><span class="k">What this diagram shows —</span> the longer a chain of pure estimates gets, the less trustworthy the last one is — exactly like a rumor repeated by ten people. κ doesn't try to guess when an estimate becomes “too uncertain” — it simply imposes a hard ceiling, so the error can never grow without bound.</figcaption>
+    <figcaption><span class="k">Co pokazuje ten diagram —</span> im dłuższy łańcuch samych szacunków, tym mniej ufny jest ostatni z nich — dokładnie jak plotka powtórzona przez dziesięć osób. κ nie próbuje zgadnąć, kiedy szacunek staje się „zbyt niepewny” — po prostu narzuca twardy sufit, żeby błąd nigdy nie mógł urosnąć bez ograniczeń.</figcaption>
   </figure>
 
-  <h3><span class="num">3.4</span>Selecting C* and the real evaluation</h3>
-  <p>Intuitively: when only one number counts, “better” simply means bigger. When two numbers count at once — error and cost — a candidate only qualifies as an improvement if it's no worse in either dimension and better in at least one. That's <em>Pareto non-domination</em>, and it, not a plain > comparison, now decides promotion to a higher pyramid level.</p>
+  <h3><span class="num">3.4</span>Wybór C* i prawdziwa ewaluacja</h3>
+  <p>Intuicyjnie: kiedy liczy się tylko jedna liczba, „lepiej” znaczy po prostu większe. Kiedy liczą się dwie liczby naraz — błąd i koszt — kandydat kwalifikuje się jako poprawa tylko wtedy, gdy nie jest gorszy w żadnym z dwóch wymiarów i lepszy w co najmniej jednym. To właśnie <em>niezdominowanie Pareto</em>, i to ono, nie zwykłe porównanie &gt;, decyduje teraz o awansie na wyższy poziom piramidy.</p>
 
   <figure class="bleed">
-    <svg viewBox="0 0 880 320" role="img" aria-label="A scatter plot of quality against cost: candidate B has worse quality and higher cost than the parent, so it's dominated; candidate C improves quality without worsening cost, so it's non-dominated and qualifies for promotion; candidate D lowers cost without worsening quality, so it also qualifies.">
+    <svg viewBox="0 0 880 320" role="img" aria-label="Wykres rozrzutu jakości względem kosztu: kandydat B ma gorszą jakość i wyższy koszt niż rodzic, więc jest zdominowany; kandydat C poprawia jakość bez pogarszania kosztu, więc jest niezdominowany i kwalifikuje się do awansu; kandydat D obniża koszt bez pogarszania jakości, więc też się kwalifikuje.">
       <defs>
         <marker id="arrN" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
           <path d="M0,0 L10,5 L0,10 z" fill="currentColor"></path>
@@ -995,62 +995,62 @@
 
       <line x1="80" y1="30" x2="80" y2="260" stroke="currentColor" stroke-width="1.2" opacity="0.4" marker-end="url(#arrN)"></line>
       <line x1="80" y1="260" x2="560" y2="260" stroke="currentColor" stroke-width="1.2" opacity="0.4" marker-end="url(#arrN)"></line>
-      <text x="70" y="24" text-anchor="end" class="diagram-label" font-size="11" fill="currentColor" opacity="0.6">cost f₂</text>
-      <text x="565" y="272" class="diagram-label" font-size="11" fill="currentColor" opacity="0.6">quality (better is further right)</text>
-      <text x="55" y="45" text-anchor="end" class="diagram-label" font-size="10" fill="currentColor" opacity="0.5">lower =</text>
-      <text x="55" y="58" text-anchor="end" class="diagram-label" font-size="10" fill="currentColor" opacity="0.5">cheaper</text>
+      <text x="70" y="24" text-anchor="end" class="diagram-label" font-size="11" fill="currentColor" opacity="0.6">koszt f₂</text>
+      <text x="565" y="272" class="diagram-label" font-size="11" fill="currentColor" opacity="0.6">jakość (im lepiej, tym w prawo)</text>
+      <text x="55" y="45" text-anchor="end" class="diagram-label" font-size="10" fill="currentColor" opacity="0.5">niżej =</text>
+      <text x="55" y="58" text-anchor="end" class="diagram-label" font-size="10" fill="currentColor" opacity="0.5">taniej</text>
 
       <rect x="80" y="30" width="270" height="120" fill="var(--accent-soft)" opacity="0.35"></rect>
-      <text x="215" y="48" text-anchor="middle" class="diagram-label" font-size="10.5" fill="var(--accent)" opacity="0.9" pointer-events="all" tabindex="0" data-tt="Every point in this rectangle has quality ≥ the parent AND cost ≤ the parent — exactly the definition of non-domination against the parent.">zone: no worse in either dimension</text>
+      <text x="215" y="48" text-anchor="middle" class="diagram-label" font-size="10.5" fill="var(--accent)" opacity="0.9" pointer-events="all" tabindex="0" data-tt="Każdy punkt w tym prostokącie ma jakość ≥ rodzica ORAZ koszt ≤ rodzica — dokładnie definicja niezdominowania względem rodzica.">strefa: nie gorzej w żadnym wymiarze</text>
 
-      <circle cx="350" cy="150" r="7" fill="currentColor" pointer-events="all" tabindex="0" data-tt="The reference point — what we're trying to improve in this step of the sweep."></circle>
-      <text x="350" y="172" text-anchor="middle" class="diagram-label" font-size="11" fill="currentColor">parent</text>
+      <circle cx="350" cy="150" r="7" fill="currentColor" pointer-events="all" tabindex="0" data-tt="Punkt odniesienia — to, co próbujemy poprawić w tym kroku przemiatania."></circle>
+      <text x="350" y="172" text-anchor="middle" class="diagram-label" font-size="11" fill="currentColor">rodzic</text>
 
-      <circle cx="440" cy="210" r="7" fill="var(--ink-faint)" pointer-events="all" tabindex="0" data-tt="Worse quality AND higher cost than the parent — dominated in both dimensions, rejected."></circle>
-      <text x="440" y="232" text-anchor="middle" class="diagram-label" font-size="11" fill="var(--ink-faint)">B: dominated</text>
+      <circle cx="440" cy="210" r="7" fill="var(--ink-faint)" pointer-events="all" tabindex="0" data-tt="Gorsza jakość I wyższy koszt niż rodzic — zdominowany w obu wymiarach, odrzucony."></circle>
+      <text x="440" y="232" text-anchor="middle" class="diagram-label" font-size="11" fill="var(--ink-faint)">B: zdominowany</text>
 
-      <circle cx="470" cy="110" r="7" fill="var(--accent)" pointer-events="all" tabindex="0" data-tt="Better quality, the same cost as the parent — non-dominated, qualifies for promotion."></circle>
-      <text x="470" y="94" text-anchor="middle" class="diagram-label" font-size="11" fill="var(--accent)">C: non-dominated</text>
+      <circle cx="470" cy="110" r="7" fill="var(--accent)" pointer-events="all" tabindex="0" data-tt="Lepsza jakość, ten sam koszt co rodzic — niezdominowany, kwalifikuje się do awansu."></circle>
+      <text x="470" y="94" text-anchor="middle" class="diagram-label" font-size="11" fill="var(--accent)">C: niezdominowany</text>
 
-      <circle cx="300" cy="90" r="7" fill="var(--accent)" pointer-events="all" tabindex="0" data-tt="The same quality, lower cost than the parent — also non-dominated, also qualifies for promotion."></circle>
-      <text x="290" y="74" text-anchor="middle" class="diagram-label" font-size="10.5" fill="var(--accent)">D: non-dominated</text>
+      <circle cx="300" cy="90" r="7" fill="var(--accent)" pointer-events="all" tabindex="0" data-tt="Ta sama jakość, niższy koszt niż rodzic — też niezdominowany, też kwalifikuje się do awansu."></circle>
+      <text x="290" y="74" text-anchor="middle" class="diagram-label" font-size="10.5" fill="var(--accent)">D: niezdominowany</text>
 
-      <text x="700" y="150" class="diagram-label" font-size="11.5" fill="currentColor" opacity="0.75" pointer-events="all" tabindex="0" data-tt="C* is the set of non-dominated results from this iteration — it can have more than one element, unlike the single winner in pure P3.">C* = all</text>
-      <text x="700" y="167" class="diagram-label" font-size="11.5" fill="currentColor" opacity="0.75">non-dominated</text>
-      <text x="700" y="184" class="diagram-label" font-size="11.5" fill="currentColor" opacity="0.75">from this iteration</text>
+      <text x="700" y="150" class="diagram-label" font-size="11.5" fill="currentColor" opacity="0.75" pointer-events="all" tabindex="0" data-tt="C* to zbiór niezdominowanych wyników z tej iteracji — może mieć więcej niż jeden element, w przeciwieństwie do pojedynczego zwycięzcy w czystym P3.">C* = wszystkie</text>
+      <text x="700" y="167" class="diagram-label" font-size="11.5" fill="currentColor" opacity="0.75">niezdominowane</text>
+      <text x="700" y="184" class="diagram-label" font-size="11.5" fill="currentColor" opacity="0.75">z tej iteracji</text>
     </svg>
-    <figcaption><span class="k">What this diagram shows —</span> promotion to a higher pyramid level no longer requires “more ones” — it requires landing in the shaded zone relative to the parent. In full P3Net, C* is selected among all candidates from the whole iteration, not just against one parent; the live simulation in section 4 simplifies this to a parent comparison, exactly as the pure-P3 demo did — what's new here is two dimensions instead of one.</figcaption>
+    <figcaption><span class="k">Co pokazuje ten diagram —</span> awans na wyższy poziom piramidy nie wymaga już „więcej jedynek” — wymaga wylądowania w zacieniowanej strefie względem rodzica. W pełnym P3Net C* jest wybierane spośród wszystkich kandydatów z całej iteracji, nie tylko względem jednego rodzica; żywa symulacja w sekcji 4 upraszcza to do porównania z rodzicem, dokładnie tak, jak upraszczała to demo czystego P3 — nowością tutaj są dwa wymiary zamiast jednego.</figcaption>
   </figure>
 
-  <p>Selecting non-dominated candidates is scoped to one iteration: only results produced against the same snapshot of H_t, with the same, not-yet-retrained surrogate, are compared. This keeps the comparison fair — estimates from before and after retraining δ̂F, which could drift in different directions, are never mixed.</p>
+  <p>Wybór niezdominowanych kandydatów jest ograniczony do jednej iteracji: porównywane są tylko wyniki wyprodukowane względem tego samego zrzutu H_t, z tym samym, jeszcze nie retrenowanym surogatem. Dzięki temu porównanie jest uczciwe — nie miesza się szacunków sprzed i po retrenowaniu δ̂F, które mogłyby dryfować w różne strony.</p>
 </section>
 
 <section id="live">
-  <h2>4&nbsp; See it in action</h2>
-  <p class="subdek">Not an animation of one fixed example — this is the algorithm actually running, exactly per the pseudocode in section&nbsp;5, computing in your browser. Real neural networks can't be trained in a browser, so below is a toy but <em>honestly computed</em> NAS problem, in the same style the paper describes.</p>
+  <h2>4&nbsp; Zobacz to w akcji</h2>
+  <p class="subdek">Nie animacja jednego ustalonego przykładu — to naprawdę uruchomiony algorytm, dokładnie wg pseudokodu z sekcji&nbsp;5, licząc w Twojej przeglądarce. Prawdziwych sieci neuronowych nie da się trenować w przeglądarce, więc poniżej jest zabawkowy, ale <em>uczciwie policzony</em> problem NAS w tej samej stylistyce, w jakiej opisuje go artykuł.</p>
 
-  <h3><span class="num">4.1</span>The problem: a small, deceptive cell to design</h3>
-  <p>The genotype below has 6 loci: <strong>5 cell edges</strong> (each choosing an operation ∈ {<span class="mono">conv</span>, <span class="mono">skip</span>, <span class="mono">none</span>}) and <strong>one discretized hyperparameter</strong> — a learning-rate bucket (∈ {<span class="mono">low</span>, <span class="mono">medium</span>, <span class="mono">high</span>}). This is exactly the genotype shape from section 3.1: Λ₁×⋯×Λ₅×Θ.</p>
-  <p><strong>Invalidity g(x):</strong> if all 5 edges are <span class="mono">none</span>, there's no path at all from input to output — such a genotype is rejected before any scoring.</p>
-  <p><strong>Cost f₂ (always free, computed analytically):</strong> in this toy example it depends only on the learning rate — <span class="mono">low</span> = 0 (a safe, short schedule), <span class="mono">medium</span> = 1, <span class="mono">high</span> = 2 (the most expensive warm-up schedule). It deliberately does <em>not</em> depend on the choice of edge operations — this way, a quality improvement from discovering the {conv, conv} cluster isn't automatically punished with a higher cost, and the sweep can genuinely demonstrate the full P3Net mechanism with real pyramid promotions. Range: 0–2, less = cheaper.</p>
-  <p><strong>Quality f₁ (requires a real evaluation):</strong> the sum of three independent contributions, deliberately deceptive — exactly like the trap function in the P3 document, only now over operations instead of bits:</p>
+  <h3><span class="num">4.1</span>Problem: mała, zdradliwa komórka do zaprojektowania</h3>
+  <p>Genotyp poniżej ma 6 loci: <strong>5 krawędzi komórki</strong> (każda wybiera operację ∈ {<span class="mono">conv</span>, <span class="mono">skip</span>, <span class="mono">none</span>}) i <strong>jeden zdyskretyzowany hiperparametr</strong> — przedział szybkości uczenia (∈ {<span class="mono">niskie</span>, <span class="mono">średnie</span>, <span class="mono">wysokie</span>}). To dokładnie kształt genotypu z sekcji 3.1: Λ₁×⋯×Λ₅×Θ.</p>
+  <p><strong>Nieprawidłowość g(x):</strong> jeśli wszystkie 5 krawędzi to <span class="mono">none</span>, nie ma żadnej ścieżki z wejścia do wyjścia — taki genotyp jest odrzucany przed jakąkolwiek oceną.</p>
+  <p><strong>Koszt f₂ (zawsze darmowy, liczony analitycznie):</strong> w tym zabawkowym przykładzie zależy wyłącznie od szybkości uczenia — <span class="mono">niskie</span> = 0 (bezpieczny, krótki harmonogram), <span class="mono">średnie</span> = 1, <span class="mono">wysokie</span> = 2 (najkosztowniejszy harmonogram rozgrzewania). Celowo <em>nie</em> zależy od wyboru operacji na krawędziach — dzięki temu poprawa jakości przez odkrycie klastra {conv, conv} nie jest automatycznie karana wyższym kosztem, i przemiatanie może naprawdę zademonstrować pełny mechanizm P3Net z realnymi awansami w piramidzie. Zakres: 0–2, mniej = taniej.</p>
+  <p><strong>Jakość f₁ (wymaga prawdziwej ewaluacji):</strong> suma trzech niezależnych wkładów, celowo zdradliwych — dokładnie jak funkcja pułapki w dokumencie o P3, tylko teraz nad operacjami zamiast bitami:</p>
 
   <figure class="bleed">
-    <svg viewBox="0 0 880 280" role="img" aria-label="Two edge groups with a deliberately deceptive contribution to quality: group A (edges 1 and 2) has its highest contribution at zero convolutions, drops at one, and only jumps highest at two; group B (edges 3, 4, 5) has a similar shape with a deeper dip and a higher jump at the end.">
+    <svg viewBox="0 0 880 280" role="img" aria-label="Dwie grupy krawędzi z celowo zdradliwym wkładem do jakości: grupa A (krawędzie 1 i 2) ma najwyższy wkład przy zerze konwolucji, spada przy jednej, i skacze najwyżej dopiero przy obu; grupa B (krawędzie 3, 4, 5) ma podobny kształt z głębszym dołkiem i wyższym skokiem na końcu.">
       <g class="mono">
-        <text x="20" y="20" font-size="12" fill="currentColor" opacity="0.6">GROUP A — edges {1,2}, contribution c_A</text>
+        <text x="20" y="20" font-size="12" fill="currentColor" opacity="0.6">GRUPA A — krawędzie {1,2}, wkład c_A</text>
         <line x1="60" y1="170" x2="380" y2="170" stroke="currentColor" stroke-width="1.2" opacity="0.4"></line>
         <line x1="60" y1="40" x2="60" y2="170" stroke="currentColor" stroke-width="1.2" opacity="0.4"></line>
 
-        <g pointer-events="all" tabindex="0" data-tt="Zero convolutions among edges {1,2} (e.g. skip+skip). Contribution: 2. Locally good — hill climbing will settle right here.">
+        <g pointer-events="all" tabindex="0" data-tt="Zero konwolucji wśród krawędzi {1,2} (np. skip+skip). Wkład: 2. Lokalnie dobre — wspinaczka górska osiądzie właśnie tutaj.">
           <rect x="80" y="90" width="60" height="80" fill="var(--bg-sunken)" stroke="currentColor" stroke-width="1.3"></rect>
           <text x="110" y="82" text-anchor="middle" font-size="12" fill="currentColor">2</text>
         </g>
-        <g pointer-events="all" tabindex="0" data-tt="Exactly one convolution among {1,2}. Contribution: 1 — worse than zero! A single change toward “more conv” always gets reverted.">
+        <g pointer-events="all" tabindex="0" data-tt="Dokładnie jedna konwolucja wśród {1,2}. Wkład: 1 — gorzej niż zero! Pojedyncza zmiana w stronę „więcej conv” zawsze się cofa.">
           <rect x="170" y="130" width="60" height="40" fill="var(--bg-sunken)" stroke="currentColor" stroke-width="1.3"></rect>
           <text x="200" y="122" text-anchor="middle" font-size="12" fill="currentColor">1</text>
         </g>
-        <g pointer-events="all" tabindex="0" data-tt="Both edges {1,2} are conv. Contribution: 4 — the best, but only reachable by copying BOTH at once from a donor who already has it.">
+        <g pointer-events="all" tabindex="0" data-tt="Obie krawędzie {1,2} to conv. Wkład: 4 — najlepiej, ale osiągalne tylko przez skopiowanie OBU naraz od dawcy, który już to ma.">
           <rect x="260" y="20" width="60" height="150" fill="var(--accent-soft)" stroke="var(--accent)" stroke-width="1.8"></rect>
           <text x="290" y="38" text-anchor="middle" font-size="12" fill="var(--accent)">4</text>
         </g>
@@ -1061,23 +1061,23 @@
 
         <line x1="440" y1="10" x2="440" y2="260" stroke="currentColor" stroke-width="1" opacity="0.15"></line>
 
-        <text x="470" y="20" font-size="12" fill="currentColor" opacity="0.6">GROUP B — edges {3,4,5}, contribution c_B</text>
+        <text x="470" y="20" font-size="12" fill="currentColor" opacity="0.6">GRUPA B — krawędzie {3,4,5}, wkład c_B</text>
         <line x1="510" y1="170" x2="830" y2="170" stroke="currentColor" stroke-width="1.2" opacity="0.4"></line>
         <line x1="510" y1="40" x2="510" y2="170" stroke="currentColor" stroke-width="1.2" opacity="0.4"></line>
 
-        <g pointer-events="all" tabindex="0" data-tt="Zero convolutions among {3,4,5}. Contribution: 3.">
+        <g pointer-events="all" tabindex="0" data-tt="Zero konwolucji wśród {3,4,5}. Wkład: 3.">
           <rect x="525" y="70" width="46" height="100" fill="var(--bg-sunken)" stroke="currentColor" stroke-width="1.3"></rect>
           <text x="548" y="62" text-anchor="middle" font-size="11.5" fill="currentColor">3</text>
         </g>
-        <g pointer-events="all" tabindex="0" data-tt="Exactly one convolution among {3,4,5}. Contribution: 2 — going down.">
+        <g pointer-events="all" tabindex="0" data-tt="Dokładnie jedna konwolucja wśród {3,4,5}. Wkład: 2 — w dół.">
           <rect x="581" y="103" width="46" height="67" fill="var(--bg-sunken)" stroke="currentColor" stroke-width="1.3"></rect>
           <text x="604" y="95" text-anchor="middle" font-size="11.5" fill="currentColor">2</text>
         </g>
-        <g pointer-events="all" tabindex="0" data-tt="Exactly two convolutions among {3,4,5}. Contribution: 1 — the worst, exactly like three ones in the trap function from the P3 document.">
+        <g pointer-events="all" tabindex="0" data-tt="Dokładnie dwie konwolucje wśród {3,4,5}. Wkład: 1 — najgorzej, dokładnie jak trzy jedynki w funkcji pułapki z dokumentu o P3.">
           <rect x="637" y="136" width="46" height="34" fill="var(--bg-sunken)" stroke="currentColor" stroke-width="1.3"></rect>
           <text x="660" y="128" text-anchor="middle" font-size="11.5" fill="currentColor">1</text>
         </g>
-        <g pointer-events="all" tabindex="0" data-tt="All three {3,4,5} are conv. Contribution: 6 — this group's global optimum, only reachable by copying ALL THREE at once.">
+        <g pointer-events="all" tabindex="0" data-tt="Wszystkie trzy {3,4,5} to conv. Wkład: 6 — globalne optimum tej grupy, osiągalne tylko przez skopiowanie WSZYSTKICH TRZECH naraz.">
           <rect x="693" y="20" width="46" height="150" fill="var(--accent-soft)" stroke="var(--accent)" stroke-width="1.8"></rect>
           <text x="716" y="38" text-anchor="middle" font-size="11.5" fill="var(--accent)">6</text>
         </g>
@@ -1087,166 +1087,166 @@
         <text x="660" y="188" text-anchor="middle" font-size="10" opacity="0.6" fill="currentColor">2 conv</text>
         <text x="716" y="188" text-anchor="middle" font-size="10" fill="var(--accent)">3 conv</text>
 
-        <text x="20" y="225" font-size="11" fill="currentColor" opacity="0.6">+ learning rate (independent): low→1, medium→3 (best), high→1.5</text>
-        <text x="20" y="245" font-size="11" fill="currentColor" opacity="0.6">f₁ = c_A + c_B + c_lr — range 3 (worst) to 13 (global optimum).</text>
+        <text x="20" y="225" font-size="11" fill="currentColor" opacity="0.6">+ szybkość uczenia (niezależna): niskie→1, średnie→3 (najlepiej), wysokie→1,5</text>
+        <text x="20" y="245" font-size="11" fill="currentColor" opacity="0.6">f₁ = c_A + c_B + c_lr — zakres 3 (najgorzej) do 13 (globalne optimum).</text>
       </g>
     </svg>
-    <figcaption><span class="k">What this diagram shows —</span> the same “dip” as in the trap function from the P3 document: a single change toward a group's optimum always worsens the result, so hill climbing will never get there on its own. The only path to each group's peak is copying <em>all</em> its edges at once from a donor who already has them — exactly what a linkage-tree cluster is for.</figcaption>
+    <figcaption><span class="k">Co pokazuje ten diagram —</span> ten sam „dołek” co w funkcji pułapki z dokumentu o P3: pojedyncza zmiana w stronę optimum grupy zawsze pogarsza wynik, więc wspinaczka górska nigdy tam sama nie trafi. Jedyna droga do szczytu każdej grupy to skopiowanie <em>wszystkich</em> jej krawędzi naraz od dawcy, który już je ma — dokładnie to, do czego służy klaster w drzewie powiązań.</figcaption>
   </figure>
 
-  <h3><span class="num">4.2</span>The solution: P3Net actually run on this cell</h3>
-  <p>The same genotype from 4.1 is now going through a genuinely running P3Net, exactly as described in sections 2–3 and the pseudocode in section 5: pyramid and hill climbing unchanged, crossover scores every step with the surrogate δ̂F instead of training a network, chain depth is bounded by κ, and a real evaluation lands only once per sweep.</p>
-  <p>The surrogate below is a genuinely trained, though deliberately simple, model: for every subset F the linkage tree has already discovered, it remembers the average observed quality change for a specific value substitution on that subset, updating with every new real evaluation — nothing here is hardcoded or scripted.</p>
+  <h3><span class="num">4.2</span>Rozwiązanie: P3Net naprawdę uruchomiony na tej komórce</h3>
+  <p>Ten sam genotyp z 4.1 teraz przechodzi przez naprawdę działający P3Net, dokładnie ten opisany w sekcjach 2–3 i w pseudokodzie z sekcji 5: piramida i wspinaczka górska bez zmian, krzyżowanie ocenia każdy krok surogatem δ̂F zamiast trenować sieć, głębokość łańcucha jest ograniczona przez κ, a prawdziwa ewaluacja pada dopiero raz na przemiatanie.</p>
+  <p>Surogat poniżej to prawdziwie trenowany, choć celowo prosty model: dla każdego podzbioru F, który drzewo powiązań już odkryło, zapamiętuje średnią obserwowaną zmianę jakości dla konkretnego podstawienia wartości na tym podzbiorze, aktualizując się z każdą nową prawdziwą ewaluacją — nic nie jest tu zaszyte na sztywno ani rozegrane ze scenariusza.</p>
 
   <div class="demo-bleed-wrap">
   <div class="demo" id="p3netdemo">
     <div class="demo-legend demo-map-legend">
-      <span class="demo-legend-item"><span class="legend-swatch-real"></span>actually evaluated</span>
-      <span class="demo-legend-item"><span class="legend-swatch-tentative"></span>tentative, surrogate-only</span>
-      <span class="demo-legend-item demo-legend-phases">Highlighted background = the step you're currently on.</span>
+      <span class="demo-legend-item"><span class="legend-swatch-real"></span>naprawdę ocenione</span>
+      <span class="demo-legend-item"><span class="legend-swatch-tentative"></span>tymczasowe, tylko wg surogatu</span>
+      <span class="demo-legend-item demo-legend-phases">Jasne tło = krok, w którym właśnie jesteś.</span>
     </div>
 
     <div class="hero-block">
       <div class="demo-map-wrap map-strip">
-        <svg viewBox="0 0 1400 300" role="img" aria-label="A horizontal map of one P3Net iteration: a parent from H_t, then for each subset F, up to depth kappa — a proposal from a donor, a surrogate score, tentative acceptance; after the sweep ends, one real evaluation and an H_t update before the next iteration. The current step highlights live.">
+        <svg viewBox="0 0 1400 300" role="img" aria-label="Pozioma mapa jednej iteracji P3Net: rodzic z H_t, a potem dla każdego podzbioru F, aż do głębokości kappa — propozycja od dawcy, ocena surogatu, tymczasowa akceptacja; po zakończeniu przemiatania jedna prawdziwa ewaluacja i aktualizacja H_t przed kolejną iteracją. Aktualny krok podświetla się na żywo.">
           <defs>
             <marker id="arrMapNet" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto-start-reverse">
               <path d="M0,0 L10,5 L0,10 z" fill="currentColor"></path>
             </marker>
           </defs>
 
-          <path class="map-arrow" d="M1300,170 C1370,20 90,20 90,168" fill="none" stroke-width="1.3" stroke-dasharray="2 4" marker-end="url(#arrMapNet)" pointer-events="all" tabindex="0" data-tt="A new iteration — and since the last one, H_t may have grown with more real evaluations, so the surrogate is retrained and the linkage tree rebuilt before the next sweep runs."></path>
-          <text x="700" y="14" text-anchor="middle" class="diagram-label" font-size="11" fill="var(--accent)" opacity="0.9">next iteration</text>
+          <path class="map-arrow" d="M1300,170 C1370,20 90,20 90,168" fill="none" stroke-width="1.3" stroke-dasharray="2 4" marker-end="url(#arrMapNet)" pointer-events="all" tabindex="0" data-tt="Nowa iteracja — a od czasu poprzedniej mogła urosnąć H_t o kolejne prawdziwe ewaluacje, więc surogat jest retrenowany, a drzewo powiązań przebudowane, zanim ruszy kolejne przemiatanie."></path>
+          <text x="700" y="14" text-anchor="middle" class="diagram-label" font-size="11" fill="var(--accent)" opacity="0.9">kolejna iteracja</text>
 
-          <rect id="mapBoxParent" class="map-box map-real" data-node="parent" x="20" y="170" width="140" height="60" rx="8" pointer-events="all" tabindex="0" data-tt="Always from H_t — never transient. The ancestor x₀ for the telescoping in 3.3 is always this same parent."></rect>
-          <text id="mapLabelParent" class="map-label" data-node="parent" x="90" y="204" text-anchor="middle" font-size="12.5">parent (H_t)</text>
+          <rect id="mapBoxParent" class="map-box map-real" data-node="parent" x="20" y="170" width="140" height="60" rx="8" pointer-events="all" tabindex="0" data-tt="Zawsze z H_t — nigdy transient. Ancestor x₀ dla telescopingu w 3.3 to zawsze ten sam rodzic."></rect>
+          <text id="mapLabelParent" class="map-label" data-node="parent" x="90" y="204" text-anchor="middle" font-size="12.5">rodzic (H_t)</text>
           <path class="map-arrow" d="M160,200 L188,200" stroke-width="1.2" marker-end="url(#arrMapNet)"></path>
 
-          <rect id="mapBoxPropose" class="map-box map-tentative" data-node="propose" x="190" y="170" width="175" height="60" rx="8" pointer-events="all" tabindex="0" data-tt="A donor sampled from the same pyramid level as the parent. The modification is limited to the coordinates of subset F — the rest of the genotype is unchanged. Section 3.2."></rect>
-          <text id="mapLabelPropose" class="map-label" data-node="propose" x="277" y="197" text-anchor="middle" font-size="12">donor →</text>
-          <text class="map-label" data-node="propose" x="277" y="213" text-anchor="middle" font-size="11">proposal on F</text>
+          <rect id="mapBoxPropose" class="map-box map-tentative" data-node="propose" x="190" y="170" width="175" height="60" rx="8" pointer-events="all" tabindex="0" data-tt="Dawca losowany z tego samego poziomu piramidy co rodzic. Modyfikacja ograniczona do współrzędnych podzbioru F — reszta genotypu bez zmian. Sekcja 3.2."></rect>
+          <text id="mapLabelPropose" class="map-label" data-node="propose" x="277" y="197" text-anchor="middle" font-size="12">dawca →</text>
+          <text class="map-label" data-node="propose" x="277" y="213" text-anchor="middle" font-size="11">propozycja na F</text>
           <path class="map-arrow" d="M365,200 L393,200" stroke-width="1.2" marker-end="url(#arrMapNet)"></path>
 
-          <rect id="mapBoxScore" class="map-box" data-node="score" x="395" y="170" width="175" height="60" rx="8" pointer-events="all" tabindex="0" data-tt="Not an absolute regression from the encoded genotype (like NSGANetV2) — relative: it predicts the difference against the nearest predecessor in the sweep. Section 3.2."></rect>
-          <text id="mapLabelScore" class="map-label" data-node="score" x="482" y="204" text-anchor="middle" font-size="12">surrogate score δ̂F</text>
+          <rect id="mapBoxScore" class="map-box" data-node="score" x="395" y="170" width="175" height="60" rx="8" pointer-events="all" tabindex="0" data-tt="Nie absolutna regresja z zakodowanego genotypu (jak w NSGANetV2) — relatywna: przewiduje różnicę względem najbliższego poprzednika w przemiataniu. Sekcja 3.2."></rect>
+          <text id="mapLabelScore" class="map-label" data-node="score" x="482" y="204" text-anchor="middle" font-size="12">ocena surogatu δ̂F</text>
           <path class="map-arrow" d="M570,200 L598,200" stroke-width="1.2" marker-end="url(#arrMapNet)"></path>
 
           <path class="map-arrow" d="M650,170 C650,60 277,60 277,168" fill="none" stroke-width="1.1" stroke-dasharray="2 3" marker-end="url(#arrMapNet)" pointer-events="all" tabindex="0" data-tt="Accepted or not — the sweep always tries the next subset F, until it exhausts the tree or reaches depth κ."></path>
-          <text x="463" y="52" text-anchor="middle" class="diagram-label" font-size="10.5" fill="currentColor" opacity="0.65">next subset F</text>
+          <text x="463" y="52" text-anchor="middle" class="diagram-label" font-size="10.5" fill="currentColor" opacity="0.65">kolejny podzbiór F</text>
 
-          <rect id="mapBoxAccept" class="map-box map-tentative" data-node="accept" x="600" y="170" width="185" height="60" rx="8" pointer-events="all" tabindex="0" data-tt="Zero is the paper's default acceptance threshold — a zero or positive predicted change is enough to tentatively move on. If the prediction is negative, x stays unchanged and the sweep moves to the next subset anyway."></rect>
-          <text id="mapLabelAccept" class="map-label" data-node="accept" x="692" y="197" text-anchor="middle" font-size="11.5">tentative acceptance</text>
-          <text class="map-label" data-node="accept" x="692" y="213" text-anchor="middle" font-size="10">if δ̂F ≥ 0</text>
+          <rect id="mapBoxAccept" class="map-box map-tentative" data-node="accept" x="600" y="170" width="185" height="60" rx="8" pointer-events="all" tabindex="0" data-tt="Zero to domyślny próg akceptacji z artykułu — zerowa lub dodatnia przewidywana zmiana wystarcza, żeby tymczasowo przejść dalej. Jeśli przewidywanie jest ujemne, x pozostaje bez zmian i przemiatanie i tak przechodzi do kolejnego podzbioru."></rect>
+          <text id="mapLabelAccept" class="map-label" data-node="accept" x="692" y="197" text-anchor="middle" font-size="11.5">tymczasowa akceptacja</text>
+          <text class="map-label" data-node="accept" x="692" y="213" text-anchor="middle" font-size="10">jeśli δ̂F ≥ 0</text>
           <path class="map-arrow" d="M785,200 L813,200" stroke-width="1.2" marker-end="url(#arrMapNet)"></path>
 
-          <rect id="mapBoxSelect" class="map-box" data-node="select" x="815" y="170" width="195" height="60" rx="8" pointer-events="all" tabindex="0" data-tt="Which exact selection criterion — section 3.4. In short: the candidate the sweep actually stopped on."></rect>
-          <text id="mapLabelSelect" class="map-label" data-node="select" x="912" y="197" text-anchor="middle" font-size="11.5">end of sweep</text>
-          <text class="map-label" data-node="select" x="912" y="213" text-anchor="middle" font-size="10.5">select C*</text>
+          <rect id="mapBoxSelect" class="map-box" data-node="select" x="815" y="170" width="195" height="60" rx="8" pointer-events="all" tabindex="0" data-tt="Które dokładnie kryterium wyboru — sekcja 3.4. W skrócie: kandydat, na którym przemiatanie faktycznie się zatrzymało."></rect>
+          <text id="mapLabelSelect" class="map-label" data-node="select" x="912" y="197" text-anchor="middle" font-size="11.5">koniec przemiatania</text>
+          <text class="map-label" data-node="select" x="912" y="213" text-anchor="middle" font-size="10.5">wybierz C*</text>
           <path class="map-arrow" d="M1010,200 L1038,200" stroke-width="1.2" marker-end="url(#arrMapNet)"></path>
 
-          <rect id="mapBoxEval" class="map-box map-real" data-node="eval" x="1040" y="170" width="140" height="60" rx="8" pointer-events="all" tabindex="0" data-tt="Exactly one evaluation for the whole sweep — regardless of how many subsets F visited it along the way. f₂ is computed analytically, at no cost, so it needs no separate evaluation."></rect>
-          <text id="mapLabelEval" class="map-label" data-node="eval" x="1110" y="197" text-anchor="middle" font-size="12">real</text>
-          <text class="map-label" data-node="eval" x="1110" y="213" text-anchor="middle" font-size="10.5">evaluation f₁, f₂</text>
+          <rect id="mapBoxEval" class="map-box map-real" data-node="eval" x="1040" y="170" width="140" height="60" rx="8" pointer-events="all" tabindex="0" data-tt="Dokładnie jedna ewaluacja na całe przemiatanie — niezależnie od tego, ile podzbiorów F odwiedziło je po drodze. f₂ jest liczone analitycznie, bez kosztu, więc nie wymaga osobnej ewaluacji."></rect>
+          <text id="mapLabelEval" class="map-label" data-node="eval" x="1110" y="197" text-anchor="middle" font-size="12">prawdziwa</text>
+          <text class="map-label" data-node="eval" x="1110" y="213" text-anchor="middle" font-size="10.5">ewaluacja f₁, f₂</text>
           <path class="map-arrow" d="M1180,200 L1208,200" stroke-width="1.2" marker-end="url(#arrMapNet)"></path>
 
-          <rect id="mapBoxUpdate" class="map-box map-real" data-node="update" x="1210" y="170" width="170" height="60" rx="8" pointer-events="all" tabindex="0" data-tt="The new observation goes into H_t, δ̂F is retrained on all fitness-difference pairs gathered so far, and the linkage tree is rebuilt — only then does the next parent's sweep run, with this updated state."></rect>
-          <text id="mapLabelUpdate" class="map-label" data-node="update" x="1295" y="194" text-anchor="middle" font-size="10.5">update H_t,</text>
-          <text class="map-label" data-node="update" x="1295" y="208" text-anchor="middle" font-size="10.5">retrain δ̂F,</text>
-          <text class="map-label" data-node="update" x="1295" y="222" text-anchor="middle" font-size="9.5" opacity="0.8">rebuild tree</text>
+          <rect id="mapBoxUpdate" class="map-box map-real" data-node="update" x="1210" y="170" width="170" height="60" rx="8" pointer-events="all" tabindex="0" data-tt="Nowa obserwacja trafia do H_t, δ̂F jest retrenowany na wszystkich parach różnic dopasowania zebranych do tej pory, a drzewo powiązań przebudowane — dopiero z tym zaktualizowanym stanem rusza przemiatanie kolejnego rodzica."></rect>
+          <text id="mapLabelUpdate" class="map-label" data-node="update" x="1295" y="194" text-anchor="middle" font-size="10.5">aktualizuj H_t,</text>
+          <text class="map-label" data-node="update" x="1295" y="208" text-anchor="middle" font-size="10.5">retrenuj δ̂F,</text>
+          <text class="map-label" data-node="update" x="1295" y="222" text-anchor="middle" font-size="9.5" opacity="0.8">przebuduj drzewo</text>
 
-          <text x="700" y="266" text-anchor="middle" class="diagram-label" font-size="11" fill="currentColor" opacity="0.6">The “propose → score → accept” steps may repeat up to κ times — a real evaluation lands once per sweep.</text>
+          <text x="700" y="266" text-anchor="middle" class="diagram-label" font-size="11" fill="currentColor" opacity="0.6">Kroki „zaproponuj → oceń → akceptuj” mogą powtórzyć się do κ razy — prawdziwa ewaluacja pada raz na przemiatanie.</text>
         </svg>
       </div>
       <div class="genome-strip">
-        <span class="glabel" pointer-events="all" tabindex="0" data-tt="A solid green badge = actually evaluated; a dashed purple one = tentative, accepted only by the surrogate δ̂F, not yet verified for real.">status</span>
+        <span class="glabel" pointer-events="all" tabindex="0" data-tt="Solidna zielona odznaka = naprawdę oceniony; przerywana fioletowa = tymczasowy, zaakceptowany tylko przez surogat δ̂F, jeszcze nie zweryfikowany naprawdę.">status</span>
         <span id="genomeStatus" class="genome-status">—</span>
-        <span class="glabel" pointer-events="all" tabindex="0" data-tt="The candidate genotype currently going through the algorithm — colors according to what the currently highlighted step on the map above is doing.">genotype</span>
+        <span class="glabel" pointer-events="all" tabindex="0" data-tt="Genotyp kandydata, który właśnie przechodzi przez algorytm — koloruje się zgodnie z tym, co robi aktualnie podświetlony krok na mapie powyżej.">genotyp</span>
         <div class="demo-genome" id="genomeView"></div>
-        <span class="align-note" style="font-family:'SF Mono',Consolas,monospace; font-size:10px; color:var(--ink-faint);" pointer-events="all" tabindex="0" data-tt="Every letter is one gene value: C=conv, S=skip, —=none for edges; L/M/H=low/medium/high for learning rate.">C=conv · S=skip · —=none · L/M/H=low/medium/high</span>
+        <span class="align-note" style="font-family:'SF Mono',Consolas,monospace; font-size:10px; color:var(--ink-faint);" pointer-events="all" tabindex="0" data-tt="Każda litera to jedna wartość genu: C=conv, S=skip, —=none dla krawędzi; N/Ś/W=niskie/średnie/wysokie dla szybkości uczenia.">C=conv · S=skip · —=none · N/Ś/W=niskie/średnie/wysokie</span>
       </div>
     </div>
 
-    <div class="demo-phase-caption" id="phaseCaption">Click “Step” or “Run” to see the algorithm in action — the map above highlights the exact step live, with the genotype right below it changing along with it.</div>
-    <div class="demo-log" id="demoLog">Click “Step” or “Run” to begin.</div>
+    <div class="demo-phase-caption" id="phaseCaption">Kliknij „Krok” albo „Uruchom”, żeby zobaczyć algorytm w akcji — mapa powyżej podświetla dokładny krok na żywo, z genotypem tuż pod nią, który zmienia się razem z nią.</div>
+    <div class="demo-log" id="demoLog">Kliknij „Krok” albo „Uruchom”, żeby zacząć.</div>
 
-    <div class="zone-caption" pointer-events="all" tabindex="0" data-tt="These five cards draw on the whole population and evaluation history built so far — not just this one step.">③ accumulated result — from the whole population built so far</div>
+    <div class="zone-caption" pointer-events="all" tabindex="0" data-tt="Te pięć kart czerpie z całej populacji i całej historii ewaluacji zbudowanej do tej pory — nie tylko z tego jednego kroku.">③ nagromadzony wynik — z całej dotychczas zbudowanej populacji</div>
     <div class="result-row">
       <div class="demo-panel">
-        <h4 pointer-events="all" tabindex="0" data-tt="Each level is one bar. It grows purely as a side effect of candidates that genuinely dominated their parent — nobody sets its size up front. Section 3.2.">Pyramid (live)</h4>
+        <h4 pointer-events="all" tabindex="0" data-tt="Każdy poziom to jeden pasek. Rośnie wyłącznie jako efekt uboczny kandydatów, którzy naprawdę zdominowali swojego rodzica — nikt nie ustala jej rozmiaru z góry. Sekcja 3.2.">Piramida (na żywo)</h4>
         <div class="demo-pyramid-wrap">
           <div class="demo-pyramid" id="pyramidView"></div>
         </div>
-        <p class="demo-note">A new level appears only when a sweep actually improves someone without worsening cost.</p>
+        <p class="demo-note">Nowy poziom pojawia się tylko wtedy, gdy przemiatanie faktycznie kogoś poprawi bez pogarszania kosztu.</p>
       </div>
       <div class="demo-panel">
-        <h4 pointer-events="all" tabindex="0" data-tt="All genuinely evaluated candidates: quality on the horizontal axis, cost on the vertical axis. Orange points aren't dominated by any other — these are the ones that qualify for promotion. Section 3.4.">Pareto front</h4>
+        <h4 pointer-events="all" tabindex="0" data-tt="Wszystkie naprawdę ocenione kandydaci: jakość na osi poziomej, koszt na osi pionowej. Pomarańczowe punkty nie są zdominowane przez żaden inny — to one kwalifikują do awansu. Sekcja 3.4.">Front Pareto</h4>
         <div class="pareto-wrap">
-          <svg id="paretoSvg" viewBox="0 0 320 200" role="img" aria-label="A scatter plot of all genuinely evaluated candidates: quality on the horizontal axis, cost on the vertical axis (lower = cheaper). Orange points are the current Pareto front.">
+          <svg id="paretoSvg" viewBox="0 0 320 200" role="img" aria-label="Wykres rozrzutu wszystkich naprawdę ocenionych kandydatów: jakość na osi poziomej, koszt na osi pionowej (niżej = taniej). Pomarańczowe punkty to aktualny front Pareto.">
             <line x1="30" y1="10" x2="30" y2="170" stroke="currentColor" stroke-width="1" opacity="0.35"></line>
             <line x1="30" y1="170" x2="300" y2="170" stroke="currentColor" stroke-width="1" opacity="0.35"></line>
-            <text x="30" y="188" font-size="9" fill="currentColor" opacity="0.55">quality →</text>
-            <text x="4" y="18" font-size="9" fill="currentColor" opacity="0.55">cost</text>
+            <text x="30" y="188" font-size="9" fill="currentColor" opacity="0.55">jakość →</text>
+            <text x="4" y="18" font-size="9" fill="currentColor" opacity="0.55">koszt</text>
             <g id="paretoPoints"></g>
           </svg>
         </div>
-        <p class="demo-note">Orange = non-dominated (section 3.4).</p>
+        <p class="demo-note">Pomarańczowe = niezdominowane (sekcja 3.4).</p>
       </div>
       <div class="demo-panel">
-        <h4 pointer-events="all" tabindex="0" data-tt="Subsets of genes that the linkage tree at this level considers worth copying together — computed from the solutions collected at this level so far. Section 3.3.">Subsets F at this level</h4>
+        <h4 pointer-events="all" tabindex="0" data-tt="Podzbiory genów, które drzewo powiązań na tym poziomie uznaje za warte kopiowania razem — obliczone z rozwiązań zebranych na tym poziomie do tej pory. Sekcja 3.3.">Podzbiory F na tym poziomie</h4>
         <div class="cluster-chips" id="clusterView"></div>
       </div>
       <div class="demo-panel">
-        <h4 pointer-events="all" tabindex="0" data-tt="A random solution from the same pyramid level that the currently tested subset F is being copied from. Section 3.2.">Donor <span id="donorLabel"></span></h4>
+        <h4 pointer-events="all" tabindex="0" data-tt="Losowe rozwiązanie z tego samego poziomu piramidy, od którego kopiowany jest właśnie testowany podzbiór F. Sekcja 3.2.">Dawca <span id="donorLabel"></span></h4>
         <div class="demo-genome" id="donorView"></div>
         <div class="demo-copyhint" id="copyHint"></div>
       </div>
       <div class="demo-panel">
-        <h4 pointer-events="all" tabindex="0" data-tt="The best genotype found since this run started — regardless of which pyramid level it currently sits at.">Best so far</h4>
+        <h4 pointer-events="all" tabindex="0" data-tt="Najlepszy genotyp znaleziony od początku tego uruchomienia — niezależnie od tego, na którym poziomie piramidy akurat się znajduje.">Najlepszy dotąd</h4>
         <div class="demo-genome" id="bestGenomeView"></div>
         <div class="demo-copyhint" id="bestDecode"></div>
       </div>
     </div>
 
-    <div class="zone-caption" pointer-events="all" tabindex="0" data-tt="These two only concern this one step happening right now — not the cumulative result. A specific description of this step is in the log right under the map.">④ current step — controls, stats</div>
+    <div class="zone-caption" pointer-events="all" tabindex="0" data-tt="Te dwie dotyczą tylko tego jednego kroku, który właśnie się dzieje — nie skumulowanego wyniku. Konkretny opis tego kroku znajdziesz w logu tuż pod mapą.">④ bieżący krok — sterowanie, statystyki</div>
     <div class="card-row">
       <div class="demo-panel">
-        <h4>Controls</h4>
+        <h4>Sterowanie</h4>
         <div class="demo-controls">
-          <button class="demo-btn primary" id="btnStep" type="button">Step</button>
-          <button class="demo-btn" id="btnRun" type="button">Run</button>
-          <button class="demo-btn" id="btnFF" type="button">⏩ 20 iterations</button>
+          <button class="demo-btn primary" id="btnStep" type="button">Krok</button>
+          <button class="demo-btn" id="btnRun" type="button">Uruchom</button>
+          <button class="demo-btn" id="btnFF" type="button">⏩ 20 iteracji</button>
           <button class="demo-btn" id="btnReset" type="button">Reset</button>
         </div>
-        <div class="demo-mode" role="group" aria-label="Algorithm mode" style="margin-top:10px;">
-          <button id="modeFull" class="active" type="button">Full P3Net</button>
-          <button id="modeHC" type="button">Hill climbing only</button>
+        <div class="demo-mode" role="group" aria-label="Tryb algorytmu" style="margin-top:10px;">
+          <button id="modeFull" class="active" type="button">Pełne P3Net</button>
+          <button id="modeHC" type="button">Tylko wspinaczka</button>
         </div>
         <div class="demo-legend demo-mini-legend">
-          <span class="demo-legend-item"><span class="swatch active"></span>tested</span>
-          <span class="demo-legend-item"><span class="swatch kept"></span>kept</span>
-          <span class="demo-legend-item"><span class="swatch reverted"></span>rejected</span>
+          <span class="demo-legend-item"><span class="swatch active"></span>testowane</span>
+          <span class="demo-legend-item"><span class="swatch kept"></span>zachowane</span>
+          <span class="demo-legend-item"><span class="swatch reverted"></span>odrzucone</span>
         </div>
       </div>
       <div class="demo-panel">
-        <h4>Stats</h4>
+        <h4>Statystyki</h4>
         <div class="demo-stats">
-          <div class="demo-stat" pointer-events="all" tabindex="0" data-tt="How many times the loop has started from a new random parent.">
-            <div class="lbl">Iteration</div><div class="val" id="statIter">0</div>
+          <div class="demo-stat" pointer-events="all" tabindex="0" data-tt="Ile razy pętla wystartowała od nowego losowego rodzica.">
+            <div class="lbl">Iteracja</div><div class="val" id="statIter">0</div>
           </div>
-          <div class="demo-stat" pointer-events="all" tabindex="0" data-tt="Real f₁ evaluations: hill climbing + exactly one per crossover sweep. This is the number P3Net is trying to reduce.">
-            <div class="lbl">Real evaluations</div><div class="val" id="statEval">0</div>
+          <div class="demo-stat" pointer-events="all" tabindex="0" data-tt="Prawdziwe ewaluacje f₁: wspinaczka górska + dokładnie jedna na każde przemiatanie krzyżowania. To jest liczba, którą P3Net stara się zmniejszyć.">
+            <div class="lbl">Prawdziwe ewaluacje</div><div class="val" id="statEval">0</div>
           </div>
-          <div class="demo-stat" pointer-events="all" tabindex="0" data-tt="Total number of modifications considered (tentative + real). The gap versus “Real evaluations” is the saving from the surrogate.">
-            <div class="lbl">Sweep steps</div><div class="val" id="statSteps">0</div>
+          <div class="demo-stat" pointer-events="all" tabindex="0" data-tt="Łączna liczba rozważonych modyfikacji (tymczasowych + prawdziwych). Różnica względem „Prawdziwe ewaluacje” to oszczędność dzięki surogatowi.">
+            <div class="lbl">Kroków przemiatania</div><div class="val" id="statSteps">0</div>
           </div>
-          <div class="demo-stat" pointer-events="all" tabindex="0" data-tt="13 is the global optimum: both edge groups fully conv and medium learning rate.">
-            <div class="lbl">Best quality</div><div class="val" id="statBest">0 / 13</div>
+          <div class="demo-stat" pointer-events="all" tabindex="0" data-tt="13 to globalne optimum: obie grupy krawędzi w pełni conv i średnia szybkość uczenia.">
+            <div class="lbl">Najlepsza jakość</div><div class="val" id="statBest">0 / 13</div>
           </div>
-          <div class="demo-stat" pointer-events="all" tabindex="0" data-tt="In “hill climbing only” mode this number always stays at 1 — with no crossover, there's nothing to promote with.">
-            <div class="lbl">Levels</div><div class="val" id="statLevels">0</div>
+          <div class="demo-stat" pointer-events="all" tabindex="0" data-tt="W trybie „tylko wspinaczka” ta liczba zawsze zostaje na 1 — bez krzyżowania nie ma czym awansować.">
+            <div class="lbl">Poziomów</div><div class="val" id="statLevels">0</div>
           </div>
         </div>
-        <div class="demo-note" style="margin-top:10px;" pointer-events="all" tabindex="0" data-tt="How many tentative acceptances in a row have happened in the current sweep, against the hard limit κ (section 3.3).">Chain (κ)</div>
+        <div class="demo-note" style="margin-top:10px;" pointer-events="all" tabindex="0" data-tt="Ile tymczasowych akceptacji z rzędu zdarzyło się w bieżącym przemiataniu, względem twardego limitu κ (sekcja 3.3).">Łańcuch (κ)</div>
         <div class="chain-meter" id="chainMeter" style="margin-top:6px;"></div>
       </div>
     </div>
@@ -1255,113 +1255,113 @@
 </section>
 
 <section id="code">
-  <h2>5&nbsp; Pseudocode — what exactly changes relative to P3</h2>
-  <p class="subdek">Four procedures; two of them (hill climbing, linkage-tree construction) are literally the same as pure P3 and aren't repeated here — see the <a href="p3.html#code">P3 pseudocode</a>.</p>
+  <h2>5&nbsp; Pseudokod — co dokładnie zmienia się względem P3</h2>
+  <p class="subdek">Cztery procedury; dwie z nich (wspinaczka górska, budowa drzewa powiązań) są dosłownie te same co w czystym P3 i nie są tu powtarzane — patrz <a href="p3-pl.html#code">pseudokod P3</a>.</p>
 
 <pre class="code"><span class="kw">procedure</span> ITERATE-P3NET
-    x ← random solution
-    x ← HILL-CLIMB(x)                       <span class="cm">// unchanged — P3 pseudocode</span>
-    <span class="kw">if</span> g(x) &gt; 0 <span class="kw">then continue</span>              <span class="cm">// §3.1: invalid, reject before anything</span>
+    x ← losowe rozwiązanie
+    x ← HILL-CLIMB(x)                       <span class="cm">// bez zmian — pseudokod P3</span>
+    <span class="kw">if</span> g(x) &gt; 0 <span class="kw">then continue</span>              <span class="cm">// §3.1: nieprawidłowy, odrzuć przed czymkolwiek</span>
     <span class="kw">if</span> x ∉ seen <span class="kw">then</span>
         H.add(x, f1(x), f2(x)); P[0].add(x); seen.add(x)
 
     i ← 0
     <span class="kw">while</span> i &lt; len(pyramid) <span class="kw">do</span>
-        x' ← OPTIMAL-MIXING-SWEEP(x, P[i])  <span class="cm">// §3.2–3.3: surrogate + kappa, not one evaluation per step</span>
-        f1', f2' ← EVALUATE(x')             <span class="cm">// the only real evaluation in this sweep</span>
+        x' ← OPTIMAL-MIXING-SWEEP(x, P[i])  <span class="cm">// §3.2–3.3: surogat + kappa, nie ewaluacja na krok</span>
+        f1', f2' ← EVALUATE(x')             <span class="cm">// jedyna prawdziwa ewaluacja w tym przemiataniu</span>
         H.add(x', f1', f2')
-        RETRAIN(δ̂); REBUILD-TREE(P[i])       <span class="cm">// §2: before the next parent's sweep runs</span>
+        RETRAIN(δ̂); REBUILD-TREE(P[i])       <span class="cm">// §2: zanim ruszy przemiatanie kolejnego rodzica</span>
         <span class="kw">if</span> DOMINATES(f1', f2', x) <span class="kw">and</span> x' ∉ seen <span class="kw">then</span>
             x ← x'
-            P[i+1].add(x); seen.add(x)      <span class="cm">// creates a new level if i+1 didn't exist yet</span>
+            P[i+1].add(x); seen.add(x)      <span class="cm">// tworzy nowy poziom, jeśli i+1 jeszcze nie istniał</span>
             i ← i + 1
         <span class="kw">else</span>
-            <span class="kw">break</span>                       <span class="cm">// stops climbing, settles at level i</span></pre>
+            <span class="kw">break</span>                       <span class="cm">// przestaje się wspinać, osiada na poziomie i</span></pre>
 
 <pre class="code"><span class="kw">procedure</span> OPTIMAL-MIXING-SWEEP(x, Pi)
-    tree ← BUILD-LINKAGE-TREE(Pi)           <span class="cm">// unchanged — P3 pseudocode</span>
+    tree ← BUILD-LINKAGE-TREE(Pi)           <span class="cm">// bez zmian — pseudokod P3</span>
     chain ← 0
-    <span class="kw">for</span> F <span class="kw">in</span> tree <span class="kw">do</span>                       <span class="cm">// smallest subset first</span>
-        <span class="kw">if</span> chain ≥ κ <span class="kw">then break</span>              <span class="cm">// §3.3: hard chain-depth limit</span>
-        d ← random solution <span class="kw">in</span> Pi <span class="kw">where</span> d differs from x on F
-        x' ← x <span class="kw">with</span> x'[F] = d[F]              <span class="cm">// propose, tentatively — §3.2</span>
+    <span class="kw">for</span> F <span class="kw">in</span> tree <span class="kw">do</span>                       <span class="cm">// od najmniejszego podzbioru</span>
+        <span class="kw">if</span> chain ≥ κ <span class="kw">then break</span>              <span class="cm">// §3.3: twardy limit głębokości łańcucha</span>
+        d ← losowe rozwiązanie <span class="kw">in</span> Pi <span class="kw">where</span> d różni się od x na F
+        x' ← x <span class="kw">with</span> x'[F] = d[F]              <span class="cm">// zaproponuj, tymczasowo — §3.2</span>
         <span class="kw">if</span> δ̂(x, x', F) ≥ 0 <span class="kw">then</span>
-            x ← x'                          <span class="cm">// tentative acceptance — WITHOUT a real evaluation</span>
+            x ← x'                          <span class="cm">// tymczasowa akceptacja — BEZ prawdziwej ewaluacji</span>
             chain ← chain + 1
-        <span class="cm">// rejected or not: the sweep moves to the next F anyway</span>
+        <span class="cm">// odrzucone albo nie: przemiatanie i tak idzie do kolejnego F</span>
     <span class="kw">return</span> x</pre>
 
 <pre class="code"><span class="kw">function</span> δ̂(x, x', F)
-    key ← (F, x[F], x'[F])                  <span class="cm">// exact value substitution on this subset</span>
-    <span class="kw">if</span> key <span class="kw">in</span> table <span class="kw">then return</span> table[key]     <span class="cm">// §3.2: average observed difference FOR THIS substitution</span>
-    <span class="kw">if</span> F <span class="kw">in</span> table_F <span class="kw">then return</span> table_F[F]  <span class="cm">// fallback: average for the whole subset F</span>
-    <span class="kw">return</span> 0                          <span class="cm">// no data — don't reject up front, no evidence against it</span>
+    key ← (F, x[F], x'[F])                  <span class="cm">// dokładne podstawienie wartości na tym podzbiorze</span>
+    <span class="kw">if</span> key <span class="kw">in</span> table <span class="kw">then return</span> table[key]     <span class="cm">// §3.2: średnia obserwowana różnica DLA TEGO podstawienia</span>
+    <span class="kw">if</span> F <span class="kw">in</span> table_F <span class="kw">then return</span> table_F[F]  <span class="cm">// zapasowo: średnia dla całego podzbioru F</span>
+    <span class="kw">return</span> 0                          <span class="cm">// brak danych — nie odrzucaj z góry, brak dowodu przeciw</span>
 
 <span class="kw">procedure</span> RETRAIN(δ̂)
     table ← {}; table_F ← {}
-    <span class="kw">for</span> (a, f1_a), (b, f1_b) <span class="kw">in</span> pairs(H) <span class="kw">where</span> a, b differ on the same F <span class="kw">do</span>
-        table[(F, a[F], b[F])] ← average(f1_b − f1_a)   <span class="cm">// §3.2: relative, not absolute</span>
+    <span class="kw">for</span> (a, f1_a), (b, f1_b) <span class="kw">in</span> pairs(H) <span class="kw">where</span> a, b różnią się na tym samym F <span class="kw">do</span>
+        table[(F, a[F], b[F])] ← average(f1_b − f1_a)   <span class="cm">// §3.2: relatywne, nie absolutne</span>
         table_F[F] ← average(f1_b − f1_a)</pre>
 
 <pre class="code"><span class="kw">function</span> DOMINATES(f1', f2', x)
-    <span class="kw">return</span> f1' ≥ f1(x) <span class="kw">and</span> f2' ≤ f2(x) <span class="kw">and</span> (f1', f2') ≠ (f1(x), f2(x))  <span class="cm">// §3.4: non-domination, not a plain &gt;</span></pre>
+    <span class="kw">return</span> f1' ≥ f1(x) <span class="kw">and</span> f2' ≤ f2(x) <span class="kw">and</span> (f1', f2') ≠ (f1(x), f2(x))  <span class="cm">// §3.4: niezdominowanie, nie zwykłe &gt;</span></pre>
 
-  <p>That's the whole change. <span class="mono">HILL-CLIMB</span> and <span class="mono">BUILD-LINKAGE-TREE</span> from the P3 document return with not one letter different — P3Net adds exactly one new limit (κ), one new function (δ̂), and one new comparison rule (DOMINATES).</p>
+  <p>To cała zmiana. <span class="mono">HILL-CLIMB</span> i <span class="mono">BUILD-LINKAGE-TREE</span> z dokumentu o P3 wracają bez jednej litery różnicy — P3Net dokłada dokładnie jeden nowy limit (κ), jedną nową funkcję (δ̂) i jedną nową regułę porównania (DOMINATES).</p>
 </section>
 
 <section id="practice">
-  <h2>6&nbsp; What P3Net adds — and what you still have to decide</h2>
-  <p>All the decision points from the <a href="p3.html#practice">P3 checklist</a> (genotype, fitness, invalid genotypes) still apply unchanged. Below are only the new ones that come with the surrogate.</p>
+  <h2>6&nbsp; Co dokłada P3Net — i co nadal musisz zdecydować sam</h2>
+  <p>Wszystkie punkty decyzyjne z <a href="p3-pl.html#practice">checklisty P3</a> (genotyp, dopasowanie, nieprawidłowe genotypy) nadal obowiązują bez zmian. Poniżej są tylko te nowe, które pojawiają się razem z surogatem.</p>
 
   <div class="tablewrap">
     <table>
-      <thead><tr><th style="width:26%">Decision point</th><th>Fixed by P3Net</th><th>You decide, per problem</th></tr></thead>
+      <thead><tr><th style="width:26%">Punkt decyzyjny</th><th>Ustalone przez P3Net</th><th>Ty decydujesz, dla każdego problemu</th></tr></thead>
       <tbody>
         <tr>
-          <td><strong>Two objectives at once</strong></td>
-          <td class="fixed-col">Promotion requires Pareto non-domination (f₁, f₂) against the parent, not a plain improvement of one number.</td>
-          <td class="decide-col">What exactly f₂ is (parameters? FLOPs? inference time?), and whether it's genuinely free or just cheap.</td>
+          <td><strong>Dwa cele naraz</strong></td>
+          <td class="fixed-col">Awans wymaga niezdominowania Pareto (f₁, f₂) względem rodzica, nie zwykłej poprawy jednej liczby.</td>
+          <td class="decide-col">Czym dokładnie jest f₂ (parametry? FLOPy? czas inferencji?), i czy naprawdę jest darmowy, czy tylko tani.</td>
         </tr>
         <tr>
-          <td><strong>Surrogate δ̂F</strong></td>
-          <td class="fixed-col">Relative, linkage-aware, trained exclusively on pairs from H_t; acceptance threshold 0 by default.</td>
-          <td class="decide-col">What class of model to use — this document and the live simulation deliberately use the simplest possible one: a table of averaged observations. Nothing stops you from replacing it with linear regression or a small network, as long as it stays relative and linkage-aware.</td>
+          <td><strong>Surogat δ̂F</strong></td>
+          <td class="fixed-col">Relatywny, świadomy powiązań, trenowany wyłącznie na parach z H_t; próg akceptacji 0 domyślnie.</td>
+          <td class="decide-col">Jakiej klasy model użyć — ten dokument i żywa symulacja używają celowo najprostszej możliwej: tabeli uśrednionych obserwacji. Nic nie stoi na przeszkodzie, żeby zastąpić ją regresją liniową albo małą siecią, o ile pozostaje relatywna i świadoma powiązań.</td>
         </tr>
         <tr>
-          <td><strong>Chain depth κ</strong></td>
-          <td class="fixed-col">Default κ = 2⌈log₂ n⌉ — a heuristic inherited from eLyMPuS, not a mathematical derivation for this application.</td>
-          <td class="decide-col">Whether this value makes sense for your problem. Too small κ wastes the surrogate's potential (too-frequent real evaluations); too large risks compounded prediction error.</td>
+          <td><strong>Głębokość łańcucha κ</strong></td>
+          <td class="fixed-col">Domyślnie κ = 2⌈log₂ n⌉ — heurystyka przejęta z eLyMPuS, nie wyprowadzenie matematyczne dla tego zastosowania.</td>
+          <td class="decide-col">Czy ta wartość ma sens dla Twojego problemu. Za małe κ marnuje potencjał surogatu (zbyt częste prawdziwe ewaluacje); za duże ryzykuje nawarstwiony błąd predykcji.</td>
         </tr>
         <tr>
-          <td><strong>Cost of one evaluation</strong></td>
-          <td class="fixed-col">Not addressed — this exact number decides whether P3Net makes sense at all relative to pure P3.</td>
-          <td class="decide-col">If one evaluation is cheap, the whole extra surrogate mechanism is unnecessary complexity — go back to <a href="p3.html">pure P3</a>.</td>
+          <td><strong>Koszt jednej ewaluacji</strong></td>
+          <td class="fixed-col">Nieadresowane — to właśnie ta liczba decyduje, czy P3Net w ogóle ma sens względem czystego P3.</td>
+          <td class="decide-col">Jeśli jedna ewaluacja jest tania, cały dodatkowy mechanizm surogatu to niepotrzebna złożoność — wróć do <a href="p3-pl.html">czystego P3</a>.</td>
         </tr>
       </tbody>
     </table>
   </div>
 
   <div class="callout">
-    <span class="tag">One thing P3Net is honest about</span>
-    <p>eLyMPuS guarantees discovering a missing dependency within 2⌈log₂ n⌉ steps — but that guarantee rests on an assumption of fitness-landscape monotonicity, which for neural network accuracy simply doesn't have to be true. δ̂F in P3Net is therefore treated as a <em>learned heuristic estimator, without that guarantee</em> — its quality is checked empirically (surrogate-quality analysis in the paper's results), not assumed up front.</p>
-    <p>Similarly, selecting non-dominated candidates in step 4 is scoped to one iteration — only results produced against the same snapshot of H_t, with the same, not-yet-updated surrogate, are compared, so that estimates from before and after retraining are never mixed.</p>
+    <span class="tag">Jedna rzecz, o której P3Net uczciwie nie kłamie</span>
+    <p>eLyMPuS gwarantuje odkrycie brakującej zależności w ciągu 2⌈log₂ n⌉ kroków — ale ta gwarancja opiera się na założeniu monotoniczności krajobrazu dopasowania, które dla dokładności sieci neuronowej po prostu nie musi być prawdziwe. δ̂F w P3Net jest więc traktowany jako <em>wyuczony heurystyczny estymator, bez tej gwarancji</em> — jego jakość jest sprawdzana empirycznie (analiza jakości surogatu w wynikach artykułu), nie zakładana z góry.</p>
+    <p>Podobnie, wybór niezdominowanych kandydatów w kroku 4 jest ograniczony do jednej iteracji — porównywane są tylko wyniki wyprodukowane względem tego samego zrzutu H_t, z tym samym, jeszcze nie zaktualizowanym surogatem, żeby nie mieszać ze sobą oszacowań sprzed i po retrenowaniu.</p>
   </div>
 
-  <h3 style="margin-top:32px;"><span class="num">✓</span>Checklist for applying P3Net to a new problem</h3>
+  <h3 style="margin-top:32px;"><span class="num">✓</span>Checklista przy stosowaniu P3Net do nowego problemu</h3>
   <ul class="checklist">
-    <li><span class="box"></span><span>Do the <a href="p3.html#practice">pure P3 checklist</a> first — genotype, fitness, invalid genotypes.</span></li>
-    <li><span class="box"></span><span>Check whether one real evaluation is expensive enough to justify a surrogate — if not, P3Net is unnecessary complexity.</span></li>
-    <li><span class="box"></span><span>Define the second objective f₂, if you have one, and make sure it can be computed without a full evaluation.</span></li>
-    <li><span class="box"></span><span>Choose a model class for δ̂F — start with something as simple as an averaging table, like the live simulation above, before reaching for anything more complex.</span></li>
-    <li><span class="box"></span><span>Set the chain depth κ and acceptance threshold (0 by default) — and check their sensitivity on your problem empirically, as the paper's Results section does.</span></li>
-    <li><span class="box"></span><span>Decide how often to retrain δ̂F and rebuild the linkage tree — after every real evaluation, as here, or less often.</span></li>
+    <li><span class="box"></span><span>Zrób najpierw checklistę <a href="p3-pl.html#practice">czystego P3</a> — genotyp, dopasowanie, nieprawidłowe genotypy.</span></li>
+    <li><span class="box"></span><span>Sprawdź, czy jedna prawdziwa ewaluacja jest wystarczająco droga, żeby uzasadnić surogat — jeśli nie, P3Net to niepotrzebna złożoność.</span></li>
+    <li><span class="box"></span><span>Zdefiniuj drugi cel f₂, jeśli go masz, i upewnij się, że da się go policzyć bez pełnej ewaluacji.</span></li>
+    <li><span class="box"></span><span>Wybierz klasę modelu dla δ̂F — zacznij od czegoś tak prostego jak tabela uśrednień, jak w żywej symulacji powyżej, zanim sięgniesz po coś bardziej złożonego.</span></li>
+    <li><span class="box"></span><span>Ustaw głębokość κ i próg akceptacji (domyślnie 0) — i sprawdź empirycznie ich wrażliwość na Twoim problemie, tak jak robi to Sekcja Wyników artykułu.</span></li>
+    <li><span class="box"></span><span>Zdecyduj, jak często retrenować δ̂F i przebudowywać drzewo powiązań — po każdej prawdziwej ewaluacji, jak tutaj, czy rzadziej.</span></li>
   </ul>
 </section>
 
 </main>
 
 <footer class="page-end">
-  P3Net: P3 (Goldman and Punch, GECCO 2014) extended with a relative, linkage-aware surrogate δ̂F, inspired by eLyMPuS/LyMPuS — applied to multi-objective neural architecture search (NAS).
+  P3Net: P3 (Goldman i Punch, GECCO 2014) rozszerzone o relatywny, świadomy powiązań surogat δ̂F, zainspirowany eLyMPuS/LyMPuS — zastosowane do wielocelowego przeszukiwania architektur sieci neuronowych (NAS).
 </footer>
 
 <script>
@@ -1409,18 +1409,18 @@
 
   /* ============ toy NAS genotype: 5 edges (conv/skip/none) + 1 discretised hyperparam ============ */
   var EDGE_OPS = ["conv", "skip", "none"];
-  var LR_OPS = ["low", "medium", "high"];
+  var LR_OPS = ["niskie", "średnie", "wysokie"];
   var ALPHABETS = [EDGE_OPS, EDGE_OPS, EDGE_OPS, EDGE_OPS, EDGE_OPS, LR_OPS];
   var N = 6;
   var GROUP_A = [0, 1];
   var GROUP_B = [2, 3, 4];
   var GENOME_GROUPS = [GROUP_A, GROUP_B, [5]];
-  var OP_LETTER = { conv: "C", skip: "S", none: "—", "low": "L", "medium": "M", "high": "H" };
+  var OP_LETTER = { conv: "C", skip: "S", none: "—", "niskie": "N", "średnie": "Ś", "wysokie": "W" };
   var KAPPA = 2 * Math.ceil(Math.log2(N)); // eLyMPuS heuristic default, §3.3
 
   var GROUP_A_VAL = [2, 1, 4];    // by count of "conv" among GROUP_A (0,1,2)
   var GROUP_B_VAL = [3, 2, 1, 6]; // by count of "conv" among GROUP_B (0,1,2,3)
-  function lrValue(v) { return v === "low" ? 1 : (v === "medium" ? 3 : 1.5); }
+  function lrValue(v) { return v === "niskie" ? 1 : (v === "średnie" ? 3 : 1.5); }
   var QMAX = 13; // 4 + 6 + 3
 
   function convCount(loci, genome) {
@@ -1435,7 +1435,7 @@
     return a + b + c;
   }
   function trueCost(genome) {
-    return genome[5] === "high" ? 2 : (genome[5] === "medium" ? 1 : 0);
+    return genome[5] === "wysokie" ? 2 : (genome[5] === "średnie" ? 1 : 0);
   }
   function isValid(genome) {
     for (var i = 0; i < 5; i++) if (genome[i] !== "none") return true;
@@ -1577,7 +1577,7 @@
       iterationNum++;
       yield { type: "iter-start", pyramid: pyramid, realEvalCount: realEvalCount, sweepStepCount: sweepStepCount,
         bestQuality: bestQuality, bestGenome: bestGenome,
-        log: "Iteration " + iterationNum + ": starting from a completely new, random candidate — the only source of diversity in the whole algorithm." };
+        log: "Iteracja " + iterationNum + ": zaczynam od zupełnie nowego, losowego kandydata — jedyne źródło różnorodności w całym algorytmie." };
 
       var genome = randomGenome();
       var curQ = realEvalQuality(genome);
@@ -1599,20 +1599,20 @@
           }
           yield { type: "hc-step", genome: genome.slice(), locus: locus, improved: improvedAny,
             pyramid: pyramid, realEvalCount: realEvalCount, sweepStepCount: sweepStepCount, bestQuality: bestQuality, bestGenome: bestGenome,
-            log: "Hill climb: substituting a different value for gene " + locus + " and really evaluating this genotype version — " + (improvedAny
-              ? ("quality rises from " + curQ.toFixed(1) + " to " + bestAltQ.toFixed(1) + ", so it helps: keeping this change for good.")
-              : ("no alternative gives higher quality than the current " + curQ.toFixed(1) + ", so the gene stays as it was.")) };
+            log: "Wspinaczka: podstawiam inną wartość w miejsce genu " + locus + " i naprawdę oceniam tę wersję genotypu — " + (improvedAny
+              ? ("jakość rośnie z " + curQ.toFixed(1) + " na " + bestAltQ.toFixed(1) + ", więc pomaga: zapisuję tę zmianę na stałe.")
+              : ("żadna alternatywa nie daje wyższej jakości niż obecne " + curQ.toFixed(1) + ", więc gen zostaje taki, jaki był.")) };
           if (improvedAny) { genome[locus] = bestAlt; curQ = bestAltQ; changed = true; updateBest(genome, curQ); }
         }
       }
       yield { type: "hc-done", genome: genome.slice(), pyramid: pyramid, realEvalCount: realEvalCount, sweepStepCount: sweepStepCount,
         bestQuality: bestQuality, bestGenome: bestGenome,
-        log: "Hill climbing got stuck: a full pass over all genes improves nothing anymore — this is a local optimum, quality " + curQ.toFixed(1) + "/" + QMAX + "." };
+        log: "Wspinaczka górska utknęła: pełne przejście po wszystkich genach niczego już nie poprawia — to lokalne optimum, jakość " + curQ.toFixed(1) + "/" + QMAX + "." };
 
       if (!isValid(genome)) {
         yield { type: "invalid", genome: genome.slice(), pyramid: pyramid, realEvalCount: realEvalCount, sweepStepCount: sweepStepCount,
           bestQuality: bestQuality, bestGenome: bestGenome,
-          log: "This genotype doesn't decode into a working network: all edges are \u201cnone\u201d, so there's no path from input to output — rejected before it reaches P0." };
+          log: "Ten genotyp nie dekoduje się do działającej sieci: wszystkie krawędzie to „none”, więc nie ma ścieżki z wejścia do wyjścia — odrzucony, zanim trafi do P0." };
         continue;
       }
 
@@ -1623,17 +1623,17 @@
         seen.add(k0);
         yield { type: "add-p0", pyramid: pyramid, realEvalCount: realEvalCount, sweepStepCount: sweepStepCount,
           bestQuality: bestQuality, bestGenome: bestGenome,
-          log: "This solution didn't exist in the pyramid yet, so it lands at the lowest level P0 (now " + pyramid[0].solutions.length + " solutions)." };
+          log: "To rozwiązanie jeszcze nie istniało w piramidzie, więc ląduje na najniższym poziomie P0 (teraz " + pyramid[0].solutions.length + " rozwiązań)." };
       } else {
         yield { type: "dup", pyramid: pyramid, realEvalCount: realEvalCount, sweepStepCount: sweepStepCount,
           bestQuality: bestQuality, bestGenome: bestGenome,
-          log: "This is exactly the same genotype already somewhere in the pyramid — adding a duplicate would add nothing, so I'm skipping it." };
+          log: "To dokładnie ten sam genotyp już jest gdzieś w piramidzie — dodanie duplikatu nic by nie wniosło, więc go pomijam." };
       }
 
       if (mode === "hc") {
         yield { type: "iter-end", pyramid: pyramid, realEvalCount: realEvalCount, sweepStepCount: sweepStepCount,
           bestQuality: bestQuality, bestGenome: bestGenome,
-          log: "\u201cHill climbing only\u201d mode skips the surrogate sweep entirely — iteration " + iterationNum + " ends here, with no attempt at promotion." };
+          log: "Tryb „tylko wspinaczka” pomija przemiatanie z surogatem całkowicie — iteracja " + iterationNum + " kończy się tutaj, bez próby awansu." };
         continue;
       }
 
@@ -1646,7 +1646,7 @@
         var treeLoci = tree.map(function (c) { return c.loci; });
         yield { type: "tree-built", levelIndex: i, tree: treeLoci, pyramid: pyramid, realEvalCount: realEvalCount, sweepStepCount: sweepStepCount,
           bestQuality: bestQuality, bestGenome: bestGenome,
-          log: "Before I try a sweep against level P" + i + ", I build a linkage tree from its " + level.solutions.length + " solutions — it found " + tree.length + " gene subsets worth copying together." };
+          log: "Zanim spróbuję przemiatania z poziomem P" + i + ", buduję z jego " + level.solutions.length + " rozwiązań drzewo powiązań — znalazło " + tree.length + " podzbiorów genów wartych wspólnego kopiowania." };
 
         var chain = 0;
         var reason = "tree-exhausted";
@@ -1665,13 +1665,13 @@
           yield { type: "propose", levelIndex: i, cluster: cluster, donor: donor.slice(), genome: proposal.slice(),
             tree: treeLoci, clusterIndex: ci, chain: chain, kappa: KAPPA,
             pyramid: pyramid, realEvalCount: realEvalCount, sweepStepCount: sweepStepCount, bestQuality: bestQuality, bestGenome: bestGenome,
-            log: "P" + i + ": a donor proposes a change on subset {" + cluster.join(",") + "} — for now this is just a proposal, nothing is scored for real yet." };
+            log: "P" + i + ": dawca proponuje zmianę na podzbiorze {" + cluster.join(",") + "} — na razie to tylko propozycja, nic nie jest jeszcze oceniane naprawdę." };
 
           var pred = predictDelta(cluster, xPrev, proposal);
           yield { type: "score", levelIndex: i, cluster: cluster, delta: pred.value, source: pred.source, genome: proposal.slice(),
             tree: treeLoci, clusterIndex: ci, chain: chain, kappa: KAPPA,
             pyramid: pyramid, realEvalCount: realEvalCount, sweepStepCount: sweepStepCount, bestQuality: bestQuality, bestGenome: bestGenome,
-            log: "P" + i + ": instead of training a network, I ask the surrogate δ̂F how much quality would change — it predicts " + (pred.value >= 0 ? "+" : "") + pred.value.toFixed(2) + " (" + (pred.source === "exact" ? "based on earlier real evaluations" : "no similar data, assuming neutral zero") + "), meaning " + (pred.value >= 0 ? "no predicted worsening." : "a predicted worsening.") };
+            log: "P" + i + ": zamiast trenować sieć, pytam surogat δ̂F, o ile zmieniłaby się jakość — przewiduje " + (pred.value >= 0 ? "+" : "") + pred.value.toFixed(2) + " (" + (pred.source === "exact" ? "na podstawie wcześniejszych prawdziwych ewaluacji" : "brak podobnych danych, zakładam neutralnie zero") + "), czyli " + (pred.value >= 0 ? "brak przewidywanego pogorszenia." : "przewidywane pogorszenie.") };
 
           var accepted = pred.value >= 0;
           if (accepted) { x = proposal; chain++; }
@@ -1679,13 +1679,13 @@
             genome: x.slice(), tree: treeLoci, clusterIndex: ci,
             pyramid: pyramid, realEvalCount: realEvalCount, sweepStepCount: sweepStepCount, bestQuality: bestQuality, bestGenome: bestGenome,
             log: "P" + i + ": " + (accepted
-              ? ("the surrogate predicted no worsening, so I'm tentatively accepting this change — without training anything for real. This is " + chain + " of the " + KAPPA + " tentative steps allowed in this sweep.")
-              : "the surrogate predicted a worsening, so I'm rejecting this change — the candidate stays as it was, and I try the next subset.") };
+              ? ("surogat nie przewidział pogorszenia, więc tymczasowo akceptuję tę zmianę — bez trenowania niczego naprawdę. To " + chain + " z dozwolonych " + KAPPA + " tymczasowych kroków w tym przemiataniu.")
+              : "surogat przewidział pogorszenie, więc odrzucam tę zmianę — kandydat zostaje taki, jaki był, i próbuję kolejny podzbiór.") };
         }
 
         yield { type: "sweep-select", levelIndex: i, genome: x.slice(), chain: chain, kappa: KAPPA, reason: reason,
           pyramid: pyramid, realEvalCount: realEvalCount, sweepStepCount: sweepStepCount, bestQuality: bestQuality, bestGenome: bestGenome,
-          log: "P" + i + ": " + (reason === "kappa-reached" ? "the hard limit κ of tentative steps was reached" : "all subsets in the tree were exhausted") + " — only now does this sweep's one real evaluation land." };
+          log: "P" + i + ": " + (reason === "kappa-reached" ? "osiągnięto twardy limit κ tymczasowych kroków" : "wyczerpano wszystkie podzbiory w drzewie") + " — dopiero teraz pada jedyna prawdziwa ewaluacja tego przemiatania." };
 
         var xFinalQ = realEvalQuality(x);
         var xFinalC = trueCost(x);
@@ -1693,7 +1693,7 @@
         updateBest(x, xFinalQ);
         yield { type: "real-eval", levelIndex: i, genome: x.slice(), quality: xFinalQ, cost: xFinalC,
           pyramid: pyramid, realEvalCount: realEvalCount, sweepStepCount: sweepStepCount, bestQuality: bestQuality, bestGenome: bestGenome,
-          log: "P" + i + ": the only moment of real work in this sweep — I get quality " + xFinalQ.toFixed(1) + ", cost " + xFinalC + "." };
+          log: "P" + i + ": jedyny moment prawdziwej pracy w tym przemiataniu — dostaję jakość " + xFinalQ.toFixed(1) + ", koszt " + xFinalC + "." };
 
         var changedLoci = [];
         for (var lo = 0; lo < N; lo++) if (xStart[lo] !== x[lo]) changedLoci.push(lo);
@@ -1701,7 +1701,7 @@
 
         yield { type: "update-ht", levelIndex: i, pyramid: pyramid, realEvalCount: realEvalCount, sweepStepCount: sweepStepCount,
           bestQuality: bestQuality, bestGenome: bestGenome,
-          log: "This new, real observation goes into H_t — the surrogate δ̂F retrains on it, and the linkage tree is rebuilt before the next parent's sweep runs." };
+          log: "Ta nowa, prawdziwa obserwacja trafia do H_t — surogat δ̂F retrenuje się na niej, a drzewo powiązań jest przebudowywane, zanim ruszy przemiatanie kolejnego rodzica." };
 
         var dominates = (xFinalQ >= xQ) && (xFinalC <= parentC) && !(xFinalQ === xQ && xFinalC === parentC);
         if (dominates) {
@@ -1712,24 +1712,24 @@
             seen.add(k2);
             yield { type: "promote", levelIndex: i + 1, fromLevel: i, pyramid: pyramid, realEvalCount: realEvalCount, sweepStepCount: sweepStepCount,
               bestQuality: bestQuality, bestGenome: bestGenome,
-              log: "Non-dominated against the parent — promoted to level P" + (i + 1) + " (now " + pyramid[i + 1].solutions.length + " solutions)." };
+              log: "Niezdominowany względem rodzica — awans na poziom P" + (i + 1) + " (teraz " + pyramid[i + 1].solutions.length + " rozwiązań)." };
           } else {
             yield { type: "dup2", pyramid: pyramid, realEvalCount: realEvalCount, sweepStepCount: sweepStepCount,
               bestQuality: bestQuality, bestGenome: bestGenome,
-              log: "The result is non-dominated, but the exact same genotype already exists at a higher level — no promotion, since it would add nothing new." };
+              log: "Wynik jest niezdominowany, ale dokładnie taki sam genotyp już istnieje na wyższym poziomie — awansu nie ma, bo nic nowego by to nie wniosło." };
           }
           xQ = xFinalQ;
           i++;
         } else {
           yield { type: "stay", pyramid: pyramid, realEvalCount: realEvalCount, sweepStepCount: sweepStepCount,
             bestQuality: bestQuality, bestGenome: bestGenome,
-            log: "This candidate is worse than the parent in at least one dimension (quality or cost) — dominated, so climbing the pyramid ends at level P" + i + "." };
+            log: "Ten kandydat jest gorszy od rodzica w co najmniej jednym wymiarze (jakość albo koszt) — zdominowany, więc wspinanie po piramidzie kończy się na poziomie P" + i + "." };
           break;
         }
       }
       yield { type: "iter-end", pyramid: pyramid, realEvalCount: realEvalCount, sweepStepCount: sweepStepCount,
         bestQuality: bestQuality, bestGenome: bestGenome,
-        log: "End of iteration " + iterationNum + " — the pyramid and H_t are the only things that survive to the next one." };
+        log: "Koniec iteracji " + iterationNum + " — piramida i H_t to jedyne, co przetrwa do następnej." };
     }
   }
 
@@ -1766,13 +1766,13 @@
   var mapNodes = Array.prototype.slice.call(document.querySelectorAll(".demo-map-wrap [data-node]"));
 
   var PHASE_INFO = {
-    parent:  { text: "<strong>Parent x</strong> (section 2) — a fresh random restart, dragged uphill to a local optimum by hill climbing, exactly like P3. This becomes the \u201cparent from H_t\u201d for the sweep below." },
-    propose: { text: "<strong>Donor → proposal on F</strong> (section 3.2) — a random donor from the same level, copied on one subset of loci at a time." },
-    score:   { text: "<strong>Surrogate score δ̂F</strong> (section 3.2) — a cheap, learned prediction of the quality change, without training any network." },
-    accept:  { text: "<strong>Tentative acceptance</strong> (section 3.3) — if δ̂F ≥ 0, the step counts toward the chain (up to κ) and the sweep tries the next subset." },
-    select:  { text: "<strong>Selecting candidate C*</strong> (section 3.4) — the sweep has ended or κ has been reached; this candidate gets the one real evaluation." },
-    eval:    { text: "<strong>Real evaluation</strong> (section 3.1) — the only moment in the whole sweep where something is genuinely evaluated." },
-    update:  { text: "<strong>H_t update + promotion decision</strong> (sections 3.2–3.4) — surrogate retrained, tree rebuilt, result checked for non-domination against the parent." }
+    parent:  { text: "<strong>Rodzic x</strong> (sekcja 2) — świeży losowy restart, dociągnięty wspinaczką górską do lokalnego optimum, dokładnie jak w P3. On staje się „rodzicem z H_t” dla przemiatania poniżej." },
+    propose: { text: "<strong>Dawca → propozycja na F</strong> (sekcja 3.2) — losowy dawca z tego samego poziomu, kopiowany na jednym podzbiorze loci naraz." },
+    score:   { text: "<strong>Ocena surogatu δ̂F</strong> (sekcja 3.2) — tania, wyuczona predykcja zmiany jakości, bez treningu żadnej sieci." },
+    accept:  { text: "<strong>Tymczasowa akceptacja</strong> (sekcja 3.3) — jeśli δ̂F ≥ 0, krok liczy się do łańcucha (do κ) i przemiatanie próbuje kolejnego podzbioru." },
+    select:  { text: "<strong>Wybór kandydata C*</strong> (sekcja 3.4) — przemiatanie się skończyło albo κ zostało osiągnięte; ten kandydat dostanie jedyną prawdziwą ewaluację." },
+    eval:    { text: "<strong>Prawdziwa ewaluacja</strong> (sekcja 3.1) — jedyny moment w całym przemiataniu, w którym coś jest naprawdę oceniane." },
+    update:  { text: "<strong>Aktualizacja H_t + decyzja o awansie</strong> (sekcje 3.2–3.4) — surogat retrenowany, drzewo przebudowane, wynik sprawdzony pod kątem niezdominowania względem rodzica." }
   };
 
   function phaseForEvent(ev) {
@@ -1820,8 +1820,8 @@
     var cntA = convCount(GROUP_A, genome);
     var cntB = convCount(GROUP_B, genome);
     var parts = [];
-    parts.push("group A: " + (cntA === 2 ? "fully conv" : cntA + "/2 conv"));
-    parts.push("group B: " + (cntB === 3 ? "fully conv" : cntB + "/3 conv"));
+    parts.push("grupa A: " + (cntA === 2 ? "w pełni conv" : cntA + "/2 conv"));
+    parts.push("grupa B: " + (cntB === 3 ? "w pełni conv" : cntB + "/3 conv"));
     parts.push("LR: " + genome[5]);
     return "→ " + parts.join(", ") + " = " + bestQuality.toFixed(1) + " / " + QMAX;
   }
@@ -1852,8 +1852,8 @@
 
   function setGenomeStatus(isReal, chainLen) {
     if (isReal === null) { el.genomeStatus.textContent = "—"; el.genomeStatus.className = "genome-status"; return; }
-    if (isReal) { el.genomeStatus.textContent = "actually evaluated"; el.genomeStatus.className = "genome-status real"; }
-    else { el.genomeStatus.textContent = "tentative (step " + chainLen + "/" + KAPPA + ")"; el.genomeStatus.className = "genome-status tentative"; }
+    if (isReal) { el.genomeStatus.textContent = "naprawdę ocenione"; el.genomeStatus.className = "genome-status real"; }
+    else { el.genomeStatus.textContent = "tymczasowe (krok " + chainLen + "/" + KAPPA + ")"; el.genomeStatus.className = "genome-status tentative"; }
   }
 
   function renderChainMeter(chainLen, kappa, mode2) {
@@ -1906,7 +1906,7 @@
     if (!pyramid.length) {
       var empty = document.createElement("div");
       empty.className = "demo-note";
-      empty.textContent = "The pyramid is still empty.";
+      empty.textContent = "Piramida jest jeszcze pusta.";
       el.pyramidView.appendChild(empty);
       return;
     }
@@ -1927,7 +1927,7 @@
       var bestHere = lvl.solutions.reduce(function (m, s) { return Math.max(m, trueQuality(s)); }, 0);
       bar.textContent = lvl.solutions.length + " · " + bestHere.toFixed(1) + "/" + QMAX;
       bar.setAttribute("tabindex", "0");
-      bar.setAttribute("data-tt", "Level P" + i + ": " + lvl.solutions.length + " unique, genuinely evaluated solutions, the best of which has quality " + bestHere.toFixed(1) + "/" + QMAX + ".");
+      bar.setAttribute("data-tt", "Poziom P" + i + ": " + lvl.solutions.length + " unikalnych, naprawdę ocenionych rozwiązań, najlepsze wśród nich ma jakość " + bestHere.toFixed(1) + "/" + QMAX + ".");
       track.appendChild(bar);
       row.appendChild(idxSpan);
       row.appendChild(track);
@@ -1999,19 +1999,19 @@
       renderGenome(el.donorView, ev.donor, null, ev.cluster, null);
       el.donorLabel.textContent = "(P" + ev.levelIndex + ")";
       el.copyHint.className = "demo-copyhint";
-      el.copyHint.textContent = "↓ proposed copy of cluster {" + ev.cluster.join(",") + "}";
+      el.copyHint.textContent = "↓ proponowana kopia klastra {" + ev.cluster.join(",") + "}";
       setGenomeStatus(false, ev.chain);
       renderChainMeter(ev.chain, ev.kappa, "tentative");
     } else if (ev.type === "score") {
       renderGenome(el.genomeView, ev.genome, null, ev.cluster, null);
-      el.copyHint.textContent = "δ̂F = " + ev.delta.toFixed(2) + " (" + (ev.source === "exact" ? "data from H_t" : "no data, assuming 0") + ")";
+      el.copyHint.textContent = "δ̂F = " + ev.delta.toFixed(2) + " (" + (ev.source === "exact" ? "dane z H_t" : "brak danych, zakładam 0") + ")";
       el.copyHint.className = "demo-copyhint";
       setGenomeStatus(false, ev.chain);
       renderChainMeter(ev.chain, ev.kappa, "tentative");
     } else if (ev.type === "accept") {
       renderGenome(el.genomeView, ev.genome, null, ev.cluster, ev.accepted);
       el.copyHint.className = "demo-copyhint" + (ev.accepted ? " show-kept" : " show-reverted");
-      el.copyHint.textContent = ev.accepted ? "↓ tentatively accepted" : "↓ rejected, unchanged";
+      el.copyHint.textContent = ev.accepted ? "↓ zaakceptowane tymczasowo" : "↓ odrzucone, bez zmian";
       setGenomeStatus(false, ev.chain);
       renderChainMeter(ev.chain, ev.kappa, "tentative");
     } else if (ev.type === "sweep-select") {
@@ -2079,10 +2079,10 @@
 
   function setRunning(on) {
     if (on) {
-      el.run.textContent = "Pause";
+      el.run.textContent = "Pauza";
       runTimer = setInterval(step, 130);
     } else {
-      el.run.textContent = "Run";
+      el.run.textContent = "Uruchom";
       clearInterval(runTimer);
       runTimer = null;
     }
@@ -2094,7 +2094,7 @@
   el.reset.addEventListener("click", function () {
     setRunning(false);
     newGen();
-    el.log.textContent = "Click \u201cStep\u201d or \u201cRun\u201d to begin.";
+    el.log.textContent = "Kliknij „Krok” albo „Uruchom”, żeby zacząć.";
     el.statIter.textContent = "0"; el.statEval.textContent = "0"; el.statSteps.textContent = "0";
     el.statBest.textContent = "0.0 / " + QMAX; el.statLevels.textContent = "0";
     renderGenome(el.genomeView, null); renderGenome(el.bestGenomeView, null); renderGenome(el.donorView, null);
@@ -2106,7 +2106,7 @@
     renderPyramid([], -1);
     renderPareto(-1);
     updateMap(null);
-    el.phaseCaption.textContent = "Click \u201cStep\u201d or \u201cRun\u201d to see the algorithm in action — the map above highlights the exact step live.";
+    el.phaseCaption.textContent = "Kliknij „Krok” albo „Uruchom”, żeby zobaczyć algorytm w akcji — mapa powyżej podświetla dokładny krok na żywo.";
   });
   el.modeFull.addEventListener("click", function () {
     if (mode === "full") return;

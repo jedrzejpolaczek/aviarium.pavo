@@ -1,4 +1,4 @@
-<title>How MO-BOHB actually works</title>
+<title>Jak naprawdę działa MO-BOHB</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
@@ -515,22 +515,22 @@
 <nav style="position:sticky;top:0;z-index:60;display:flex;align-items:center;justify-content:space-between;padding:18px 48px;background:oklch(0.16 0.006 250 / 0.85);backdrop-filter:blur(8px);border-bottom:1px solid rgba(255,255,255,0.06);font-family:'IBM Plex Mono',monospace;">
   <a href="../Portfolio.dc.html" style="font-size:18px;font-weight:600;color:oklch(0.92 0.004 250);text-decoration:none;">JP.<span style="color:#9CAF6B;">_</span></a>
   <div style="display:flex;gap:32px;align-items:center;font-size:14px;">
-    <a href="../Portfolio.dc.html" style="color:oklch(0.85 0.004 250);text-decoration:none;">home</a>
+    <a href="../Portfolio.dc.html" style="color:var(--ink-muted);text-decoration:none;">strona główna</a>
     <a href="../Portfolio.dc.html?view=solutions" style="color:oklch(0.85 0.004 250);text-decoration:none;">:solutions</a>
-    <a href="../Portfolio.dc.html?view=badania" style="color:oklch(0.85 0.004 250);text-decoration:none;">:research</a>
-    <a href="../Portfolio.dc.html?view=kontakt" style="color:oklch(0.85 0.004 250);text-decoration:none;">:contact</a>
-    <a href="mo-bohb-pl.html" style="font-size:12px;font-weight:700;padding:6px 12px;border:1px solid #9CAF6B;border-radius:2px;background:rgba(156,175,107,0.15);color:#9CAF6B;text-decoration:none;">PL</a>
+    <a href="../Portfolio.dc.html?view=badania" style="color:var(--ink-muted);text-decoration:none;">:badania</a>
+    <a href="../Portfolio.dc.html?view=kontakt" style="color:var(--ink-muted);text-decoration:none;">:kontakt</a>
+    <a href="mo-bohb.html" style="font-size:12px;font-weight:700;padding:6px 12px;border:1px solid #9CAF6B;border-radius:2px;background:rgba(156,175,107,0.15);color:#9CAF6B;text-decoration:none;">EN</a>
   </div>
 </nav>
 <div class="topnav">
   <div class="topnav-inner">
-    <span class="topnav-mark">MO-BOHB / guide</span>
-    <a href="#context">1&nbsp;Context</a>
-    <a href="#bigpicture">2&nbsp;Big picture</a>
-    <a href="#components">3&nbsp;Components</a>
-    <a href="#live">4&nbsp;See it live</a>
-    <a href="#code">5&nbsp;Pseudocode</a>
-    <a href="#practice">6&nbsp;What you design yourself</a>
+    <span class="topnav-mark">MO-BOHB / przewodnik</span>
+    <a href="#context">1&nbsp;Kontekst</a>
+    <a href="#bigpicture">2&nbsp;Ogólny obraz</a>
+    <a href="#components">3&nbsp;Komponenty</a>
+    <a href="#live">4&nbsp;Zobacz na żywo</a>
+    <a href="#code">5&nbsp;Pseudokod</a>
+    <a href="#practice">6&nbsp;Co wymyślasz sam</a>
   </div>
 </div>
 
@@ -538,48 +538,48 @@
 
 <section id="top">
   <div class="eyebrow"><span>MO-BOHB — Multi-Objective Bayesian Optimization and Hyperband</span></div>
-  <h1>How MO-BOHB actually works</h1>
-  <p class="lede">Two mechanisms stitched into one algorithm: a Hyperband-style budget ladder that cuts cost through cheap, low-fidelity evaluations, and a multi-objective Bayesian Optimization model (TPE) that replaces random sampling with a smarter choice of <em class="term">what</em> to even try. Either one alone is already an existing algorithm — MO-BOHB is a specific way of combining them.</p>
-  <p class="subdek">Laid out like a C4 diagram: context, then the big moving parts, then each one broken down in detail, then code, and finally a practical checklist.</p>
+  <h1>Jak naprawdę działa MO-BOHB</h1>
+  <p class="lede">Dwa mechanizmy zszyte w jeden algorytm: drabinka budżetów w stylu Hyperband, która tnie koszt przez tanie oceny przy niskiej wierności, i wielokryterialny model Bayesian Optimization (TPE), który zastępuje losowe próbkowanie mądrzejszym wyborem, <em class="term">czego</em> w ogóle spróbować. Jedno bez drugiego to już istniejący algorytm — MO-BOHB to konkretny sposób ich połączenia.</p>
+  <p class="subdek">Ułożone jak diagram C4: kontekst, potem duże ruchome elementy, potem każdy z nich rozłożony na czynniki pierwsze, potem kod, na końcu praktyczna checklista.</p>
 </section>
 
 <hr class="rule">
 
 <section id="context">
-  <h3><span class="num">1</span>Context — the problem MO-BOHB answers</h3>
-  <p class="lede" style="font-size:17px;">In one sentence: fully evaluating one candidate is expensive, so instead of paying for it every time, MO-BOHB pays little for an early screening and a lot only for a handful of finalists — and which candidates even enter the screening is chosen by a model learned from results so far, not a coin flip.</p>
-  <p>In neural architecture search or hyperparameter tuning, “evaluating a candidate” most often means “training a network.” That can take minutes, hours, sometimes days. Random search and classic evolutionary algorithms pay this price for <em>every</em> candidate, regardless of how hopeless it turns out to be after just a few epochs. Hyperband (Li et al., 2018) notices that a short, cheap training run is usually enough to tell very weak candidates apart from the rest — so it trains many candidates briefly, keeps only the top fraction, and only then gives them more budget. BOHB (Falkner et al., 2018) adds the other half: instead of randomly choosing who even enters the screening, it trains a model on all evaluations so far and samples closer to regions that have already proven promising. MO-BOHB is a version of the same idea for multiple objectives at once (e.g. accuracy <em>and</em> inference cost) instead of one.</p>
+  <h3><span class="num">1</span>Kontekst — problem, na który MO-BOHB jest odpowiedzią</h3>
+  <p class="lede" style="font-size:17px;">Jednym zdaniem: pełna ocena jednego kandydata jest droga, więc zamiast płacić za nią za każdym razem, MO-BOHB płaci mało za wczesną przesiewkę i dużo tylko za garstkę finalistów — a to, którzy kandydaci w ogóle trafiają do przesiewki, wybiera model wyuczony z dotychczasowych wyników, nie rzut monetą.</p>
+  <p>W przeszukiwaniu architektur sieci albo strojeniu hiperparametrów „ocenić kandydata" najczęściej znaczy „wytrenować sieć". To może trwać minuty, godziny, czasem dni. Losowe przeszukiwanie i klasyczne algorytmy ewolucyjne płacą tę cenę za <em>każdego</em> kandydata, niezależnie od tego, jak beznadziejny okazuje się już po kilku pierwszych epokach. Hyperband (Li i in., 2018) zauważa, że krótki, tani trening zwykle wystarcza, żeby odróżnić kandydatów bardzo słabych od reszty — więc trenuje wielu kandydatów krótko, zostawia tylko najlepszy ułamek, i dopiero im daje więcej budżetu. BOHB (Falkner i in., 2018) dokłada do tego drugą połowę: zamiast losowo wybierać, kto w ogóle wchodzi do przesiewki, uczy model na podstawie wszystkich dotychczasowych ocen i próbkuje bliżej regionów, które już okazały się obiecujące. MO-BOHB to wersja tego samego pomysłu dla wielu celów naraz (np. dokładność <em>i</em> koszt inferencji) zamiast jednego.</p>
 
   <div class="callout">
-    <span class="tag">MO-BOHB's place in this project</span>
-    <p>This page describes one of the six arms of the ablation grid P3Net is compared against in the experiments for the GECCO 2027 paper — alongside NSGA-Net, NSGANetV2, SH-EMOA, TPE, and random search, on JAHS-Bench-201 and NAS-HPO-Bench-II. MO-BOHB represents the family of methods that cut cost through <strong>cheaper partial-fidelity evaluations</strong> and try to rescue sampling quality with a model — unlike P3Net, which cuts cost in a completely different way: a relative, linkage-aware surrogate, but always at the full, target evaluation semantics. Section&nbsp;6 returns to this contrast.</p>
+    <span class="tag">Miejsce MO-BOHB w tym projekcie</span>
+    <p>Ta strona opisuje jedno z sześciu ramion siatki ablacyjnej, względem których porównywany jest P3Net w eksperymentach do artykułu GECCO 2027 — obok NSGA-Net, NSGANetV2, SH-EMOA, TPE i przeszukiwania losowego, na JAHS-Bench-201 i NAS-HPO-Bench-II. MO-BOHB reprezentuje rodzinę metod, które tną koszt przez <strong>tańsze oceny częściowej wierności</strong> i próbują ratować jakość próbkowania modelem — w odróżnieniu od P3Net, który tnie koszt zupełnie inaczej: relatywnym, świadomym powiązań surogatem, ale zawsze przy pełnej, docelowej semantyce oceny. Sekcja&nbsp;6 wraca do tego kontrastu.</p>
   </div>
 
-  <p>Before we go into detail, here's what the difference looks like at the budget level: classic search pays the same, full cost for every candidate; MO-BOHB splits the budget unevenly, so most of the money goes where it's already known to be worthwhile.</p>
+  <p>Zanim wejdziemy w szczegóły, tak wygląda różnica na poziomie budżetu: klasyczne przeszukiwanie płaci ten sam, pełny koszt za każdego kandydata; MO-BOHB rozdziela budżet nierówno, żeby większość pieniędzy szła tam, gdzie już wiadomo, że warto.</p>
 
   <figure class="bleed">
-    <svg viewBox="0 0 900 340" role="img" aria-label="Comparison of two budget-spending strategies: classic black-box search fully trains each of a few candidates, paying the same high cost for each regardless of how weak it turns out; MO-BOHB trains many candidates briefly, drops most of them in a cheap screening, and only pulls a handful of finalists to the full budget.">
+    <svg viewBox="0 0 900 340" role="img" aria-label="Porównanie dwóch strategii wydawania budżetu: klasyczne przeszukiwanie czarnoskrzynkowe trenuje każdego z kilku kandydatów w pełni, płacąc ten sam wysoki koszt za każdego z nich niezależnie od tego, jak słaby się okaże; MO-BOHB trenuje wielu kandydatów krótko, odrzuca większość taniej przesiewki i tylko nielicznych finalistów dociąga do pełnego budżetu.">
       <defs>
         <marker id="arrC" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
           <path d="M0,0 L10,5 L0,10 z" fill="currentColor"></path>
         </marker>
       </defs>
 
-      <text x="30" y="20" class="diagram-label" font-size="12" letter-spacing="0.06em" fill="currentColor" opacity="0.6">SEARCH WITHOUT FIDELITY — every candidate pays the full price</text>
-      <g pointer-events="all" tabindex="0" data-tt="Four candidates, each trained from scratch to the full budget (e.g. 100 epochs), before the algorithm even learns three of them are weak.">
+      <text x="30" y="20" class="diagram-label" font-size="12" letter-spacing="0.06em" fill="currentColor" opacity="0.6">PRZESZUKIWANIE BEZ WIERNOŚCI — każdy kandydat płaci pełną cenę</text>
+      <g pointer-events="all" tabindex="0" data-tt="Cztery kandydaci, każdy trenowany od zera do pełnego budżetu (np. 100 epok), zanim algorytm w ogóle się dowie, że trzech z nich jest słabych.">
         <rect x="30" y="40" width="60" height="220" fill="var(--bg-sunken)" stroke="currentColor" stroke-width="1.3"></rect>
         <rect x="105" y="40" width="60" height="220" fill="var(--bg-sunken)" stroke="currentColor" stroke-width="1.3"></rect>
         <rect x="180" y="40" width="60" height="220" fill="var(--bg-sunken)" stroke="currentColor" stroke-width="1.3"></rect>
         <rect x="255" y="40" width="60" height="220" fill="var(--accent-soft)" stroke="var(--accent)" stroke-width="1.6"></rect>
       </g>
-      <text x="172" y="282" text-anchor="middle" class="diagram-label" font-size="11" fill="currentColor" opacity="0.7">4 candidates × full budget = 4 cost units</text>
-      <text x="172" y="300" text-anchor="middle" class="diagram-label" font-size="10.5" fill="currentColor" opacity="0.55">only one turned out good — the rest of the cost went into finding that out</text>
+      <text x="172" y="282" text-anchor="middle" class="diagram-label" font-size="11" fill="currentColor" opacity="0.7">4 kandydaci × pełny budżet = 4 jednostki kosztu</text>
+      <text x="172" y="300" text-anchor="middle" class="diagram-label" font-size="10.5" fill="currentColor" opacity="0.55">tylko jeden okazał się dobry — reszta kosztu poszła na to, żeby się o tym dowiedzieć</text>
 
       <line x1="450" y1="10" x2="450" y2="320" stroke="currentColor" stroke-width="1" opacity="0.15"></line>
 
-      <text x="480" y="20" class="diagram-label" font-size="12" letter-spacing="0.06em" fill="currentColor" opacity="0.6">MO-BOHB — a fidelity ladder, budget grows only for survivors</text>
+      <text x="480" y="20" class="diagram-label" font-size="12" letter-spacing="0.06em" fill="currentColor" opacity="0.6">MO-BOHB — drabinka wierności, budżet rośnie tylko dla przeżywających</text>
 
-      <g pointer-events="all" tabindex="0" data-tt="Round 1 (low budget): nine candidates evaluated cheaply and noisily — enough to filter out most of them, even if a single result is uncertain.">
+      <g pointer-events="all" tabindex="0" data-tt="Runda 1 (budżet niski): dziewięciu kandydatów ocenianych tanio i z szumem — to wystarcza, żeby odsiać większość, nawet jeśli pojedynczy wynik jest niepewny.">
         <rect x="480" y="230" width="16" height="30" fill="var(--bg-sunken)" stroke="currentColor" stroke-width="1.1"></rect>
         <rect x="500" y="230" width="16" height="30" fill="var(--bg-sunken)" stroke="currentColor" stroke-width="1.1"></rect>
         <rect x="520" y="230" width="16" height="30" fill="var(--bg-sunken)" stroke="currentColor" stroke-width="1.1"></rect>
@@ -590,129 +590,129 @@
         <rect x="620" y="230" width="16" height="30" fill="var(--bg-sunken)" stroke="currentColor" stroke-width="1.1"></rect>
         <rect x="640" y="230" width="16" height="30" fill="var(--grp-climb)" opacity="0.85"></rect>
       </g>
-      <text x="560" y="278" text-anchor="middle" class="diagram-label" font-size="10" fill="currentColor" opacity="0.6">9 cheap evaluations (budget ×1)</text>
+      <text x="560" y="278" text-anchor="middle" class="diagram-label" font-size="10" fill="currentColor" opacity="0.6">9 tanich ocen (budżet ×1)</text>
 
       <path d="M540,230 L540,180" stroke="var(--grp-climb)" stroke-width="1.2" stroke-dasharray="2 3" marker-end="url(#arrC)"></path>
       <path d="M600,230 L600,180" stroke="var(--grp-climb)" stroke-width="1.2" stroke-dasharray="2 3" marker-end="url(#arrC)"></path>
       <path d="M640,230 L640,180" stroke="var(--grp-climb)" stroke-width="1.2" stroke-dasharray="2 3" marker-end="url(#arrC)"></path>
 
-      <g pointer-events="all" tabindex="0" data-tt="Round 2 (budget ×3): only round-1 survivors are re-evaluated, now more accurately — a pricier evaluation, but only for 1/3 of the population.">
+      <g pointer-events="all" tabindex="0" data-tt="Runda 2 (budżet ×3): tylko przeżywający z rundy 1 są oceniani ponownie, teraz dokładniej — droższa ocena, ale tylko dla 1/3 populacji.">
         <rect x="530" y="140" width="20" height="40" fill="var(--grp-climb)" opacity="0.85"></rect>
         <rect x="590" y="140" width="20" height="40" fill="var(--accent-soft)" stroke="var(--accent)" stroke-width="1.6"></rect>
         <rect x="630" y="140" width="20" height="40" fill="var(--grp-climb)" opacity="0.85"></rect>
       </g>
-      <text x="590" y="130" text-anchor="middle" class="diagram-label" font-size="10" fill="currentColor" opacity="0.6">3 survivors (budget ×3)</text>
+      <text x="590" y="130" text-anchor="middle" class="diagram-label" font-size="10" fill="currentColor" opacity="0.6">3 przeżywający (budżet ×3)</text>
 
       <path d="M590,140 L590,90" stroke="var(--accent)" stroke-width="1.3" marker-end="url(#arrC)"></path>
-      <g pointer-events="all" tabindex="0" data-tt="Round 3 (full budget): only one finalist is pulled to the end — exactly the one who survived both earlier, cheaper rounds.">
+      <g pointer-events="all" tabindex="0" data-tt="Runda 3 (pełny budżet): tylko jeden finalista dociągany do końca — dokładnie ten, który przetrwał obie wcześniejsze, tańsze rundy.">
         <rect x="570" y="50" width="40" height="40" fill="var(--accent-soft)" stroke="var(--accent)" stroke-width="1.8"></rect>
       </g>
-      <text x="590" y="42" text-anchor="middle" class="diagram-label" font-size="10.5" fill="var(--accent)">1 finalist, full budget</text>
+      <text x="590" y="42" text-anchor="middle" class="diagram-label" font-size="10.5" fill="var(--accent)">1 finalista, pełny budżet</text>
 
-      <text x="560" y="300" text-anchor="middle" class="diagram-label" font-size="10.5" fill="var(--accent)">9+3+1 evaluations of increasing cost ≈ less than 4 full evaluations total</text>
+      <text x="560" y="300" text-anchor="middle" class="diagram-label" font-size="10.5" fill="var(--accent)">9+3+1 ocen o rosnącym koszcie ≈ mniej niż 4 pełne oceny łącznie</text>
     </svg>
-    <figcaption><span class="k">What this diagram shows —</span> the same pool of candidates, two ways of spending the same budget. On the left, every candidate costs the same, regardless of quality. On the right, most candidates are dropped before they cost much — only a handful get the full budget. This is the “Hyperband” part of MO-BOHB; where those first candidates come from is shown in section&nbsp;2.</figcaption>
+    <figcaption><span class="k">Co pokazuje ten diagram —</span> ta sama pula kandydatów, dwa sposoby wydawania tego samego budżetu. Po lewej każdy kandydat kosztuje tyle samo, niezależnie od jakości. Po prawej większość kandydatów jest odrzucana, zanim zdąży kosztować dużo — pełny budżet dostaje tylko garstka. To jest część „Hyperband" w MO-BOHB; skąd biorą się ci pierwsi kandydaci, pokazuje sekcja&nbsp;2.</figcaption>
   </figure>
 </section>
 
 <section id="bigpicture">
-  <h3><span class="num">2</span>Big picture — one bracket, one loop</h3>
-  <p class="lede" style="font-size:17px;">In one sentence: every “bracket” is one full ladder of rounds — from sampling to a winner — and what MO-BOHB adds to plain Hyperband is the way candidates entering the first round are chosen.</p>
+  <h3><span class="num">2</span>Ogólny obraz — jeden bracket, jedna pętla</h3>
+  <p class="lede" style="font-size:17px;">Jednym zdaniem: każdy „bracket" to jedna pełna drabinka rund — od próbkowania po zwycięzcę — a to, co MO-BOHB dokłada do zwykłego Hyperbandu, to sposób, w jaki wybierane są kandydaci wchodzący do pierwszej rundy.</p>
 
   <div class="tablewrap">
     <table>
-      <thead><tr><th>Part</th><th>Job</th></tr></thead>
+      <thead><tr><th>Element</th><th>Zadanie</th></tr></thead>
       <tbody>
-        <tr><td><strong>Fidelity ladder</strong></td><td>Determines how many rounds there are, how much budget each has, and how many candidates enter at the start. Purely mechanical — see section&nbsp;3.1.</td></tr>
-        <tr><td><strong>BO/TPE sampler</strong></td><td>Decides which <em>new</em> candidates to even try at the start of every bracket — based on what's already known from previous evaluations. Section&nbsp;3.2.</td></tr>
-        <tr><td><strong>Promotion rule</strong></td><td>After every round, sorts candidates by (scalarized) score and lets only the top fraction 1/η through. Section&nbsp;3.3.</td></tr>
+        <tr><td><strong>Drabinka wierności</strong></td><td>Ustala, ile jest rund, ile budżetu ma każda z nich i ilu kandydatów wchodzi na start. Czysto mechaniczna — patrz sekcja&nbsp;3.1.</td></tr>
+        <tr><td><strong>Próbkownik BO/TPE</strong></td><td>Decyduje, jakich <em>nowych</em> kandydatów w ogóle wypróbować na starcie każdego brackietu — na podstawie tego, co już wiadomo z poprzednich ocen. Sekcja&nbsp;3.2.</td></tr>
+        <tr><td><strong>Reguła awansu</strong></td><td>Po każdej rundzie sortuje kandydatów po (zeskalaryzowanym) wyniku i przepuszcza dalej tylko górny ułamek 1/η. Sekcja&nbsp;3.3.</td></tr>
       </tbody>
     </table>
   </div>
 
-  <p>From a bird's-eye view, one bracket looks like this — and this is exactly what the demo in section&nbsp;4 runs:</p>
+  <p>Z lotu ptaka, jeden bracket wygląda tak — i to jest dokładnie to, co uruchamia demo w sekcji&nbsp;4:</p>
 
   <figure class="bleed">
-    <svg viewBox="0 0 880 260" role="img" aria-label="One MO-BOHB bracket from a bird's-eye view: a BO/TPE sampler proposes a batch of candidates, each round evaluates them cheaply and drops most, survivors advance to a pricier round, until one winner remains; its score joins an observation history the sampler uses in the next bracket.">
+    <svg viewBox="0 0 880 260" role="img" aria-label="Jeden bracket MO-BOHB z lotu ptaka: próbkownik BO/TPE proponuje partię kandydatów, każda runda ocenia ich tanio i odrzuca większość, przeżywający awansują do droższej rundy, aż zostanie jeden zwycięzca; jego wynik trafia do historii obserwacji, z której korzysta próbkownik w następnym brackiecie.">
       <defs>
         <marker id="arrE" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
           <path d="M0,0 L10,5 L0,10 z" fill="currentColor"></path>
         </marker>
       </defs>
-      <text fill="currentColor" x="140" y="24" text-anchor="middle" class="diagram-label" font-size="10.5" opacity="0.6">new bracket</text>
+      <text fill="currentColor" x="140" y="24" text-anchor="middle" class="diagram-label" font-size="10.5" opacity="0.6">nowy bracket</text>
       <path d="M140,30 L140,58" stroke="currentColor" stroke-width="1.2" marker-end="url(#arrE)"></path>
 
-      <rect x="20" y="60" width="240" height="60" rx="9" fill="none" stroke="var(--grp-tree)" stroke-width="1.6" pointer-events="all" tabindex="0" data-tt="The first bracket starts randomly, since there's no history yet. Every subsequent one uses a model trained on all evaluations so far. Full detail in 3.2.">
+      <rect x="20" y="60" width="240" height="60" rx="9" fill="none" stroke="var(--grp-tree)" stroke-width="1.6" pointer-events="all" tabindex="0" data-tt="Pierwszy bracket startuje losowo, bo nie ma jeszcze żadnej historii. Każdy kolejny korzysta z modelu wyuczonego na wszystkich dotychczasowych ocenach. Pełny szczegół w 3.2.">
       </rect>
-      <text fill="currentColor" x="140" y="88" text-anchor="middle" class="diagram-label" font-size="12.5">BO/TPE sampler</text>
-      <text fill="currentColor" x="140" y="104" text-anchor="middle" class="diagram-label" font-size="10.5" opacity="0.75">proposes a batch of candidates</text>
+      <text fill="currentColor" x="140" y="88" text-anchor="middle" class="diagram-label" font-size="12.5">Próbkownik BO/TPE</text>
+      <text fill="currentColor" x="140" y="104" text-anchor="middle" class="diagram-label" font-size="10.5" opacity="0.75">proponuje partię kandydatów</text>
       <path d="M260,90 L320,90" stroke="currentColor" stroke-width="1.3" marker-end="url(#arrE)"></path>
 
-      <rect x="320" y="60" width="240" height="60" rx="9" fill="none" stroke="var(--grp-climb)" stroke-width="1.6" pointer-events="all" tabindex="0" data-tt="Every round evaluates all current candidates at that round's budget, then sorts and lets only the top 1/η through. Full detail in 3.1 and 3.3.">
+      <rect x="320" y="60" width="240" height="60" rx="9" fill="none" stroke="var(--grp-climb)" stroke-width="1.6" pointer-events="all" tabindex="0" data-tt="Każda runda ocenia wszystkich obecnych kandydatów przy budżecie tej rundy, potem sortuje i przepuszcza dalej tylko top 1/η. Pełny szczegół w 3.1 i 3.3.">
       </rect>
-      <text fill="currentColor" x="440" y="88" text-anchor="middle" class="diagram-label" font-size="12.5">Round: evaluate → trim</text>
-      <text fill="currentColor" x="440" y="104" text-anchor="middle" class="diagram-label" font-size="10.5" opacity="0.75">budget grows by η×</text>
+      <text fill="currentColor" x="440" y="88" text-anchor="middle" class="diagram-label" font-size="12.5">Runda: oceń → przytnij</text>
+      <text fill="currentColor" x="440" y="104" text-anchor="middle" class="diagram-label" font-size="10.5" opacity="0.75">budżet rośnie o η razy</text>
       <path d="M560,90 L620,90" stroke="currentColor" stroke-width="1.3" marker-end="url(#arrE)"></path>
 
-      <rect x="620" y="60" width="240" height="60" rx="9" fill="none" stroke="var(--accent)" stroke-width="1.6" pointer-events="all" tabindex="0" data-tt="The last one left standing after the final round is this bracket's winner — the candidate who survived every trim up to the full budget.">
+      <rect x="620" y="60" width="240" height="60" rx="9" fill="none" stroke="var(--accent)" stroke-width="1.6" pointer-events="all" tabindex="0" data-tt="Ostatni ocalały po ostatniej rundzie to zwycięzca tego brackietu — kandydat, który przetrwał wszystkie przycięcia aż do pełnego budżetu.">
       </rect>
-      <text fill="currentColor" x="740" y="95" text-anchor="middle" class="diagram-label" font-size="13">Bracket winner</text>
+      <text fill="currentColor" x="740" y="95" text-anchor="middle" class="diagram-label" font-size="13">Zwycięzca brackietu</text>
 
       <path d="M440,120 C440,175 440,175 440,180" stroke="var(--grp-climb)" stroke-width="1.2" stroke-dasharray="2 3" opacity="0.7"></path>
-      <text x="440" y="200" text-anchor="middle" class="diagram-label" font-size="10" fill="currentColor" opacity="0.55" pointer-events="all" tabindex="0" data-tt="The same “evaluate → trim” block runs once per round, until only one candidate is left — this is the fidelity ladder's inner loop.">round repeats until one remains</text>
+      <text x="440" y="200" text-anchor="middle" class="diagram-label" font-size="10" fill="currentColor" opacity="0.55" pointer-events="all" tabindex="0" data-tt="Ten sam blok „oceń → przytnij" wykonuje się raz na rundę, dopóki nie zostanie jeden kandydat — to jest wewnętrzna pętla drabinki wierności.">runda się powtarza, aż zostanie jeden</text>
 
       <path d="M740,120 C740,190 140,190 140,122" fill="none" stroke="var(--accent)" stroke-width="1.3" stroke-dasharray="2 4" marker-end="url(#arrE)"></path>
-      <text x="440" y="215" text-anchor="middle" class="diagram-label" font-size="11" fill="var(--accent)" pointer-events="all" tabindex="0" data-tt="The winner's score (and, in practical implementations, everyone evaluated along the way) is appended to the observation history — this history is exactly what feeds the BO/TPE sampler in the next bracket.">score → observation history → next bracket samples smarter</text>
+      <text x="440" y="215" text-anchor="middle" class="diagram-label" font-size="11" fill="var(--accent)" pointer-events="all" tabindex="0" data-tt="Wynik zwycięzcy (i, w praktycznych implementacjach, wszystkich ocenionych po drodze) dopisuje się do historii obserwacji — to właśnie ta historia karmi próbkownik BO/TPE w kolejnym brackiecie.">wynik → historia obserwacji → kolejny bracket próbkuje mądrzej</text>
     </svg>
-    <figcaption><span class="k">What this diagram shows —</span> the same three names from the table above, now as a loop. The only arrow that distinguishes MO-BOHB from plain Hyperband is the one leading back to the sampler — without it, this exact same diagram would describe Hyperband with random sampling at the start. Section&nbsp;4 lets you see this directly: the demo mode can be switched between both versions.</figcaption>
+    <figcaption><span class="k">Co pokazuje ten diagram —</span> te same trzy nazwy z tabeli wyżej, teraz jako pętla. Jedyna strzałka, która odróżnia MO-BOHB od zwykłego Hyperbandu, to ta prowadząca z powrotem do próbkownika — bez niej ten sam diagram opisywałby Hyperband z losowym próbkowaniem na starcie. Sekcja&nbsp;4 pozwala to zobaczyć bezpośrednio: tryb demo można przełączyć między obiema wersjami.</figcaption>
   </figure>
 </section>
 
 <section id="components">
-  <h2>3&nbsp; Components — breaking down each part</h2>
-  <p class="subdek">The same three parts as above, now at the level of detail needed to implement them.</p>
+  <h2>3&nbsp; Komponenty — rozkładanie każdego elementu na czynniki</h2>
+  <p class="subdek">Te same trzy elementy co wyżej, teraz na poziomie szczegółowości potrzebnym do ich zaimplementowania.</p>
 
-  <h3><span class="num">3.1</span>The fidelity ladder — how many rounds, how much budget, how many candidates</h3>
-  <p class="lede" style="font-size:16px;">In one sentence: the budget grows geometrically by a factor η every round, and the number of candidates shrinks by exactly the same factor — the two numbers are coupled.</p>
-  <p>Before a bracket even starts, three numbers have to be set: the minimum budget <span class="mono">b_min</span> (the cheapest, least reliable evaluation — e.g. one training epoch), the maximum budget <span class="mono">b_max</span> (the full, target evaluation — e.g. a hundred epochs), and the trimming factor <span class="mono">η</span> (usually 2 or 3). The number of rounds follows from how many times <span class="mono">b_min</span> has to be multiplied by <span class="mono">η</span> to reach <span class="mono">b_max</span>. The starting number of candidates is chosen so that the population is divided by <span class="mono">η</span> every round and ends with one survivor after the last round.</p>
+  <h3><span class="num">3.1</span>Drabinka wierności — ile rund, ile budżetu, ilu kandydatów</h3>
+  <p class="lede" style="font-size:16px;">Jednym zdaniem: budżet rośnie geometrycznie o współczynnik η co rundę, a liczba kandydatów maleje o dokładnie ten sam współczynnik — te dwie liczby są ze sobą sprzężone.</p>
+  <p>Zanim bracket w ogóle wystartuje, trzeba ustalić trzy liczby: budżet minimalny <span class="mono">b_min</span> (najtańsza, najmniej wiarygodna ocena — np. jedna epoka treningu), budżet maksymalny <span class="mono">b_max</span> (pełna, docelowa ocena — np. sto epok) i współczynnik przycinania <span class="mono">η</span> (zwykle 2 lub 3). Liczba rund wynika z tego, ile razy trzeba pomnożyć <span class="mono">b_min</span> przez <span class="mono">η</span>, żeby dojść do <span class="mono">b_max</span>. Liczba kandydatów na starcie jest dobierana tak, żeby po każdej rundzie dzielić populację przez <span class="mono">η</span> i skończyć z jednym ocalałym po ostatniej rundzie.</p>
 
   <div class="tablewrap">
     <table>
-      <thead><tr><th>Round</th><th>Budget</th><th>Candidates in</th><th>Candidates out (top 1/η)</th></tr></thead>
+      <thead><tr><th>Runda</th><th>Budżet</th><th>Kandydatów na wejściu</th><th>Kandydatów na wyjściu (top 1/η)</th></tr></thead>
       <tbody>
         <tr><td>0</td><td class="mono">b_min = 1</td><td>9</td><td>3</td></tr>
         <tr><td>1</td><td class="mono">b_min·η = 3</td><td>3</td><td>1</td></tr>
-        <tr><td>2</td><td class="mono">b_min·η² = 9 = b_max</td><td>1</td><td>1 (winner)</td></tr>
+        <tr><td>2</td><td class="mono">b_min·η² = 9 = b_max</td><td>1</td><td>1 (zwycięzca)</td></tr>
       </tbody>
     </table>
   </div>
-  <p class="demo-note" style="margin:-6px 0 20px;">This is exactly the ladder the demo in section&nbsp;4 runs on (η=3). Notice the total cost: 9·1 + 3·3 + 1·9 = 27 budget units for the whole bracket, versus 9·9 = 81 if all nine got the full budget right away.</p>
+  <p class="demo-note" style="margin:-6px 0 20px;">To dokładnie ta drabinka, na której działa demo w sekcji&nbsp;4 (η=3). Zwróć uwagę na koszt łączny: 9·1 + 3·3 + 1·9 = 27 jednostek budżetu za cały bracket, wobec 9·9 = 81, gdyby wszyscy dziewięcioro od razu dostali pełny budżet.</p>
 
-  <p>Real Hyperband (and BOHB/MO-BOHB) runs several such ladders in parallel with different starting points — one starts from a very cheap, wide population, another straight from a pricier, narrower one — to guard against a cheap evaluation being misleading for that particular problem. This page, for clarity, shows one representative ladder shape; the mechanics of successive rounds are identical no matter how many such ladders you run at once.</p>
+  <p>Prawdziwy Hyperband (i BOHB/MO-BOHB) uruchamia równolegle kilka takich drabinek o różnym punkcie startowym — jedna zaczyna od bardzo taniej, szerokiej populacji, inna od razu od droższej, węższej — żeby zabezpieczyć się przed tym, że tania ocena bywa zwodnicza dla akurat tego problemu. Ta strona, dla czytelności, pokazuje jeden reprezentatywny kształt drabinki; mechanika kolejnych rund jest identyczna niezależnie od tego, ile takich drabinek uruchomisz naraz.</p>
 
-  <h3><span class="num">3.2</span>The multi-objective BO/TPE sampler — where new candidates come from</h3>
-  <p class="lede" style="font-size:16px;">In one sentence: split the observations so far into “good” and “the rest” by a quantile threshold γ, fit a density to each group, and sample where the “good” density is high relative to “the rest.”</p>
-  <p>TPE (Tree-structured Parzen Estimator) doesn't model the objective function directly — it models the <em>distribution of configurations</em>. All observations so far are sorted by score and split by a quantile threshold <span class="mono">γ</span> (e.g. the best 30%) into two groups: “good” <span class="mono">l(x)</span> and “the rest” <span class="mono">g(x)</span>. A probability density over the configuration space is fit for each group. A new candidate is sampled to maximize the ratio <span class="mono">l(x)/g(x)</span> — that is, where it's dense among the good ones and sparse among the rest.</p>
-  <p>For multiple objectives at once (accuracy <em>and</em> cost, say), there's no single obvious way to define “good” — multiple objectives first have to be reduced to one rank. Two honest simplifications worth knowing: <strong>scalarization</strong> (one score weighted as a sum of objectives, possibly with randomized weights between iterations, to cover the whole Pareto front) or <strong>a separate model per objective</strong> plus a rule combining their rankings (e.g. non-domination). This page, for the demo's clarity, uses simple scalarization with fixed weights — a simplification openly admitted, not hidden as something more.</p>
+  <h3><span class="num">3.2</span>Wielokryterialny próbkownik BO/TPE — skąd biorą się nowi kandydaci</h3>
+  <p class="lede" style="font-size:16px;">Jednym zdaniem: podziel dotychczasowe obserwacje na „dobre" i „resztę" progiem kwantylowym γ, dopasuj gęstość do każdej grupy, i próbkuj tam, gdzie „dobra" gęstość jest wysoka względem „reszty".</p>
+  <p>TPE (Tree-structured Parzen Estimator) nie modeluje wprost funkcji celu — modeluje <em>rozkład konfiguracji</em>. Wszystkie dotychczasowe obserwacje sortuje się po wyniku i dzieli progiem kwantylowym <span class="mono">γ</span> (np. najlepsze 30%) na dwie grupy: „dobre" <span class="mono">l(x)</span> i „reszta" <span class="mono">g(x)</span>. Dla każdej grupy dopasowuje się gęstość prawdopodobieństwa nad przestrzenią konfiguracji. Nowego kandydata próbkuje się tak, żeby maksymalizować stosunek <span class="mono">l(x)/g(x)</span> — czyli tam, gdzie jest gęsto wśród dobrych i rzadko wśród reszty.</p>
+  <p>Dla wielu celów naraz (dokładność <em>i</em> koszt, powiedzmy) nie ma jednego oczywistego sposobu na „dobre" — trzeba najpierw sprowadzić wiele celów do jednej rangi. Dwa uczciwe uproszczenia, które warto znać: <strong>skalaryzacja</strong> (jeden wynik ważony sumą celów, ewentualnie z losowanymi wagami między iteracjami, żeby pokryć cały front Pareto) albo <strong>osobny model per cel</strong> plus reguła łącząca ich rankingi (np. niezdominowanie). Ta strona, dla czytelności demo, używa prostej skalaryzacji ze stałymi wagami — uproszczenie wprost przyznane, nie ukrywane jako coś więcej.</p>
 
   <figure class="bleed">
-    <svg viewBox="0 0 880 220" role="img" aria-label="A split of observations so far by a quantile threshold gamma into a good group l(x) and the rest g(x); a new candidate is sampled where the good group's density is high relative to the rest's density.">
+    <svg viewBox="0 0 880 220" role="img" aria-label="Podział dotychczasowych obserwacji progiem kwantylowym gamma na grupę dobrą l(x) i resztę g(x); nowy kandydat jest próbkowany tam, gdzie gęstość dobrej grupy jest wysoka względem gęstości reszty.">
       <g class="mono">
         <line x1="40" y1="180" x2="820" y2="180" stroke="currentColor" stroke-width="1.2" opacity="0.4"></line>
-        <text fill="currentColor" x="40" y="20" font-size="11" opacity="0.6">observations sorted by (scalarized) score, best on the left</text>
+        <text fill="currentColor" x="40" y="20" font-size="11" opacity="0.6">obserwacje posortowane po (zeskalaryzowanym) wyniku, najlepsze po lewej</text>
 
-        <g pointer-events="all" tabindex="0" data-tt="The top γ observations (e.g. 30%) — density l(x) is built from them. The more tightly clustered in a region of configuration space, the stronger the signal for where to sample.">
+        <g pointer-events="all" tabindex="0" data-tt="Górne γ obserwacji (np. 30%) — z nich buduje się gęstość l(x). Im ciaśniej skupione w regionie przestrzeni konfiguracji, tym mocniejszy sygnał, gdzie próbkować.">
           <circle cx="90"  cy="150" r="6" fill="var(--accent)"></circle>
           <circle cx="130" cy="130" r="6" fill="var(--accent)"></circle>
           <circle cx="160" cy="160" r="6" fill="var(--accent)"></circle>
           <circle cx="200" cy="120" r="6" fill="var(--accent)"></circle>
-          <text x="145" y="95" text-anchor="middle" font-size="11" fill="var(--accent)">good — l(x), top γ</text>
+          <text x="145" y="95" text-anchor="middle" font-size="11" fill="var(--accent)">dobre — l(x), górne γ</text>
         </g>
 
         <line x1="260" y1="60" x2="260" y2="180" stroke="currentColor" stroke-width="1.2" stroke-dasharray="3 3" opacity="0.5"></line>
-        <text x="260" y="50" text-anchor="middle" font-size="10.5" fill="currentColor" opacity="0.6">threshold γ</text>
+        <text x="260" y="50" text-anchor="middle" font-size="10.5" fill="currentColor" opacity="0.6">próg γ</text>
 
-        <g pointer-events="all" tabindex="0" data-tt="The remaining observations — density g(x) is built from them. Usually spread wider, since they cover everything that didn't make the top quantile.">
+        <g pointer-events="all" tabindex="0" data-tt="Pozostałe obserwacje — z nich buduje się gęstość g(x). Zwykle rozrzucone szerzej, bo obejmują wszystko, co nie trafiło do górnego kwantyla.">
           <circle cx="320" cy="165" r="5" fill="var(--ink-faint)"></circle>
           <circle cx="380" cy="140" r="5" fill="var(--ink-faint)"></circle>
           <circle cx="440" cy="170" r="5" fill="var(--ink-faint)"></circle>
@@ -720,46 +720,46 @@
           <circle cx="580" cy="155" r="5" fill="var(--ink-faint)"></circle>
           <circle cx="650" cy="135" r="5" fill="var(--ink-faint)"></circle>
           <circle cx="720" cy="165" r="5" fill="var(--ink-faint)"></circle>
-          <text x="520" y="95" text-anchor="middle" font-size="11" fill="currentColor" opacity="0.6">the rest — g(x)</text>
+          <text x="520" y="95" text-anchor="middle" font-size="11" fill="currentColor" opacity="0.6">reszta — g(x)</text>
         </g>
 
-        <g pointer-events="all" tabindex="0" data-tt="A new candidate sampled where l(x)/g(x) is high — near the cluster of good observations, but still with a bit of random spread, so the model can be wrong and exploration doesn't freeze.">
+        <g pointer-events="all" tabindex="0" data-tt="Nowy kandydat próbkowany tam, gdzie l(x)/g(x) jest wysokie — blisko klastra dobrych obserwacji, ale wciąż z odrobiną losowego rozrzutu, żeby model mógł się mylić i eksploracja nie zamarła.">
           <circle cx="150" cy="145" r="16" fill="none" stroke="var(--accent)" stroke-width="1.6" stroke-dasharray="3 3"></circle>
-          <text x="150" y="200" text-anchor="middle" font-size="10.5" fill="var(--accent)">← TPE samples here: high l(x)/g(x)</text>
+          <text x="150" y="200" text-anchor="middle" font-size="10.5" fill="var(--accent)">← tu próbkuje TPE: wysokie l(x)/g(x)</text>
         </g>
       </g>
     </svg>
-    <figcaption><span class="k">What this diagram shows —</span> a split into two groups and a new point sampled near the good group, not blindly across the whole space. This is exactly the mechanism the demo in section&nbsp;4 shows as dashed circles around good observations from the previous bracket.</figcaption>
+    <figcaption><span class="k">Co pokazuje ten diagram —</span> podział na dwie grupy i nowy punkt próbkowany blisko dobrej grupy, nie po całej przestrzeni na oślep. To jest dokładnie mechanizm, który demo w sekcji&nbsp;4 pokazuje jako przerywane okręgi wokół dobrych obserwacji z poprzedniego brackietu.</figcaption>
   </figure>
 
-  <h3><span class="num">3.3</span>The promotion rule — successive halving</h3>
-  <p class="lede" style="font-size:16px;">In one sentence: after every round, sort by score and keep only the top fraction 1/η — the rest drops out with no right to a pricier evaluation.</p>
-  <p>This is the whole trimming mechanism: no negotiation, no absolute score threshold, just a relative ranking within the current round. A candidate that did great in round 0 purely because the cheap evaluation's noise happened to favor it may still get promoted — the ladder doesn't guard against a single measurement error, only against <em>systematically</em> wasting budget on candidates that are consistently weak across many fidelity levels. This assumption — that a cheap evaluation correlates with an expensive one well enough for the ranking to make sense — is one section&nbsp;6 returns to as a limitation of this whole family of methods.</p>
+  <h3><span class="num">3.3</span>Reguła awansu — successive halving</h3>
+  <p class="lede" style="font-size:16px;">Jednym zdaniem: po każdej rundzie posortuj po wyniku i zostaw tylko górny ułamek 1/η — reszta odpada bez prawa do droższej oceny.</p>
+  <p>To jest cały mechanizm przycinania: żadnej negocjacji, żadnego progu bezwzględnego wyniku, tylko ranking względny w obrębie aktualnej rundy. Kandydat, który w rundzie 0 wypadł świetnie tylko dlatego, że tania ocena akurat go faworyzowała szumem, może i tak awansować — drabinka nie broni się przed pojedynczym błędem pomiaru, tylko przed <em>systematycznym</em> marnowaniem budżetu na kandydatów, którzy są słabi konsekwentnie na wielu poziomach wierności. To założenie — że tania ocena koreluje z drogą wystarczająco dobrze, żeby ranking miał sens — jest jednym z tych, do których sekcja&nbsp;6 wraca jako do ograniczenia całej rodziny metod.</p>
 </section>
 
 <section id="live">
-  <h2>4&nbsp; See it live</h2>
-  <p class="subdek">Not an animation of one fixed example — this is the algorithm actually running, exactly per the pseudocode in section&nbsp;5, computing in your browser.</p>
+  <h2>4&nbsp; Zobacz na żywo</h2>
+  <p class="subdek">Nie animacja jednego ustalonego przykładu — to naprawdę uruchomiony algorytm, dokładnie wg pseudokodu z sekcji&nbsp;5, licząc w Twojej przeglądarce.</p>
 
-  <h3><span class="num">4.1</span>The problem: a two-dimensional space with a hidden landscape</h3>
-  <p>The demo below searches a two-dimensional configuration space <span class="mono">(x, y) ∈ [0,1]²</span> — imagine two normalized hyperparameters. The true quality landscape has two hills in different parts of the space (two notional objectives, scalarized with 0.5/0.5 weights into one score) — but the algorithm never sees this landscape directly. It only sees individual, noisy readings whose noise shrinks with the round's budget: the cheap evaluation in round 0 is an uncertain approximation, the full budget in the last round is close to the truth.</p>
+  <h3><span class="num">4.1</span>Problem: dwuwymiarowa przestrzeń z ukrytym krajobrazem</h3>
+  <p>Demo poniżej przeszukuje dwuwymiarową przestrzeń konfiguracji <span class="mono">(x, y) ∈ [0,1]²</span> — wyobraź sobie dwa znormalizowane hiperparametry. Prawdziwy krajobraz jakości ma dwa wzgórza w różnych miejscach przestrzeni (dwa umowne cele, zeskalaryzowane wagą 0,5/0,5 do jednego wyniku) — ale algorytm nigdy nie widzi tego krajobrazu wprost. Widzi tylko pojedyncze, zaszumione odczyty, których szum maleje wraz z budżetem rundy: tania ocena w rundzie 0 jest niepewnym przybliżeniem, pełny budżet w ostatniej rundzie jest bliski prawdy.</p>
 
-  <h3><span class="num">4.2</span>The solution: MO-BOHB actually run on this problem</h3>
-  <p>Every “Step” click runs one micro-event — sampling one candidate, one evaluation, one round's trim, or closing a bracket. The stats below show the total budget spent (the sum of all evaluations' cost so far) next to the count of evaluations themselves — these are two different numbers, and the gap between them is the whole point of the fidelity ladder.</p>
-  <p>The mode switch compares two variants on exactly the same landscape: <strong>MO-BOHB</strong> (from the second bracket on, the BO/TPE sampler picks candidates near the good observations so far — visible as dashed circles) and <strong>plain Hyperband</strong> (exactly the same fidelity ladder and the same promotion rule, but sampling is always random, no model is ever built). The difference in how quickly successive brackets get close to a good region is exactly what the BO/TPE part adds.</p>
+  <h3><span class="num">4.2</span>Rozwiązanie: MO-BOHB naprawdę uruchomiony na tym problemie</h3>
+  <p>Każdy klik „Krok" wykonuje jedno mikro-zdarzenie — próbkowanie jednego kandydata, jedną ocenę, jedno przycięcie rundy albo zamknięcie brackietu. Statystyki na dole pokazują łączny zużyty budżet (sumę kosztów wszystkich ocen do tej pory) obok liczby samych ewaluacji — to dwie różne liczby, i różnica między nimi to cały sens drabinki wierności.</p>
+  <p>Przełącznik trybu porównuje dwa warianty na dokładnie tym samym krajobrazie: <strong>MO-BOHB</strong> (próbkownik BO/TPE od drugiego brackietu wybiera kandydatów blisko dotychczasowych dobrych obserwacji — widoczne jako przerywane okręgi) oraz <strong>sam Hyperband</strong> (dokładnie ta sama drabinka wierności i ta sama reguła awansu, ale próbkowanie zawsze losowe, model nigdy nie jest budowany). Różnica w tym, jak szybko kolejne brackiety trafiają blisko dobrego regionu, to właśnie to, co dokłada część BO/TPE.</p>
 
   <div class="demo-bleed-wrap">
   <div class="demo" id="bohbdemo">
     <div class="demo-legend demo-map-legend">
-      <span class="demo-legend-item"><span class="swatch grp-climb"></span>being evaluated / in ladder</span>
-      <span class="demo-legend-item"><span class="swatch grp-pyramid"></span>bracket winner</span>
-      <span class="demo-legend-item"><span class="swatch reverted"></span>dropped in trimming</span>
-      <span class="demo-legend-item"><span class="swatch grp-tree"></span>model sampling region</span>
+      <span class="demo-legend-item"><span class="swatch grp-climb"></span>trwa ocena / w drabince</span>
+      <span class="demo-legend-item"><span class="swatch grp-pyramid"></span>zwycięzca brackietu</span>
+      <span class="demo-legend-item"><span class="swatch reverted"></span>odpadł w przycinaniu</span>
+      <span class="demo-legend-item"><span class="swatch grp-tree"></span>region próbkowania modelu</span>
     </div>
 
     <div class="hero-block">
       <div class="map-strip">
-        <svg id="scatterSvg" viewBox="0 0 900 460" role="img" aria-label="A two-dimensional configuration-space map with two hidden quality hills; points show the current bracket's candidates being sampled, evaluated, trimmed, and promoted, plus dashed circles around regions the model samples new candidates from, and faint traces of previous brackets' winners.">
+        <svg id="scatterSvg" viewBox="0 0 900 460" role="img" aria-label="Dwuwymiarowa mapa przestrzeni konfiguracji z dwoma ukrytymi wzgórzami jakości; punkty pokazują kandydatów aktualnego brackietu w trakcie próbkowania, oceny, przycinania i awansu, plus przerywane okręgi wokół regionów, z których model próbkuje kolejnych kandydatów, oraz blade ślady zwycięzców poprzednich brackietów.">
           <defs>
             <radialGradient id="peakA" cx="50%" cy="50%" r="50%">
               <stop offset="0%" stop-color="var(--accent)" stop-opacity="0.22"></stop>
@@ -771,10 +771,10 @@
             </radialGradient>
           </defs>
           <rect x="60" y="20" width="780" height="380" fill="none" stroke="var(--line-strong)" stroke-width="1.3"></rect>
-          <circle cx="622" cy="288" r="170" fill="url(#peakA)" pointer-events="all" tabindex="0" data-tt="Hidden peak A — the algorithm never sees this landscape directly, only noisy readings at specific points."></circle>
-          <circle cx="278" cy="132" r="170" fill="url(#peakB)" pointer-events="all" tabindex="0" data-tt="Hidden peak B — together with peak A it forms a ridge of good solutions along the space's diagonal, since the score is a weighted sum of both."></circle>
-          <text x="450" y="415" text-anchor="middle" class="diagram-label" font-size="11" fill="currentColor" opacity="0.55">hyperparameter A (normalized) →</text>
-          <text x="30" y="210" text-anchor="middle" class="diagram-label" font-size="11" fill="currentColor" opacity="0.55" transform="rotate(-90 30 210)">hyperparameter B (normalized) →</text>
+          <circle cx="622" cy="288" r="170" fill="url(#peakA)" pointer-events="all" tabindex="0" data-tt="Ukryty szczyt A — algorytm nigdy nie widzi tego krajobrazu wprost, tylko zaszumione odczyty w konkretnych punktach."></circle>
+          <circle cx="278" cy="132" r="170" fill="url(#peakB)" pointer-events="all" tabindex="0" data-tt="Ukryty szczyt B — razem ze szczytem A tworzy grzbiet dobrych rozwiązań po przekątnej przestrzeni, bo wynik to suma ważona obu."></circle>
+          <text x="450" y="415" text-anchor="middle" class="diagram-label" font-size="11" fill="currentColor" opacity="0.55">hiperparametr A (znormalizowany) →</text>
+          <text x="30" y="210" text-anchor="middle" class="diagram-label" font-size="11" fill="currentColor" opacity="0.55" transform="rotate(-90 30 210)">hiperparametr B (znormalizowany) →</text>
           <g id="seedRingsG"></g>
           <g id="trailG"></g>
           <g id="pointsG"></g>
@@ -782,60 +782,60 @@
       </div>
     </div>
 
-    <div class="demo-phase-caption" id="phaseCaption">Click “Step” or “Run” to see the algorithm in action — the map above shows the current bracket's candidates live.</div>
-    <div class="demo-log" id="demoLog">Click “Step” or “Run” to begin.</div>
+    <div class="demo-phase-caption" id="phaseCaption">Kliknij „Krok" albo „Uruchom", żeby zobaczyć algorytm w akcji — mapa powyżej pokazuje kandydatów aktualnego brackietu na żywo.</div>
+    <div class="demo-log" id="demoLog">Kliknij „Krok" albo „Uruchom", żeby zacząć.</div>
 
-    <div class="zone-caption" pointer-events="all" tabindex="0" data-tt="These four cards draw on the whole run so far, not just the last step.">③ accumulated result — bracket and observation history</div>
+    <div class="zone-caption" pointer-events="all" tabindex="0" data-tt="Te cztery karty czerpią z całego dotychczasowego przebiegu, nie tylko z ostatniego kroku.">③ nagromadzony wynik — bracket i historia obserwacji</div>
     <div class="result-row">
       <div class="demo-panel">
-        <h4 pointer-events="all" tabindex="0" data-tt="The current bracket's current round: budget, how many candidates enter, how many survive the trim. Section 3.1.">Round ladder (live)</h4>
+        <h4 pointer-events="all" tabindex="0" data-tt="Aktualna runda aktualnego brackietu: budżet, ilu kandydatów na wejściu, ilu przetrwa przycięcie. Sekcja 3.1.">Drabinka rund (na żywo)</h4>
         <div class="demo-rungs" id="rungView"></div>
-        <p class="demo-note">The bar's width and color show which round is currently running. The numbers are that round's budget and the candidate count in → out.</p>
+        <p class="demo-note">Szerokość i kolor paska pokazują, która runda właśnie trwa. Liczby to budżet tej rundy i liczba kandydatów na wejściu → wyjściu.</p>
       </div>
       <div class="demo-panel">
-        <h4 pointer-events="all" tabindex="0" data-tt="The γ quantile splits the whole observation history so far into “good” and “the rest” — the BO/TPE sampler draws regions for new candidates in the next bracket from the “good” ones. Section 3.2.">Sampling model</h4>
+        <h4 pointer-events="all" tabindex="0" data-tt="Kwantyl γ dzieli całą dotychczasową historię obserwacji na „dobre" i „resztę" — z „dobrych" próbkownik BO/TPE losuje regiony dla nowych kandydatów w kolejnym brackiecie. Sekcja 3.2.">Model próbkowania</h4>
         <div id="modelInfo" class="demo-note" style="margin-top:0;">—</div>
         <div class="cluster-chips" id="seedChips"></div>
       </div>
       <div class="demo-panel">
-        <h4 pointer-events="all" tabindex="0" data-tt="The winner of every closed bracket — the candidate who survived every trimming round up to the full budget.">Winner history</h4>
+        <h4 pointer-events="all" tabindex="0" data-tt="Zwycięzca każdego zamkniętego brackietu — kandydat, który przetrwał wszystkie rundy przycinania aż do pełnego budżetu.">Historia zwycięzców</h4>
         <div class="cluster-chips" id="winnerChips"></div>
       </div>
       <div class="demo-panel">
-        <h4 pointer-events="all" tabindex="0" data-tt="The best score found since this run started, at whatever budget it was observed. ">Best so far</h4>
+        <h4 pointer-events="all" tabindex="0" data-tt="Najlepszy wynik znaleziony od początku tego uruchomienia, przy dowolnym budżecie, na którym został zaobserwowany.">Najlepszy dotąd</h4>
         <div id="bestView" class="demo-note" style="margin-top:0;">—</div>
       </div>
     </div>
 
-    <div class="zone-caption" pointer-events="all" tabindex="0" data-tt="These two concern controls and the run's cumulative counters.">④ controls, stats</div>
+    <div class="zone-caption" pointer-events="all" tabindex="0" data-tt="Te dwie dotyczą sterowania i sumarycznych liczników całego przebiegu.">④ sterowanie, statystyki</div>
     <div class="card-row">
       <div class="demo-panel">
-        <h4>Controls</h4>
+        <h4>Sterowanie</h4>
         <div class="demo-controls">
-          <button class="demo-btn primary" id="btnStep" type="button">Step</button>
-          <button class="demo-btn" id="btnRun" type="button">Run</button>
-          <button class="demo-btn" id="btnFF" type="button">⏩ 3 brackets</button>
+          <button class="demo-btn primary" id="btnStep" type="button">Krok</button>
+          <button class="demo-btn" id="btnRun" type="button">Uruchom</button>
+          <button class="demo-btn" id="btnFF" type="button">⏩ 3 brackiety</button>
           <button class="demo-btn" id="btnReset" type="button">Reset</button>
         </div>
-        <div class="demo-mode" role="group" aria-label="Sampling mode" style="margin-top:10px;">
+        <div class="demo-mode" role="group" aria-label="Tryb próbkowania" style="margin-top:10px;">
           <button id="modeGuided" class="active" type="button">MO-BOHB (BO/TPE)</button>
-          <button id="modeRandom" type="button">Plain Hyperband</button>
+          <button id="modeRandom" type="button">Sam Hyperband</button>
         </div>
       </div>
       <div class="demo-panel">
-        <h4>Stats</h4>
+        <h4>Statystyki</h4>
         <div class="demo-stats">
-          <div class="demo-stat" pointer-events="all" tabindex="0" data-tt="Which bracket is currently running — each is one full ladder of rounds.">
+          <div class="demo-stat" pointer-events="all" tabindex="0" data-tt="Który bracket właśnie trwa — każdy to jedna pełna drabinka rund.">
             <div class="lbl">Bracket</div><div class="val" id="statBracket">0</div>
           </div>
-          <div class="demo-stat" pointer-events="all" tabindex="0" data-tt="Total number of individual evaluations (regardless of each one's budget).">
-            <div class="lbl">Evaluations</div><div class="val" id="statEval">0</div>
+          <div class="demo-stat" pointer-events="all" tabindex="0" data-tt="Łączna liczba pojedynczych ocen (niezależnie od budżetu każdej z nich).">
+            <div class="lbl">Ewaluacje</div><div class="val" id="statEval">0</div>
           </div>
-          <div class="demo-stat" pointer-events="all" tabindex="0" data-tt="Total budget spent on all evaluations so far — this is the real cost, not just the count of evaluations.">
-            <div class="lbl">Budget spent</div><div class="val" id="statCost">0</div>
+          <div class="demo-stat" pointer-events="all" tabindex="0" data-tt="Suma budżetu wydanego na wszystkie oceny do tej pory — to jest prawdziwy koszt, nie sama liczba ocen.">
+            <div class="lbl">Budżet zużyty</div><div class="val" id="statCost">0</div>
           </div>
-          <div class="demo-stat" pointer-events="all" tabindex="0" data-tt="The best scalarized score found so far, on a 0–1 scale.">
-            <div class="lbl">Best score</div><div class="val" id="statBest">—</div>
+          <div class="demo-stat" pointer-events="all" tabindex="0" data-tt="Najlepszy zeskalaryzowany wynik znaleziony do tej pory, w skali 0–1.">
+            <div class="lbl">Najlepszy wynik</div><div class="val" id="statBest">—</div>
           </div>
         </div>
       </div>
@@ -846,108 +846,108 @@
 </section>
 
 <section id="code">
-  <h2>5&nbsp; Pseudocode — what you'd actually have to write</h2>
-  <p class="subdek">Four procedures. Nothing else is needed to have a working MO-BOHB.</p>
+  <h2>5&nbsp; Pseudokod — co naprawdę trzeba by napisać</h2>
+  <p class="subdek">Cztery procedury. Nic więcej nie jest potrzebne, żeby mieć działające MO-BOHB.</p>
 
 <pre class="code"><span class="kw">procedure</span> MO-BOHB
     observations ← ∅
-    <span class="kw">loop forever</span>                          <span class="cm">// one loop pass = one bracket</span>
+    <span class="kw">loop forever</span>                          <span class="cm">// jedno przejście pętli = jeden bracket</span>
         budgets ← [b_min, b_min·η, …, b_max]     <span class="cm">// §3.1</span>
-        n0 ← number of candidates at entry, so that 1/η per round reaches 1
-        configs ← SAMPLE-BATCH(n0, observations) <span class="cm">// §3.2, random if observations = ∅</span>
+        n0 ← liczba kandydatów na wejściu, tak by 1/η co rundę doszło do 1
+        configs ← SAMPLE-BATCH(n0, observations) <span class="cm">// §3.2, losowo jeśli observations = ∅</span>
 
         <span class="kw">for</span> r <span class="kw">in</span> 0 … len(budgets)-1 <span class="kw">do</span>
             <span class="kw">for</span> c <span class="kw">in</span> configs <span class="kw">do</span>
                 c.score ← EVALUATE(c, budget=budgets[r])
                 observations.add((c, budgets[r], c.score))
-            configs ← TOP-FRACTION(configs, 1/η)  <span class="cm">// §3.3, sort descending by score, trim</span>
+            configs ← TOP-FRACTION(configs, 1/η)  <span class="cm">// §3.3, sortuj malejąco po score, przytnij</span>
 
-        winner ← configs[0]                       <span class="cm">// the only survivor after the last round</span></pre>
+        winner ← configs[0]                       <span class="cm">// jedyny ocalały po ostatniej rundzie</span></pre>
 
 <pre class="code"><span class="kw">procedure</span> SAMPLE-BATCH(n, observations)
     <span class="kw">if</span> observations = ∅ <span class="kw">then</span>
-        <span class="kw">return</span> [ RANDOM-POINT() <span class="kw">for</span> _ <span class="kw">in</span> 1…n ]   <span class="cm">// the first bracket is always random</span>
+        <span class="kw">return</span> [ RANDOM-POINT() <span class="kw">for</span> _ <span class="kw">in</span> 1…n ]   <span class="cm">// pierwszy bracket zawsze losowy</span>
 
-    score ← SCALARIZE(objectives)                  <span class="cm">// §3.2: YOU choose the weights or a per-objective model</span>
+    score ← SCALARIZE(objectives)                  <span class="cm">// §3.2: TY wybierasz wagi lub model per-cel</span>
     good, rest ← SPLIT-BY-QUANTILE(observations, γ, score)
     l ← FIT-DENSITY(good)
     g ← FIT-DENSITY(rest)
 
     batch ← []
     <span class="kw">for</span> _ <span class="kw">in</span> 1…n <span class="kw">do</span>
-        x ← DRAW arg max l(x) / g(x)                <span class="cm">// sample where “good” is dense, “the rest” sparse</span>
+        x ← DRAW arg max l(x) / g(x)                <span class="cm">// próbkuj tam, gdzie „dobre" jest gęste, „reszta" rzadka</span>
         batch.add(x)
     <span class="kw">return</span> batch</pre>
 
 <pre class="code"><span class="kw">procedure</span> TOP-FRACTION(configs, frac)
-    sort configs descending <span class="kw">by</span> score
+    sort configs malejąco <span class="kw">by</span> score
     k ← ceil(len(configs) · frac)
-    <span class="kw">return</span> configs[0 : k]                          <span class="cm">// the rest drops out, no right to a pricier round</span></pre>
+    <span class="kw">return</span> configs[0 : k]                          <span class="cm">// reszta odpada, bez prawa do droższej rundy</span></pre>
 
 <pre class="code"><span class="kw">procedure</span> EVALUATE(c, budget)
-    <span class="cm">// YOU define what budget even means: epochs, data-subset size,</span>
-    <span class="cm">// image resolution… — the only requirement is monotonicity: more budget,</span>
-    <span class="cm">// less noise, closer to the true, target result.</span>
-    <span class="kw">return</span> evaluate_candidate(c, fidelity=budget)</pre>
+    <span class="cm">// TY definiujesz, co budżet w ogóle oznacza: epoki, rozmiar podzbioru danych,</span>
+    <span class="cm">// rozdzielczość obrazu… — jedyny wymóg to monotoniczność: więcej budżetu,</span>
+    <span class="cm">// mniej szumu, bliżej prawdziwego, docelowego wyniku.</span>
+    <span class="kw">return</span> ocena_kandydata(c, fidelity=budget)</pre>
 
-  <p>That's the whole algorithm. There's no crossover or mutation procedure at all, no population pyramid — the structure is a flat sequence of rounds within one bracket, and the only memory carried between brackets is the growing <span class="mono">observations</span> list, which <span class="mono">SAMPLE-BATCH</span> uses.</p>
+  <p>To cały algorytm. Nie ma tu żadnej procedury krzyżowania ani mutacji, żadnej piramidy populacji — struktura to płaska sekwencja rund w obrębie jednego brackietu, a jedyna pamięć przenoszona między brackietami to rosnąca lista <span class="mono">observations</span>, z której korzysta <span class="mono">SAMPLE-BATCH</span>.</p>
 </section>
 
 <section id="practice">
-  <h2>6&nbsp; What you design yourself — applying MO-BOHB to a real problem</h2>
-  <p>The same split as the other pages in this series: the <em>mechanism</em> is fixed by the algorithm — you don't touch how trimming works or how l(x)/g(x) is computed. What changes every time is how your problem plugs into that mechanism — and, for MO-BOHB, what exactly “cheaper” means.</p>
+  <h2>6&nbsp; Co wymyślasz sam — zastosowanie MO-BOHB do rzeczywistego problemu</h2>
+  <p>Ten sam podział, co w innych stronach tej serii: <em>mechanizm</em> jest ustalony przez algorytm — nie ruszasz tego, jak działa przycinanie ani jak liczy się l(x)/g(x). To, co zmienia się za każdym razem, to jak Twój problem podłącza się do tego mechanizmu — i, w przypadku MO-BOHB, co dokładnie oznacza „taniej".</p>
 
   <div class="tablewrap">
     <table>
-      <thead><tr><th style="width:26%">Decision point</th><th>Fixed by MO-BOHB</th><th>You decide, per problem</th></tr></thead>
+      <thead><tr><th style="width:26%">Punkt decyzyjny</th><th>Ustalone przez MO-BOHB</th><th>Ty decydujesz, dla każdego problemu</th></tr></thead>
       <tbody>
         <tr>
-          <td><strong>Promotion rule</strong></td>
-          <td class="fixed-col">After every round: sort by (scalarized) score, keep the top 1/η, drop the rest with no appeal.</td>
-          <td class="decide-col">Nothing — this is the part you get for free, exactly the same for any problem.</td>
+          <td><strong>Reguła awansu</strong></td>
+          <td class="fixed-col">Po każdej rundzie: sortuj po (zeskalaryzowanym) wyniku, zostaw top 1/η, resztę odrzuć bez odwołania.</td>
+          <td class="decide-col">Nic — to jest część, którą dostajesz za darmo, dokładnie tak samo dla dowolnego problemu.</td>
         </tr>
         <tr>
-          <td><strong>BO/TPE sampling mechanism</strong></td>
-          <td class="fixed-col">A quantile split into “good”/“the rest,” density fitting for both groups, sampling that maximizes l(x)/g(x).</td>
-          <td class="decide-col">Nothing in the mechanism itself — but see below, since <em>what</em> this mechanism receives as input is already your decision.</td>
+          <td><strong>Mechanizm próbkowania BO/TPE</strong></td>
+          <td class="fixed-col">Podział kwantylowy na „dobre"/„resztę", dopasowanie gęstości do obu grup, próbkowanie maksymalizujące l(x)/g(x).</td>
+          <td class="decide-col">Nic w samym mechanizmie — ale patrz niżej, bo to, <em>co</em> ten mechanizm dostaje na wejściu, jest już Twoją decyzją.</td>
         </tr>
         <tr>
-          <td><strong>The fidelity dimension</strong></td>
-          <td class="fixed-col">Not addressed — the algorithm assumes such a dimension exists and monotonically approaches the truth as budget grows.</td>
-          <td class="decide-col">What “a cheap evaluation” even means for your problem: number of epochs, training-set fraction, input resolution — and how large <span class="mono">b_min</span>/<span class="mono">b_max</span> need to be so the low-budget ranking isn't pure noise.</td>
+          <td><strong>Wymiar wierności</strong></td>
+          <td class="fixed-col">Nieadresowane — algorytm zakłada, że taki wymiar istnieje i że monotonicznie zbliża się do prawdy wraz z budżetem.</td>
+          <td class="decide-col">Co w ogóle znaczy „tania ocena" dla Twojego problemu: liczba epok, ułamek zbioru treningowego, rozdzielczość wejścia — i jak duży musi być <span class="mono">b_min</span>/<span class="mono">b_max</span>, żeby ranking przy niskim budżecie nie był czystym szumem.</td>
         </tr>
         <tr>
-          <td><strong>The factor η and the number of rounds</strong></td>
-          <td class="fixed-col">Not addressed — these are the algorithm's own hyperparameters.</td>
-          <td class="decide-col">Higher η = more aggressive, cheaper screening, but a bigger risk of dropping a good candidate due to low-fidelity noise. Lower η = safer, but pricier.</td>
+          <td><strong>Współczynnik η i liczba rund</strong></td>
+          <td class="fixed-col">Nieadresowane — to hiperparametry samego algorytmu.</td>
+          <td class="decide-col">Wyższe η = agresywniejsze, tańsze przesiewanie, ale większe ryzyko odrzucenia dobrego kandydata przez szum niskiej wierności. Niższe η = bezpieczniej, ale drożej.</td>
         </tr>
         <tr>
-          <td><strong>Multi-objective scalarization</strong></td>
-          <td class="fixed-col">Not addressed — TPE needs a single rank to even split observations into “good” and “the rest.”</td>
-          <td class="decide-col">Fixed weights, randomized weights between samplings (to cover the whole Pareto front), or a separate density model per objective with a rule combining rankings — each option distorts what “good” even means differently.</td>
+          <td><strong>Skalaryzacja wielokryterialna</strong></td>
+          <td class="fixed-col">Nieadresowane — TPE potrzebuje jednej rangi, żeby w ogóle podzielić obserwacje na „dobre" i „resztę".</td>
+          <td class="decide-col">Stałe wagi, losowane wagi między próbkowaniami (żeby pokryć cały front Pareto), czy osobny model gęstości per cel z regułą łączącą rankingi — każda opcja inaczej zniekształca to, co „dobre" w ogóle znaczy.</td>
         </tr>
         <tr>
-          <td><strong>Search-space encoding</strong></td>
-          <td class="fixed-col">Not addressed — TPE works over any space, as long as you can fit densities and sample over it.</td>
-          <td class="decide-col">How your architecture genotype (cell-graph edges, discrete hyperparameters) becomes a point for which l(x) and g(x) can even be computed.</td>
+          <td><strong>Kodowanie przestrzeni przeszukiwania</strong></td>
+          <td class="fixed-col">Nieadresowane — TPE działa nad dowolną przestrzenią, o ile umiesz dla niej dopasować gęstości i próbkować.</td>
+          <td class="decide-col">Jak Twój genotyp architektury (krawędzie grafu komórki, dyskretne hiperparametry) staje się punktem, dla którego w ogóle da się policzyć l(x) i g(x).</td>
         </tr>
       </tbody>
     </table>
   </div>
 
   <div class="callout">
-    <span class="tag">The blind spot this page reveals for P3Net</span>
-    <p>MO-BOHB cuts cost two ways at once, and both share an assumption in the background: that a low-fidelity cheap evaluation <em>correlates</em> with the true, full-scale result strongly enough for the ranking to make sense, and that the configuration space can be sensibly modeled as points in some metric — with no knowledge at all of which dimensions of that space are structurally linked. The TPE model treats every hyperparameter separately (or flatly, as one vector) — it doesn't know, and can't know, that two genes of an architecture genotype tend to change together, because it never builds anything resembling a linkage tree.</p>
-    <p>P3Net cuts cost via a completely different route: it doesn't retreat to a cheaper, approximate fidelity — it stays at the full, target evaluation semantics the whole time — and instead exploits the genotype's <em>structure</em>, learning which genes are linked (the linkage tree), and cheaply estimating only the <em>difference</em> between a candidate and its parent along those specific, learned gene groups. In other words: MO-BOHB asks “how cheaply can I evaluate any candidate individually,” P3Net asks “which parts of the genotype are even worth evaluating together” — and that second question is never asked in MO-BOHB, no matter how many brackets you run.</p>
+    <span class="tag">Ślepy punkt, który ta strona odsłania dla P3Net</span>
+    <p>MO-BOHB tnie koszt na dwa sposoby naraz, i oba mają wspólne założenie w tle: że tania ocena przy niskiej wierności <em>koreluje</em> z prawdziwym, pełnowymiarowym wynikiem na tyle mocno, żeby ranking miał sens, i że przestrzeń konfiguracji da się sensownie modelować jako punkty w jakiejś metryce — bez żadnej wiedzy o tym, które wymiary tej przestrzeni są ze sobą strukturalnie powiązane. Model TPE traktuje każdy hiperparametr osobno (albo płasko, jako jeden wektor) — nie wie i nie może wiedzieć, że dwa geny genotypu architektury mają tendencję do wspólnej zmiany, bo nigdy nie buduje niczego podobnego do drzewa powiązań.</p>
+    <p>P3Net tnie koszt zupełnie inną drogą: nie ucieka do tańszej, przybliżonej wierności, tylko zostaje przy pełnej, docelowej semantyce oceny przez cały czas — i zamiast tego wykorzystuje <em>strukturę</em> genotypu, uczy się, które geny są ze sobą powiązane (drzewo powiązań), i tanio szacuje tylko <em>różnicę</em> między kandydatem a jego rodzicem wzdłuż tych konkretnych, wyuczonych grup genów. Innymi słowy: MO-BOHB pyta „jak tanio mogę ocenić dowolnego kandydata z osobna", P3Net pyta „które części genotypu w ogóle warto oceniać razem" — i to drugie pytanie nigdy nie pada w MO-BOHB, niezależnie od tego, ile brackietów uruchomisz.</p>
   </div>
 
-  <h3 style="margin-top:32px;"><span class="num">✓</span>Checklist for applying MO-BOHB to a new problem</h3>
+  <h3 style="margin-top:32px;"><span class="num">✓</span>Checklista przy stosowaniu MO-BOHB do nowego problemu</h3>
   <ul class="checklist">
-    <li><span class="box"></span><span>Define the fidelity dimension: what “cheap” evaluation means for your problem, and whether a low budget correlates with the full one at all.</span></li>
-    <li><span class="box"></span><span>Choose <span class="mono">b_min</span>, <span class="mono">b_max</span>, and η — check how many rounds and starting candidates follow from them.</span></li>
-    <li><span class="box"></span><span>Decide on multi-objective scalarization or a per-objective model with a rule combining rankings.</span></li>
-    <li><span class="box"></span><span>Encode the search space as something density l(x) and g(x) can be fit against.</span></li>
-    <li><span class="box"></span><span>Check whether low fidelity is systematically misleading for your problem — if so, this is a real limitation of the whole method family, not a parameter to tune.</span></li>
+    <li><span class="box"></span><span>Zdefiniuj wymiar wierności: co to znaczy „tania" ocena dla Twojego problemu, i czy niski budżet w ogóle koreluje z pełnym.</span></li>
+    <li><span class="box"></span><span>Wybierz <span class="mono">b_min</span>, <span class="mono">b_max</span> i η — sprawdź, ile rund i ile kandydatów na starcie z nich wynika.</span></li>
+    <li><span class="box"></span><span>Zdecyduj o skalaryzacji wielokryterialnej albo o modelu per cel z regułą łączącą rankingi.</span></li>
+    <li><span class="box"></span><span>Zakoduj przestrzeń przeszukiwania jako coś, dla czego da się dopasować gęstości l(x) i g(x).</span></li>
+    <li><span class="box"></span><span>Sprawdź, czy niska wierność bywa systematycznie myląca dla Twojego problemu — jeśli tak, to jest realne ograniczenie tej całej rodziny metod, nie parametr do dostrojenia.</span></li>
   </ul>
 
 </section>
@@ -955,7 +955,7 @@
 </main>
 
 <footer class="page-end">
-  Source: L. Li et al., “Hyperband: A Novel Bandit-Based Approach to Hyperparameter Optimization,” JMLR 2018; S. Falkner, A. Klein, F. Hutter, “BOHB: Robust and Efficient Hyperparameter Optimization at Scale,” ICML 2018 — the multi-objective extension (MO-BOHB) combines the same Hyperband ladder with multi-objective TPE.
+  Źródło: L. Li i in., „Hyperband: A Novel Bandit-Based Approach to Hyperparameter Optimization", JMLR 2018; S. Falkner, A. Klein, F. Hutter, „BOHB: Robust and Efficient Hyperparameter Optimization at Scale", ICML 2018 — rozszerzenie wielokryterialne (MO-BOHB) łączy tę samą drabinkę Hyperbandu z wielokryterialnym TPE.
 </footer>
 
 <script>
@@ -1052,10 +1052,10 @@
         type: "bracket-start", bracketNum: bracketNum, guided: guided, seeds: seeds.slice(0, 6),
         totalCost: totalCost, evalCount: evalCount, globalBest: globalBest, winners: winners.slice(),
         log: guided
-          ? ("Bracket " + bracketNum + ": the TPE model picked " + seeds.length + " of the best observations so far (γ=" + GAMMA + ") as reference points — new candidates will be sampled around them.")
+          ? ("Bracket " + bracketNum + ": model TPE wybrał " + seeds.length + " najlepszych dotychczasowych obserwacji (γ=" + GAMMA + ") jako punkty odniesienia — nowi kandydaci będą losowani w ich okolicy.")
           : (mode === "guided"
-              ? ("Bracket " + bracketNum + ": no observation history yet, so starting randomly — just like plain Hyperband.")
-              : ("Bracket " + bracketNum + ": \u201cplain Hyperband\u201d mode — sampling is always random, no model is ever built."))
+              ? ("Bracket " + bracketNum + ": brak jeszcze historii obserwacji, więc startuję losowo — tak jak zwykły Hyperband.")
+              : ("Bracket " + bracketNum + ": tryb „sam Hyperband” — próbkowanie zawsze losowe, model nigdy nie jest budowany."))
       };
 
       var configs = [];
@@ -1075,8 +1075,8 @@
           type: "sample", config: cfg, index: i, total: RUNG_N[0], guided: !!fromSeed,
           totalCost: totalCost, evalCount: evalCount, globalBest: globalBest, winners: winners.slice(),
           log: fromSeed
-            ? ("Candidate #" + (i + 1) + "/" + RUNG_N[0] + " sampled near a good observation from the model — this is l(x)/g(x) in action.")
-            : ("Candidate #" + (i + 1) + "/" + RUNG_N[0] + " sampled uniformly across the whole space — exploration.")
+            ? ("Kandydat #" + (i + 1) + "/" + RUNG_N[0] + " wylosowany blisko dobrej obserwacji z modelu — to jest l(x)/g(x) w akcji.")
+            : ("Kandydat #" + (i + 1) + "/" + RUNG_N[0] + " wylosowany jednostajnie po całej przestrzeni — eksploracja.")
         };
       }
 
@@ -1091,7 +1091,7 @@
           yield {
             type: "rung-eval", rung: r, budget: budget, config: c, index: ci, total: configs.length,
             totalCost: totalCost, evalCount: evalCount, globalBest: globalBest, winners: winners.slice(),
-            log: "Round " + (r + 1) + "/" + RUNG_BUDGETS.length + " (budget " + budget + "): evaluating candidate #" + (ci + 1) + "/" + configs.length + " — score " + score.toFixed(3) + "."
+            log: "Runda " + (r + 1) + "/" + RUNG_BUDGETS.length + " (budżet " + budget + "): oceniam kandydata #" + (ci + 1) + "/" + configs.length + " — wynik " + score.toFixed(3) + "."
           };
         }
         configs.sort(function (a, b) { return b.lastScore - a.lastScore; });
@@ -1104,8 +1104,8 @@
           type: "rung-done", rung: r, survivors: survivors.slice(), eliminated: eliminated.slice(), isLast: !nextN,
           totalCost: totalCost, evalCount: evalCount, globalBest: globalBest, winners: winners.slice(),
           log: nextN
-            ? ("End of round " + (r + 1) + ": the top 1/η = " + survivors.length + " of " + configs.length + " remains — the rest drops out, with no right to a pricier evaluation.")
-            : ("End of the last round: bracket " + bracketNum + "\u2019s winner found at the full budget.")
+            ? ("Koniec rundy " + (r + 1) + ": zostaje top 1/η = " + survivors.length + " z " + configs.length + " — reszta odpada, bez prawa do droższej oceny.")
+            : ("Koniec ostatniej rundy: zwycięzca brackietu " + bracketNum + " znaleziony przy pełnym budżecie.")
         };
         configs = survivors;
         if (!nextN) break;
@@ -1113,7 +1113,7 @@
         yield {
           type: "promote", rung: r, toRung: r + 1, survivors: configs.slice(),
           totalCost: totalCost, evalCount: evalCount, globalBest: globalBest, winners: winners.slice(),
-          log: "Survivors advance to round " + (r + 2) + " with budget " + RUNG_BUDGETS[r + 1] + "."
+          log: "Przeżywający awansują do rundy " + (r + 2) + " z budżetem " + RUNG_BUDGETS[r + 1] + "."
         };
       }
 
@@ -1124,7 +1124,7 @@
       yield {
         type: "bracket-done", bracketNum: bracketNum, winner: winner, globalBest: globalBest,
         totalCost: totalCost, evalCount: evalCount, winners: winners.slice(),
-        log: "Bracket " + bracketNum + " complete — the winner (" + winner.x.toFixed(2) + ", " + winner.y.toFixed(2) + ") with score " + winner.lastScore.toFixed(3) + " joins the observation history."
+        log: "Bracket " + bracketNum + " zakończony — zwycięzca (" + winner.x.toFixed(2) + ", " + winner.y.toFixed(2) + ") z wynikiem " + winner.lastScore.toFixed(3) + " dołącza do historii obserwacji."
       };
     }
   }
@@ -1158,12 +1158,12 @@
   function toPx(x, y) { return { px: PLOT.x0 + x * PLOT.w, py: PLOT.y0 + (1 - y) * PLOT.h }; }
 
   var PHASE_INFO = {
-    "bracket-start": "<strong>New bracket</strong> (section 3.2) — the sampler decides where to draw candidates for the start of this ladder.",
-    "sample": "<strong>Sampling</strong> (section 3.2) — a new candidate enters the configuration space, randomly or near a good observation.",
-    "rung-eval": "<strong>Round evaluation</strong> (section 3.1) — a candidate is evaluated at the current round's budget, the score gets more accurate the higher the budget.",
-    "rung-done": "<strong>Trimming</strong> (section 3.3) — candidates are sorted by score, only the top fraction 1/η moves on.",
-    "promote": "<strong>Promotion</strong> (section 3.1) — survivors get a higher budget in the next round.",
-    "bracket-done": "<strong>Bracket winner</strong> — the only survivor after the last round; its score feeds the observation history."
+    "bracket-start": "<strong>Nowy bracket</strong> (sekcja 3.2) — próbkownik decyduje, skąd wziąć kandydatów na start tej drabinki.",
+    "sample": "<strong>Próbkowanie</strong> (sekcja 3.2) — nowy kandydat trafia do przestrzeni konfiguracji, losowo albo blisko dobrej obserwacji.",
+    "rung-eval": "<strong>Ocena rundy</strong> (sekcja 3.1) — kandydat jest oceniany przy budżecie bieżącej rundy, wynik jest tym dokładniejszy, im wyższy budżet.",
+    "rung-done": "<strong>Przycinanie</strong> (sekcja 3.3) — kandydaci są sortowani po wyniku, przechodzi dalej tylko górny ułamek 1/η.",
+    "promote": "<strong>Awans</strong> (sekcja 3.1) — przeżywający dostają wyższy budżet w kolejnej rundzie.",
+    "bracket-done": "<strong>Zwycięzca brackietu</strong> — jedyny ocalały po ostatniej rundzie; jego wynik zasila historię obserwacji."
   };
 
   function updatePhase(ev) {
@@ -1195,12 +1195,12 @@
       row.className = "demo-rung" + (r === activeRung ? " active" : "");
       var idx = document.createElement("span");
       idx.className = "idx";
-      idx.textContent = "round " + r;
+      idx.textContent = "runda " + r;
       var bar = document.createElement("span");
       bar.className = "bar";
       var inN = RUNG_N[r];
       var outN = (r + 1 < RUNG_N.length) ? RUNG_N[r + 1] : 1;
-      bar.textContent = "budget " + RUNG_BUDGETS[r] + " · " + inN + " → " + outN;
+      bar.textContent = "budżet " + RUNG_BUDGETS[r] + " · " + inN + " → " + outN;
       row.appendChild(idx);
       row.appendChild(bar);
       el.rungView.appendChild(row);
@@ -1274,7 +1274,7 @@
       circle.setAttribute("stroke-width", st.sw);
       circle.setAttribute("opacity", st.opacity);
       circle.setAttribute("tabindex", "0");
-      circle.setAttribute("data-tt", "(" + c.x.toFixed(2) + ", " + c.y.toFixed(2) + ")" + (c.lastScore !== undefined ? " · score " + c.lastScore.toFixed(3) + " at budget " + c.lastBudget : " · not yet evaluated") + (c.guidedSample ? " · sampled near a good observation" : " · sampled randomly"));
+      circle.setAttribute("data-tt", "(" + c.x.toFixed(2) + ", " + c.y.toFixed(2) + ")" + (c.lastScore !== undefined ? " · wynik " + c.lastScore.toFixed(3) + " przy budżecie " + c.lastBudget : " · jeszcze nieoceniony") + (c.guidedSample ? " · wylosowany blisko dobrej obserwacji" : " · wylosowany losowo"));
       el.pointsG.appendChild(circle);
     });
   }
@@ -1293,8 +1293,8 @@
       currentSeeds = ev.seeds || [];
       renderSeedRings(currentSeeds);
       el.modelInfo.textContent = ev.guided
-        ? ("Model-guided: " + currentSeeds.length + " good observations (γ=" + GAMMA + ") define sampling regions (dashed circles).")
-        : "Random: the model isn't used yet, or the mode forces uniform sampling.";
+        ? ("Prowadzone przez model: " + currentSeeds.length + " dobrych obserwacji (γ=" + GAMMA + ") wyznacza regiony próbkowania (przerywane okręgi).")
+        : "Losowe: model nie jest jeszcze używany albo tryb wymusza próbkowanie jednostajne.";
       renderChips(el.seedChips, currentSeeds, function (s) { return "(" + s.x.toFixed(2) + "," + s.y.toFixed(2) + ") " + s.score.toFixed(2); });
     } else {
       renderSeedRings(currentSeeds);
@@ -1309,7 +1309,7 @@
     renderChips(el.winnerChips, (ev.winners || []).slice(-6), function (w) { return "b" + w.bracket + ": " + w.score.toFixed(3); });
     el.bestView.textContent = ev.globalBest
       ? ("(" + ev.globalBest.x.toFixed(2) + ", " + ev.globalBest.y.toFixed(2) + ") → " + ev.globalBest.score.toFixed(3))
-      : "no observations yet";
+      : "jeszcze brak obserwacji";
 
     var activeRung = (typeof ev.rung === "number") ? ev.rung : -1;
     renderRungs(activeRung);
@@ -1341,10 +1341,10 @@
 
   function setRunning(on) {
     if (on) {
-      el.run.textContent = "Pause";
+      el.run.textContent = "Pauza";
       runTimer = setInterval(step, 160);
     } else {
-      el.run.textContent = "Run";
+      el.run.textContent = "Uruchom";
       clearInterval(runTimer);
       runTimer = null;
     }
@@ -1356,8 +1356,8 @@
   el.reset.addEventListener("click", function () {
     setRunning(false);
     newGen();
-    el.log.textContent = "Click \u201cStep\u201d or \u201cRun\u201d to begin.";
-    el.phaseCaption.textContent = "Click \u201cStep\u201d or \u201cRun\u201d to see the algorithm in action — the map above shows the current bracket's candidates live.";
+    el.log.textContent = "Kliknij „Krok” albo „Uruchom”, żeby zacząć.";
+    el.phaseCaption.textContent = "Kliknij „Krok” albo „Uruchom”, żeby zobaczyć algorytm w akcji — mapa powyżej pokazuje kandydatów aktualnego brackietu na żywo.";
     el.statBracket.textContent = "0"; el.statEval.textContent = "0"; el.statCost.textContent = "0"; el.statBest.textContent = "—";
     el.modelInfo.textContent = "—";
     renderChips(el.seedChips, [], function (s) { return ""; });

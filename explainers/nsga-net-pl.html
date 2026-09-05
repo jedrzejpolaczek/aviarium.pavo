@@ -1,4 +1,4 @@
-<title>How NSGA-Net actually works</title>
+<title>Jak naprawdę działa NSGA-Net</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
@@ -441,48 +441,48 @@
 <nav style="position:sticky;top:0;z-index:60;display:flex;align-items:center;justify-content:space-between;padding:18px 48px;background:oklch(0.16 0.006 250 / 0.85);backdrop-filter:blur(8px);border-bottom:1px solid rgba(255,255,255,0.06);font-family:'IBM Plex Mono',monospace;">
   <a href="../Portfolio.dc.html" style="font-size:18px;font-weight:600;color:oklch(0.92 0.004 250);text-decoration:none;">JP.<span style="color:#9CAF6B;">_</span></a>
   <div style="display:flex;gap:32px;align-items:center;font-size:14px;">
-    <a href="../Portfolio.dc.html" style="color:oklch(0.85 0.004 250);text-decoration:none;">home</a>
+    <a href="../Portfolio.dc.html" style="color:var(--ink-muted);text-decoration:none;">strona główna</a>
     <a href="../Portfolio.dc.html?view=solutions" style="color:oklch(0.85 0.004 250);text-decoration:none;">:solutions</a>
-    <a href="../Portfolio.dc.html?view=badania" style="color:oklch(0.85 0.004 250);text-decoration:none;">:research</a>
-    <a href="../Portfolio.dc.html?view=kontakt" style="color:oklch(0.85 0.004 250);text-decoration:none;">:contact</a>
-    <a href="nsga-net-pl.html" style="font-size:12px;font-weight:700;padding:6px 12px;border:1px solid #9CAF6B;border-radius:2px;background:rgba(156,175,107,0.15);color:#9CAF6B;text-decoration:none;">PL</a>
+    <a href="../Portfolio.dc.html?view=badania" style="color:var(--ink-muted);text-decoration:none;">:badania</a>
+    <a href="../Portfolio.dc.html?view=kontakt" style="color:var(--ink-muted);text-decoration:none;">:kontakt</a>
+    <a href="nsga-net.html" style="font-size:12px;font-weight:700;padding:6px 12px;border:1px solid #9CAF6B;border-radius:2px;background:rgba(156,175,107,0.15);color:#9CAF6B;text-decoration:none;">EN</a>
   </div>
 </nav>
 <div class="topnav">
   <div class="topnav-inner">
-    <span class="topnav-mark">NSGA-Net / guide</span>
-    <a href="#context">1&nbsp;Context</a>
-    <a href="#bigpicture">2&nbsp;Big picture</a>
-    <a href="#components">3&nbsp;Components</a>
-    <a href="#live">4&nbsp;See it live</a>
-    <a href="#code">5&nbsp;Pseudocode</a>
-    <a href="#practice">6&nbsp;What you design yourself</a>
+    <span class="topnav-mark">NSGA-Net / przewodnik</span>
+    <a href="#context">1&nbsp;Kontekst</a>
+    <a href="#bigpicture">2&nbsp;Ogólny obraz</a>
+    <a href="#components">3&nbsp;Komponenty</a>
+    <a href="#live">4&nbsp;Zobacz na żywo</a>
+    <a href="#code">5&nbsp;Pseudokod</a>
+    <a href="#practice">6&nbsp;Co wymyślasz sam</a>
   </div>
 </div>
 
 <main>
 
 <section id="top">
-  <div class="eyebrow"><span>NSGA-Net — evolutionary NAS with full training</span></div>
-  <h1>How NSGA-Net actually works</h1>
-  <p class="lede">Classic NSGA-II — non-dominated sorting plus crowding distance — applied directly to neural network architecture genotypes. From the one loop it's built around, through the four procedures needed to implement it, to a handful of decisions <em class="term">you</em> still have to make yourself before running it on your own problem.</p>
-  <p class="subdek">Laid out like a C4 diagram: context, then the big moving parts, then each one broken down in detail, then code, and finally a practical checklist.</p>
+  <div class="eyebrow"><span>NSGA-Net — ewolucyjny NAS z pełnym treningiem</span></div>
+  <h1>Jak naprawdę działa NSGA-Net</h1>
+  <p class="lede">Klasyczny NSGA-II — sortowanie niezdominowane plus crowding distance — zastosowany wprost do genotypów architektur sieci neuronowych. Od jednej pętli, wokół której jest zbudowany, przez cztery procedury, które trzeba napisać, żeby go zaimplementować, aż po garść decyzji, które <em class="term">Ty</em> i tak musisz podjąć sam, zanim puścisz go na własny problem.</p>
+  <p class="subdek">Ułożone jak diagram C4: kontekst, potem duże ruchome elementy, potem każdy z nich rozłożony na czynniki pierwsze, potem kod, na końcu praktyczna checklista.</p>
 </section>
 
 <hr class="rule">
 
 <section id="context">
-  <h3><span class="num">1</span>Context — where NSGA-Net stands in the NAS landscape</h3>
-  <p class="lede" style="font-size:17px;">In one sentence: NSGA-Net takes NSGA-II — the exact same multi-objective algorithm that's served engineering optimization for twenty years — and runs it directly on architecture genotypes, with no shortcut in evaluation at all.</p>
-  <p>Every candidate mutation or crossover produces gets <strong>fully trained</strong> before the algorithm knows anything about its objectives (accuracy, FLOPs, latency — whatever you choose). No cheaper intermediate evaluation, no surrogate, no weight combining objectives into a single number. It's pure, textbook multi-objective evolution, applied to a space where one evaluation can mean hours of GPU training.</p>
+  <h3><span class="num">1</span>Kontekst — gdzie NSGA-Net stoi w krajobrazie NAS</h3>
+  <p class="lede" style="font-size:17px;">Jednym zdaniem: NSGA-Net bierze NSGA-II — dokładnie ten sam algorytm wielokryterialny, który od dwudziestu lat służy do optymalizacji inżynierskiej — i uruchamia go wprost na genotypach architektur, bez żadnego skrótu w ocenie.</p>
+  <p>Każdy kandydat, jakiego wyprodukuje mutacja albo krzyżowanie, zostaje <strong>w pełni wytrenowany</strong>, zanim algorytm w ogóle pozna jego cele (dokładność, FLOP-y, opóźnienie — co sobie wybierzesz). Żadnej tańszej oceny pośredniej, żadnego surogatu, żadnej wagi łączącej cele w jedną liczbę. To czysta, podręcznikowa ewolucja wielokryterialna, zastosowana do przestrzeni, w której jedna ewaluacja bywa godzinami treningu na GPU.</p>
 
   <div class="callout">
-    <span class="tag">Place in this paper's ablation grid</span>
-    <p>This page is one of nine arms of the ablation grid comparing P3Net against six baseline methods (random search, TPE, MO-BOHB, SH-EMOA, NSGA-Net, NSGANetV2) on JAHS-Bench-201 and NAS-HPO-Bench-II. NSGA-Net is <strong>P3Net's closest relative</strong> in this grid: both are multi-objective evolutionary methods, both operate directly on the architecture genotype as a vector of discrete decisions. The difference is in what NSGA-Net <em>doesn't</em> have: no pyramid that grows on its own, and no surrogate to replace real training. You fix the population size up front, once, and pay a full evaluation for every candidate that setting produces.</p>
+    <span class="tag">Miejsce w siatce ablacyjnej tego artykułu</span>
+    <p>Ta strona to jedno z dziewięciu ramion siatki ablacyjnej porównującej P3Net z sześcioma bazowymi metodami (random search, TPE, MO-BOHB, SH-EMOA, NSGA-Net, NSGANetV2) na JAHS-Bench-201 i NAS-HPO-Bench-II. NSGA-Net jest w tej siatce <strong>najbliższym krewnym P3Net</strong>: oba są ewolucyjnymi metodami wielokryterialnymi, oba operują wprost na genotypie architektury jako wektorze dyskretnych decyzji. Różnica jest w tym, czego NSGA-Net <em>nie ma</em>: żadnej piramidy, która rośnie sama, i żadnego surogatu, który zastępowałby prawdziwy trening. Rozmiar populacji ustalasz z góry, raz, i płacisz pełną ewaluację za każdego kandydata, jakiego to ustalenie wyprodukuje.</p>
   </div>
 
   <figure class="bleed">
-    <svg viewBox="0 0 880 300" role="img" aria-label="A quadrant diagram: the horizontal axis is whether a method fixes population size up front or lets it emerge on its own, the vertical axis is whether a method scores candidates with a surrogate or always with real training. NSGA-Net sits in the corner: fixed size up front, always real evaluation. P3Net sits in the opposite corner: size emerges on its own, scoring by a cheap surrogate.">
+    <svg viewBox="0 0 880 300" role="img" aria-label="Diagram ćwiartkowy: oś pozioma to czy metoda ustala rozmiar populacji z góry czy pozwala mu wyłonić się samemu, oś pionowa to czy metoda ocenia kandydatów surogatem czy zawsze prawdziwym treningiem. NSGA-Net leży w rogu: rozmiar z góry, zawsze prawdziwa ocena. P3Net leży w przeciwnym rogu: rozmiar wyłania się sam, ocena przez tani surogat.">
       <defs>
         <marker id="arrQ" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
           <path d="M0,0 L10,5 L0,10 z" fill="currentColor"></path>
@@ -490,45 +490,45 @@
       </defs>
       <line x1="80" y1="30" x2="80" y2="260" stroke="currentColor" stroke-width="1.2" opacity="0.4" marker-end="url(#arrQ)"></line>
       <line x1="80" y1="260" x2="800" y2="260" stroke="currentColor" stroke-width="1.2" opacity="0.4" marker-end="url(#arrQ)"></line>
-      <text x="60" y="24" text-anchor="middle" class="diagram-label" font-size="10.5" fill="currentColor" opacity="0.6">surrogate</text>
-      <text x="60" y="252" text-anchor="middle" class="diagram-label" font-size="10.5" fill="currentColor" opacity="0.6">always<tspan x="60" dy="12">real</tspan><tspan x="60" dy="12">training</tspan></text>
-      <text x="808" y="264" text-anchor="start" class="diagram-label" font-size="10.5" fill="currentColor" opacity="0.6">population size</text>
-      <text x="90" y="278" text-anchor="start" class="diagram-label" font-size="10.5" fill="currentColor" opacity="0.6">fixed up front, permanently</text>
-      <text x="80" y="16" text-anchor="middle" class="diagram-label" font-size="10.5" fill="currentColor" opacity="0.6">emerges on its own</text>
+      <text x="60" y="24" text-anchor="middle" class="diagram-label" font-size="10.5" fill="currentColor" opacity="0.6">surogat</text>
+      <text x="60" y="252" text-anchor="middle" class="diagram-label" font-size="10.5" fill="currentColor" opacity="0.6">zawsze<tspan x="60" dy="12">prawdziwy</tspan><tspan x="60" dy="12">trening</tspan></text>
+      <text x="808" y="264" text-anchor="start" class="diagram-label" font-size="10.5" fill="currentColor" opacity="0.6">rozmiar populacji</text>
+      <text x="90" y="278" text-anchor="start" class="diagram-label" font-size="10.5" fill="currentColor" opacity="0.6">ustalony z góry, na stałe</text>
+      <text x="80" y="16" text-anchor="middle" class="diagram-label" font-size="10.5" fill="currentColor" opacity="0.6">wyłania się sam</text>
 
-      <rect x="580" y="200" width="180" height="46" rx="8" fill="var(--accent-soft)" stroke="var(--accent)" stroke-width="1.7" pointer-events="all" tabindex="0" data-tt="You fix N yourself, once, before the first evaluation happens. Every offspring, good or bad, gets full training — sections 2 and 3.3 below."></rect>
-      <text x="670" y="228" text-anchor="middle" class="diagram-label" font-size="13" fill="var(--ink)">NSGA-Net (this page)</text>
+      <rect x="580" y="200" width="180" height="46" rx="8" fill="var(--accent-soft)" stroke="var(--accent)" stroke-width="1.7" pointer-events="all" tabindex="0" data-tt="N ustalasz Ty, raz, zanim padnie pierwsza ewaluacja. Każdy potomek, dobry czy zły, dostaje pełny trening — sekcje 2 i 3.3 poniżej."></rect>
+      <text x="670" y="228" text-anchor="middle" class="diagram-label" font-size="13" fill="var(--ink)">NSGA-Net (ta strona)</text>
 
-      <rect x="120" y="46" width="180" height="46" rx="8" fill="none" stroke="var(--kept)" stroke-width="1.6" stroke-dasharray="3 3" pointer-events="all" tabindex="0" data-tt="P3Net: the pyramid only grows when something actually beats it, and a cluster in crossover is scored by a cheap, relative predictor — a full evaluation lands only once per sweep."></rect>
-      <text x="210" y="74" text-anchor="middle" class="diagram-label" font-size="13" fill="var(--kept)">P3Net (for comparison)</text>
+      <rect x="120" y="46" width="180" height="46" rx="8" fill="none" stroke="var(--kept)" stroke-width="1.6" stroke-dasharray="3 3" pointer-events="all" tabindex="0" data-tt="P3Net: piramida rośnie tylko wtedy, gdy coś ją faktycznie pokona, a klaster w krzyżowaniu jest oceniany tanim, relatywnym predyktorem — pełna ewaluacja pada tylko raz na przemiatanie."></rect>
+      <text x="210" y="74" text-anchor="middle" class="diagram-label" font-size="13" fill="var(--kept)">P3Net (dla porównania)</text>
 
       <path d="M660,200 C500,150 350,110 300,80" fill="none" stroke="currentColor" stroke-width="1.1" stroke-dasharray="2 4" opacity="0.5" marker-end="url(#arrQ)"></path>
-      <text x="480" y="140" text-anchor="middle" class="diagram-label" font-size="10.5" fill="currentColor" opacity="0.6">this is exactly the difference section&nbsp;6 returns to</text>
+      <text x="480" y="140" text-anchor="middle" class="diagram-label" font-size="10.5" fill="currentColor" opacity="0.6">to jest dokładnie ta różnica, do której wraca sekcja&nbsp;6</text>
     </svg>
-    <figcaption><span class="k">What this diagram shows —</span> the same kind of genotype, the same multi-objective goals — but at opposite corners of one map. NSGA-Net guesses N up front and pays full price for every candidate; P3Net avoids both commitments. The rest of this page breaks down the NSGA-Net corner in detail.</figcaption>
+    <figcaption><span class="k">Co pokazuje ten diagram —</span> ten sam rodzaj genotypu, te same cele wielokryterialne — ale w przeciwległych rogach jednej mapy. NSGA-Net zgaduje N z góry i płaci pełną cenę za każdego kandydata; P3Net unika obu tych zobowiązań. Reszta tej strony rozkłada róg NSGA-Net na czynniki pierwsze.</figcaption>
   </figure>
 </section>
 
 <section id="bigpicture">
-  <h3><span class="num">2</span>Big picture — one loop, four moving parts</h3>
-  <p class="lede" style="font-size:17px;">In one sentence: a fixed-size population of N produces N offspring, all N are fully trained, parents and offspring merge into a pool of 2N, from which non-dominated sorting and crowding distance select exactly N back.</p>
+  <h3><span class="num">2</span>Ogólny obraz — jedna pętla, cztery ruchome elementy</h3>
+  <p class="lede" style="font-size:17px;">Jednym zdaniem: populacja o stałym rozmiarze N produkuje N potomków, wszystkie N są w pełni trenowane, rodzice i potomkowie łączą się w pulę 2N, z której sortowanie niezdominowane i crowding distance wybierają z powrotem dokładnie N.</p>
 
   <div class="tablewrap">
     <table>
-      <thead><tr><th>Part</th><th>Job</th></tr></thead>
+      <thead><tr><th>Element</th><th>Zadanie</th></tr></thead>
       <tbody>
-        <tr><td><strong>Population (size N)</strong></td><td>A fixed number of fully evaluated architectures, set at the start and never changed during the run.</td></tr>
-        <tr><td><strong>Tournament selection + variation</strong></td><td>Two random parents, compared by rank and crowding distance, then uniform crossover and mutation — with no knowledge of the genotype's structure at all.</td></tr>
-        <tr><td><strong>Full training</strong></td><td>Every newly created offspring is genuinely trained from scratch before its objectives are known. Zero shortcuts.</td></tr>
-        <tr><td><strong>Non-dominated sorting + crowding distance</strong></td><td>Splits the combined parents+offspring pool into Pareto fronts, then picks the population's missing remainder by neighbor density on the boundary front.</td></tr>
+        <tr><td><strong>Populacja (rozmiar N)</strong></td><td>Stała liczba w pełni ocenionych architektur, ustalona na starcie i nigdy niezmieniana w trakcie biegu.</td></tr>
+        <tr><td><strong>Selekcja turniejowa + wariacja</strong></td><td>Dwóch losowych rodziców, porównanie po randze i crowding distance, potem jednorodne krzyżowanie i mutacja — bez żadnej wiedzy o strukturze genotypu.</td></tr>
+        <tr><td><strong>Pełny trening</strong></td><td>Każdy nowo utworzony potomek jest trenowany naprawdę, od zera, zanim jego cele są znane. Zero skrótów.</td></tr>
+        <tr><td><strong>Sortowanie niezdominowane + crowding distance</strong></td><td>Dzieli połączoną pulę rodzice+potomkowie na fronty Pareto, potem dobiera brakującą resztę populacji po gęstości sąsiadów na froncie granicznym.</td></tr>
       </tbody>
     </table>
   </div>
 
-  <p>The full version of the same loop, step by step:</p>
+  <p>Pełna wersja tej samej pętli, krok po kroku:</p>
 
   <figure class="bleed">
-    <svg viewBox="0 -34 880 700" role="img" aria-label="One NSGA-Net generation: a population P of size N enters tournament selection and variation, producing N offspring Q; each one is fully trained; P and Q merge into a pool R of size 2N; non-dominated sorting splits R into fronts; fronts fill the new population one by one, and the last one that doesn't fit is trimmed by crowding distance, giving back exactly N.">
+    <svg viewBox="0 -34 880 700" role="img" aria-label="Jedna generacja NSGA-Net: populacja P o rozmiarze N wchodzi do selekcji turniejowej i wariacji, produkując N potomków Q; każdy z nich jest w pełni trenowany; P i Q łączą się w pulę R o rozmiarze 2N; sortowanie niezdominowane dzieli R na fronty; fronty wypełniają nową populację po kolei, a ostatni, który się nie mieści, jest docinany według crowding distance, dając z powrotem dokładnie N.">
       <defs>
         <marker id="arrR" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
           <path d="M0,0 L10,5 L0,10 z" fill="currentColor"></path>
@@ -536,78 +536,78 @@
       </defs>
 
       <circle cx="148" cy="-19" r="4" fill="var(--grp-vary)"></circle>
-      <text x="158" y="-16" class="diagram-label" font-size="11" fill="currentColor" opacity="0.85">Selection + variation (3.2)</text>
+      <text x="158" y="-16" class="diagram-label" font-size="11" fill="currentColor" opacity="0.85">Selekcja + wariacja (3.2)</text>
       <circle cx="378" cy="-19" r="4" fill="var(--grp-train)"></circle>
-      <text x="388" y="-16" class="diagram-label" font-size="11" fill="currentColor" opacity="0.85">Full training (3.3)</text>
+      <text x="388" y="-16" class="diagram-label" font-size="11" fill="currentColor" opacity="0.85">Pełny trening (3.3)</text>
       <circle cx="560" cy="-19" r="4" fill="var(--accent)"></circle>
-      <text x="570" y="-16" class="diagram-label" font-size="11" fill="currentColor" opacity="0.85">Sorting + crowding distance (3.4)</text>
+      <text x="570" y="-16" class="diagram-label" font-size="11" fill="currentColor" opacity="0.85">Sortowanie + crowding distance (3.4)</text>
 
-      <rect x="300" y="14" width="280" height="44" rx="8" fill="none" stroke="currentColor" stroke-width="1.4" pointer-events="all" tabindex="0" data-tt="Size N is constant for the whole run — exactly the same number of architectures enters every generation, regardless of how hard the problem turns out to be."></rect>
-      <text x="440" y="41" text-anchor="middle" class="diagram-label" font-size="13" fill="currentColor">population P<tspan baseline-shift="sub" font-size="9">t</tspan>, N architectures, already evaluated</text>
+      <rect x="300" y="14" width="280" height="44" rx="8" fill="none" stroke="currentColor" stroke-width="1.4" pointer-events="all" tabindex="0" data-tt="Rozmiar N jest stały przez cały bieg — dokładnie tyle samo architektur wchodzi do każdej generacji, niezależnie od tego, jak trudny okazuje się problem."></rect>
+      <text x="440" y="41" text-anchor="middle" class="diagram-label" font-size="13" fill="currentColor">populacja P<tspan baseline-shift="sub" font-size="9">t</tspan>, N architektur, już ocenionych</text>
       <path d="M440,58 L440,84" stroke="currentColor" stroke-width="1.3" marker-end="url(#arrR)"></path>
 
       <rect x="270" y="86" width="7" height="44" rx="3" fill="var(--grp-vary)"></rect>
-      <rect x="280" y="86" width="320" height="44" rx="8" fill="none" stroke="currentColor" stroke-width="1.4" pointer-events="all" tabindex="0" data-tt="Two random candidates, the lower front rank wins; ties are broken by higher crowding distance. Details in 3.2."></rect>
-      <text x="440" y="113" text-anchor="middle" class="diagram-label" font-size="13" fill="currentColor">tournament selection (rank, then crowding)</text>
+      <rect x="280" y="86" width="320" height="44" rx="8" fill="none" stroke="currentColor" stroke-width="1.4" pointer-events="all" tabindex="0" data-tt="Dwóch losowych kandydatów, wygrywa niższa ranga frontu; remis rozstrzyga wyższa crowding distance. Szczegóły w 3.2."></rect>
+      <text x="440" y="113" text-anchor="middle" class="diagram-label" font-size="13" fill="currentColor">selekcja turniejowa (ranga, potem crowding)</text>
       <path d="M440,130 L440,156" stroke="currentColor" stroke-width="1.3" marker-end="url(#arrR)"></path>
 
       <rect x="270" y="158" width="7" height="44" rx="3" fill="var(--grp-vary)"></rect>
-      <rect x="280" y="158" width="320" height="44" rx="8" fill="none" stroke="currentColor" stroke-width="1.4" pointer-events="all" tabindex="0" data-tt="Every gene independently: a coin flip decides which parent it comes from, then a separate flip decides whether to mutate it to a random value. No genotype structure is taken into account at all — this is the difference against the P3/P3Net linkage tree."></rect>
-      <text x="440" y="185" text-anchor="middle" class="diagram-label" font-size="12.5" fill="currentColor">uniform crossover + mutation</text>
+      <rect x="280" y="158" width="320" height="44" rx="8" fill="none" stroke="currentColor" stroke-width="1.4" pointer-events="all" tabindex="0" data-tt="Każdy gen niezależnie: rzut monetą decyduje, od którego rodzica pochodzi, potem osobny rzut decyduje, czy zmutować go na losową wartość. Żadna struktura genotypu nie jest brana pod uwagę — to jest różnica względem drzewa powiązań P3/P3Net."></rect>
+      <text x="440" y="185" text-anchor="middle" class="diagram-label" font-size="12.5" fill="currentColor">krzyżowanie jednorodne + mutacja</text>
       <path d="M440,202 L440,228" stroke="currentColor" stroke-width="1.3" marker-end="url(#arrR)"></path>
 
       <rect x="270" y="230" width="7" height="46" rx="3" fill="var(--grp-train)"></rect>
-      <rect x="280" y="230" width="320" height="46" rx="8" fill="var(--accent-soft)" stroke="var(--grp-train)" stroke-width="1.8" pointer-events="all" tabindex="0" data-tt="This is the algorithm's real cost — N full training runs every generation, regardless of how promising a candidate is. Zero surrogate, zero early stopping. Section 3.3."></rect>
-      <text x="440" y="258" text-anchor="middle" class="diagram-label" font-size="13" fill="var(--ink)">FULL TRAINING of every one of N offspring — real cost</text>
+      <rect x="280" y="230" width="320" height="46" rx="8" fill="var(--accent-soft)" stroke="var(--grp-train)" stroke-width="1.8" pointer-events="all" tabindex="0" data-tt="To jest prawdziwy koszt algorytmu — N pełnych treningów w każdej generacji, niezależnie od tego, jak obiecujący jest kandydat. Zero surogatu, zero wcześniejszego zatrzymania. Sekcja 3.3."></rect>
+      <text x="440" y="258" text-anchor="middle" class="diagram-label" font-size="13" fill="var(--ink)">PEŁNY TRENING każdego z N potomków — realny koszt</text>
       <path d="M440,276 L440,302" stroke="currentColor" stroke-width="1.3" marker-end="url(#arrR)"></path>
 
-      <rect x="220" y="304" width="440" height="46" rx="8" fill="none" stroke="currentColor" stroke-width="1.4" pointer-events="all" tabindex="0" data-tt="Parents aren't discarded — they can still win selection below if they turn out better than their children. This is NSGA-II's standard elitist selection."></rect>
-      <text x="440" y="331" text-anchor="middle" class="diagram-label" font-size="13" fill="currentColor">merge: R<tspan baseline-shift="sub" font-size="9">t</tspan> = P<tspan baseline-shift="sub" font-size="9">t</tspan> ∪ Q<tspan baseline-shift="sub" font-size="9">t</tspan> — 2N fully evaluated</text>
+      <rect x="220" y="304" width="440" height="46" rx="8" fill="none" stroke="currentColor" stroke-width="1.4" pointer-events="all" tabindex="0" data-tt="Rodzice nie są odrzucani — nadal mogą wygrać selekcję niżej, jeśli okażą się lepsi od swoich dzieci. To standardowa elitarna selekcja NSGA-II."></rect>
+      <text x="440" y="331" text-anchor="middle" class="diagram-label" font-size="13" fill="currentColor">połącz: R<tspan baseline-shift="sub" font-size="9">t</tspan> = P<tspan baseline-shift="sub" font-size="9">t</tspan> ∪ Q<tspan baseline-shift="sub" font-size="9">t</tspan> — 2N w pełni ocenionych</text>
       <path d="M440,350 L440,376" stroke="currentColor" stroke-width="1.3" marker-end="url(#arrR)"></path>
 
       <rect x="270" y="378" width="7" height="44" rx="3" fill="var(--accent)"></rect>
-      <rect x="280" y="378" width="320" height="44" rx="8" fill="none" stroke="currentColor" stroke-width="1.4" pointer-events="all" tabindex="0" data-tt="NSGA-II's standard fast non-dominated sorting algorithm — comparing both objectives at once, never a weighted sum. Section 3.4."></rect>
-      <text x="440" y="405" text-anchor="middle" class="diagram-label" font-size="13" fill="currentColor">non-dominated sort → fronts F₁, F₂, …</text>
+      <rect x="280" y="378" width="320" height="44" rx="8" fill="none" stroke="currentColor" stroke-width="1.4" pointer-events="all" tabindex="0" data-tt="Standardowy szybki algorytm sortowania niezdominowanego NSGA-II — porównanie obu celów naraz, nigdy ważonej sumy. Sekcja 3.4."></rect>
+      <text x="440" y="405" text-anchor="middle" class="diagram-label" font-size="13" fill="currentColor">sortowanie niezdominowane → fronty F₁, F₂, …</text>
       <path d="M440,422 L440,448" stroke="currentColor" stroke-width="1.3" marker-end="url(#arrR)"></path>
 
       <rect x="140" y="450" width="600" height="120" rx="10" fill="var(--bg-sunken)" stroke="currentColor" stroke-width="1" opacity="0.9"></rect>
-      <text x="164" y="476" class="diagram-label" font-size="11" letter-spacing="0.06em" fill="currentColor" opacity="0.6">FILL P<tspan baseline-shift="sub" font-size="8">t+1</tspan> WITH FRONTS ONE BY ONE, FROM F₁</text>
+      <text x="164" y="476" class="diagram-label" font-size="11" letter-spacing="0.06em" fill="currentColor" opacity="0.6">WYPEŁNIJ P<tspan baseline-shift="sub" font-size="8">t+1</tspan> FRONTAMI PO KOLEI, OD F₁</text>
       <rect x="270" y="490" width="7" height="46" rx="3" fill="var(--accent)"></rect>
-      <rect x="280" y="490" width="420" height="46" rx="8" fill="var(--accent-soft)" stroke="var(--accent)" stroke-width="1.6" pointer-events="all" tabindex="0" data-tt="As long as the next whole front fits, it enters in full. A front that would overfill N is trimmed by crowding distance — points in more sparsely occupied areas of the front are kept. Section 3.4."></rect>
-      <text x="490" y="518" text-anchor="middle" class="diagram-label" font-size="12" fill="var(--ink)">front fits whole → enter; boundary front → trimmed by crowding distance</text>
+      <rect x="280" y="490" width="420" height="46" rx="8" fill="var(--accent-soft)" stroke="var(--accent)" stroke-width="1.6" pointer-events="all" tabindex="0" data-tt="Dopóki cały kolejny front się mieści, wchodzi w całości. Front, który by przepełnił N, jest docinany według crowding distance — zachowywane są punkty w rzadziej obsadzonych okolicach frontu. Sekcja 3.4."></rect>
+      <text x="490" y="518" text-anchor="middle" class="diagram-label" font-size="12" fill="var(--ink)">front mieści się w całości → wejdź; front graniczny → docinany crowding distance</text>
 
       <path d="M440,570 L440,596" stroke="var(--accent)" stroke-width="1.6" marker-end="url(#arrR)"></path>
-      <rect x="280" y="598" width="320" height="46" rx="8" fill="none" stroke="var(--accent)" stroke-width="1.8" pointer-events="all" tabindex="0" data-tt="Exactly N — not one architecture more, not one less. This new population is the input to the next generation."></rect>
-      <text x="440" y="626" text-anchor="middle" class="diagram-label" font-size="13" fill="var(--ink)">new population P<tspan baseline-shift="sub" font-size="9">t+1</tspan> — exactly N again</text>
+      <rect x="280" y="598" width="320" height="46" rx="8" fill="none" stroke="var(--accent)" stroke-width="1.8" pointer-events="all" tabindex="0" data-tt="Dokładnie N — ani jednej architektury więcej, ani jednej mniej. Ta nowa populacja jest wejściem do kolejnej generacji."></rect>
+      <text x="440" y="626" text-anchor="middle" class="diagram-label" font-size="13" fill="var(--ink)">nowa populacja P<tspan baseline-shift="sub" font-size="9">t+1</tspan> — znów dokładnie N</text>
 
       <path d="M600,621 C740,621 740,240 580,60" fill="none" stroke="currentColor" stroke-width="1.2" stroke-dasharray="2 4" marker-end="url(#arrR)"></path>
-      <text x="705" y="360" text-anchor="middle" class="diagram-label" font-size="10.5" fill="currentColor" opacity="0.7" transform="rotate(90 705 360)">next generation, g ← g+1, until g = G</text>
+      <text x="705" y="360" text-anchor="middle" class="diagram-label" font-size="10.5" fill="currentColor" opacity="0.7" transform="rotate(90 705 360)">kolejna generacja, g ← g+1, aż g = G</text>
 
-      <text x="440" y="670" text-anchor="middle" class="diagram-label" font-size="11" fill="var(--accent)">You fix N and G yourself, before the first evaluation happens — see section 6</text>
+      <text x="440" y="670" text-anchor="middle" class="diagram-label" font-size="11" fill="var(--accent)">N i G ustalasz Ty, zanim padnie pierwsza ewaluacja — patrz sekcja 6</text>
     </svg>
-    <figcaption><span class="k">What this diagram shows —</span> this is the entire NSGA-Net generation, node by node. The colored markers on the left show which of the three moving parts from the table above each step belongs to. Notice that the orange “full training” block has no conditional branch exiting early — every offspring goes through it, always, regardless of what it looks like.</figcaption>
+    <figcaption><span class="k">Co pokazuje ten diagram —</span> to jest cała generacja NSGA-Net, węzeł po węźle. Kolorowe znaczniki po lewej pokazują, do którego z trzech ruchomych elementów z tabeli wyżej należy dany krok. Zauważ, że pomarańczowy blok „pełny trening” nie ma żadnej gałęzi warunkowej wychodzącej wcześniej — każdy potomek go przechodzi, zawsze, niezależnie od tego, jak wygląda.</figcaption>
   </figure>
 
-  <p>Notice what's <em>missing</em> here: no local search at the level of a single genotype, no structure learned from the population, no mechanism that would let N grow or shrink during the run. Everything NSGA-Net “knows” about the problem passes through two narrow bottlenecks: the variation operator (3.2) and the Pareto comparison (3.4).</p>
+  <p>Zwróć uwagę, czego tu <em>nie ma</em>: żadnego lokalnego przeszukiwania na poziomie pojedynczego genotypu, żadnej struktury uczonej z populacji, żadnego mechanizmu, który pozwoliłby N urosnąć albo skurczyć się w trakcie biegu. Wszystko, co NSGA-Net „wie” o problemie, przechodzi przez dwa wąskie gardła: operator wariacji (3.2) i porównanie Pareto (3.4).</p>
 </section>
 
 <section id="components">
-  <h2>3&nbsp; Components — breaking down each part</h2>
-  <p class="subdek">The same four parts as above, now at the level of detail needed to implement them.</p>
+  <h2>3&nbsp; Komponenty — rozkładanie każdego elementu na czynniki</h2>
+  <p class="subdek">Te same cztery elementy co wyżej, teraz na poziomie szczegółowości potrzebnym do ich zaimplementowania.</p>
 
-  <h3><span class="num">3.1</span>The genotype — architecture as a gene-by-gene comparable vector</h3>
-  <p class="lede" style="font-size:16px;">In one sentence: the architecture becomes a vector of discrete design decisions — exactly as in P3/P3Net, just without any tree linking those decisions together.</p>
-  <p>A typical NAS genotype is a list of operations on cell-graph edges (e.g. <span class="mono">conv3×3</span>, <span class="mono">skip</span>, <span class="mono">none</span>) plus, optionally, a few discretized training hyperparameters. NSGA-Net imposes nothing beyond the genotype being encodable as a locus-by-locus comparable vector, decodable into a network that can be trained. This is exactly the same genotype shape P3Net uses — the difference only starts in what the algorithm does with that vector next.</p>
-  <p>One thing here differs from P3/P3Net, with consequences in section 3.2: NSGA-Net never computes which loci tend to move together. Every gene is just as independent from every other, as far as the variation operator is concerned — regardless of whether, in reality, two edges only make sense together.</p>
+  <h3><span class="num">3.1</span>Genotyp — architektura jako wektor porównywalny gen po genie</h3>
+  <p class="lede" style="font-size:16px;">Jednym zdaniem: architektura staje się wektorem dyskretnych decyzji projektowych — dokładnie tak samo jak w P3/P3Net, tylko bez żadnego drzewa, które wiązałoby te decyzje ze sobą.</p>
+  <p>Typowy genotyp NAS to lista operacji na krawędziach grafu komórki (np. <span class="mono">conv3×3</span>, <span class="mono">skip</span>, <span class="mono">none</span>) plus, opcjonalnie, kilka zdyskretyzowanych hiperparametrów treningowych. NSGA-Net nie narzuca nic ponad to, że genotyp da się zakodować jako wektor porównywalny locus po locus i że da się z niego zdekodować sieć, którą można wytrenować. To jest dokładnie ten sam kształt genotypu, jakiego używa P3Net — różnica zaczyna się dopiero w tym, co algorytm robi z tym wektorem dalej.</p>
+  <p>Jedna rzecz jest tu inna niż w P3/P3Net i ma konsekwencje w sekcji 3.2: NSGA-Net nigdy nie liczy, które loci mają tendencję do wspólnego przemieszczania się. Każdy gen jest dla operatora wariacji tak samo niezależny jak każdy inny — niezależnie od tego, czy w rzeczywistości dwie krawędzie działają sensownie tylko razem.</p>
 
-  <h3><span class="num">3.2</span>Variation — uniform crossover and mutation, without structure</h3>
-  <p class="lede" style="font-size:16px;">In one sentence: for every gene separately — a coin flip decides which parent it comes from; a second flip decides whether to mutate it to something random at all.</p>
-  <p>Two parents come from a tournament: two random candidates from the population, the lower front rank wins (closer to F₁ = better), and a rank tie is broken by higher crowding distance (see 3.4) — a more precise statement of the same thing is in section 5, in the <span class="mono">TOURNAMENT</span> procedure. With two parents, uniform crossover goes through every locus independently and draws whether the child gets a value from parent A or parent B. Mutation then, with a separate per-locus probability, replaces a gene's value with a completely new, random one.</p>
+  <h3><span class="num">3.2</span>Wariacja — krzyżowanie jednorodne i mutacja, bez struktury</h3>
+  <p class="lede" style="font-size:16px;">Jednym zdaniem: dla każdego genu osobno — rzut monetą decyduje, od którego rodzica pochodzi; drugi rzut decyduje, czy w ogóle zmutować go na coś losowego.</p>
+  <p>Dwóch rodziców trafia do turnieju: dwóch losowych kandydatów z populacji, wygrywa niższa ranga frontu (bliżej F₁ = lepiej), a remis rangi rozstrzyga wyższa crowding distance (patrz 3.4) — dokładniejsze zdanie na temat tego samego dostajesz w sekcji 5, w procedurze <span class="mono">TOURNAMENT</span>. Mając dwóch rodziców, krzyżowanie jednorodne przechodzi po każdym locus niezależnie i losuje, czy dziecko dostaje wartość od rodzica A, czy od rodzica B. Mutacja potem, z osobnym prawdopodobieństwem na locus, zastępuje wartość genu zupełnie nową, losową.</p>
 
   <figure class="bleed">
-    <svg viewBox="0 0 880 260" role="img" aria-label="Uniform crossover: parent A and parent B each have six genes; a mask of random coin flips decides independently for each locus which parent the child inherits its value from; mutation then swaps one randomly chosen gene for a new random value.">
+    <svg viewBox="0 0 880 260" role="img" aria-label="Krzyżowanie jednorodne: rodzic A i rodzic B mają po sześć genów; maska losowych rzutów monetą decyduje niezależnie dla każdego locus, od którego rodzica dziecko dziedziczy wartość; następnie mutacja zamienia jeden losowo wybrany gen na nową losową wartość.">
       <g class="mono">
-        <text x="0" y="20" font-size="11" fill="currentColor" opacity="0.6">PARENT A</text>
+        <text x="0" y="20" font-size="11" fill="currentColor" opacity="0.6">RODZIC A</text>
         <g transform="translate(0,30)">
           <rect x="0" y="0" width="60" height="40" rx="6" fill="none" stroke="currentColor" stroke-width="1.2"></rect>
           <text fill="currentColor" x="30" y="25" text-anchor="middle" font-size="13">C</text>
@@ -623,7 +623,7 @@
           <text fill="currentColor" x="360" y="25" text-anchor="middle" font-size="13">C</text>
         </g>
 
-        <text x="0" y="100" font-size="11" fill="currentColor" opacity="0.6">PARENT B</text>
+        <text x="0" y="100" font-size="11" fill="currentColor" opacity="0.6">RODZIC B</text>
         <g transform="translate(0,110)">
           <rect x="0" y="0" width="60" height="40" rx="6" fill="none" stroke="currentColor" stroke-width="1.2"></rect>
           <text fill="currentColor" x="30" y="25" text-anchor="middle" font-size="13">—</text>
@@ -639,7 +639,7 @@
           <text fill="currentColor" x="360" y="25" text-anchor="middle" font-size="13">S</text>
         </g>
 
-        <text x="0" y="182" font-size="11" fill="var(--grp-vary)">MASK (coin flip, independent per locus)</text>
+        <text x="0" y="182" font-size="11" fill="var(--grp-vary)">MASKA (rzut monetą, niezależnie na locus)</text>
         <g transform="translate(0,190)" font-size="12" fill="var(--grp-vary)">
           <text x="30" y="12" text-anchor="middle">A</text>
           <text x="96" y="12" text-anchor="middle">B</text>
@@ -649,7 +649,7 @@
           <text x="360" y="12" text-anchor="middle">B</text>
         </g>
 
-        <text x="0" y="222" font-size="11" fill="currentColor" opacity="0.6">CHILD (after crossover, before mutation)</text>
+        <text x="0" y="222" font-size="11" fill="currentColor" opacity="0.6">DZIECKO (po krzyżowaniu, przed mutacją)</text>
         <g transform="translate(0,230)">
           <rect x="0" y="0" width="60" height="26" rx="5" fill="var(--accent-soft)" stroke="var(--accent)" stroke-width="1.4"></rect>
           <text fill="var(--ink)" x="30" y="18" text-anchor="middle" font-size="12">C</text>
@@ -664,32 +664,32 @@
           <rect x="330" y="0" width="60" height="26" rx="5" fill="var(--grp-train)" stroke="var(--grp-train)" stroke-width="1.6" opacity="0.85"></rect>
           <text fill="#fff" x="360" y="18" text-anchor="middle" font-size="12">—</text>
         </g>
-        <rect x="330" y="230" width="60" height="26" rx="5" fill="none" stroke="var(--grp-train)" stroke-width="1.8" pointer-events="all" tabindex="0" data-tt="Locus 5 got its value from parent B (S), but mutation flipped it anyway — to a random value, regardless of what the neighboring loci do. This is exactly the lack of structure: if these two genes had to change together to give anything, this one random flip would break it without warning."></rect>
-        <text x="440" y="248" font-size="11" fill="var(--grp-train)">← mutation: random new value, independent of the rest</text>
+        <rect x="330" y="230" width="60" height="26" rx="5" fill="none" stroke="var(--grp-train)" stroke-width="1.8" pointer-events="all" tabindex="0" data-tt="Locus 5 dostał wartość od rodzica B (S), ale mutacja go jeszcze przestawiła — na losową wartość, niezależnie od tego, co robią sąsiednie loci. To jest właśnie brak struktury: gdyby te dwa geny musiały zmieniać się razem, żeby cokolwiek dać, ten pojedynczy przypadkowy flip by to zepsuł bez ostrzeżenia."></rect>
+        <text x="440" y="248" font-size="11" fill="var(--grp-train)">← mutacja: losowa nowa wartość, niezależnie od reszty</text>
       </g>
     </svg>
-    <figcaption><span class="k">What this diagram shows —</span> six independent coin flips create the child, then one independent flip mutates one gene. Unlike crossover in P3/P3Net (which copies whole clusters of linked genes at once, because it knows which ones have to move together), here every gene is a separate decision. If two edges in your genotype have to change together to improve anything, this operator can split them apart just as easily as combine them.</figcaption>
+    <figcaption><span class="k">Co pokazuje ten diagram —</span> sześć niezależnych rzutów monetą tworzy dziecko, potem jeden niezależny rzut mutuje jeden gen. W przeciwieństwie do krzyżowania w P3/P3Net (które kopiuje całe klastry powiązanych genów naraz, bo wie, które z nich muszą iść razem), tu każdy gen jest osobną decyzją. Jeśli dwie krawędzie w Twoim genotypie muszą zmienić się razem, żeby cokolwiek poprawić, ten operator może je rozdzielić równie łatwo, jak połączyć.</figcaption>
   </figure>
 
-  <h3><span class="num">3.3</span>Evaluation — full training, always, no exceptions</h3>
-  <p class="lede" style="font-size:16px;">In one sentence: before NSGA-Net knows a candidate's objectives, that candidate has to be genuinely trained — there's no cheaper version of this step.</p>
-  <p>This is where NSGA-Net differs most sharply from the rest of this paper's ablation grid. MO-BOHB and SH-EMOA cut cost with fidelity (shorter training for weaker candidates). NSGANetV2 replaces training with a predictor. P3Net replaces it with a relative surrogate inside crossover. NSGA-Net does none of this — every single offspring from section 3.2, promising or not, gets a full training cycle before anything is known about it.</p>
-  <p>This isn't an oversight — it's exactly what makes NSGA-Net a useful baseline: it shows what multi-objective architecture evolution costs if you don't cheat on evaluation in any way. Section&nbsp;4 below makes this cost visible live, as a growing counter.</p>
+  <h3><span class="num">3.3</span>Ocena — pełny trening, zawsze, bez wyjątku</h3>
+  <p class="lede" style="font-size:16px;">Jednym zdaniem: zanim NSGA-Net pozna cele kandydata, ten kandydat musi zostać naprawdę wytrenowany — nie ma żadnej tańszej wersji tego kroku.</p>
+  <p>To jest miejsce, w którym NSGA-Net różni się najbardziej dotkliwie od reszty siatki ablacyjnej tego artykułu. MO-BOHB i SH-EMOA tną koszt fidelnością (krótszy trening dla słabszych kandydatów). NSGANetV2 zastępuje trening predyktorem. P3Net zastępuje go relatywnym surogatem wewnątrz krzyżowania. NSGA-Net nie robi nic z tego — każdy pojedynczy potomek z sekcji 3.2, obiecujący czy nie, dostaje pełny cykl treningu, zanim cokolwiek o nim wiadomo.</p>
+  <p>To nie jest niedopatrzenie — to jest dokładnie to, co czyni NSGA-Net użytecznym punktem odniesienia: pokazuje, ile kosztuje wielokryterialna ewolucja architektur, jeśli nie oszukujesz przy ocenie w żaden sposób. Sekcja&nbsp;4 poniżej sprawia, że ten koszt jest widoczny na żywo, jako rosnący licznik.</p>
 
-  <h3><span class="num">3.4</span>NSGA-II selection — non-dominated sorting and crowding distance</h3>
-  <p class="lede" style="font-size:16px;">In one sentence: split the combined pool into non-domination layers, then — only where trimming is needed — keep candidates from the front's most sparsely occupied areas.</p>
-  <p>Candidate <em>a</em> dominates candidate <em>b</em> if <em>a</em> is no worse than <em>b</em> on every objective and strictly better on at least one. Front F₁ is the set of candidates dominated by nobody. F₂ is those dominated only by candidates in F₁. And so on — every subsequent front is “remove previous fronts, find the non-dominated among what's left.”</p>
+  <h3><span class="num">3.4</span>Selekcja NSGA-II — sortowanie niezdominowane i crowding distance</h3>
+  <p class="lede" style="font-size:16px;">Jednym zdaniem: podziel połączoną pulę na warstwy niezdominowania, potem — tylko tam, gdzie trzeba docinać — zachowaj kandydatów z najrzadziej obsadzonych okolic frontu.</p>
+  <p>Kandydat <em>a</em> dominuje kandydata <em>b</em>, jeśli <em>a</em> jest nie gorszy od <em>b</em> na każdym celu i ściśle lepszy na co najmniej jednym. Front F₁ to zbiór kandydatów, których nikt nie dominuje. F₂ to ci, których dominują tylko kandydaci z F₁. I tak dalej — każdy kolejny front to „usuń poprzednie fronty, znajdź niezdominowanych wśród tego, co zostało”.</p>
 
   <figure class="bleed">
-    <svg viewBox="0 0 620 260" role="img" aria-label="A scatter plot of quality and cost for a dozen or so candidates, grouped into three nested non-domination fronts: F1 closest to the optimal corner, F2 dominated only by F1, F3 dominated by both.">
+    <svg viewBox="0 0 620 260" role="img" aria-label="Wykres rozrzutu jakości i kosztu kilkunastu kandydatów, pogrupowanych w trzy zagnieżdżone fronty niezdominowania: F1 najbliżej optymalnego rogu, F2 dominowany tylko przez F1, F3 dominowany przez oba.">
       <g class="mono">
         <line x1="60" y1="20" x2="60" y2="220" stroke="currentColor" stroke-width="1" opacity="0.35"></line>
         <line x1="60" y1="220" x2="580" y2="220" stroke="currentColor" stroke-width="1" opacity="0.35"></line>
-        <text x="60" y="238" font-size="10.5" fill="currentColor" opacity="0.55">quality →</text>
-        <text x="10" y="16" font-size="10.5" fill="currentColor" opacity="0.55">cost</text>
-        <text x="10" y="212" font-size="10.5" fill="currentColor" opacity="0.55">(lower = cheaper)</text>
+        <text x="60" y="238" font-size="10.5" fill="currentColor" opacity="0.55">jakość →</text>
+        <text x="10" y="16" font-size="10.5" fill="currentColor" opacity="0.55">koszt</text>
+        <text x="10" y="212" font-size="10.5" fill="currentColor" opacity="0.55">(niżej = taniej)</text>
 
-        <g pointer-events="all" tabindex="0" data-tt="Front F1: nobody dominates these points. They're the first to win selection tournaments, and they're the ones that move to the next population whole, as long as they fit.">
+        <g pointer-events="all" tabindex="0" data-tt="Front F1: nikt tych punktów nie dominuje. To one wygrywają turnieje selekcji jako pierwsze i to one przechodzą do kolejnej populacji w całości, jeśli tylko się zmieszczą.">
           <circle cx="130" cy="180" r="6" fill="var(--accent)"></circle>
           <circle cx="230" cy="120" r="6" fill="var(--accent)"></circle>
           <circle cx="340" cy="80" r="6" fill="var(--accent)"></circle>
@@ -697,14 +697,14 @@
         </g>
         <text x="470" y="30" text-anchor="middle" font-size="10.5" fill="var(--accent)">F1</text>
 
-        <g pointer-events="all" tabindex="0" data-tt="Front F2: every one of these points is dominated by at least one point in F1, but by no other point outside F1.">
+        <g pointer-events="all" tabindex="0" data-tt="Front F2: każdy z tych punktów jest dominowany przez co najmniej jeden punkt z F1, ale przez żaden inny punkt spoza F1.">
           <circle cx="160" cy="195" r="6" fill="var(--kept)"></circle>
           <circle cx="270" cy="150" r="6" fill="var(--kept)"></circle>
           <circle cx="390" cy="110" r="6" fill="var(--kept)"></circle>
         </g>
         <text x="390" y="96" text-anchor="middle" font-size="10.5" fill="var(--kept)">F2</text>
 
-        <g pointer-events="all" tabindex="0" data-tt="Front F3 and beyond: dominated by points from earlier fronts. They can still survive to the next population if F1 and F2 together don't fill N.">
+        <g pointer-events="all" tabindex="0" data-tt="Front F3 i dalsze: dominowane przez punkty z wcześniejszych frontów. Wciąż mogą przetrwać do kolejnej populacji, jeśli F1 i F2 razem nie wypełniają N.">
           <circle cx="190" cy="205" r="5.5" fill="var(--ink-faint)" opacity="0.6"></circle>
           <circle cx="300" cy="175" r="5.5" fill="var(--ink-faint)" opacity="0.6"></circle>
           <circle cx="220" cy="150" r="5.5" fill="var(--ink-faint)" opacity="0.6"></circle>
@@ -712,165 +712,165 @@
         <text x="300" y="192" text-anchor="middle" font-size="10.5" fill="currentColor" opacity="0.55">F3+</text>
       </g>
     </svg>
-    <figcaption><span class="k">What this diagram shows —</span> three nested layers of the same candidate pool, all computed from the same two objectives at once — never a weighted sum. Which front makes it into the new population whole, and which has to be trimmed, depends only on how much room is left in N by the time you reach it in order.</figcaption>
+    <figcaption><span class="k">Co pokazuje ten diagram —</span> trzy zagnieżdżone warstwy tej samej puli kandydatów, wszystkie policzone z dwóch tych samych celów naraz — nigdy z ważonej sumy. Który front trafia w całości do nowej populacji, a który trzeba docinać, zależy tylko od tego, ile miejsca w N zostało, gdy dotrzesz do niego po kolei.</figcaption>
   </figure>
 
-  <p>When the boundary front doesn't fit whole, who survives from it is decided by <em class="term">crowding distance</em>: for every point on the front, measure how far its nearest neighbors on that front are, separately for each objective, and sum the normalized distances. Edge points (extreme quality or extreme cost) get infinity — they always pass. Points in densely occupied areas get a small value and drop out first.</p>
+  <p>Kiedy front graniczny się nie mieści w całości, o tym, kto z niego przetrwa, decyduje <em class="term">crowding distance</em>: dla każdego punktu na froncie licz, jak daleko są jego najbliżsi sąsiedzi na tym froncie, osobno na każdym celu, i zsumuj znormalizowane odległości. Punkty brzegowe (skrajna jakość albo skrajny koszt) dostają nieskończoność — zawsze przechodzą. Punkty w gęsto obsadzonych okolicach dostają małą wartość i odpadają jako pierwsze.</p>
 
   <figure class="bleed">
-    <svg viewBox="0 0 620 170" role="img" aria-label="Six points of one front, sorted by quality; the two extreme points have infinite crowding distance and always pass; a point in a densely occupied area has a small crowding distance and drops out first when the front has to be trimmed.">
+    <svg viewBox="0 0 620 170" role="img" aria-label="Sześć punktów jednego frontu, posortowanych po jakości; dwa skrajne punkty mają nieskończoną crowding distance i zawsze przechodzą; punkt w gęsto obsadzonej okolicy ma małą crowding distance i odpada jako pierwszy, gdy front trzeba docinać.">
       <g class="mono">
         <line x1="40" y1="90" x2="580" y2="90" stroke="currentColor" stroke-width="1" opacity="0.3"></line>
-        <circle cx="60" cy="90" r="6" fill="var(--accent)" pointer-events="all" tabindex="0" data-tt="Edge point (lowest quality on this front) — crowding distance = ∞, always kept."></circle>
+        <circle cx="60" cy="90" r="6" fill="var(--accent)" pointer-events="all" tabindex="0" data-tt="Punkt brzegowy (najniższa jakość na tym froncie) — crowding distance = ∞, zawsze zachowywany."></circle>
         <text x="60" y="70" text-anchor="middle" font-size="10" fill="var(--accent)">∞</text>
-        <circle cx="160" cy="90" r="6" fill="var(--ink-faint)" pointer-events="all" tabindex="0" data-tt="Close neighbors on both sides → a small sum of distances → a small crowding distance. This is the point that drops out first if the front has to be trimmed."></circle>
-        <text x="160" y="70" text-anchor="middle" font-size="10" fill="currentColor" opacity="0.7">small</text>
+        <circle cx="160" cy="90" r="6" fill="var(--ink-faint)" pointer-events="all" tabindex="0" data-tt="Bliscy sąsiedzi z obu stron → mała suma odległości → mała crowding distance. To ten punkt odpada jako pierwszy, jeśli front trzeba docinać."></circle>
+        <text x="160" y="70" text-anchor="middle" font-size="10" fill="currentColor" opacity="0.7">mała</text>
         <circle cx="185" cy="90" r="6" fill="var(--ink-faint)"></circle>
-        <circle cx="320" cy="90" r="6" fill="var(--ink-faint)" pointer-events="all" tabindex="0" data-tt="Neighbors further away on both sides → a larger sum of distances → a higher crowding distance."></circle>
-        <text x="320" y="70" text-anchor="middle" font-size="10" fill="currentColor" opacity="0.7">bigger</text>
+        <circle cx="320" cy="90" r="6" fill="var(--ink-faint)" pointer-events="all" tabindex="0" data-tt="Sąsiedzi dalej po obu stronach → większa suma odległości → wyższa crowding distance."></circle>
+        <text x="320" y="70" text-anchor="middle" font-size="10" fill="currentColor" opacity="0.7">większa</text>
         <circle cx="470" cy="90" r="6" fill="var(--ink-faint)"></circle>
-        <circle cx="560" cy="90" r="6" fill="var(--accent)" pointer-events="all" tabindex="0" data-tt="Edge point (highest quality on this front) — crowding distance = ∞, always kept."></circle>
+        <circle cx="560" cy="90" r="6" fill="var(--accent)" pointer-events="all" tabindex="0" data-tt="Punkt brzegowy (najwyższa jakość na tym froncie) — crowding distance = ∞, zawsze zachowywany."></circle>
         <text x="560" y="70" text-anchor="middle" font-size="10" fill="var(--accent)">∞</text>
       </g>
     </svg>
-    <figcaption><span class="k">What this diagram shows —</span> the same logic, just on one front and one objective at a time — in the full algorithm computed separately for each objective and summed. This is the only mechanism that maintains diversity along the front; nothing in NSGA-Net does this deliberately in genotype space, only in objective space.</figcaption>
+    <figcaption><span class="k">Co pokazuje ten diagram —</span> ta sama logika, tylko na jednym froncie i jednym celu naraz — w pełnym algorytmie liczona osobno dla każdego celu i sumowana. To jedyny mechanizm, który utrzymuje różnorodność wzdłuż frontu; nic w NSGA-Net nie robi tego celowo w przestrzeni genotypu, tylko w przestrzeni celów.</figcaption>
   </figure>
 </section>
 
 <section id="live">
-  <h2>4&nbsp; See it in action</h2>
-  <p class="subdek">Not an animation of one fixed example — this is NSGA-II actually running on a synthetic architecture problem, exactly per the pseudocode in section&nbsp;5, computing in your browser.</p>
+  <h2>4&nbsp; Zobacz to w akcji</h2>
+  <p class="subdek">Nie animacja jednego ustalonego przykładu — to naprawdę uruchomiony NSGA-II na syntetycznym problemie architektonicznym, dokładnie wg pseudokodu z sekcji&nbsp;5, licząc w Twojej przeglądarce.</p>
 
-  <h3><span class="num">4.1</span>The problem: two objectives in tension</h3>
-  <p>The genotype below has 6 loci, each ∈ {<span class="mono">—</span> (none), <span class="mono">S</span> (skip), <span class="mono">C</span> (conv)} — exactly the shape from section 3.1. The first three loci are edges where “conv” is expensive but only pays off in quality slowly; the last three are edges where “conv” is cheap and pays off fast. Neither group wins on its own — the best architectures have to choose how much of the expensive group is worth buying for extra quality. That's enough to produce a genuine, non-flat Pareto front, instead of one obvious optimum.</p>
-  <p>The population has <strong>N&nbsp;=&nbsp;8</strong> architectures. Every “Step” click runs exactly one phase of one generation from the diagram in section&nbsp;2: <span style="color:var(--grp-vary)">selection + variation</span> → <span style="color:var(--grp-train)">full training</span> → merge → non-dominated sort → crowding-distance selection — and then loops back to the start for generation <span class="mono">g+1</span>.</p>
+  <h3><span class="num">4.1</span>Problem: dwa cele w napięciu</h3>
+  <p>Genotyp poniżej ma 6 loci, każdy ∈ {<span class="mono">—</span> (none), <span class="mono">S</span> (skip), <span class="mono">C</span> (conv)} — dokładnie kształt z sekcji 3.1. Trzy pierwsze loci to krawędzie, na których „conv” jest kosztowne, ale opłaca się jakością tylko powoli; trzy ostatnie to krawędzie, na których „conv” jest tanie i opłaca się szybko. Żadna z tych dwóch grup nie jest sama w sobie zwycięska — najlepsze architektury muszą wybrać, ile z drogiej grupy warto sobie kupić za dodatkową jakość. To wystarcza, żeby powstał prawdziwy, niepłaski front Pareto, zamiast jednego oczywistego optimum.</p>
+  <p>Populacja ma <strong>N&nbsp;=&nbsp;8</strong> architektur. Każdy przycisk „Krok” wykonuje dokładnie jedną fazę jednej generacji z diagramu w sekcji&nbsp;2: <span style="color:var(--grp-vary)">selekcja + wariacja</span> → <span style="color:var(--grp-train)">pełny trening</span> → połącz → sortowanie niezdominowane → selekcja crowding distance — a potem wraca do początku dla generacji <span class="mono">g+1</span>.</p>
 
   <div class="demo-bleed-wrap">
   <div class="demo" id="nsgaDemo">
     <div class="demo-legend demo-map-legend">
-      <span class="demo-legend-item"><span class="swatch grp-vary"></span>Selection + variation</span>
-      <span class="demo-legend-item"><span class="swatch grp-train"></span>Full training (real cost)</span>
-      <span class="demo-legend-item"><span class="swatch grp-select"></span>Sorting + crowding distance</span>
-      <span class="demo-legend-item demo-legend-phases">Highlighted background = the phase you're currently on.</span>
+      <span class="demo-legend-item"><span class="swatch grp-vary"></span>Selekcja + wariacja</span>
+      <span class="demo-legend-item"><span class="swatch grp-train"></span>Pełny trening (realny koszt)</span>
+      <span class="demo-legend-item"><span class="swatch grp-select"></span>Sortowanie + crowding distance</span>
+      <span class="demo-legend-item demo-legend-phases">Jasne tło = faza, w której właśnie jesteś.</span>
     </div>
 
     <div class="hero-block">
       <div class="map-strip">
-        <svg viewBox="0 0 1320 230" role="img" aria-label="A horizontal map of one NSGA-Net generation: population, selection and variation, full training, merging with parents, non-dominated sorting, new population selection. The current phase highlights live.">
+        <svg viewBox="0 0 1320 230" role="img" aria-label="Pozioma mapa jednej generacji NSGA-Net: populacja, selekcja i wariacja, pełny trening, połączenie z rodzicami, sortowanie niezdominowane, wybór nowej populacji. Aktualna faza podświetla się na żywo.">
           <defs>
             <marker id="arrMapN" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto-start-reverse">
               <path d="M0,0 L10,5 L0,10 z" fill="currentColor"></path>
             </marker>
           </defs>
 
-          <path class="map-arrow" d="M1302,150 C1320,10 30,10 30,108" fill="none" stroke-width="1.3" stroke-dasharray="2 4" marker-end="url(#arrMapN)" pointer-events="all" tabindex="0" data-tt="A new generation starts with new selection over the same, just-selected population."></path>
-          <text x="660" y="10" text-anchor="middle" class="diagram-label" font-size="11" fill="var(--accent)" opacity="0.9">next generation</text>
+          <path class="map-arrow" d="M1302,150 C1320,10 30,10 30,108" fill="none" stroke-width="1.3" stroke-dasharray="2 4" marker-end="url(#arrMapN)" pointer-events="all" tabindex="0" data-tt="Nowa generacja zaczyna się od nowej selekcji nad tą samą, dopiero co wybraną populacją."></path>
+          <text x="660" y="10" text-anchor="middle" class="diagram-label" font-size="11" fill="var(--accent)" opacity="0.9">kolejna generacja</text>
 
-          <rect id="mapBoxPop" class="map-box" data-node="pop" x="10" y="110" width="150" height="60" rx="8" pointer-events="all" tabindex="0" data-tt="The current parent population, size N — all already fully evaluated in the previous generation."></rect>
-          <text class="map-label" data-node="pop" x="85" y="136" text-anchor="middle" font-size="12">population P</text>
-          <text class="map-label" data-node="pop" x="85" y="152" text-anchor="middle" font-size="10" opacity="0.7">N architectures</text>
+          <rect id="mapBoxPop" class="map-box" data-node="pop" x="10" y="110" width="150" height="60" rx="8" pointer-events="all" tabindex="0" data-tt="Bieżąca populacja rodziców, rozmiar N — wszystkie już w pełni ocenione w poprzedniej generacji."></rect>
+          <text class="map-label" data-node="pop" x="85" y="136" text-anchor="middle" font-size="12">populacja P</text>
+          <text class="map-label" data-node="pop" x="85" y="152" text-anchor="middle" font-size="10" opacity="0.7">N architektur</text>
           <path class="map-arrow" d="M160,140 L188,140" stroke-width="1.2" marker-end="url(#arrMapN)"></path>
 
           <rect x="199" y="116" width="196" height="5" rx="2.5" fill="var(--grp-vary)"></rect>
-          <rect id="mapBoxVary" class="map-box" data-node="vary" x="192" y="110" width="210" height="60" rx="8" pointer-events="all" tabindex="0" data-tt="A tournament (rank, then crowding distance) picks parents; uniform crossover and mutation create N offspring. Section 3.2."></rect>
-          <text class="map-label" data-node="vary" x="297" y="136" text-anchor="middle" font-size="11.5">selection + variation</text>
-          <text class="map-label" data-node="vary" x="297" y="152" text-anchor="middle" font-size="10" opacity="0.7">N new, unevaluated</text>
+          <rect id="mapBoxVary" class="map-box" data-node="vary" x="192" y="110" width="210" height="60" rx="8" pointer-events="all" tabindex="0" data-tt="Turniej (ranga, potem crowding distance) wybiera rodziców; krzyżowanie jednorodne i mutacja tworzą N potomków. Sekcja 3.2."></rect>
+          <text class="map-label" data-node="vary" x="297" y="136" text-anchor="middle" font-size="11.5">selekcja + wariacja</text>
+          <text class="map-label" data-node="vary" x="297" y="152" text-anchor="middle" font-size="10" opacity="0.7">N nowych, nieocenionych</text>
           <path class="map-arrow" d="M402,140 L430,140" stroke-width="1.2" marker-end="url(#arrMapN)"></path>
 
           <rect x="441" y="116" width="196" height="5" rx="2.5" fill="var(--grp-train)"></rect>
-          <rect id="mapBoxTrain" class="map-box" data-node="train" x="434" y="110" width="210" height="60" rx="8" pointer-events="all" tabindex="0" data-tt="Every one of N offspring gets full, real training — no shortcuts, no surrogate. This is the step that costs. Section 3.3."></rect>
-          <text class="map-label" data-node="train" x="539" y="136" text-anchor="middle" font-size="11.5">full training</text>
-          <text class="map-label" data-node="train" x="539" y="152" text-anchor="middle" font-size="10" opacity="0.7">real cost, always</text>
+          <rect id="mapBoxTrain" class="map-box" data-node="train" x="434" y="110" width="210" height="60" rx="8" pointer-events="all" tabindex="0" data-tt="Każdy z N potomków dostaje pełny, prawdziwy trening — bez skrótów, bez surogatu. To krok, który kosztuje. Sekcja 3.3."></rect>
+          <text class="map-label" data-node="train" x="539" y="136" text-anchor="middle" font-size="11.5">pełny trening</text>
+          <text class="map-label" data-node="train" x="539" y="152" text-anchor="middle" font-size="10" opacity="0.7">realny koszt, zawsze</text>
           <path class="map-arrow" d="M644,140 L672,140" stroke-width="1.2" marker-end="url(#arrMapN)"></path>
 
-          <rect id="mapBoxMerge" class="map-box" data-node="merge" x="676" y="110" width="150" height="60" rx="8" pointer-events="all" tabindex="0" data-tt="Parents and offspring together form a pool of 2N fully evaluated architectures."></rect>
-          <text class="map-label" data-node="merge" x="751" y="136" text-anchor="middle" font-size="11.5">merge</text>
-          <text class="map-label" data-node="merge" x="751" y="152" text-anchor="middle" font-size="10" opacity="0.7">2N together</text>
+          <rect id="mapBoxMerge" class="map-box" data-node="merge" x="676" y="110" width="150" height="60" rx="8" pointer-events="all" tabindex="0" data-tt="Rodzice i potomkowie razem tworzą pulę 2N w pełni ocenionych architektur."></rect>
+          <text class="map-label" data-node="merge" x="751" y="136" text-anchor="middle" font-size="11.5">połącz</text>
+          <text class="map-label" data-node="merge" x="751" y="152" text-anchor="middle" font-size="10" opacity="0.7">2N razem</text>
           <path class="map-arrow" d="M826,140 L854,140" stroke-width="1.2" marker-end="url(#arrMapN)"></path>
 
           <rect x="865" y="116" width="196" height="5" rx="2.5" fill="var(--accent)"></rect>
-          <rect id="mapBoxSort" class="map-box" data-node="sort" x="858" y="110" width="210" height="60" rx="8" pointer-events="all" tabindex="0" data-tt="Non-dominated sorting splits the pool into fronts F1, F2, … Section 3.4."></rect>
-          <text class="map-label" data-node="sort" x="963" y="136" text-anchor="middle" font-size="11.5">non-dominated sort</text>
-          <text class="map-label" data-node="sort" x="963" y="152" text-anchor="middle" font-size="10" opacity="0.7">fronts F1, F2, …</text>
+          <rect id="mapBoxSort" class="map-box" data-node="sort" x="858" y="110" width="210" height="60" rx="8" pointer-events="all" tabindex="0" data-tt="Sortowanie niezdominowane dzieli pulę na fronty F1, F2, … Sekcja 3.4."></rect>
+          <text class="map-label" data-node="sort" x="963" y="136" text-anchor="middle" font-size="11.5">sortowanie niezdominowane</text>
+          <text class="map-label" data-node="sort" x="963" y="152" text-anchor="middle" font-size="10" opacity="0.7">fronty F1, F2, …</text>
           <path class="map-arrow" d="M1068,140 L1096,140" stroke-width="1.2" marker-end="url(#arrMapN)"></path>
 
           <rect x="1107" y="116" width="186" height="5" rx="2.5" fill="var(--accent)"></rect>
-          <rect id="mapBoxSelect" class="map-box" data-node="select" x="1100" y="110" width="200" height="60" rx="8" pointer-events="all" tabindex="0" data-tt="Fronts fill the new population one by one; the boundary front is trimmed by crowding distance. Result: exactly N again. Section 3.4."></rect>
-          <text class="map-label" data-node="select" x="1200" y="136" text-anchor="middle" font-size="11.5">crowding-distance selection</text>
-          <text class="map-label" data-node="select" x="1200" y="152" text-anchor="middle" font-size="10" opacity="0.7">back to N</text>
+          <rect id="mapBoxSelect" class="map-box" data-node="select" x="1100" y="110" width="200" height="60" rx="8" pointer-events="all" tabindex="0" data-tt="Fronty wypełniają nową populację po kolei; front graniczny jest docinany crowding distance. Wynik: znów dokładnie N. Sekcja 3.4."></rect>
+          <text class="map-label" data-node="select" x="1200" y="136" text-anchor="middle" font-size="11.5">wybór crowding distance</text>
+          <text class="map-label" data-node="select" x="1200" y="152" text-anchor="middle" font-size="10" opacity="0.7">z powrotem do N</text>
         </svg>
       </div>
       <div class="genome-strip">
-        <span class="glabel" pointer-events="all" tabindex="0" data-tt="The example genotype from this step — colors according to the phase the algorithm is currently in.">example genotype</span>
+        <span class="glabel" pointer-events="all" tabindex="0" data-tt="Przykładowy genotyp z tego kroku — koloruje się zgodnie z fazą, w której właśnie jest algorytm.">przykładowy genotyp</span>
         <div class="demo-genome" id="genomeView"></div>
       </div>
     </div>
 
-    <div class="demo-phase-caption" id="phaseCaption">Click “Step” or “Run” to see the algorithm in action — the map above highlights the exact phase live.</div>
-    <div class="demo-log" id="demoLog">Starting population: N random architectures, all immediately fully trained. Click “Step” to start the first generation.</div>
+    <div class="demo-phase-caption" id="phaseCaption">Kliknij „Krok” albo „Uruchom”, żeby zobaczyć algorytm w akcji — mapa powyżej podświetla dokładną fazę na żywo.</div>
+    <div class="demo-log" id="demoLog">Populacja startowa: N losowych architektur, wszystkie od razu w pełni wytrenowane. Kliknij „Krok”, żeby zacząć pierwszą generację.</div>
 
     <div class="cost-callout">
       <div class="cost-callout-top">
-        <span class="cost-label">Fully trained architectures — real cost, no shortcuts</span>
+        <span class="cost-label">W pełni wytrenowane architektury — realny koszt, bez skrótów</span>
         <span class="cost-value" id="costValue">0</span>
       </div>
       <div class="cost-bar-track"><div class="cost-bar-fill" id="costBarFill"></div></div>
-      <p class="cost-note" id="costNote">This counter grows by N at every “full training” phase — it never stops early and is never replaced by a cheaper estimate. Compare this with the P3 pyramid, which only grows when it actually pays off, and with P3Net, which pays a full evaluation only once per whole crossover sweep.</p>
+      <p class="cost-note" id="costNote">Ten licznik rośnie o N przy każdej fazie „pełny trening” — nigdy się nie zatrzymuje wcześniej i nigdy nie jest zastępowany tańszym oszacowaniem. Porównaj to z piramidą P3, która rośnie tylko wtedy, gdy faktycznie się to opłaca, i z P3Net, który płaci pełną ewaluację tylko raz na całe przemiatanie krzyżowania.</p>
     </div>
 
-    <div class="zone-caption" pointer-events="all" tabindex="0" data-tt="These three cards draw on the whole population and the whole evaluation history built so far — not just this one phase.">③ accumulated result — Pareto front and non-domination fronts</div>
+    <div class="zone-caption" pointer-events="all" tabindex="0" data-tt="Te trzy karty czerpią z całej populacji i całej historii ewaluacji zbudowanej do tej pory — nie tylko z tej jednej fazy.">③ nagromadzony wynik — front Pareto i fronty niezdominowania</div>
     <div class="result-row">
       <div class="demo-panel">
-        <h4 pointer-events="all" tabindex="0" data-tt="All genuinely evaluated architectures from the current step: quality on the horizontal axis, cost on the vertical axis (lower = cheaper). Green points are this pool's front F1, blue is F2. Section 3.4.">Pareto front (live)</h4>
+        <h4 pointer-events="all" tabindex="0" data-tt="Wszystkie naprawdę ocenione architektury z bieżącego kroku: jakość na osi poziomej, koszt na osi pionowej (niżej = taniej). Zielone punkty to front F1 tej puli, niebieskie to F2. Sekcja 3.4.">Front Pareto (na żywo)</h4>
         <div class="pareto-wrap">
-          <svg id="paretoSvg" viewBox="0 0 320 200" role="img" aria-label="A scatter plot of evaluated architectures: quality on the horizontal axis, cost on the vertical axis, lower = cheaper. Green points are front F1, blue F2, gray further fronts.">
+          <svg id="paretoSvg" viewBox="0 0 320 200" role="img" aria-label="Wykres rozrzutu ocenionych architektur: jakość na osi poziomej, koszt na osi pionowej, niżej = taniej. Zielone punkty to front F1, niebieskie F2, szare dalsze fronty.">
             <line x1="30" y1="10" x2="30" y2="170" stroke="currentColor" stroke-width="1" opacity="0.35"></line>
             <line x1="30" y1="170" x2="300" y2="170" stroke="currentColor" stroke-width="1" opacity="0.35"></line>
-            <text x="30" y="188" font-size="9" fill="currentColor" opacity="0.55">quality →</text>
-            <text x="4" y="18" font-size="9" fill="currentColor" opacity="0.55">cost</text>
+            <text x="30" y="188" font-size="9" fill="currentColor" opacity="0.55">jakość →</text>
+            <text x="4" y="18" font-size="9" fill="currentColor" opacity="0.55">koszt</text>
             <g id="paretoPoints"></g>
           </svg>
         </div>
-        <p class="demo-note">Green = F1 (non-dominated), blue = F2, gray = further fronts.</p>
+        <p class="demo-note">Zielony = F1 (niezdominowany), niebieski = F2, szary = dalsze fronty.</p>
       </div>
       <div class="demo-panel">
-        <h4 pointer-events="all" tabindex="0" data-tt="The size of every front in the pool the algorithm currently sees — recomputed after every sorting phase. Section 3.4.">Non-domination fronts</h4>
+        <h4 pointer-events="all" tabindex="0" data-tt="Rozmiar każdego frontu w puli, którą algorytm właśnie widzi — liczony na nowo po każdej fazie sortowania. Sekcja 3.4.">Fronty niezdominowania</h4>
         <div class="chip-row" id="frontChips"></div>
-        <p class="demo-note" id="frontNote">Fronts will appear after the first sort.</p>
+        <p class="demo-note" id="frontNote">Fronty pojawią się po pierwszym sortowaniu.</p>
       </div>
       <div class="demo-panel">
-        <h4 pointer-events="all" tabindex="0" data-tt="The current population P — exactly N architectures, after the last crowding-distance selection. F1 rank in green.">Current population P</h4>
+        <h4 pointer-events="all" tabindex="0" data-tt="Bieżąca populacja P — dokładnie N architektur, po ostatniej selekcji crowding distance. Ranga F1 na zielono.">Bieżąca populacja P</h4>
         <div id="popList"></div>
       </div>
     </div>
 
-    <div class="zone-caption" pointer-events="all" tabindex="0" data-tt="These two concern controls and numbers summarizing the whole run so far.">④ controls, stats</div>
+    <div class="zone-caption" pointer-events="all" tabindex="0" data-tt="Te dwie dotyczą sterowania i liczb podsumowujących cały dotychczasowy bieg.">④ sterowanie, statystyki</div>
     <div class="card-row">
       <div class="demo-panel">
-        <h4>Controls</h4>
+        <h4>Sterowanie</h4>
         <div class="demo-controls">
-          <button class="demo-btn primary" id="btnStep" type="button">Step</button>
-          <button class="demo-btn" id="btnRun" type="button">Run</button>
-          <button class="demo-btn" id="btnGen" type="button">⏩ Full generation</button>
-          <button class="demo-btn" id="btnFF" type="button">⏩⏩ 5 generations</button>
+          <button class="demo-btn primary" id="btnStep" type="button">Krok</button>
+          <button class="demo-btn" id="btnRun" type="button">Uruchom</button>
+          <button class="demo-btn" id="btnGen" type="button">⏩ Pełna generacja</button>
+          <button class="demo-btn" id="btnFF" type="button">⏩⏩ 5 generacji</button>
           <button class="demo-btn" id="btnReset" type="button">Reset</button>
         </div>
-        <p class="demo-note" style="margin-top:12px;">“Full generation” and “5 generations” fast-forward phases without animation — the numbers themselves still compute for real, just faster.</p>
+        <p class="demo-note" style="margin-top:12px;">„Pełna generacja” i „5 generacji” przewijają fazy bez animacji — same liczby wciąż liczą się naprawdę, tylko szybciej.</p>
       </div>
       <div class="demo-panel">
-        <h4>Stats</h4>
+        <h4>Statystyki</h4>
         <div class="demo-stats">
-          <div class="demo-stat" pointer-events="all" tabindex="0" data-tt="How many full generations (selection → variation → training → sorting → selection) have completed.">
-            <div class="lbl">Generation</div><div class="val" id="statGen">0</div>
+          <div class="demo-stat" pointer-events="all" tabindex="0" data-tt="Ile pełnych generacji (selekcja → wariacja → trening → sortowanie → selekcja) zostało ukończonych.">
+            <div class="lbl">Generacja</div><div class="val" id="statGen">0</div>
           </div>
-          <div class="demo-stat" pointer-events="all" tabindex="0" data-tt="How many architectures are currently on front F1 of the current population.">
-            <div class="lbl">F1 size</div><div class="val" id="statFront1">0</div>
+          <div class="demo-stat" pointer-events="all" tabindex="0" data-tt="Ile architektur jest właśnie na froncie F1 bieżącej populacji.">
+            <div class="lbl">Rozmiar F1</div><div class="val" id="statFront1">0</div>
           </div>
-          <div class="demo-stat" pointer-events="all" tabindex="0" data-tt="The highest quality any fully trained architecture has reached since this run started.">
-            <div class="lbl">Best quality</div><div class="val" id="statBestQ">0</div>
+          <div class="demo-stat" pointer-events="all" tabindex="0" data-tt="Najwyższa jakość, jaką osiągnęła jakakolwiek w pełni wytrenowana architektura od początku tego biegu.">
+            <div class="lbl">Najlepsza jakość</div><div class="val" id="statBestQ">0</div>
           </div>
-          <div class="demo-stat" pointer-events="all" tabindex="0" data-tt="The lowest cost among architectures currently on front F1 — that is, the cheapest of the non-dominated ones.">
-            <div class="lbl">Lowest cost on F1</div><div class="val" id="statLowC">–</div>
+          <div class="demo-stat" pointer-events="all" tabindex="0" data-tt="Najniższy koszt spośród architektur, które są aktualnie na froncie F1 — czyli najtańsza z niezdominowanych.">
+            <div class="lbl">Najniższy koszt na F1</div><div class="val" id="statLowC">–</div>
           </div>
         </div>
       </div>
@@ -880,54 +880,54 @@
 </section>
 
 <section id="code">
-  <h2>5&nbsp; Pseudocode — what you'd actually have to write</h2>
-  <p class="subdek">Five procedures. Nothing else is needed to have a working NSGA-Net.</p>
+  <h2>5&nbsp; Pseudokod — co naprawdę trzeba by napisać</h2>
+  <p class="subdek">Pięć procedur. Nic więcej nie jest potrzebne, żeby mieć działający NSGA-Net.</p>
 
 <pre class="code"><span class="kw">procedure</span> NSGA-NET
-    P ← N random genotypes                    <span class="cm">// §3.1 — you fix N, see §6</span>
-    EVALUATE-ALL(P)                              <span class="cm">// §3.3, full training of EVERY one — real cost</span>
+    P ← N losowych genotypów                    <span class="cm">// §3.1 — N ustalasz Ty, patrz §6</span>
+    EVALUATE-ALL(P)                              <span class="cm">// §3.3, pełny trening KAŻDEGO — real cost</span>
     fronts ← FAST-NON-DOMINATED-SORT(P)
     <span class="kw">for</span> F <span class="kw">in</span> fronts <span class="kw">do</span> ASSIGN-CROWDING-DISTANCE(F, P)
 
-    <span class="kw">for</span> g <span class="kw">in</span> 1..G <span class="kw">do</span>                             <span class="cm">// G is also fixed by you, up front</span>
-        Q ← VARY(P)                              <span class="cm">// §3.2, size N, not yet evaluated</span>
-        EVALUATE-ALL(Q)                          <span class="cm">// full training of EVERY offspring again</span>
-        R ← P ∪ Q                                <span class="cm">// 2N fully evaluated</span>
+    <span class="kw">for</span> g <span class="kw">in</span> 1..G <span class="kw">do</span>                             <span class="cm">// G też ustalasz Ty, z góry</span>
+        Q ← VARY(P)                              <span class="cm">// §3.2, rozmiar N, jeszcze nieoceniona</span>
+        EVALUATE-ALL(Q)                          <span class="cm">// znów pełny trening KAŻDEGO potomka</span>
+        R ← P ∪ Q                                <span class="cm">// 2N w pełni ocenionych</span>
         fronts ← FAST-NON-DOMINATED-SORT(R)
 
         P ← {}; i ← 0
         <span class="kw">while</span> |P| + |fronts[i]| ≤ N <span class="kw">do</span>
             ASSIGN-CROWDING-DISTANCE(fronts[i], R)
             P ← P ∪ fronts[i]; i ← i + 1
-        ASSIGN-CROWDING-DISTANCE(fronts[i], R)   <span class="cm">// boundary front — needs trimming</span>
+        ASSIGN-CROWDING-DISTANCE(fronts[i], R)   <span class="cm">// front graniczny — trzeba go docinać</span>
         sort fronts[i] <span class="kw">by</span> crowding distance, descending
-        P ← P ∪ fronts[i][0 : N − |P|]            <span class="cm">// fill up to exactly N</span>
-    <span class="kw">return</span> P                                    <span class="cm">// Pareto front(s) of the final generation</span></pre>
+        P ← P ∪ fronts[i][0 : N − |P|]            <span class="cm">// dopełnij do dokładnie N</span>
+    <span class="kw">return</span> P                                    <span class="cm">// front(y) Pareto ostatniej generacji</span></pre>
 
 <pre class="code"><span class="kw">procedure</span> VARY(P)
     Q ← {}
     <span class="kw">while</span> |Q| &lt; N <span class="kw">do</span>
         p1 ← TOURNAMENT(P); p2 ← TOURNAMENT(P)
         child ← []
-        <span class="kw">for</span> locus <span class="kw">in</span> genotype <span class="kw">do</span>                  <span class="cm">// §3.2 — uniform, independent per locus</span>
+        <span class="kw">for</span> locus <span class="kw">in</span> genotyp <span class="kw">do</span>                  <span class="cm">// §3.2 — jednorodne, niezależne na locus</span>
             gene ← p1[locus] <span class="kw">if</span> random() &lt; 0.5 <span class="kw">else</span> p2[locus]
             <span class="kw">if</span> random() &lt; p_mut <span class="kw">then</span>
-                gene ← random allowed value      <span class="cm">// mutation, again independent per locus</span>
+                gene ← losowa dopuszczalna wartość      <span class="cm">// mutacja, znów niezależna na locus</span>
             child.append(gene)
         Q.add(child)
     <span class="kw">return</span> Q</pre>
 
 <pre class="code"><span class="kw">procedure</span> TOURNAMENT(P)
-    a, b ← two random, not necessarily distinct individuals from P
+    a, b ← dwa losowe, niekoniecznie różne osobniki z P
     <span class="kw">if</span> a.rank &lt; b.rank <span class="kw">then return</span> a
     <span class="kw">if</span> b.rank &lt; a.rank <span class="kw">then return</span> b
-    <span class="kw">return</span> a <span class="kw">if</span> a.crowd &gt; b.crowd <span class="kw">else</span> b       <span class="cm">// a rank tie is broken by density</span></pre>
+    <span class="kw">return</span> a <span class="kw">if</span> a.crowd &gt; b.crowd <span class="kw">else</span> b       <span class="cm">// remis rangi rozstrzyga gęstość</span></pre>
 
 <pre class="code"><span class="kw">procedure</span> FAST-NON-DOMINATED-SORT(R)
     <span class="kw">for</span> p <span class="kw">in</span> R <span class="kw">do</span>
         p.dominated_by ← 0; p.dominates ← {}
         <span class="kw">for</span> q <span class="kw">in</span> R, q ≠ p <span class="kw">do</span>
-            <span class="kw">if</span> p ≻ q <span class="kw">then</span> p.dominates.add(q)         <span class="cm">// ≻: no worse on both objectives, better on ≥1</span>
+            <span class="kw">if</span> p ≻ q <span class="kw">then</span> p.dominates.add(q)         <span class="cm">// ≻: nie gorszy na obu celach, lepszy na ≥1</span>
             <span class="kw">else if</span> q ≻ p <span class="kw">then</span> p.dominated_by += 1
         <span class="kw">if</span> p.dominated_by == 0 <span class="kw">then</span> p.rank ← 0; F[0].add(p)
     i ← 0
@@ -940,71 +940,71 @@
 
 <pre class="code"><span class="kw">procedure</span> ASSIGN-CROWDING-DISTANCE(F, R)
     <span class="kw">for</span> p <span class="kw">in</span> F <span class="kw">do</span> p.crowd ← 0
-    <span class="kw">for</span> objective <span class="kw">in</span> {quality, cost} <span class="kw">do</span>
+    <span class="kw">for</span> objective <span class="kw">in</span> {jakość, koszt} <span class="kw">do</span>
         sort F <span class="kw">by</span> objective
-        F[0].crowd ← ∞; F[last].crowd ← ∞         <span class="cm">// front edges always survive</span>
+        F[0].crowd ← ∞; F[last].crowd ← ∞         <span class="cm">// brzegi frontu zawsze przetrwają</span>
         <span class="kw">for</span> k <span class="kw">in</span> 1..len(F)-2 <span class="kw">do</span>
             F[k].crowd += (F[k+1].objective − F[k-1].objective) / range(objective)</pre>
 
-  <p>That's the whole algorithm. There's no procedure at all corresponding to a hill climber or the P3/P3Net linkage tree — the only mechanism that “learns” anything from the population is the choice of who enters the tournament, via rank and crowding distance.</p>
+  <p>To cały algorytm. Nie ma tu żadnej procedury odpowiadającej hill climberowi ani drzewu powiązań z P3/P3Net — jedyny mechanizm, który cokolwiek „uczy się” z populacji, to sam wybór, kto trafia do turnieju, poprzez rangę i crowding distance.</p>
 </section>
 
 <section id="practice">
-  <h2>6&nbsp; What you design yourself — applying NSGA-Net to a real problem</h2>
-  <p>The same split as in P3 and P3Net: the <em>mechanism</em> is fixed by the algorithm — you don't touch the non-domination rule or how crowding distance is computed. What changes every time you apply NSGA-Net to a new problem is how your problem plugs into that mechanism — and, in this case, two numbers you have to guess before you see even one result.</p>
+  <h2>6&nbsp; Co wymyślasz sam — zastosowanie NSGA-Net do rzeczywistego problemu</h2>
+  <p>Ten sam podział, co w P3 i P3Net: <em>mechanizm</em> jest ustalony przez algorytm — nie ruszasz reguły niezdominowania ani sposobu liczenia crowding distance. To, co zmienia się za każdym razem, gdy stosujesz NSGA-Net do nowego problemu, to jak Twój problem podłącza się do tego mechanizmu — i, w tym przypadku, dwie liczby, które musisz zgadnąć, zanim zobaczysz choćby jeden wynik.</p>
 
   <div class="tablewrap">
     <table>
-      <thead><tr><th style="width:26%">Decision point</th><th>Fixed by NSGA-Net</th><th>You decide, per problem</th></tr></thead>
+      <thead><tr><th style="width:26%">Punkt decyzyjny</th><th>Ustalone przez NSGA-Net</th><th>Ty decydujesz, dla każdego problemu</th></tr></thead>
       <tbody>
         <tr>
-          <td><strong>Non-domination rule</strong></td>
-          <td class="fixed-col">Candidate <em>a</em> dominates <em>b</em> when it's no worse on every objective and strictly better on at least one — comparing both objectives at once, never a weighted sum.</td>
-          <td class="decide-col">Nothing — this is the part you get for free by choosing this algorithm over single-objective optimization with scalarization.</td>
+          <td><strong>Reguła niezdominowania</strong></td>
+          <td class="fixed-col">Kandydat <em>a</em> dominuje <em>b</em>, gdy jest nie gorszy na każdym celu i ściśle lepszy na co najmniej jednym — porównanie obu celów naraz, nigdy ważona suma.</td>
+          <td class="decide-col">Nic — to jest część, którą dostajesz za darmo, wybierając ten algorytm zamiast optymalizacji jednokryterialnej ze skalaryzacją.</td>
         </tr>
         <tr>
-          <td><strong>Breaking rank ties</strong></td>
-          <td class="fixed-col">Crowding distance — the sum of normalized distances to the nearest neighbors on the front, per objective separately.</td>
-          <td class="decide-col">Nothing directly, but you decide how many objectives you have and how they're normalized — if one objective has a much wider value range than another, crowding distance favors it unless you normalize carefully.</td>
+          <td><strong>Rozstrzyganie remisów rangi</strong></td>
+          <td class="fixed-col">Crowding distance — suma znormalizowanych odległości do najbliższych sąsiadów na froncie, po każdym celu osobno.</td>
+          <td class="decide-col">Nic bezpośrednio, ale to Ty decydujesz, ile masz celów i jak są znormalizowane — jeśli jeden cel ma dużo szerszy zakres wartości niż drugi, crowding distance faworyzuje go, jeśli nie znormalizujesz ich starannie.</td>
         </tr>
         <tr>
-          <td><strong>Population size N</strong></td>
-          <td class="fixed-col">Not addressed — the algorithm assumes you already have N.</td>
-          <td class="decide-col">You fix it once, up front, before the first evaluation happens. Too small N — the Pareto front too sparse to conclude anything. Too large — every generation costs proportionally more full training runs.</td>
+          <td><strong>Rozmiar populacji N</strong></td>
+          <td class="fixed-col">Nieadresowane — algorytm zakłada, że N już masz.</td>
+          <td class="decide-col">Ustalasz raz, z góry, zanim padnie pierwsza ewaluacja. Za małe N — front Pareto zbyt rzadki, żeby cokolwiek z niego wynikało. Za duże — każda generacja kosztuje proporcjonalnie więcej pełnych treningów.</td>
         </tr>
         <tr>
-          <td><strong>Number of generations G</strong></td>
-          <td class="fixed-col">Not addressed.</td>
-          <td class="decide-col">Also up front. Together with N it determines the total budget: exactly N + N·G full training runs, no more and no less, regardless of how quickly the front stopped improving.</td>
+          <td><strong>Liczba generacji G</strong></td>
+          <td class="fixed-col">Nieadresowane.</td>
+          <td class="decide-col">Też z góry. Razem z N determinuje całkowity budżet: dokładnie N + N·G pełnych treningów, żadnego więcej i żadnego mniej, niezależnie od tego, jak szybko front przestał się poprawiać.</td>
         </tr>
         <tr>
-          <td><strong>Variation operators</strong></td>
-          <td class="fixed-col">Not addressed — NSGA-II as such doesn't impose a specific crossover or mutation.</td>
-          <td class="decide-col">The type of crossover (uniform? single-point?), the per-locus mutation probability — and, for architectures, whether uniform crossover even makes sense if some genes have to change together to improve anything.</td>
+          <td><strong>Operatory wariacji</strong></td>
+          <td class="fixed-col">Nieadresowane — NSGA-II jako taki nie narzuca konkretnego krzyżowania ani mutacji.</td>
+          <td class="decide-col">Rodzaj krzyżowania (jednorodne? jednopunktowe?), prawdopodobieństwo mutacji na locus — i, dla architektur, czy uniform crossover w ogóle ma sens, jeśli niektóre geny muszą zmieniać się razem, żeby cokolwiek poprawić.</td>
         </tr>
         <tr>
-          <td><strong>Genotype encoding</strong></td>
-          <td class="fixed-col">Not addressed — it only requires a vector comparable locus by locus.</td>
-          <td class="decide-col">Exactly the same problem as in P3/P3Net: how your architecture becomes that vector, and what happens to genotypes that don't decode into a working network.</td>
+          <td><strong>Kodowanie genotypu</strong></td>
+          <td class="fixed-col">Nieadresowane — wymaga tylko wektora porównywalnego locus po locus.</td>
+          <td class="decide-col">Dokładnie ten sam problem co w P3/P3Net: jak Twoja architektura staje się tym wektorem, i co się dzieje z genotypami, które nie dekodują się do działającej sieci.</td>
         </tr>
       </tbody>
     </table>
   </div>
 
   <div class="callout">
-    <span class="tag">The two gaps that actually create P3Net</span>
-    <p>NSGA-Net exposes exactly the two blind spots the rest of this ablation grid attacks from different angles — and P3Net attacks both at once, with the same mechanism. First: you have to guess N and G up front, before you see even one result — exactly the same problem P3's parameter-less pyramid solves for the single-objective case, letting the “population” size emerge from however many levels actually got built. Second: NSGA-Net pays a full, real evaluation for <em>every single</em> candidate variation produces, with no relative shortcut at all — exactly the cost P3Net attacks with the surrogate <span class="mono">δ̂F</span> inside linkage-aware crossover, paying a real evaluation only once per whole sweep, instead of once per offspring.</p>
-    <p>In other words: NSGA-Net is P3Net's closest relative in this grid exactly because it differs from it in only these two things — and both are exactly what P3Net was designed to solve.</p>
+    <span class="tag">Dwie luki, które faktycznie tworzą P3Net</span>
+    <p>NSGA-Net eksponuje dokładnie te dwa ślepe punkty, które reszta tej siatki ablacyjnej atakuje z różnych stron — i P3Net atakuje oba naraz, tym samym mechanizmem. Po pierwsze: N i G musisz zgadnąć z góry, zanim zobaczysz choć jeden wynik — dokładnie ten sam problem, który parameter-less pyramid w P3 rozwiązuje dla przypadku jednokryterialnego, pozwalając rozmiarowi „populacji" wyłonić się z tego, ile poziomów faktycznie udało się zbudować. Po drugie: NSGA-Net płaci pełną, realną ewaluację za <em>każdego</em> pojedynczego kandydata, jakiego wyprodukuje wariacja, bez żadnego relatywnego skrótu — dokładnie ten koszt, który P3Net atakuje surogatem <span class="mono">δ̂F</span> wewnątrz krzyżowania świadomego powiązań, płacąc prawdziwą ewaluację tylko raz na całe przemiatanie, zamiast raz na każdego potomka.</p>
+    <p>Innymi słowy: NSGA-Net to najbliższy krewny P3Net w tej siatce dokładnie dlatego, że różni się od niego tylko tymi dwiema rzeczami — i obie są tym, co P3Net miał w zamierzeniu rozwiązać.</p>
   </div>
 
-  <h3 style="margin-top:32px;"><span class="num">✓</span>Checklist for applying NSGA-Net to a new problem</h3>
+  <h3 style="margin-top:32px;"><span class="num">✓</span>Checklista przy stosowaniu NSGA-Net do nowego problemu</h3>
   <ul class="checklist">
-    <li><span class="box"></span><span>Define the genotype: what one gene is, how many there are, and whether some combinations are invalid.</span></li>
-    <li><span class="box"></span><span>Define every objective separately and how it's measured — never as a single weighted number.</span></li>
-    <li><span class="box"></span><span>Choose N and G — and immediately calculate how many full training runs N + N·G costs against your budget.</span></li>
-    <li><span class="box"></span><span>Choose the crossover and mutation operators; check whether uniform crossover makes sense for your encoding, or destroys dependencies between genes.</span></li>
-    <li><span class="box"></span><span>Normalize objectives before computing crowding distance, so none of them dominates the diversity selection just because it has a wider range.</span></li>
-    <li><span class="box"></span><span>If N + N·G full training runs doesn't fit your budget, that's a signal to consider a surrogate or a method that doesn't fix N and G up front — not an NSGA-Net parameter to tune, but a different point in the ablation grid.</span></li>
+    <li><span class="box"></span><span>Zdefiniuj genotyp: czym jest jeden gen, ile ich jest, i czy niektóre kombinacje są nieprawidłowe.</span></li>
+    <li><span class="box"></span><span>Zdefiniuj każdy cel osobno i sposób jego pomiaru — nigdy jako jedną zważoną liczbę.</span></li>
+    <li><span class="box"></span><span>Wybierz N i G — i policz od razu, ile pełnych treningów to N + N·G kosztuje w Twoim budżecie.</span></li>
+    <li><span class="box"></span><span>Wybierz operatory krzyżowania i mutacji; sprawdź, czy uniform crossover ma sens dla Twojego kodowania, czy niszczy zależności między genami.</span></li>
+    <li><span class="box"></span><span>Znormalizuj cele przed liczeniem crowding distance, żeby żaden z nich nie zdominował doboru różnorodności tylko dlatego, że ma szerszy zakres.</span></li>
+    <li><span class="box"></span><span>Jeśli N + N·G pełnych treningów się nie mieści w budżecie, to jest sygnał, żeby rozważyć surogat albo metodę, która nie ustala N i G z góry — nie parametr NSGA-Net do podkręcenia, tylko inny punkt w siatce ablacyjnej.</span></li>
   </ul>
 
 </section>
@@ -1012,7 +1012,7 @@
 </main>
 
 <footer class="page-end">
-  Source: Z. Lu et al., “NSGA-Net: Neural Architecture Search Using Multi-Objective Genetic Algorithm,” GECCO 2019 — and K. Deb et al., “A Fast and Elitist Multi-Objective Genetic Algorithm: NSGA-II,” IEEE TEVC 2002, for the selection mechanism described in section 3.4.
+  Źródło: Z. Lu i in., „NSGA-Net: Neural Architecture Search Using Multi-Objective Genetic Algorithm”, GECCO 2019 — oraz K. Deb i in., „A Fast and Elitist Multi-Objective Genetic Algorithm: NSGA-II”, IEEE TEVC 2002, dla mechanizmu selekcji opisanego w sekcji 3.4.
 </footer>
 
 <script>
@@ -1170,8 +1170,8 @@
     bestQualityEver = Math.max.apply(null, parentPop.map(function (x) { return x.quality; }));
     offspringGenomes = []; offspringPop = []; pool = [];
     lastRepresentative = { genome: parentPop[0].genome, tag: "pop" };
-    log("Starting population: " + N + " random architectures, all immediately fully trained (" + trainedCount + " evaluations). Click \u201cStep\u201d to start the first generation.");
-    caption("Start: population P₀ built and fully evaluated.");
+    log("Populacja startowa: " + N + " losowych architektur, wszystkie od razu w pełni wytrenowane (" + trainedCount + " ewaluacji). Kliknij „Krok”, żeby zacząć pierwszą generację.");
+    caption("Start: populacja P₀ zbudowana i w pełni oceniona.");
     render();
   }
 
@@ -1188,30 +1188,30 @@
       offspringGenomes.push(child);
     }
     lastRepresentative = { genome: offspringGenomes[0], tag: "vary" };
-    log("Generation " + (generation + 1) + ": tournament selection (rank, then crowding distance) picks parents; uniform crossover and mutation create " + N + " new offspring genotypes — objectives not evaluated yet.");
-    caption("Selection + variation: " + N + " new offspring created, none evaluated yet.");
+    log("Generacja " + (generation + 1) + ": selekcja turniejowa (ranga, potem crowding distance) wybiera rodziców; krzyżowanie jednorodne i mutacja tworzą " + N + " nowych genotypów potomków — jeszcze bez ocenionych celów.");
+    caption("Selekcja + wariacja: " + N + " nowych potomków utworzonych, żaden jeszcze nieoceniony.");
   }
 
   function doTrain() {
     offspringPop = offspringGenomes.map(trainAndCount);
     lastRepresentative = { genome: offspringPop[0].genome, tag: "train" };
-    log("Each of the " + N + " offspring undergoes FULL, real training — no shortcuts, no surrogate. Fully trained architectures since this run started: " + trainedCount + " (+" + N + ").");
-    caption("Full training: +" + N + " real evaluations, real cost.");
+    log("Każdy z " + N + " potomków przechodzi PEŁNY, prawdziwy trening — bez skrótów, bez surogatu. W pełni wytrenowane architektury od początku biegu: " + trainedCount + " (+" + N + ").");
+    caption("Pełny trening: +" + N + " prawdziwych ewaluacji, realny koszt.");
   }
 
   function doMerge() {
     pool = parentPop.concat(offspringPop);
     lastRepresentative = { genome: pool[0].genome, tag: "merge" };
-    log("Parents and offspring merge into one pool of " + pool.length + " fully evaluated architectures.");
-    caption("Merged: R = P ∪ Q, " + pool.length + " candidates.");
+    log("Rodzice i potomkowie łączą się w jedną pulę " + pool.length + " w pełni ocenionych architektur.");
+    caption("Połączono: R = P ∪ Q, " + pool.length + " kandydatów.");
   }
 
   function doSort() {
     fronts = fastNonDominatedSort(pool);
     lastRepresentative = { genome: pool[0].genome, tag: "sort" };
     var sizes = fronts.map(function (f) { return f.length; }).join(", ");
-    log("Non-dominated sorting splits the pool into fronts: " + sizes + " individuals per successive front.");
-    caption("Non-dominated sort: " + fronts.length + " front(s) found.");
+    log("Sortowanie niezdominowane dzieli pulę na fronty: " + sizes + " osobników na kolejny front.");
+    caption("Sortowanie niezdominowane: " + fronts.length + " fronty(ów) znalezione.");
   }
 
   function doSelect() {
@@ -1231,8 +1231,8 @@
     bestQualityEver = Math.max(bestQualityEver, Math.max.apply(null, parentPop.map(function (x) { return x.quality; })));
     generation++;
     lastRepresentative = { genome: parentPop[0].genome, tag: "select" };
-    log("Fronts fill the new population one by one; the last one that doesn't fit is trimmed by crowding distance. New population P" + generation + ": " + N + " architectures.");
-    caption("New population P" + generation + " selected — exactly N again.");
+    log("Fronty wypełniają nową populację po kolei; ostatni, który się nie mieści, jest docinany według crowding distance. Nowa populacja P" + generation + ": " + N + " architektur.");
+    caption("Nowa populacja P" + generation + " wybrana — z powrotem dokładnie N.");
   }
 
   var PHASE_FN = { vary: doVary, train: doTrain, merge: doMerge, sort: doSort, select: doSelect };
@@ -1260,14 +1260,14 @@
       var box = document.createElement("div");
       box.className = "gene-box " + (i < 3 ? "type-a" : "type-b") + (lastRepresentative.tag === "vary" || lastRepresentative.tag === "train" ? " vary" : "");
       box.textContent = LETTERS[g[i]];
-      box.title = (i < 3 ? "expensive edge" : "cheap edge") + " · locus " + i;
+      box.title = (i < 3 ? "krawędź kosztowna" : "krawędź tania") + " · locus " + i;
       group.appendChild(box);
     }
     el.appendChild(group);
     var meta = document.createElement("span");
     meta.className = "glabel";
     meta.style.marginLeft = "4px";
-    meta.textContent = "quality " + qualityOf(g) + "/" + MAX_Q + " · cost " + costOf(g) + "/" + MAX_C;
+    meta.textContent = "jakość " + qualityOf(g) + "/" + MAX_Q + " · koszt " + costOf(g) + "/" + MAX_C;
     el.appendChild(meta);
   }
 
@@ -1300,7 +1300,7 @@
       chip.textContent = "F" + (idx + 1) + ": " + f.length;
       wrap.appendChild(chip);
     });
-    document.getElementById("frontNote").textContent = fronts.length + " front(s) in the current pool (" + (pool.length || parentPop.length) + " candidates).";
+    document.getElementById("frontNote").textContent = fronts.length + " fronty(ów) w bieżącej puli (" + (pool.length || parentPop.length) + " kandydatów).";
   }
 
   function renderPopList() {
@@ -1374,11 +1374,11 @@
   function setRunning(on) {
     var btn = document.getElementById("btnRun");
     if (on) {
-      btn.textContent = "Stop";
+      btn.textContent = "Zatrzymaj";
       btn.classList.add("primary");
       runTimer = setInterval(step, 850);
     } else {
-      btn.textContent = "Run";
+      btn.textContent = "Uruchom";
       btn.classList.remove("primary");
       if (runTimer) { clearInterval(runTimer); runTimer = null; }
     }
