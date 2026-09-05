@@ -9,38 +9,55 @@
 <x-dc>
 <helmet>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" crossorigin="anonymous">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" crossorigin="anonymous">
+<link href="https://db.onlinewebfonts.com/c/cc4a7a8da4c5d4af9361d85a1d1c0bba?family=OCR-A" rel="stylesheet">
+<style>
+@font-face{font-family:'OCR-A';unicode-range:U+0100-017F,U+0180-024F;font-weight:400;src:url('https://cdn.jsdelivr.net/npm/@fontsource/jetbrains-mono/files/jetbrains-mono-latin-ext-400-normal.woff2') format('woff2');}
+@font-face{font-family:'OCR-A';unicode-range:U+0100-017F,U+0180-024F;font-weight:500;src:url('https://cdn.jsdelivr.net/npm/@fontsource/jetbrains-mono/files/jetbrains-mono-latin-ext-500-normal.woff2') format('woff2');}
+@font-face{font-family:'OCR-A';unicode-range:U+0100-017F,U+0180-024F;font-weight:600;src:url('https://cdn.jsdelivr.net/npm/@fontsource/jetbrains-mono/files/jetbrains-mono-latin-ext-600-normal.woff2') format('woff2');}
+@font-face{font-family:'OCR-A';unicode-range:U+0100-017F,U+0180-024F;font-weight:700;src:url('https://cdn.jsdelivr.net/npm/@fontsource/jetbrains-mono/files/jetbrains-mono-latin-ext-700-normal.woff2') format('woff2');}
+</style>
 <style id="__om-edit-overrides">
 html{scroll-behavior:smooth;}
-body{margin:0;background:#14170f;color:#e4e6de;font-family:'IBM Plex Sans',sans-serif;}
-a{color:#9CAF6B;text-decoration:none;}
-a:hover{color:#b3c98a;text-decoration:underline;}
-::selection{background:rgba(156,175,107,0.35);}
+body{margin:0;background:#030c03;color:#a8c8a8;font-family:'OCR-A','JetBrains Mono',monospace;}
+a{color:#5aff8f;text-decoration:none;}
+a:hover{color:#8cffb3;text-decoration:underline;}
+::selection{background:rgba(90,255,143,0.35);}
 @keyframes blink{0%,50%{opacity:1;}50.01%,100%{opacity:0;}}
 @keyframes stackScroll{from{transform:translateX(0);}to{transform:translateX(-50%);}}
 .stack-rail::-webkit-scrollbar{display:none;}
-h1,h2,h3{font-family:'IBM Plex Sans',sans-serif;}
+h1,h2,h3{font-family:'OCR-A','JetBrains Mono',monospace;}
 </style>
 </helmet>
 
-<div style="min-height:100vh;">
+<div style="min-height:100vh;background:#030c03;{{ themeFilterStyle }}">
+
+<div style="display:flex;align-items:center;justify-content:flex-end;gap:24px;padding:8px 48px;background:oklch(0.13 0.006 250);border-bottom:1px solid rgba(255,255,255,0.05);">
+  <div style="display:flex;align-items:center;gap:10px;">
+    <span style="font-family:'OCR-A','JetBrains Mono',monospace;font-size:11px;letter-spacing:0.08em;color:oklch(0.55 0.006 250);">THEME</span>
+    <div style="display:flex;gap:6px;">
+      <button onClick="{{ setThemeDark }}" style="{{ themeBtnStyle.dark }}">DARK</button>
+      <button onClick="{{ setThemeLight }}" style="{{ themeBtnStyle.light }}">LIGHT</button>
+    </div>
+  </div>
+  <button onClick="{{ toggleLang }}" style="font-family:'OCR-A','JetBrains Mono',monospace;font-size:13px;font-weight:700;padding:8px 14px;border:1px solid {{ accent.solid }};border-radius:2px;background:{{ accent.dim }};color:{{ accent.text }};cursor:pointer;">{{ langButtonLabel }}</button>
+</div>
 
 <nav style="position:sticky;top:0;z-index:50;display:flex;align-items:center;justify-content:space-between;padding:18px 48px;background:oklch(0.16 0.006 250 / 0.85);backdrop-filter:blur(8px);border-bottom:1px solid rgba(255,255,255,0.06);">
-  <div style="font-family:'IBM Plex Mono',monospace;font-size:18px;font-weight:600;color:oklch(0.92 0.004 250);">JP.<span style="animation:blink 1s step-end infinite;color:{{ accent.text }};">_</span></div>
-  <div style="display:flex;gap:32px;align-items:center;font-family:'IBM Plex Mono',monospace;font-size:14px;">
+  <div style="font-family:'OCR-A','JetBrains Mono',monospace;font-size:18px;font-weight:600;color:oklch(0.92 0.004 250);">JP.<span style="animation:blink 1s step-end infinite;color:{{ accent.text }};">_</span></div>
+  <div style="display:flex;gap:32px;align-items:center;font-family:'OCR-A','JetBrains Mono',monospace;font-size:14px;">
     <a href="#" onClick="{{ goHome }}" style="{{ navStyle.home }}">{{ T.navHome }}</a>
-    <a href="#" onClick="{{ goSolutions }}" style="{{ navStyle.solutions }}">:solutions</a>
-    <a href="#" onClick="{{ goBadania }}" style="{{ navStyle.badania }}">:{{ T.navBadaniaSlug }}</a>
-    <a href="#" onClick="{{ goKontakt }}" style="{{ navStyle.kontakt }}">:{{ T.navKontaktSlug }}</a>
-    <button onClick="{{ toggleLang }}" style="font-family:'IBM Plex Mono',monospace;font-size:13px;font-weight:700;padding:8px 14px;border:1px solid {{ accent.solid }};border-radius:2px;background:{{ accent.dim }};color:{{ accent.text }};cursor:pointer;">{{ langButtonLabel }}</button>
+    <a href="#" onClick="{{ goSolutions }}" style="{{ navStyle.solutions }}">~/solutions</a>
+    <a href="#" onClick="{{ goBadania }}" style="{{ navStyle.badania }}">~/{{ T.navBadaniaSlug }}</a>
+    <a href="#" onClick="{{ goKontakt }}" style="{{ navStyle.kontakt }}">~/{{ T.navKontaktSlug }}</a>
   </div>
 </nav>
 
 <sc-if value="{{ isHome }}" hint-placeholder-val="{{ true }}">
 <header id="home" style="max-width:1160px;margin:0 auto;padding:120px 48px 80px;">
-  <div style="font-family:'IBM Plex Mono',monospace;font-size:14px;color:{{ accent.text }};letter-spacing:0.05em;margin-bottom:20px;">ai engineer / architect</div>
-  <h1 style="font-size:64px;line-height:1.05;font-weight:600;margin:0 0 20px;max-width:820px;text-wrap:pretty;font-family:'IBM Plex Sans',sans-serif;">Jędrzej Polaczek</h1>
-  <div style="font-family:'IBM Plex Mono',monospace;font-size:16px;color:{{ accent.text }};margin:0 0 40px;">{{ T.heroCmd }}</div>
+  <div style="font-family:'OCR-A','JetBrains Mono',monospace;font-size:14px;color:{{ accent.text }};letter-spacing:0.05em;margin-bottom:20px;">ai engineer / architect</div>
+  <h1 style="font-size:56px;line-height:1.1;font-weight:500;margin:0 0 20px;max-width:820px;text-wrap:pretty;font-family:'OCR-A','JetBrains Mono',monospace;">{{ T.heroName }}</h1>
+  <div style="font-family:'OCR-A','JetBrains Mono',monospace;font-size:16px;color:{{ accent.text }};margin:0 0 40px;">{{ T.heroCmd }}</div>
   <div style="display:flex;gap:16px;">
     <a href="#" onClick="{{ goSolutions }}" style="display:inline-flex;align-items:center;padding:12px 24px;background:{{ accent.solid }};color:#12160f;font-weight:600;border-radius:2px;font-size:15px;">{{ T.heroCtaProjects }}</a>
     <a href="#" onClick="{{ goKontakt }}" style="display:inline-flex;align-items:center;padding:12px 24px;border:1px solid rgba(255,255,255,0.15);border-radius:2px;font-size:15px;color:oklch(0.92 0.004 250);">{{ T.heroCtaContact }}</a>
@@ -48,9 +65,9 @@ h1,h2,h3{font-family:'IBM Plex Sans',sans-serif;}
 </header>
 
 <section style="padding:56px 0 8px;">
-  <div style="font-family:'IBM Plex Mono',monospace;font-size:18px;color:oklch(0.72 0.006 250);font-weight:600;letter-spacing:0.08em;margin-bottom:24px;max-width:1160px;margin-left:auto;margin-right:auto;padding:0 48px;display:flex;align-items:center;justify-content:space-between;">
+  <div style="font-family:'OCR-A','JetBrains Mono',monospace;font-size:18px;color:oklch(0.72 0.006 250);font-weight:600;letter-spacing:0.08em;margin-bottom:24px;max-width:1160px;margin-left:auto;margin-right:auto;padding:0 48px;display:flex;align-items:center;justify-content:space-between;">
     <span>STACK</span>
-    <button onClick="{{ onStackTogglePause }}" aria-label="{{ stackPauseLabel }}" style="font-family:'IBM Plex Mono',monospace;font-size:12px;font-weight:400;padding:8px 14px;border:1px solid rgba(255,255,255,0.15);border-radius:2px;background:transparent;color:oklch(0.75 0.006 250);cursor:pointer;">{{ stackPauseLabel }}</button>
+    <button onClick="{{ onStackTogglePause }}" aria-label="{{ stackPauseLabel }}" style="font-family:'OCR-A','JetBrains Mono',monospace;font-size:12px;font-weight:400;padding:8px 14px;border:1px solid rgba(255,255,255,0.15);border-radius:2px;background:transparent;color:oklch(0.75 0.006 250);cursor:pointer;">{{ stackPauseLabel }}</button>
   </div>
   <div class="stack-rail" onMouseEnter="{{ onStackEnter }}" onMouseLeave="{{ onStackLeave }}" onMouseDown="{{ onStackMouseDown }}" onMouseMove="{{ onStackMouseMove }}" onMouseUp="{{ onStackMouseUp }}" onWheel="{{ onStackWheelH }}" ref="{{ stackRailRef }}" style="{{ stackRailStyle }}">
     <div style="display:flex;gap:16px;width:max-content;">
@@ -58,13 +75,13 @@ h1,h2,h3{font-family:'IBM Plex Sans',sans-serif;}
         <div style="flex:none;display:flex;flex-direction:column;align-items:center;gap:8px;width:104px;">
           <sc-if value="{{ s.icon }}" hint-placeholder-val="{{ false }}">
             <div style="width:44px;height:44px;display:flex;align-items:center;justify-content:center;background:oklch(0.185 0.006 250);border:1px solid rgba(255,255,255,0.08);border-radius:6px;">
-              <img src="{{ s.icon }}" alt="{{ s.name }}" style="width:24px;height:24px;object-fit:contain;"></img>
+              <img src="{{ s.icon }}" alt="{{ s.name }}" style="width:24px;height:24px;object-fit:contain;{{ themeImgCompensate }}"></img>
             </div>
           </sc-if>
           <sc-if value="{{ s.noIcon }}" hint-placeholder-val="{{ false }}">
-            <div style="width:44px;height:44px;display:flex;align-items:center;justify-content:center;background:oklch(0.185 0.006 250);border:1px solid rgba(255,255,255,0.08);border-radius:6px;font-family:'IBM Plex Mono',monospace;font-size:11px;color:oklch(0.5 0.006 250);">{{ s.initials }}</div>
+            <div style="width:44px;height:44px;display:flex;align-items:center;justify-content:center;background:oklch(0.185 0.006 250);border:1px solid rgba(255,255,255,0.08);border-radius:6px;font-family:'OCR-A','JetBrains Mono',monospace;font-size:11px;color:oklch(0.5 0.006 250);">{{ s.initials }}</div>
           </sc-if>
-          <span style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:oklch(0.65 0.006 250);white-space:nowrap;">{{ s.name }}</span>
+          <span style="font-family:'OCR-A','JetBrains Mono',monospace;font-size:11px;color:oklch(0.65 0.006 250);white-space:nowrap;">{{ s.name }}</span>
         </div>
       </sc-for>
     </div>
@@ -73,7 +90,7 @@ h1,h2,h3{font-family:'IBM Plex Sans',sans-serif;}
 
 <section style="background:oklch(0.20 0.006 250);padding:64px 48px;margin-top:56px;">
   <div style="max-width:1160px;margin:0 auto;">
-    <div style="font-family:'IBM Plex Mono',monospace;font-size:18px;color:oklch(0.72 0.006 250);font-weight:600;letter-spacing:0.08em;margin-bottom:32px;text-align:center;">MANIFESTO</div>
+    <div style="font-family:'OCR-A','JetBrains Mono',monospace;font-size:18px;color:oklch(0.72 0.006 250);font-weight:600;letter-spacing:0.08em;margin-bottom:32px;text-align:center;">MANIFESTO</div>
     <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:32px;">
       <sc-for list="{{ manifestoItems }}" as="m" hint-placeholder-count="3">
         <div>
@@ -87,21 +104,21 @@ h1,h2,h3{font-family:'IBM Plex Sans',sans-serif;}
 
 <section style="max-width:1160px;margin:0 auto;padding:64px 48px 8px;">
   <div style="display:flex;align-items:baseline;justify-content:space-between;margin-bottom:24px;">
-    <div style="font-family:'IBM Plex Mono',monospace;font-size:18px;color:oklch(0.72 0.006 250);font-weight:600;letter-spacing:0.08em;">{{ T.featuredTitle }}</div>
-    <a href="#" onClick="{{ goSolutions }}" style="font-family:'IBM Plex Mono',monospace;font-size:13px;">{{ T.featuredAll }}</a>
+    <div style="font-family:'OCR-A','JetBrains Mono',monospace;font-size:18px;color:oklch(0.72 0.006 250);font-weight:600;letter-spacing:0.08em;">{{ T.featuredTitle }}</div>
+    <a href="#" onClick="{{ goSolutions }}" style="font-family:'OCR-A','JetBrains Mono',monospace;font-size:13px;">{{ T.featuredAll }}</a>
   </div>
   <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:16px;">
     <sc-for list="{{ featuredProjects }}" as="fp" hint-placeholder-count="5">
       <a href="#" onClick="{{ goSolutions }}" style="display:block;border:1px solid rgba(255,255,255,0.08);border-radius:2px;padding:16px;background:oklch(0.185 0.006 250);color:oklch(0.85 0.004 250);">
         <div style="font-size:14px;font-weight:600;margin-bottom:10px;line-height:1.3;">{{ fp.title }}</div>
-        <span style="font-family:'IBM Plex Mono',monospace;font-size:11px;padding:2px 7px;background:rgba(255,255,255,0.05);color:oklch(0.6 0.006 250);border-radius:2px;">{{ fp.tag }}</span>
+        <span style="font-family:'OCR-A','JetBrains Mono',monospace;font-size:11px;padding:2px 7px;background:rgba(255,255,255,0.05);color:oklch(0.6 0.006 250);border-radius:2px;">{{ fp.tag }}</span>
       </a>
     </sc-for>
   </div>
 </section>
 
 <section style="max-width:820px;margin:0 auto;padding:64px 48px;">
-  <div style="font-family:'IBM Plex Mono',monospace;font-size:13px;color:oklch(0.55 0.006 250);letter-spacing:0.08em;margin-bottom:20px;">{{ T.aboutTitle }}</div>
+  <div style="font-family:'OCR-A','JetBrains Mono',monospace;font-size:13px;color:oklch(0.55 0.006 250);letter-spacing:0.08em;margin-bottom:20px;">{{ T.aboutTitle }}</div>
   <p style="font-size:17px;line-height:1.6;color:oklch(0.72 0.006 250);margin:0 0 14px;">{{ T.aboutP1 }}</p>
   <p style="font-size:17px;line-height:1.6;color:oklch(0.72 0.006 250);margin:0;">{{ T.aboutP2 }}</p>
 </section>
@@ -110,8 +127,8 @@ h1,h2,h3{font-family:'IBM Plex Sans',sans-serif;}
 <sc-if value="{{ isSolutions }}" hint-placeholder-val="{{ false }}">
 <section id="projects" style="max-width:1160px;margin:0 auto;padding:120px 48px 100px;">
   <div style="display:flex;align-items:baseline;justify-content:space-between;flex-wrap:wrap;gap:16px;margin-bottom:40px;">
-    <h2 style="font-size:36px;font-weight:600;margin:0;font-family:'IBM Plex Sans',sans-serif;">:solutions</h2>
-    <div style="font-family:'IBM Plex Mono',monospace;font-size:13px;color:oklch(0.55 0.006 250);">{{ T.filterLabel }}</div>
+    <h2 style="font-size:36px;font-weight:600;margin:0;font-family:'OCR-A','JetBrains Mono',monospace;">~/solutions</h2>
+    <div style="font-family:'OCR-A','JetBrains Mono',monospace;font-size:13px;color:oklch(0.55 0.006 250);">{{ T.filterLabel }}</div>
   </div>
 
   <div style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:48px;">
@@ -124,17 +141,17 @@ h1,h2,h3{font-family:'IBM Plex Sans',sans-serif;}
     <sc-for list="{{ filteredProjects }}" as="p" hint-placeholder-count="4">
       <div style="border:1px solid rgba(255,255,255,0.08);border-radius:2px;overflow:hidden;background:oklch(0.185 0.006 250);">
         <div style="height:180px;background:repeating-linear-gradient(135deg, rgba(255,255,255,0.03) 0px, rgba(255,255,255,0.03) 10px, transparent 10px, transparent 20px);display:flex;align-items:center;justify-content:center;border-bottom:1px solid rgba(255,255,255,0.08);">
-          <span style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:oklch(0.5 0.006 250);">// {{ p.placeholder }}</span>
+          <span style="font-family:'OCR-A','JetBrains Mono',monospace;font-size:12px;color:oklch(0.5 0.006 250);">// {{ p.placeholder }}</span>
         </div>
         <div style="padding:24px;">
           <h3 style="font-size:20px;font-weight:600;margin:0 0 10px;">{{ p.title }}</h3>
           <p style="font-size:15px;line-height:1.55;color:oklch(0.68 0.006 250);margin:0 0 16px;">{{ p.desc }}</p>
           <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px;">
             <sc-for list="{{ p.tagLabels }}" as="t" hint-placeholder-count="3">
-              <span style="font-family:'IBM Plex Mono',monospace;font-size:12px;padding:3px 8px;background:rgba(255,255,255,0.05);color:oklch(0.6 0.006 250);border-radius:2px;">{{ t }}</span>
+              <span style="font-family:'OCR-A','JetBrains Mono',monospace;font-size:12px;padding:3px 8px;background:rgba(255,255,255,0.05);color:oklch(0.6 0.006 250);border-radius:2px;">{{ t }}</span>
             </sc-for>
           </div>
-          <div style="display:flex;gap:18px;font-family:'IBM Plex Mono',monospace;font-size:13px;align-items:center;">
+          <div style="display:flex;gap:18px;font-family:'OCR-A','JetBrains Mono',monospace;font-size:13px;align-items:center;">
             <sc-if value="{{ p.github }}" hint-placeholder-val="{{ true }}">
               <a href="{{ p.github }}">GitHub ↗</a>
             </sc-if>
@@ -164,7 +181,7 @@ h1,h2,h3{font-family:'IBM Plex Sans',sans-serif;}
 <sc-if value="{{ isBadania }}" hint-placeholder-val="{{ false }}">
 <section id="research" style="background:oklch(0.20 0.006 250);padding:120px 48px;">
   <div style="max-width:1160px;margin:0 auto;">
-    <h2 style="font-size:36px;font-weight:600;margin:0 0 24px;font-family:'IBM Plex Sans',sans-serif;">:{{ T.navBadaniaSlug }}</h2>
+    <h2 style="font-size:36px;font-weight:600;margin:0 0 24px;font-family:'OCR-A','JetBrains Mono',monospace;">~/{{ T.navBadaniaSlug }}</h2>
     <p style="font-size:17px;line-height:1.65;color:oklch(0.7 0.006 250);max-width:720px;margin:0 0 56px;">{{ T.researchStatement }}</p>
 
     <div style="position:relative;height:460px;margin-bottom:64px;border:1px solid rgba(255,255,255,0.06);border-radius:2px;background:#0b0c1a;overflow:hidden;">
@@ -172,8 +189,8 @@ h1,h2,h3{font-family:'IBM Plex Sans',sans-serif;}
         <circle cx="300" cy="230" r="220" fill="{{ accent.dim }}" stroke="{{ accent.solid }}" stroke-width="1.5" opacity="0.9"></circle>
         <circle cx="500" cy="230" r="220" fill="rgba(255,255,255,0.05)" stroke="rgba(255,255,255,0.3)" stroke-width="1.5" opacity="0.9"></circle>
       </svg>
-      <div style="position:absolute;left:14%;top:8%;font-family:'IBM Plex Mono',monospace;font-size:14px;color:{{ accent.text }};font-weight:600;">{{ T.gaLabel }}</div>
-      <div style="position:absolute;left:68%;top:8%;font-family:'IBM Plex Mono',monospace;font-size:14px;color:oklch(0.85 0.004 250);font-weight:600;">NAS</div>
+      <div style="position:absolute;left:14%;top:8%;font-family:'OCR-A','JetBrains Mono',monospace;font-size:14px;color:{{ accent.text }};font-weight:600;">{{ T.gaLabel }}</div>
+      <div style="position:absolute;left:68%;top:8%;font-family:'OCR-A','JetBrains Mono',monospace;font-size:14px;color:oklch(0.85 0.004 250);font-weight:600;">NAS</div>
       <sc-for list="{{ vennNodes }}" as="n" hint-placeholder-count="9">
         <button onClick="{{ n.onClick }}" style="{{ n.style }}">{{ n.label }}</button>
       </sc-for>
@@ -181,22 +198,22 @@ h1,h2,h3{font-family:'IBM Plex Sans',sans-serif;}
 
     <div style="display:grid;grid-template-columns:1.1fr 1fr;gap:48px;margin-bottom:64px;">
       <div>
-        <div style="font-family:'IBM Plex Mono',monospace;font-size:13px;color:{{ accent.text }};letter-spacing:0.06em;margin-bottom:16px;display:flex;align-items:center;gap:8px;">
+        <div style="font-family:'OCR-A','JetBrains Mono',monospace;font-size:13px;color:{{ accent.text }};letter-spacing:0.06em;margin-bottom:16px;display:flex;align-items:center;gap:8px;">
           <span style="width:7px;height:7px;border-radius:50%;background:{{ accent.solid }};display:inline-block;"></span>
           {{ T.currentDirTitle }}
         </div>
         <p style="font-size:15px;line-height:1.6;color:oklch(0.68 0.006 250);margin:0;">{{ T.currentDirBody }}</p>
       </div>
       <div>
-        <div style="font-family:'IBM Plex Mono',monospace;font-size:13px;color:oklch(0.55 0.006 250);letter-spacing:0.06em;margin-bottom:16px;">{{ T.pubTitle }}</div>
+        <div style="font-family:'OCR-A','JetBrains Mono',monospace;font-size:13px;color:oklch(0.55 0.006 250);letter-spacing:0.06em;margin-bottom:16px;">{{ T.pubTitle }}</div>
         <div style="border:1px solid rgba(255,255,255,0.08);border-radius:2px;padding:16px;margin-bottom:20px;">
           <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px;">
-            <span style="font-family:'IBM Plex Mono',monospace;font-size:11px;padding:2px 8px;background:rgba(255,255,255,0.06);color:oklch(0.65 0.006 250);border-radius:2px;">{{ T.inProgress }}</span>
+            <span style="font-family:'OCR-A','JetBrains Mono',monospace;font-size:11px;padding:2px 8px;background:rgba(255,255,255,0.06);color:oklch(0.65 0.006 250);border-radius:2px;">{{ T.inProgress }}</span>
           </div>
           <p style="font-size:14px;line-height:1.5;color:oklch(0.75 0.006 250);margin:0 0 8px;">{{ T.pubBody }}</p>
-          <a href="https://github.com/jedrzejpolaczek/p3net_gecco2027" style="font-family:'IBM Plex Mono',monospace;font-size:13px;">{{ T.repoLabel }}</a>
+          <a href="https://github.com/jedrzejpolaczek/p3net_gecco2027" style="font-family:'OCR-A','JetBrains Mono',monospace;font-size:13px;">{{ T.repoLabel }}</a>
         </div>
-        <div style="display:flex;gap:18px;font-family:'IBM Plex Mono',monospace;font-size:13px;">
+        <div style="display:flex;gap:18px;font-family:'OCR-A','JetBrains Mono',monospace;font-size:13px;">
           <a href="https://scholar.google.com/scholar?hl=pl&as_sdt=0%2C5&q=J%C4%99drzej+Polaczek&btnG=">Google Scholar ↗</a>
           <a href="#">ORCID ↗</a>
         </div>
@@ -204,9 +221,9 @@ h1,h2,h3{font-family:'IBM Plex Sans',sans-serif;}
     </div>
 
     <div style="border:1px solid rgba(255,255,255,0.08);border-radius:2px;padding:40px;background:oklch(0.16 0.006 250);">
-      <div style="font-family:'IBM Plex Mono',monospace;font-size:13px;color:oklch(0.55 0.006 250);letter-spacing:0.06em;margin-bottom:8px;">{{ T.exhibitsTitle }}</div>
+      <div style="font-family:'OCR-A','JetBrains Mono',monospace;font-size:13px;color:oklch(0.55 0.006 250);letter-spacing:0.06em;margin-bottom:8px;">{{ T.exhibitsTitle }}</div>
       <h3 style="font-size:24px;font-weight:600;margin:0 0 8px;">{{ activeExhibitTitle }}</h3>
-      <p style="font-family:'IBM Plex Mono',monospace;font-size:13px;color:{{ accent.text }};margin:0 0 10px;"><strong>{{ T.problemLabel }}</strong> {{ activeExhibitProblem }}</p>
+      <p style="font-family:'OCR-A','JetBrains Mono',monospace;font-size:13px;color:{{ accent.text }};margin:0 0 10px;"><strong>{{ T.problemLabel }}</strong> {{ activeExhibitProblem }}</p>
       <p style="font-size:14px;line-height:1.6;color:oklch(0.62 0.006 250);max-width:640px;margin:0 0 24px;">{{ activeExhibitCaption }}</p>
 
       <div ref="{{ railRef }}" style="display:flex;gap:10px;overflow-x:auto;padding-bottom:14px;margin-bottom:32px;scroll-behavior:smooth;">
@@ -223,14 +240,14 @@ h1,h2,h3{font-family:'IBM Plex Sans',sans-serif;}
             </sc-for>
           </div>
           <div style="flex:1;min-width:220px;">
-            <div style="font-family:'IBM Plex Mono',monospace;font-size:14px;color:oklch(0.85 0.004 250);margin-bottom:8px;min-height:20px;" aria-live="polite">{{ status }}</div>
-            <div style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:oklch(0.5 0.006 250);margin-bottom:24px;">{{ T.genLabel }} {{ stepIndex }} / {{ totalSteps }}</div>
+            <div style="font-family:'OCR-A','JetBrains Mono',monospace;font-size:14px;color:oklch(0.85 0.004 250);margin-bottom:8px;min-height:20px;" aria-live="polite">{{ status }}</div>
+            <div style="font-family:'OCR-A','JetBrains Mono',monospace;font-size:12px;color:oklch(0.5 0.006 250);margin-bottom:24px;">{{ T.genLabel }} {{ stepIndex }} / {{ totalSteps }}</div>
             <div style="display:flex;gap:10px;margin-bottom:24px;">
               <button onClick="{{ onStart }}" style="padding:12px 20px;background:{{ accent.solid }};color:#12160f;font-weight:600;border:none;border-radius:2px;font-size:14px;cursor:pointer;min-height:44px;">{{ startLabel }}</button>
               <button onClick="{{ onStep }}" style="padding:12px 20px;background:transparent;color:oklch(0.9 0.004 250);border:1px solid rgba(255,255,255,0.15);border-radius:2px;font-size:14px;cursor:pointer;min-height:44px;">{{ T.btnStep }}</button>
               <button onClick="{{ onReset }}" style="padding:12px 20px;background:transparent;color:oklch(0.6 0.006 250);border:1px solid rgba(255,255,255,0.1);border-radius:2px;font-size:14px;cursor:pointer;min-height:44px;">{{ T.btnReset }}</button>
             </div>
-            <a href="https://github.com/jedrzejpolaczek/aviarium.pavo" style="font-family:'IBM Plex Mono',monospace;font-size:13px;">{{ T.viewSource }}</a>
+            <a href="https://github.com/jedrzejpolaczek/aviarium.pavo" style="font-family:'OCR-A','JetBrains Mono',monospace;font-size:13px;">{{ T.viewSource }}</a>
           </div>
         </div>
       </sc-if>
@@ -244,10 +261,10 @@ h1,h2,h3{font-family:'IBM Plex Sans',sans-serif;}
                   <div style="{{ g.style }}"></div>
                 </sc-for>
               </div>
-              <div style="font-family:'IBM Plex Mono',monospace;font-size:10px;color:oklch(0.55 0.006 250);">{{ pyramidGoalLabel }}</div>
+              <div style="font-family:'OCR-A','JetBrains Mono',monospace;font-size:10px;color:oklch(0.55 0.006 250);">{{ pyramidGoalLabel }}</div>
             </div>
             <sc-for list="{{ pyramidRows }}" as="row" hint-placeholder-count="4">
-              <div style="display:flex;gap:8px;">
+              <div style="display:flex;gap:8px;flex-wrap:wrap;justify-content:center;max-width:340px;">
                 <sc-for list="{{ row }}" as="tile" hint-placeholder-count="8">
                   <div style="{{ tile.wrapStyle }}">
                     <div style="{{ tile.bitsGridStyle }}">
@@ -262,14 +279,14 @@ h1,h2,h3{font-family:'IBM Plex Sans',sans-serif;}
             </sc-for>
           </div>
           <div style="flex:1;min-width:220px;">
-            <div style="font-family:'IBM Plex Mono',monospace;font-size:14px;color:oklch(0.85 0.004 250);margin-bottom:8px;min-height:20px;" aria-live="polite">{{ searchStatus }}</div>
-            <div style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:oklch(0.5 0.006 250);margin-bottom:24px;">{{ T.stepLabel }} {{ searchStepIndex }} / {{ searchTotal }}</div>
+            <div style="font-family:'OCR-A','JetBrains Mono',monospace;font-size:14px;color:oklch(0.85 0.004 250);margin-bottom:8px;min-height:20px;" aria-live="polite">{{ searchStatus }}</div>
+            <div style="font-family:'OCR-A','JetBrains Mono',monospace;font-size:12px;color:oklch(0.5 0.006 250);margin-bottom:24px;">{{ T.stepLabel }} {{ searchStepIndex }} / {{ searchTotal }}</div>
             <div style="display:flex;gap:10px;margin-bottom:24px;">
               <button onClick="{{ onSearchStart }}" style="padding:12px 20px;background:{{ accent.solid }};color:#12160f;font-weight:600;border:none;border-radius:2px;font-size:14px;cursor:pointer;min-height:44px;">{{ searchStartLabel }}</button>
               <button onClick="{{ onSearchStep }}" style="padding:12px 20px;background:transparent;color:oklch(0.9 0.004 250);border:1px solid rgba(255,255,255,0.15);border-radius:2px;font-size:14px;cursor:pointer;min-height:44px;">{{ T.btnStep }}</button>
               <button onClick="{{ onSearchReset }}" style="padding:12px 20px;background:transparent;color:oklch(0.6 0.006 250);border:1px solid rgba(255,255,255,0.1);border-radius:2px;font-size:14px;cursor:pointer;min-height:44px;">{{ T.btnReset }}</button>
             </div>
-            <a href="{{ activeExhibitHref }}" style="font-family:'IBM Plex Mono',monospace;font-size:13px;">{{ T.viewGuide }}</a>
+            <a href="{{ activeExhibitHref }}" style="font-family:'OCR-A','JetBrains Mono',monospace;font-size:13px;">{{ T.viewGuide }}</a>
           </div>
         </div>
       </sc-if>
@@ -285,14 +302,14 @@ h1,h2,h3{font-family:'IBM Plex Sans',sans-serif;}
             </sc-for>
           </div>
           <div style="flex:1;min-width:220px;">
-            <div style="font-family:'IBM Plex Mono',monospace;font-size:14px;color:oklch(0.85 0.004 250);margin-bottom:8px;min-height:20px;" aria-live="polite">{{ searchStatus }}</div>
-            <div style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:oklch(0.5 0.006 250);margin-bottom:24px;">{{ T.stepLabel }} {{ searchStepIndex }} / {{ searchTotal }}</div>
+            <div style="font-family:'OCR-A','JetBrains Mono',monospace;font-size:14px;color:oklch(0.85 0.004 250);margin-bottom:8px;min-height:20px;" aria-live="polite">{{ searchStatus }}</div>
+            <div style="font-family:'OCR-A','JetBrains Mono',monospace;font-size:12px;color:oklch(0.5 0.006 250);margin-bottom:24px;">{{ T.stepLabel }} {{ searchStepIndex }} / {{ searchTotal }}</div>
             <div style="display:flex;gap:10px;margin-bottom:24px;">
               <button onClick="{{ onSearchStart }}" style="padding:12px 20px;background:{{ accent.solid }};color:#12160f;font-weight:600;border:none;border-radius:2px;font-size:14px;cursor:pointer;min-height:44px;">{{ searchStartLabel }}</button>
               <button onClick="{{ onSearchStep }}" style="padding:12px 20px;background:transparent;color:oklch(0.9 0.004 250);border:1px solid rgba(255,255,255,0.15);border-radius:2px;font-size:14px;cursor:pointer;min-height:44px;">{{ T.btnStep }}</button>
               <button onClick="{{ onSearchReset }}" style="padding:12px 20px;background:transparent;color:oklch(0.6 0.006 250);border:1px solid rgba(255,255,255,0.1);border-radius:2px;font-size:14px;cursor:pointer;min-height:44px;">{{ T.btnReset }}</button>
             </div>
-            <a href="{{ activeExhibitHref }}" style="font-family:'IBM Plex Mono',monospace;font-size:13px;">{{ T.viewGuide }}</a>
+            <a href="{{ activeExhibitHref }}" style="font-family:'OCR-A','JetBrains Mono',monospace;font-size:13px;">{{ T.viewGuide }}</a>
           </div>
         </div>
       </sc-if>
@@ -306,14 +323,14 @@ h1,h2,h3{font-family:'IBM Plex Sans',sans-serif;}
             </sc-for>
           </div>
           <div style="flex:1;min-width:220px;">
-            <div style="font-family:'IBM Plex Mono',monospace;font-size:14px;color:oklch(0.85 0.004 250);margin-bottom:8px;min-height:20px;" aria-live="polite">{{ searchStatus }}</div>
-            <div style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:oklch(0.5 0.006 250);margin-bottom:24px;">{{ T.stepLabel }} {{ searchStepIndex }} / {{ searchTotal }}</div>
+            <div style="font-family:'OCR-A','JetBrains Mono',monospace;font-size:14px;color:oklch(0.85 0.004 250);margin-bottom:8px;min-height:20px;" aria-live="polite">{{ searchStatus }}</div>
+            <div style="font-family:'OCR-A','JetBrains Mono',monospace;font-size:12px;color:oklch(0.5 0.006 250);margin-bottom:24px;">{{ T.stepLabel }} {{ searchStepIndex }} / {{ searchTotal }}</div>
             <div style="display:flex;gap:10px;margin-bottom:24px;">
               <button onClick="{{ onSearchStart }}" style="padding:12px 20px;background:{{ accent.solid }};color:#12160f;font-weight:600;border:none;border-radius:2px;font-size:14px;cursor:pointer;min-height:44px;">{{ searchStartLabel }}</button>
               <button onClick="{{ onSearchStep }}" style="padding:12px 20px;background:transparent;color:oklch(0.9 0.004 250);border:1px solid rgba(255,255,255,0.15);border-radius:2px;font-size:14px;cursor:pointer;min-height:44px;">{{ T.btnStep }}</button>
               <button onClick="{{ onSearchReset }}" style="padding:12px 20px;background:transparent;color:oklch(0.6 0.006 250);border:1px solid rgba(255,255,255,0.1);border-radius:2px;font-size:14px;cursor:pointer;min-height:44px;">{{ T.btnReset }}</button>
             </div>
-            <a href="{{ activeExhibitHref }}" style="font-family:'IBM Plex Mono',monospace;font-size:13px;">{{ T.viewGuide }}</a>
+            <a href="{{ activeExhibitHref }}" style="font-family:'OCR-A','JetBrains Mono',monospace;font-size:13px;">{{ T.viewGuide }}</a>
           </div>
         </div>
       </sc-if>
@@ -321,7 +338,7 @@ h1,h2,h3{font-family:'IBM Plex Sans',sans-serif;}
       <sc-if value="{{ isBracket }}" hint-placeholder-val="{{ false }}">
         <div style="display:flex;gap:40px;flex-wrap:wrap;align-items:flex-start;">
           <div style="width:340px;flex-shrink:0;">
-            <div style="font-family:'IBM Plex Mono',monospace;font-size:10px;color:oklch(0.5 0.006 250);margin-bottom:4px;">{{ T.bracketLegend }}</div>
+            <div style="font-family:'OCR-A','JetBrains Mono',monospace;font-size:10px;color:oklch(0.5 0.006 250);margin-bottom:4px;">{{ T.bracketLegend }}</div>
             <div style="height:200px;display:flex;gap:6px;border:2px solid {{ accent.border }};padding:10px;box-sizing:border-box;overflow:hidden;">
               <sc-for list="{{ bracketRounds }}" as="round" hint-placeholder-count="5">
                 <div style="flex:1;display:flex;flex-direction:column;justify-content:space-around;gap:3px;height:100%;">
@@ -335,14 +352,14 @@ h1,h2,h3{font-family:'IBM Plex Sans',sans-serif;}
             </div>
           </div>
           <div style="flex:1;min-width:220px;">
-            <div style="font-family:'IBM Plex Mono',monospace;font-size:14px;color:oklch(0.85 0.004 250);margin-bottom:8px;min-height:20px;" aria-live="polite">{{ searchStatus }}</div>
-            <div style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:oklch(0.5 0.006 250);margin-bottom:24px;">{{ T.stepLabel }} {{ searchStepIndex }} / {{ searchTotal }}</div>
+            <div style="font-family:'OCR-A','JetBrains Mono',monospace;font-size:14px;color:oklch(0.85 0.004 250);margin-bottom:8px;min-height:20px;" aria-live="polite">{{ searchStatus }}</div>
+            <div style="font-family:'OCR-A','JetBrains Mono',monospace;font-size:12px;color:oklch(0.5 0.006 250);margin-bottom:24px;">{{ T.stepLabel }} {{ searchStepIndex }} / {{ searchTotal }}</div>
             <div style="display:flex;gap:10px;margin-bottom:24px;">
               <button onClick="{{ onSearchStart }}" style="padding:12px 20px;background:{{ accent.solid }};color:#12160f;font-weight:600;border:none;border-radius:2px;font-size:14px;cursor:pointer;min-height:44px;">{{ searchStartLabel }}</button>
               <button onClick="{{ onSearchStep }}" style="padding:12px 20px;background:transparent;color:oklch(0.9 0.004 250);border:1px solid rgba(255,255,255,0.15);border-radius:2px;font-size:14px;cursor:pointer;min-height:44px;">{{ T.btnStep }}</button>
               <button onClick="{{ onSearchReset }}" style="padding:12px 20px;background:transparent;color:oklch(0.6 0.006 250);border:1px solid rgba(255,255,255,0.1);border-radius:2px;font-size:14px;cursor:pointer;min-height:44px;">{{ T.btnReset }}</button>
             </div>
-            <a href="{{ activeExhibitHref }}" style="font-family:'IBM Plex Mono',monospace;font-size:13px;">{{ T.viewGuide }}</a>
+            <a href="{{ activeExhibitHref }}" style="font-family:'OCR-A','JetBrains Mono',monospace;font-size:13px;">{{ T.viewGuide }}</a>
           </div>
         </div>
       </sc-if>
@@ -350,26 +367,26 @@ h1,h2,h3{font-family:'IBM Plex Sans',sans-serif;}
       <sc-if value="{{ isStaircase }}" hint-placeholder-val="{{ false }}">
         <div style="display:flex;gap:40px;flex-wrap:wrap;align-items:flex-start;">
           <div style="width:340px;flex-shrink:0;display:flex;flex-direction:column;gap:12px;">
-            <div style="font-family:'IBM Plex Mono',monospace;font-size:10px;color:oklch(0.5 0.006 250);">{{ staircaseLegend }}</div>
+            <div style="font-family:'OCR-A','JetBrains Mono',monospace;font-size:10px;color:oklch(0.5 0.006 250);">{{ staircaseLegend }}</div>
             <sc-for list="{{ staircaseRungs }}" as="rg" hint-placeholder-count="4">
               <div>
                 <div style="{{ rg.trackStyle }}">
                   <div style="{{ rg.fillStyle }}">{{ rg.scoreLabel }}</div>
                   <div style="{{ rg.targetMarkerStyle }}"></div>
                 </div>
-                <div style="font-family:'IBM Plex Mono',monospace;font-size:10px;color:oklch(0.5 0.006 250);margin-top:2px;">{{ rg.label }}</div>
+                <div style="font-family:'OCR-A','JetBrains Mono',monospace;font-size:10px;color:oklch(0.5 0.006 250);margin-top:2px;">{{ rg.label }}</div>
               </div>
             </sc-for>
           </div>
           <div style="flex:1;min-width:220px;">
-            <div style="font-family:'IBM Plex Mono',monospace;font-size:14px;color:oklch(0.85 0.004 250);margin-bottom:8px;min-height:20px;" aria-live="polite">{{ searchStatus }}</div>
-            <div style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:oklch(0.5 0.006 250);margin-bottom:24px;">{{ T.stepLabel }} {{ searchStepIndex }} / {{ searchTotal }}</div>
+            <div style="font-family:'OCR-A','JetBrains Mono',monospace;font-size:14px;color:oklch(0.85 0.004 250);margin-bottom:8px;min-height:20px;" aria-live="polite">{{ searchStatus }}</div>
+            <div style="font-family:'OCR-A','JetBrains Mono',monospace;font-size:12px;color:oklch(0.5 0.006 250);margin-bottom:24px;">{{ T.stepLabel }} {{ searchStepIndex }} / {{ searchTotal }}</div>
             <div style="display:flex;gap:10px;margin-bottom:24px;">
               <button onClick="{{ onSearchStart }}" style="padding:12px 20px;background:{{ accent.solid }};color:#12160f;font-weight:600;border:none;border-radius:2px;font-size:14px;cursor:pointer;min-height:44px;">{{ searchStartLabel }}</button>
               <button onClick="{{ onSearchStep }}" style="padding:12px 20px;background:transparent;color:oklch(0.9 0.004 250);border:1px solid rgba(255,255,255,0.15);border-radius:2px;font-size:14px;cursor:pointer;min-height:44px;">{{ T.btnStep }}</button>
               <button onClick="{{ onSearchReset }}" style="padding:12px 20px;background:transparent;color:oklch(0.6 0.006 250);border:1px solid rgba(255,255,255,0.1);border-radius:2px;font-size:14px;cursor:pointer;min-height:44px;">{{ T.btnReset }}</button>
             </div>
-            <a href="{{ activeExhibitHref }}" style="font-family:'IBM Plex Mono',monospace;font-size:13px;">{{ T.viewGuide }}</a>
+            <a href="{{ activeExhibitHref }}" style="font-family:'OCR-A','JetBrains Mono',monospace;font-size:13px;">{{ T.viewGuide }}</a>
           </div>
         </div>
       </sc-if>
@@ -377,26 +394,26 @@ h1,h2,h3{font-family:'IBM Plex Sans',sans-serif;}
       <sc-if value="{{ isNasExhibit }}" hint-placeholder-val="{{ false }}">
         <div style="display:flex;gap:40px;flex-wrap:wrap;align-items:flex-start;">
           <div style="width:340px;flex-shrink:0;">
-            <div style="font-family:'IBM Plex Mono',monospace;font-size:10px;color:oklch(0.5 0.006 250);margin-bottom:6px;">{{ T.archLegend }}</div>
+            <div style="font-family:'OCR-A','JetBrains Mono',monospace;font-size:10px;color:oklch(0.5 0.006 250);margin-bottom:6px;">{{ T.archLegend }}</div>
             <div style="display:flex;align-items:flex-end;gap:8px;height:140px;padding:12px;border:2px solid {{ accent.border }};background:oklch(0.14 0.006 250);">
               <sc-for list="{{ archBlocks }}" as="ab" hint-placeholder-count="6">
                 <div style="{{ ab.style }}"></div>
               </sc-for>
             </div>
-            <div style="display:flex;justify-content:space-between;margin-top:10px;font-family:'IBM Plex Mono',monospace;font-size:12px;color:oklch(0.6 0.006 250);">
+            <div style="display:flex;justify-content:space-between;margin-top:10px;font-family:'OCR-A','JetBrains Mono',monospace;font-size:12px;color:oklch(0.6 0.006 250);">
               <span>{{ T.accuracyLabel }}: {{ archAccuracy }}%</span>
               <span>{{ T.latencyLabel }}: {{ archLatency }}ms</span>
             </div>
           </div>
           <div style="flex:1;min-width:220px;">
-            <div style="font-family:'IBM Plex Mono',monospace;font-size:14px;color:oklch(0.85 0.004 250);margin-bottom:8px;min-height:20px;" aria-live="polite">{{ searchStatus }}</div>
-            <div style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:oklch(0.5 0.006 250);margin-bottom:24px;">{{ T.stepLabel }} {{ searchStepIndex }} / {{ searchTotal }}</div>
+            <div style="font-family:'OCR-A','JetBrains Mono',monospace;font-size:14px;color:oklch(0.85 0.004 250);margin-bottom:8px;min-height:20px;" aria-live="polite">{{ searchStatus }}</div>
+            <div style="font-family:'OCR-A','JetBrains Mono',monospace;font-size:12px;color:oklch(0.5 0.006 250);margin-bottom:24px;">{{ T.stepLabel }} {{ searchStepIndex }} / {{ searchTotal }}</div>
             <div style="display:flex;gap:10px;margin-bottom:24px;">
               <button onClick="{{ onSearchStart }}" style="padding:12px 20px;background:{{ accent.solid }};color:#12160f;font-weight:600;border:none;border-radius:2px;font-size:14px;cursor:pointer;min-height:44px;">{{ searchStartLabel }}</button>
               <button onClick="{{ onSearchStep }}" style="padding:12px 20px;background:transparent;color:oklch(0.9 0.004 250);border:1px solid rgba(255,255,255,0.15);border-radius:2px;font-size:14px;cursor:pointer;min-height:44px;">{{ T.btnStep }}</button>
               <button onClick="{{ onSearchReset }}" style="padding:12px 20px;background:transparent;color:oklch(0.6 0.006 250);border:1px solid rgba(255,255,255,0.1);border-radius:2px;font-size:14px;cursor:pointer;min-height:44px;">{{ T.btnReset }}</button>
             </div>
-            <a href="{{ activeExhibitHref }}" style="font-family:'IBM Plex Mono',monospace;font-size:13px;">{{ T.viewGuide }}</a>
+            <a href="{{ activeExhibitHref }}" style="font-family:'OCR-A','JetBrains Mono',monospace;font-size:13px;">{{ T.viewGuide }}</a>
           </div>
         </div>
       </sc-if>
@@ -407,12 +424,12 @@ h1,h2,h3{font-family:'IBM Plex Sans',sans-serif;}
 
 <sc-if value="{{ isKontakt }}" hint-placeholder-val="{{ false }}">
 <section id="contact" style="max-width:1160px;margin:0 auto;padding:120px 48px 100px;">
-  <h2 style="font-size:36px;font-weight:600;margin:0 0 20px;font-family:'IBM Plex Sans',sans-serif;">:{{ T.navKontaktSlug }}</h2>
+  <h2 style="font-size:36px;font-weight:600;margin:0 0 20px;font-family:'OCR-A','JetBrains Mono',monospace;">~/{{ T.navKontaktSlug }}</h2>
   <p style="font-size:17px;line-height:1.6;color:oklch(0.7 0.006 250);max-width:600px;margin:0 0 48px;">{{ T.kontaktBody }}</p>
 
   <div style="display:grid;grid-template-columns:1fr 1fr;gap:48px;">
     <div>
-      <div style="font-family:'IBM Plex Mono',monospace;font-size:14px;line-height:2;">
+      <div style="font-family:'OCR-A','JetBrains Mono',monospace;font-size:14px;line-height:2;">
         <div><a href="mailto:jedrzej.polaczek@gmail.com">jedrzej.polaczek@gmail.com</a></div>
         <div><a href="https://github.com/jedrzejpolaczek" target="_blank">GitHub ↗</a></div>
         <div><a href="https://www.linkedin.com/in/jedrzej-polaczek/" target="_blank">LinkedIn ↗</a></div>
@@ -444,7 +461,7 @@ h1,h2,h3{font-family:'IBM Plex Sans',sans-serif;}
 </section>
 </sc-if>
 
-<footer style="border-top:1px solid rgba(255,255,255,0.06);padding:32px 48px;display:flex;justify-content:space-between;font-family:'IBM Plex Mono',monospace;font-size:12px;color:oklch(0.45 0.006 250);">
+<footer style="border-top:1px solid rgba(255,255,255,0.06);padding:32px 48px;display:flex;justify-content:space-between;font-family:'OCR-A','JetBrains Mono',monospace;font-size:12px;color:oklch(0.45 0.006 250);">
   <div>© 2026 Jędrzej Polaczek</div>
   <div>{{ footerNote }}</div>
 </footer>
@@ -452,7 +469,7 @@ h1,h2,h3{font-family:'IBM Plex Sans',sans-serif;}
 </div>
 
 </x-dc>
-<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1280,&quot;height&quot;:900},&quot;accentColor&quot;:{&quot;editor&quot;:&quot;color&quot;,&quot;default&quot;:&quot;#8FA876&quot;,&quot;options&quot;:[&quot;#8FA876&quot;,&quot;#7FA88F&quot;,&quot;#8BAA6E&quot;,&quot;#6FAE96&quot;],&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Wygląd&quot;},&quot;sudokuSpeedMs&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:70,&quot;min&quot;:30,&quot;max&quot;:200,&quot;step&quot;:10,&quot;unit&quot;:&quot;ms&quot;,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Sudoku&quot;},&quot;playfulMode&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Ton&quot;}}">
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1280,&quot;height&quot;:900},&quot;accentColor&quot;:{&quot;editor&quot;:&quot;color&quot;,&quot;default&quot;:&quot;#5aff8f&quot;,&quot;options&quot;:[&quot;#5aff8f&quot;,&quot;#7FA88F&quot;,&quot;#8BAA6E&quot;,&quot;#6FAE96&quot;],&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Wygląd&quot;},&quot;sudokuSpeedMs&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:70,&quot;min&quot;:30,&quot;max&quot;:200,&quot;step&quot;:10,&quot;unit&quot;:&quot;ms&quot;,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Sudoku&quot;},&quot;playfulMode&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Ton&quot;}}">
 function clamp(v){ return Math.max(0, Math.min(1, v)); }
 
 const PUZZLE = [
@@ -468,12 +485,12 @@ const PUZZLE = [
 ];
 
 const PROJECTS = [
-  { id:3, title:'Corvus Corone — benchmarking algorytmów HPO', title_en:'Corvus Corone — HPO algorithm benchmarking', desc:'Biblioteka i AI-wspomagany pilot do rygorystycznego, powtarzalnego testowania algorytmów optymalizacji hiperparametrów — z pre-rejestracją hipotez i kontrolą ziarna losowości, zgodnie z metodyką naukową.', desc_en:'A library and AI-assisted pilot for rigorous, repeatable testing of hyperparameter optimization algorithms — with hypothesis pre-registration and seed control, following proper scientific methodology.', tags:['research','dziala'], placeholder:'screenshot: corvus-corone', github:'https://github.com/jedrzejpolaczek/aviarium.corvidae.corvus_corone', demo:null },
-  { id:1, title:'aviarium.columbarius — predyktor cen kart MtG', title_en:'aviarium.columbarius — MtG card price predictor', desc:'Silnik predykcji cen kart Magic: The Gathering — pipeline Bronze/Silver/Gold na danych ze Scryfall i MTGJson, model LightGBM, API i UI do sprawdzania wycen i niedowartościowanych kart.', desc_en:'A price prediction engine for Magic: The Gathering cards — a Bronze/Silver/Gold pipeline over Scryfall and MTGJson data, a LightGBM model, and an API/UI for checking valuations and undervalued cards.', tags:['ml','dziala','hobby'], placeholder:'screenshot: aviarium.columbarius', github:'https://github.com/jedrzejpolaczek/aviarium.columbarius', demo:null },
-  { id:2, title:'aviarium.garrulus — RAG dla reguł MtG', title_en:'aviarium.garrulus — RAG for MtG rules', desc:'System pytań i odpowiedzi po zasadach Magic: The Gathering z cytowanym źródłem i progiem pewności — odpowiada "nie wiem", zamiast zgadywać. Wczesna faza: korpus i retriever w budowie.', desc_en:'A Q&A system over Magic: The Gathering rules with cited sources and a confidence threshold — it answers "I don\'t know" instead of guessing. Early stage: corpus and retriever under construction.', tags:['ml','eksperyment','hobby'], placeholder:'screenshot: aviarium.garrulus', github:'https://github.com/jedrzejpolaczek/aviarium.garrulus', demo:null },
-  { id:5, title:'wednesday_frogs', title_en:'wednesday_frogs', desc:'GAN (DCGAN, docelowo PGGAN) trenowany na CIFAR10, który co środę generuje nową żabę i wysyła ją mailem albo przez bota na Discordzie — bo świat potrzebuje rytuału bez powodu.', desc_en:'A GAN (DCGAN, eventually PGGAN) trained on CIFAR10 that generates a new frog every Wednesday and sends it by email or a Discord bot — because the world needs a ritual for no reason.', tags:['ml','hobby','dziala'], placeholder:'screenshot: wednesday_frogs', github:'https://github.com/jedrzejpolaczek/wednesday_frogs', demo:null },
-  { id:4, title:'Herbatnik', title_en:'Herbatnik', desc:'Inteligentny asystent głosowy dla seniorów, który słucha, zapamiętuje i pomaga. Dzięki rozpoznawaniu mowy i RAG zapisuje ważne informacje z rozmów — leki, nawyki, upodobania — i pozwala opiekunom błyskawicznie sprawdzić, co dzieje się z ich bliskimi. Pełnię rolę architekta (podwykonawca: havenocode).', desc_en:'A smart voice assistant for seniors that listens, remembers, and helps. Using speech recognition and RAG it captures key information from conversations — medication, habits, preferences — letting caregivers instantly check on their loved ones. I act as architect (subcontractor: havenocode).', tags:['dziala','komercyjne','startup'], placeholder:'screenshot: herbatnik', github:null, demo:null, linkedin:'https://www.linkedin.com/company/109125981', website:'https://herbatnik.com.pl/', website2:'https://fundacjaherbatnik.pl/' },
-  { id:6, title:'PetHealth App', title_en:'PetHealth App', desc:'Aplikacja zdrowia zwierząt dla właścicieli, zasilana automatycznie danymi z systemu klinicznego (PMS) — pełna historia leczenia bez ręcznego wprowadzania danych. W zespole (backend/dane) budujemy MVP pod partnerstwo z liderem rynku weterynaryjnego w Polsce.', desc_en:'A pet health app for owners, automatically fed by the clinic\'s practice management system — a full treatment history with zero manual entry. On the team (backend/data) building an MVP for a partnership with Poland\'s leading veterinary market player.', tags:['komercyjne','startup'], placeholder:'screenshot: pethealth-app', github:null, demo:null },
+  { id:3, title:'Corvus Corone - benchmarking algorytmów HPO', title_en:'Corvus Corone - HPO algorithm benchmarking', desc:'Biblioteka i AI-wspomagany pilot do rygorystycznego, powtarzalnego testowania algorytmów optymalizacji hiperparametrów - z pre-rejestracją hipotez i kontrolą ziarna losowości, zgodnie z metodyką naukową.', desc_en:'A library and AI-assisted pilot for rigorous, repeatable testing of hyperparameter optimization algorithms - with hypothesis pre-registration and seed control, following proper scientific methodology.', tags:['research','dziala'], placeholder:'screenshot: corvus-corone', github:'https://github.com/jedrzejpolaczek/aviarium.corvidae.corvus_corone', demo:null },
+  { id:1, title:'aviarium.columbarius - predyktor cen kart MtG', title_en:'aviarium.columbarius - MtG card price predictor', desc:'Silnik predykcji cen kart Magic: The Gathering - pipeline Bronze/Silver/Gold na danych ze Scryfall i MTGJson, model LightGBM, API i UI do sprawdzania wycen i niedowartościowanych kart.', desc_en:'A price prediction engine for Magic: The Gathering cards - a Bronze/Silver/Gold pipeline over Scryfall and MTGJson data, a LightGBM model, and an API/UI for checking valuations and undervalued cards.', tags:['ml','dziala','hobby'], placeholder:'screenshot: aviarium.columbarius', github:'https://github.com/jedrzejpolaczek/aviarium.columbarius', demo:null },
+  { id:2, title:'aviarium.garrulus - RAG dla reguł MtG', title_en:'aviarium.garrulus - RAG for MtG rules', desc:'System pytań i odpowiedzi po zasadach Magic: The Gathering z cytowanym źródłem i progiem pewności - odpowiada "nie wiem", zamiast zgadywać. Wczesna faza: korpus i retriever w budowie.', desc_en:'A Q&A system over Magic: The Gathering rules with cited sources and a confidence threshold - it answers "I don\'t know" instead of guessing. Early stage: corpus and retriever under construction.', tags:['ml','eksperyment','hobby'], placeholder:'screenshot: aviarium.garrulus', github:'https://github.com/jedrzejpolaczek/aviarium.garrulus', demo:null },
+  { id:5, title:'wednesday_frogs', title_en:'wednesday_frogs', desc:'GAN (DCGAN, docelowo PGGAN) trenowany na CIFAR10, który co środę generuje nową żabę i wysyła ją mailem albo przez bota na Discordzie - bo świat potrzebuje rytuału bez powodu.', desc_en:'A GAN (DCGAN, eventually PGGAN) trained on CIFAR10 that generates a new frog every Wednesday and sends it by email or a Discord bot - because the world needs a ritual for no reason.', tags:['ml','hobby','dziala'], placeholder:'screenshot: wednesday_frogs', github:'https://github.com/jedrzejpolaczek/wednesday_frogs', demo:null },
+  { id:4, title:'Herbatnik', title_en:'Herbatnik', desc:'Inteligentny asystent głosowy dla seniorów, który słucha, zapamiętuje i pomaga. Dzięki rozpoznawaniu mowy i RAG zapisuje ważne informacje z rozmów - leki, nawyki, upodobania - i pozwala opiekunom błyskawicznie sprawdzić, co dzieje się z ich bliskimi. Pełnię rolę architekta (podwykonawca: havenocode).', desc_en:'A smart voice assistant for seniors that listens, remembers, and helps. Using speech recognition and RAG it captures key information from conversations - medication, habits, preferences - letting caregivers instantly check on their loved ones. I act as architect (subcontractor: havenocode).', tags:['dziala','komercyjne','startup'], placeholder:'screenshot: herbatnik', github:null, demo:null, linkedin:'https://www.linkedin.com/company/109125981', website:'https://herbatnik.com.pl/', website2:'https://fundacjaherbatnik.pl/' },
+  { id:6, title:'PetHealth App', title_en:'PetHealth App', desc:'Aplikacja zdrowia zwierząt dla właścicieli, zasilana automatycznie danymi z systemu klinicznego (PMS) - pełna historia leczenia bez ręcznego wprowadzania danych. W zespole (backend/dane) budujemy MVP pod partnerstwo z liderem rynku weterynaryjnego w Polsce.', desc_en:'A pet health app for owners, automatically fed by the clinic\'s practice management system - a full treatment history with zero manual entry. On the team (backend/data) building an MVP for a partnership with Poland\'s leading veterinary market player.', tags:['komercyjne','startup'], placeholder:'screenshot: pethealth-app', github:null, demo:null },
 ];
 
 const SI = (slug) => `https://cdn.simpleicons.org/${slug}/9CAF6B`;
@@ -505,74 +522,76 @@ const TAG_LABELS = { all:'Wszystkie', ml:'#ml', research:'#research', dziala:'#d
 const TAG_LABELS_EN = { all:'All', ml:'#ml', research:'#research', dziala:'#works', hobby:'#hobby', eksperyment:'#experimental', komercyjne:'#commercial', startup:'#startup' };
 
 const EXHIBITS = [
-  { id:'sudoku', label:'Sudoku (GA)', kind:'sudoku', title:'Algorytm genetyczny rozwiązujący Sudoku 9×9', title_en:'A genetic algorithm solving 9×9 Sudoku', problem:'Wypełnić siatkę 9×9 tak, by każdy wiersz, kolumna i blok 3×3 zawierał cyfry 1-9 bez powtórzeń.', problem_en:'Fill a 9×9 grid so every row, column, and 3×3 block contains digits 1-9 with no repeats.', caption:'Populacja osobników (permutacje cyfr w blokach 3×3) ewoluuje przez selekcję turniejową, krzyżowanie blokowe i mutację — fitness to liczba konfliktów w wierszach i kolumnach.', caption_en:'A population of individuals (digit permutations within 3×3 blocks) evolves through tournament selection, block crossover, and mutation — fitness is the number of conflicts in rows and columns.' },
-  { id:'p3', label:'P3', kind:'iframe', domain:'hpo', visual:'pyramid', href:'./explainers/p3.html', title:'P3 — układanie klocków bitowych', title_en:'P3 — assembling bit-string building blocks', problem:'Znaleźć 8-bitowy ciąg z jak największą liczbą jedynek, składając go z dobrych fragmentów mniejszych ciągów.', problem_en:'Find an 8-bit string with as many 1s as possible, by assembling it from good fragments of smaller strings.', caption:'Klasyczny problem: zbudować jak najlepszy ciąg bitów (same jedynki) łącząc dobre fragmenty z niższych poziomów piramidy — bez ręcznego ustawiania żadnych parametrów.', caption_en:'A classic problem: build the best possible bit string (all 1s) by merging good fragments from lower pyramid levels — with no manual parameter tuning at all.' },
-  { id:'p3net', label:'P3Net', kind:'iframe', domain:'nas', href:'./explainers/p3net.html', title:'P3Net — projektowanie architektury sieci z surogatem', title_en:'P3Net — network architecture design with a surrogate', problem:'Ten sam problem co NSGA-Net (dokładność vs. szybkość sieci), ale kolejni kandydaci są najpierw oceniani przez szybki model zastępczy (surogat), a nie liczeni w całości.', problem_en:'The same problem as NSGA-Net (accuracy vs. network speed), but each candidate is first scored by a fast surrogate model instead of being fully evaluated.', caption:'Wariant P3 zastosowany do projektowania architektur — surogat podpowiada, które architektury warto sprawdzić dokładnie, przyspieszając poszukiwanie kompromisu dokładność/szybkość.', caption_en:'A P3 variant applied to architecture design — the surrogate suggests which architectures are worth checking in full, speeding up the search for an accuracy/speed trade-off.' },
-  { id:'random-search', label:'Random search', kind:'iframe', domain:'hpo', visual:'dartboard', href:'./explainers/random-search.html', title:'Random search — rzuty na chybił trafił', title_en:'Random search — shots in the dark', problem:'Trafić jak najbliżej niewidocznego środka tarczy, rzucając punkty na chybił trafił.', problem_en:'Land as close as possible to a hidden dartboard center, by throwing points at random.', caption:'Punkt odniesienia: każdy "rzut" ląduje niezależnie od poprzednich, bez uczenia się na wynikach.', caption_en:'A baseline: every "throw" lands independently of the previous ones, with no learning from results.' },
-  { id:'tpe', label:'TPE', kind:'iframe', domain:'hpo', visual:'terrain', href:'./explainers/tpe.html', title:'TPE — zwężanie poszukiwań', title_en:'TPE — narrowing the search', problem:'Znaleźć najniższy punkt na terenie, którego mapy nie widać z góry — tylko wysokość w miejscach, gdzie się stanęło.', problem_en:'Find the lowest point on a terrain you can\'t see from above — only the elevation at spots you\'ve already stood on.', caption:'Tree-structured Parzen Estimator modeluje rozkład dobrych i słabych prób, żeby zawężać "gorący obszar" poszukiwań wokół obiecujących miejsc.', caption_en:'The Tree-structured Parzen Estimator models the distribution of good and bad trials, narrowing the "hot zone" of the search around promising spots.' },
-  { id:'sh-emoa', label:'SH-EMOA', kind:'iframe', domain:'hpo', visual:'bracket', href:'./explainers/sh-emoa.html', title:'SH-EMOA — turniej na wyłanianie', title_en:'SH-EMOA — an elimination tournament', problem:'Wyłonić najlepszego z 16 kandydatów bez oceniania każdego dokładnie — tylko porównując parami i odsiewając słabszych.', problem_en:'Pick the best of 16 candidates without fully evaluating every one — just by comparing pairs and cutting the weaker half.', caption:'Successive Halving: co rundę odpada gorsza połowa kandydatów, reszta awansuje do następnej rundy — jak tabela pucharowa.', caption_en:'Successive Halving: each round the weaker half of candidates is cut, the rest advance to the next round — like a knockout bracket.' },
-  { id:'mo-bohb', label:'MO-BOHB', kind:'iframe', domain:'hpo', visual:'staircase', href:'./explainers/mo-bohb.html', title:'MO-BOHB — schody budżetowe', title_en:'MO-BOHB — budget staircase', problem:'Ocenić dużo kandydatów tanio (małym budżetem) i tylko najlepszych sprawdzić dokładnie (pełnym budżetem), by nie przepłacać za oceny.', problem_en:'Cheaply screen many candidates (small budget) and only fully evaluate the best ones (full budget), to avoid overpaying for evaluations.', caption:'Łączy odsiewanie słabych prób przy małym budżecie (Hyperband) z modelowaniem obiecujących obszarów przy budżecie pełnym.', caption_en:'Combines cutting weak trials at a small budget (Hyperband) with modeling promising regions at full budget.' },
-  { id:'nsga-net', label:'NSGA-Net', kind:'iframe', domain:'nas', href:'./explainers/nsga-net.html', title:'NSGA-Net — projektowanie architektury sieci', title_en:'NSGA-Net — network architecture design', problem:'Zaprojektować sieć neuronową, która jest jednocześnie dokładna i szybka — dwa cele naraz, bez jednej "najlepszej" odpowiedzi.', problem_en:'Design a neural network that is both accurate and fast — two goals at once, with no single "best" answer.', caption:'Szukamy architektur sieci neuronowej na granicy opłacalności: wysoka dokładność przy niskiej latencji. Punkty na czole Pareto to kandydaci, z których żaden nie jest jednoznacznie gorszy od innego.', caption_en:'We search for network architectures on the efficiency frontier: high accuracy at low latency. Points on the Pareto front are candidates none of which is clearly worse than another.' },
-  { id:'nsganetv2', label:'NSGANetV2', kind:'iframe', domain:'nas', href:'./explainers/nsganetv2.html', title:'NSGANetV2 — projektowanie architektury sieci', title_en:'NSGANetV2 — network architecture design', problem:'Ten sam problem co NSGA-Net (dokładność vs. szybkość), ale oceniając od razu wielu kandydatów zamiast jednego na raz.', problem_en:'The same problem as NSGA-Net (accuracy vs. speed), but scoring many candidates at once instead of one at a time.', caption:'Ten sam problem co NSGA-Net (dokładność vs. latencja), ale z szybszą, wstępną oceną wielu kandydatów naraz.', caption_en:'The same problem as NSGA-Net (accuracy vs. latency), but with faster, preliminary scoring of many candidates at once.' },
+  { id:'sudoku', label:'Sudoku (GA)', kind:'sudoku', title:'Algorytm genetyczny rozwiązujący Sudoku 9×9', title_en:'A genetic algorithm solving 9×9 Sudoku', problem:'Wypełnić siatkę 9×9 tak, by każdy wiersz, kolumna i blok 3×3 zawierał cyfry 1-9 bez powtórzeń.', problem_en:'Fill a 9×9 grid so every row, column, and 3×3 block contains digits 1-9 with no repeats.', caption:'Populacja osobników (permutacje cyfr w blokach 3×3) ewoluuje przez selekcję turniejową, krzyżowanie blokowe i mutację - fitness to liczba konfliktów w wierszach i kolumnach.', caption_en:'A population of individuals (digit permutations within 3×3 blocks) evolves through tournament selection, block crossover, and mutation - fitness is the number of conflicts in rows and columns.' },
+  { id:'p3', label:'P3', kind:'iframe', domain:'hpo', visual:'pyramid', href:'./explainers/p3.html', title:'P3 - układanie klocków bitowych', title_en:'P3 - assembling bit-string building blocks', problem:'Znaleźć 8-bitowy ciąg z jak największą liczbą jedynek, składając go z dobrych fragmentów mniejszych ciągów.', problem_en:'Find an 8-bit string with as many 1s as possible, by assembling it from good fragments of smaller strings.', caption:'Klasyczny problem: zbudować jak najlepszy ciąg bitów (same jedynki) łącząc dobre fragmenty z niższych poziomów piramidy - bez ręcznego ustawiania żadnych parametrów.', caption_en:'A classic problem: build the best possible bit string (all 1s) by merging good fragments from lower pyramid levels - with no manual parameter tuning at all.' },
+  { id:'p3net', label:'P3Net', kind:'iframe', domain:'nas', href:'./explainers/p3net.html', title:'P3Net - projektowanie architektury sieci z surogatem', title_en:'P3Net - network architecture design with a surrogate', problem:'Ten sam problem co NSGA-Net (dokładność vs. szybkość sieci), ale kolejni kandydaci są najpierw oceniani przez szybki model zastępczy (surogat), a nie liczeni w całości.', problem_en:'The same problem as NSGA-Net (accuracy vs. network speed), but each candidate is first scored by a fast surrogate model instead of being fully evaluated.', caption:'Wariant P3 zastosowany do projektowania architektur - surogat podpowiada, które architektury warto sprawdzić dokładnie, przyspieszając poszukiwanie kompromisu dokładność/szybkość.', caption_en:'A P3 variant applied to architecture design - the surrogate suggests which architectures are worth checking in full, speeding up the search for an accuracy/speed trade-off.' },
+  { id:'random-search', label:'Random search', kind:'iframe', domain:'hpo', visual:'dartboard', href:'./explainers/random-search.html', title:'Random search - rzuty na chybił trafił', title_en:'Random search - shots in the dark', problem:'Trafić jak najbliżej niewidocznego środka tarczy, rzucając punkty na chybił trafił.', problem_en:'Land as close as possible to a hidden dartboard center, by throwing points at random.', caption:'Punkt odniesienia: każdy "rzut" ląduje niezależnie od poprzednich, bez uczenia się na wynikach.', caption_en:'A baseline: every "throw" lands independently of the previous ones, with no learning from results.' },
+  { id:'tpe', label:'TPE', kind:'iframe', domain:'hpo', visual:'terrain', href:'./explainers/tpe.html', title:'TPE - zwężanie poszukiwań', title_en:'TPE - narrowing the search', problem:'Znaleźć najniższy punkt na terenie, którego mapy nie widać z góry - tylko wysokość w miejscach, gdzie się stanęło.', problem_en:'Find the lowest point on a terrain you can\'t see from above - only the elevation at spots you\'ve already stood on.', caption:'Tree-structured Parzen Estimator modeluje rozkład dobrych i słabych prób, żeby zawężać "gorący obszar" poszukiwań wokół obiecujących miejsc.', caption_en:'The Tree-structured Parzen Estimator models the distribution of good and bad trials, narrowing the "hot zone" of the search around promising spots.' },
+  { id:'sh-emoa', label:'SH-EMOA', kind:'iframe', domain:'hpo', visual:'bracket', href:'./explainers/sh-emoa.html', title:'SH-EMOA - turniej na wyłanianie', title_en:'SH-EMOA - an elimination tournament', problem:'Wyłonić najlepszego z 16 kandydatów bez oceniania każdego dokładnie - tylko porównując parami i odsiewając słabszych.', problem_en:'Pick the best of 16 candidates without fully evaluating every one - just by comparing pairs and cutting the weaker half.', caption:'Successive Halving: co rundę odpada gorsza połowa kandydatów, reszta awansuje do następnej rundy - jak tabela pucharowa.', caption_en:'Successive Halving: each round the weaker half of candidates is cut, the rest advance to the next round - like a knockout bracket.' },
+  { id:'mo-bohb', label:'MO-BOHB', kind:'iframe', domain:'hpo', visual:'staircase', href:'./explainers/mo-bohb.html', title:'MO-BOHB - schody budżetowe', title_en:'MO-BOHB - budget staircase', problem:'Ocenić dużo kandydatów tanio (małym budżetem) i tylko najlepszych sprawdzić dokładnie (pełnym budżetem), by nie przepłacać za oceny.', problem_en:'Cheaply screen many candidates (small budget) and only fully evaluate the best ones (full budget), to avoid overpaying for evaluations.', caption:'Łączy odsiewanie słabych prób przy małym budżecie (Hyperband) z modelowaniem obiecujących obszarów przy budżecie pełnym.', caption_en:'Combines cutting weak trials at a small budget (Hyperband) with modeling promising regions at full budget.' },
+  { id:'nsga-net', label:'NSGA-Net', kind:'iframe', domain:'nas', href:'./explainers/nsga-net.html', title:'NSGA-Net - projektowanie architektury sieci', title_en:'NSGA-Net - network architecture design', problem:'Zaprojektować sieć neuronową, która jest jednocześnie dokładna i szybka - dwa cele naraz, bez jednej "najlepszej" odpowiedzi.', problem_en:'Design a neural network that is both accurate and fast - two goals at once, with no single "best" answer.', caption:'Szukamy architektur sieci neuronowej na granicy opłacalności: wysoka dokładność przy niskiej latencji. Punkty na czole Pareto to kandydaci, z których żaden nie jest jednoznacznie gorszy od innego.', caption_en:'We search for network architectures on the efficiency frontier: high accuracy at low latency. Points on the Pareto front are candidates none of which is clearly worse than another.' },
+  { id:'nsganetv2', label:'NSGANetV2', kind:'iframe', domain:'nas', href:'./explainers/nsganetv2.html', title:'NSGANetV2 - projektowanie architektury sieci', title_en:'NSGANetV2 - network architecture design', problem:'Ten sam problem co NSGA-Net (dokładność vs. szybkość), ale oceniając od razu wielu kandydatów zamiast jednego na raz.', problem_en:'The same problem as NSGA-Net (accuracy vs. speed), but scoring many candidates at once instead of one at a time.', caption:'Ten sam problem co NSGA-Net (dokładność vs. latencja), ale z szybszą, wstępną oceną wielu kandydatów naraz.', caption_en:'The same problem as NSGA-Net (accuracy vs. latency), but with faster, preliminary scoring of many candidates at once.' },
 ];
 
 const UI = {
   pl: {
     navHome:'strona główna', navBadaniaSlug:'badania', navKontaktSlug:'kontakt',
+    heroName:'Cześć, jestem Jędrzej Polaczek',
     heroCmd:'$ specjalizacja --target=neural-architecture-search,algorytmy-ewolucyjne',
     heroCtaProjects:'Zobacz projekty', heroCtaContact:'Napisz',
     featuredTitle:'OSTATNIE PROJEKTY', featuredAll:'wszystkie projekty →',
     aboutTitle:'O MNIE',
-    aboutP1:'Buduję i architekturuję systemy ML/AI na poważnie — a po godzinach rozkładam na czynniki pierwsze wszystko, co da się rozłożyć: algorytmy ewolucyjne, łamigłówki, ceny kart do gry.',
-    aboutP2:'Ten sam odruch stoi za jednym i drugim: satysfakcja z momentu "aha!", kiedy coś nieoczywistego wreszcie się domyka — to właśnie ten odruch prowadzi mnie teraz w badaniach nad NAS.',
+    aboutP1:'Buduję i architekturuję systemy ML/AI na poważnie, a po godzinach rozkładam na czynniki pierwsze wszystko, co da się rozłożyć: algorytmy ewolucyjne, łamigłówki, ceny kart do gry.',
+    aboutP2:'Ten sam odruch stoi za jednym i drugim: satysfakcja z momentu "aha!", kiedy coś nieoczywistego wreszcie się domyka. To właśnie ten odruch prowadzi mnie teraz w badaniach nad NAS.',
     filterLabel:'filtruj po tagach', demoLabel:'Demo ↗', websiteLabel:'Strona ↗', foundationLabel:'Fundacja ↗',
-    researchStatement:'Interesuje mnie, jak proste, mechaniczne reguły — powtarzane wystarczająco cierpliwie — potrafią rozwiązywać problemy, których nie da się ogarnąć naraz. Skupiam się na algorytmach przeszukiwania i optymalizacji (m.in. rodzina metod P3) oraz na tym, jak zrozumiale je pokazywać, żeby intuicja nie ginęła w notacji.',
+    researchStatement:'Interesuje mnie, jak proste, mechaniczne reguły, powtarzane wystarczająco cierpliwie, potrafią rozwiązywać problemy, których nie da się ogarnąć naraz. Skupiam się na algorytmach przeszukiwania i optymalizacji (m.in. rodzina metod P3) oraz na tym, jak zrozumiale je pokazywać, żeby intuicja nie ginęła w notacji.',
     gaLabel:'Algorytmy genetyczne',
     currentDirTitle:'OBECNE KIERUNKI',
-    currentDirBody:'Praca w toku nad algorytmami P3 (Parameter-less Population Pyramid) — jak strukturalnie odkrywają zależności między zmiennymi problemu, bez ręcznego dostrajania parametrów. Testowane i porównywane na własnej platformie do rygorystycznego benchmarkingu algorytmów HPO (Corvus Corone).',
-    pubTitle:'PUBLIKACJE', inProgress:'W PRZYGOTOWANIU', pubBody:'Praca dot. algorytmu P3 — cel: GECCO 2027.', repoLabel:'Repozytorium ↗',
+    currentDirBody:'Praca w toku nad algorytmami P3 (Parameter-less Population Pyramid): jak strukturalnie odkrywają zależności między zmiennymi problemu, bez ręcznego dostrajania parametrów. Testowane i porównywane na własnej platformie do rygorystycznego benchmarkingu algorytmów HPO (Corvus Corone).',
+    pubTitle:'PUBLIKACJE', inProgress:'W PRZYGOTOWANIU', pubBody:'Praca dot. algorytmu P3, cel: GECCO 2027.', repoLabel:'Repozytorium ↗',
     exhibitsTitle:'EKSPONATY INTERAKTYWNE', problemLabel:'Problem:',
     btnStep:'Krok', btnReset:'Reset', viewGuide:'Zobacz cały przewodnik ↗', viewSource:'Zobacz kod źródłowy ↗',
     genLabel:'pokolenie', stepLabel:'krok',
     bracketLegend:'każdy słupek = jeden kandydat; wyższy = lepsza oceniona jakość. Z każdą rundą ocena zwycięzców jest dokładniejsza (mniejszy szum pomiaru), nie losowo wyższa.',
-    archLegend:'każdy słupek = jedna warstwa sieci; wysokość = jej rozmiar (liczba neuronów). Kandydat poniżej to CAŁA architektura — im wyższe słupki, tym dokładniejsza, ale wolniejsza sieć.',
+    archLegend:'każdy słupek = jedna warstwa sieci; wysokość = jej rozmiar (liczba neuronów). Kandydat poniżej to CAŁA architektura: im wyższe słupki, tym dokładniejsza, ale wolniejsza sieć.',
     accuracyLabel:'dokładność', latencyLabel:'latencja',
-    kontaktBody:'Projekt, konsultacja, albo po prostu chcesz podyskutować o algorytmach ewolucyjnych — pisz.',
+    kontaktBody:'Projekt, konsultacja, albo po prostu chcesz podyskutować o algorytmach ewolucyjnych? Pisz.',
     formName:'Imię', formEmail:'Email', formMessage:'Wiadomość',
     formPlaceholderPlayful:'Wiadomość (nie musi być poważna)', formPlaceholderPlain:'Wiadomość',
-    formSubmit:'Wyślij', formSubmitted:'Wysłane — no, właściwie nie: to statyczna makieta. Napisz na maila powyżej. ↑',
+    formSubmit:'Wyślij', formSubmitted:'Wysłane. No, właściwie nie: to statyczna makieta. Napisz na maila powyżej. ↑',
     footerNotePlayful:'zbudowane z ciekawości, nie z konieczności', footerNotePlain:'',
   },
   en: {
     navHome:'home', navBadaniaSlug:'research', navKontaktSlug:'contact',
+    heroName:'Hi, I am Jędrzej (Andrew) Polaczek',
     heroCmd:'$ specialization --target=neural-architecture-search,evolutionary-algorithms',
     heroCtaProjects:'See projects', heroCtaContact:'Get in touch',
     featuredTitle:'RECENT PROJECTS', featuredAll:'all projects →',
     aboutTitle:'ABOUT ME',
-    aboutP1:'I build and architect ML/AI systems for a living — and off the clock I take apart anything that can be taken apart: evolutionary algorithms, puzzles, trading card prices.',
-    aboutP2:'The same reflex drives both: the satisfaction of the "aha" moment when something non-obvious finally clicks — that reflex is exactly what leads me into NAS research now.',
+    aboutP1:'I build and architect ML/AI systems for a living, and off the clock I take apart anything that can be taken apart: evolutionary algorithms, puzzles, trading card prices.',
+    aboutP2:'The same reflex drives both: the satisfaction of the "aha" moment when something non-obvious finally clicks. That reflex is exactly what leads me into NAS research now.',
     filterLabel:'filter by tags', demoLabel:'Demo ↗', websiteLabel:'Website ↗', foundationLabel:'Foundation ↗',
-    researchStatement:'I\'m interested in how simple, mechanical rules — repeated patiently enough — can solve problems too large to grasp all at once. I focus on search and optimization algorithms (the P3 family among others) and on presenting them clearly, so the intuition doesn\'t get lost in notation.',
+    researchStatement:'I\'m interested in how simple, mechanical rules, repeated patiently enough, can solve problems too large to grasp all at once. I focus on search and optimization algorithms (the P3 family among others) and on presenting them clearly, so the intuition doesn\'t get lost in notation.',
     gaLabel:'Genetic algorithms',
     currentDirTitle:'CURRENT DIRECTIONS',
-    currentDirBody:'Ongoing work on P3 algorithms (Parameter-less Population Pyramid) — how they structurally discover dependencies between problem variables without manual parameter tuning. Tested and compared on my own platform for rigorous HPO algorithm benchmarking (Corvus Corone).',
-    pubTitle:'PUBLICATIONS', inProgress:'IN PROGRESS', pubBody:'Paper on the P3 algorithm — target: GECCO 2027.', repoLabel:'Repository ↗',
+    currentDirBody:'Ongoing work on P3 algorithms (Parameter-less Population Pyramid): how they structurally discover dependencies between problem variables without manual parameter tuning. Tested and compared on my own platform for rigorous HPO algorithm benchmarking (Corvus Corone).',
+    pubTitle:'PUBLICATIONS', inProgress:'IN PROGRESS', pubBody:'Paper on the P3 algorithm, target: GECCO 2027.', repoLabel:'Repository ↗',
     exhibitsTitle:'INTERACTIVE EXHIBITS', problemLabel:'Problem:',
     btnStep:'Step', btnReset:'Reset', viewGuide:'See the full guide ↗', viewSource:'See the source code ↗',
     genLabel:'generation', stepLabel:'step',
     bracketLegend:'each bar = one candidate; taller = better estimated quality. Each round the winners\' estimate gets more accurate (less measurement noise), not randomly higher.',
-    archLegend:'each bar = one network layer; height = its size (number of neurons). The candidate below is a WHOLE architecture — taller bars mean more accurate but slower.',
+    archLegend:'each bar = one network layer; height = its size (number of neurons). The candidate below is a WHOLE architecture: taller bars mean more accurate but slower.',
     accuracyLabel:'accuracy', latencyLabel:'latency',
-    kontaktBody:'A project, a consultation, or you just want to talk about evolutionary algorithms — write to me.',
+    kontaktBody:'A project, a consultation, or you just want to talk about evolutionary algorithms? Write to me.',
     formName:'Name', formEmail:'Email', formMessage:'Message',
     formPlaceholderPlayful:'Message (doesn\'t have to be serious)', formPlaceholderPlain:'Message',
-    formSubmit:'Send', formSubmitted:'Sent — well, not really: this is a static mockup. Email me above instead. ↑',
+    formSubmit:'Send', formSubmitted:'Sent. Well, not really: this is a static mockup. Email me above instead. ↑',
     footerNotePlayful:'built out of curiosity, not necessity', footerNotePlain:'',
   },
 };
 
 class Component extends DCLogic {
-  state = { activeTag:'all', population:[], generation:0, bestIndividual:null, bestFitness:null, playing:false, done:false, submitted:false, activeExhibit:'sudoku', view:'home', lang:'en' };
+  state = { activeTag:'all', population:[], generation:0, bestIndividual:null, bestFitness:null, playing:false, done:false, submitted:false, activeExhibit:'sudoku', view:'home', lang:'en', theme:'dark' };
   railRef = React.createRef();
   stackRailRef = React.createRef();
   stackPaused = false;
@@ -767,8 +786,8 @@ class Component extends DCLogic {
     this.initGA();
     this.startStackAutoScroll();
     if (this.props.playfulMode ?? true) {
-      console.log('%cHej, ciekawski.', 'color:#9CAF6B;font-family:monospace;font-size:14px;');
-      console.log('Skoro zaglądasz do konsoli, pewnie lubisz też czytać kod źródłowy — link w sekcji Badania.');
+      console.log('%cHej, ciekawski.', 'color:#5aff8f;font-family:monospace;font-size:14px;');
+      console.log('Skoro zaglądasz do konsoli, pewnie lubisz też czytać kod źródłowy - link w sekcji Badania.');
     }
   }
   componentWillUnmount(){ this.pause(); this.pauseSearch(); if(this._stackTimer) clearInterval(this._stackTimer); }
@@ -856,7 +875,7 @@ class Component extends DCLogic {
   reset(){ this.pause(); this.initGA(); }
 
   renderVals(){
-    const hex = this.props.accentColor || '#8FA876';
+    const hex = this.props.accentColor || '#5aff8f';
     const accent = {
       text: hex,
       solid: hex,
@@ -1018,7 +1037,7 @@ class Component extends DCLogic {
     const genomeFor = (p, n) => Array.from({length:n}, (_, k) =>
       0.2 + 0.8 * (0.5 + 0.5*Math.sin((p.x*7.3 + p.y*11.1 + k*2.37)*3.6))
     );
-    const archBlockTypes = ['#7A9E8E','#8FA876','#B0A16E','#9C8EBF','#6E9CAF','#AF8E76'];
+    const archBlockTypes = ['#7A9E8E','#5aff8f','#B0A16E','#9C8EBF','#6E9CAF','#AF8E76'];
     const archBlocks = bestPoint ? genomeFor(bestPoint, 6).map((h, i) => ({
       key: i,
       style: {
@@ -1033,16 +1052,26 @@ class Component extends DCLogic {
     let searchStatus = isEn ? 'Ready to start.' : 'Gotowy do startu.';
     if (s && s.gen > 0) {
       if (isPyramid) searchStatus = s.done
-        ? (isEn ? `Final chain built — score ${s.levels[3][0] ? s.levels[3][0].score : '-'}.` : `Zbudowano finałowy łańcuch — wynik ${s.levels[3][0] ? s.levels[3][0].score : '-'}.`)
+        ? (isEn ? `Final chain built - score ${s.levels[3][0] ? s.levels[3][0].score : '-'}.` : `Zbudowano finałowy łańcuch - wynik ${s.levels[3][0] ? s.levels[3][0].score : '-'}.`)
         : (isEn ? `Step ${s.gen}/${s.budget} · merging bit blocks...` : `Krok ${s.gen}/${s.budget} · łączenie klocków bitowych...`);
       else if (isDartboard) { const b = s.darts.length ? Math.max(...s.darts.map(d=>d.score)) : 0; searchStatus = s.done ? (isEn?`Done. Best throw: ${b}.`:`Zakończono. Najlepszy rzut: ${b}.`) : (isEn?`Throw ${s.gen} · best: ${b}`:`Rzut ${s.gen} · najlepszy: ${b}`); }
       else if (isTerrain) { const b = s.pool.length ? Math.max(...s.pool.map(p=>p.f)) : 0; searchStatus = s.done ? (isEn?`Done. Best score: ${b}.`:`Zakończono. Najlepszy wynik: ${b}.`) : (isEn?`Step ${s.gen} · best score: ${b}`:`Krok ${s.gen} · najlepszy wynik: ${b}`); }
-      else if (isBracket) { const last = s.rounds[s.rounds.length-1]; searchStatus = s.done ? (isEn?`Tournament winner: true quality ${last[0].trueScore}, scored ${last[0].score} (accurate estimate — large budget).`:`Zwycięzca turnieju: prawdziwa jakość ${last[0].trueScore}, oceniona na ${last[0].score} (dokładna ocena — duży budżet).`) : (isEn?`Round ${s.gen} · contestants: ${last.length} · bigger budget = more accurate estimate, not luck`:`Runda ${s.gen} · zawodników: ${last.length} · większy budżet = dokładniejsza ocena, nie przypadek`); }
+      else if (isBracket) { const last = s.rounds[s.rounds.length-1]; searchStatus = s.done ? (isEn?`Tournament winner: true quality ${last[0].trueScore}, scored ${last[0].score} (accurate estimate - large budget).`:`Zwycięzca turnieju: prawdziwa jakość ${last[0].trueScore}, oceniona na ${last[0].score} (dokładna ocena - duży budżet).`) : (isEn?`Round ${s.gen} · contestants: ${last.length} · bigger budget = more accurate estimate, not luck`:`Runda ${s.gen} · zawodników: ${last.length} · większy budżet = dokładniejsza ocena, nie przypadek`); }
       else if (isStaircase) { searchStatus = s.done ? (isEn?`Done. Estimates converged toward the target: ${s.target}%.`:`Zakończono. Oceny zbiegły w stronę celu: ${s.target}%.`) : (isEn?`Step ${s.gen} · more samples at this budget = less noise, estimate closer to target (${s.target}%)`:`Krok ${s.gen} · więcej próbek na tym budżecie = mniejszy szum, ocena bliżej celu (${s.target}%)`); }
       else { const b = searchPool.length ? Math.max(...searchPool.map(p=>p.f)) : 0; searchStatus = s.done ? (isEn?`Done. Best score: ${b}.`:`Zakończono. Najlepszy wynik: ${b}.`) : (isEn?`Step ${s.gen} · best score: ${b} · samples: ${searchPool.length}`:`Krok ${s.gen} · najlepszy wynik: ${b} · próbek: ${searchPool.length}`); }
     }
 
+    const theme = this.state.theme;
+    const pillBase = "font-family:'OCR-A','JetBrains Mono',monospace;font-size:11px;font-weight:600;letter-spacing:0.04em;padding:5px 12px;border-radius:999px;cursor:pointer;background:transparent;";
+    const pillActive = pillBase + `border:1px solid ${accent.solid};color:${accent.text};box-shadow:0 0 8px ${accent.dim};`;
+    const pillInactive = pillBase + "border:1px solid rgba(255,255,255,0.15);color:oklch(0.55 0.006 250);";
     return {
+      theme,
+      setThemeDark: () => this.setState({theme:'dark'}),
+      setThemeLight: () => this.setState({theme:'light'}),
+      themeBtnStyle: { dark: theme==='dark' ? pillActive : pillInactive, light: theme==='light' ? pillActive : pillInactive },
+      themeFilterStyle: theme==='light' ? 'filter:invert(1) hue-rotate(180deg);' : '',
+      themeImgCompensate: theme==='light' ? 'filter:invert(1) hue-rotate(180deg);' : '',
       T, accent, cells, status, stepIndex: generation, totalSteps: 300, playing, done,
       exhibitTabs, isSudokuExhibit: activeEx.kind === 'sudoku',
       activeExhibitTitle: isEn ? activeEx.title_en : activeEx.title,
@@ -1054,8 +1083,8 @@ class Component extends DCLogic {
       isPyramid, isDartboard, isTerrain, isBracket, isStaircase,
       pyramidGoalLabel: isEn ? `target: 8/8 · best so far: ${pyramidBest}/100` : `cel: 8/8 · najlepszy dotąd: ${pyramidBest}/100`,
       staircaseLegend: isEn
-        ? `red line = true value (target: ${s && s.visual==='staircase' ? s.target : 0}%). Each bar is the same estimate measured with a different budget — more samples, less noise, closer to the line.`
-        : `czerwona linia = prawdziwa wartość (cel: ${s && s.visual==='staircase' ? s.target : 0}%). Każdy pasek to ta sama ocena mierzona z innym budżetem — im więcej próbek, tym mniejszy szum i pasek trafia bliżej linii.`,
+        ? `red line = true value (target: ${s && s.visual==='staircase' ? s.target : 0}%). Each bar is the same estimate measured with a different budget - more samples, less noise, closer to the line.`
+        : `czerwona linia = prawdziwa wartość (cel: ${s && s.visual==='staircase' ? s.target : 0}%). Każdy pasek to ta sama ocena mierzona z innym budżetem - im więcej próbek, tym mniejszy szum i pasek trafia bliżej linii.`,
       pyramidGoal, pyramidBest,
       pyramidRows, dartRings, dartMarkers, terrainBgStyle, hotCircleStyle, terrainPoints, bracketRounds, staircaseRungs,
       searchStartLabel: this.searchPlaying ? (isEn?'Pause':'Pauza') : (s && s.done ? (isEn?'Done':'Gotowe') : (isEn?'Start':'Start')),
@@ -1080,13 +1109,13 @@ class Component extends DCLogic {
         { title: 'PetHealthApp', tag: '#' + PROJECTS.find(p=>p.id===6).tags[0] },
       ],
       manifestoItems: isEn ? [
-        { title:'Tests are proof of behavior', body:"Code that isn't tested isn't done — tests aren't a formality, they're proof." },
-        { title:'Docs are communication', body:'Written, so harder than talking, but necessary — which is why it should be short, simple, and easy to scan. Nobody reads a wall of text.' },
-        { title:'WIP = 1', body:'One thing at a time, finished, instead of ten half-done — a work-in-progress limit isn\'t bureaucracy, it\'s how anything actually ships.' },
+        { title:'Tests are proof of behavior', body:"Code that isn't tested isn't done. Tests aren't a formality, they're proof." },
+        { title:'Docs are communication', body:'Written, so harder than talking, but necessary, which is why it should be short, simple, and easy to scan. Nobody reads a wall of text.' },
+        { title:'WIP = 1', body:'One thing at a time, finished, instead of ten half-done. A work-in-progress limit isn\'t bureaucracy, it\'s how anything actually ships.' },
       ] : [
-        { title:'Testy dowodem działania', body:'Kod, który nie jest sprawdzony, nie jest gotowy — testy to nie formalność, to dowód.' },
-        { title:'Dokumentacja to komunikacja', body:'Pisana, więc trudniejsza niż rozmowa, ale niezbędna — dlatego ma być krótka, prosta i łatwa do przeskanowania. Nikt nie czyta ściany tekstu.' },
-        { title:'WIP = 1', body:'Jedna rzecz na raz, dokończona, zamiast dziesięciu w połowie — limit pracy w toku to nie biurokracja, to sposób, żeby coś w ogóle wyjechało z linii produkcyjnej.' },
+        { title:'Testy dowodem działania', body:'Kod, który nie jest sprawdzony, nie jest gotowy. Testy to nie formalność, to dowód.' },
+        { title:'Dokumentacja to komunikacja', body:'Pisana, więc trudniejsza niż rozmowa, ale niezbędna, dlatego ma być krótka, prosta i łatwa do przeskanowania. Nikt nie czyta ściany tekstu.' },
+        { title:'WIP = 1', body:'Jedna rzecz na raz, dokończona, zamiast dziesięciu w połowie. Limit pracy w toku to nie biurokracja, to sposób, żeby coś w ogóle wyjechało z linii produkcyjnej.' },
       ],
       isHome: this.state.view === 'home', isSolutions: this.state.view === 'solutions', isBadania: this.state.view === 'badania', isKontakt: this.state.view === 'kontakt',
       goHome: (e)=>{ e.preventDefault(); this.setState({view:'home'}); },

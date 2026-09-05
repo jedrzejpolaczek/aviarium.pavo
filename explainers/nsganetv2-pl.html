@@ -1,6 +1,15 @@
 <title>Jak naprawdę działa NSGANetV2</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet" crossorigin="anonymous">
+<link href="https://db.onlinewebfonts.com/c/cc4a7a8da4c5d4af9361d85a1d1c0bba?family=OCR-A" rel="stylesheet">
+<style>
+@font-face{font-family:'OCR-A';unicode-range:U+0100-024F;font-weight:400;src:url('https://cdn.jsdelivr.net/npm/@fontsource/jetbrains-mono/files/jetbrains-mono-latin-ext-400-normal.woff2') format('woff2');}
+@font-face{font-family:'OCR-A';unicode-range:U+0100-024F;font-weight:500;src:url('https://cdn.jsdelivr.net/npm/@fontsource/jetbrains-mono/files/jetbrains-mono-latin-ext-500-normal.woff2') format('woff2');}
+@font-face{font-family:'OCR-A';unicode-range:U+0100-024F;font-weight:600;src:url('https://cdn.jsdelivr.net/npm/@fontsource/jetbrains-mono/files/jetbrains-mono-latin-ext-600-normal.woff2') format('woff2');}
+@font-face{font-family:'OCR-A';unicode-range:U+0100-024F;font-weight:700;src:url('https://cdn.jsdelivr.net/npm/@fontsource/jetbrains-mono/files/jetbrains-mono-latin-ext-700-normal.woff2') format('woff2');}
+</style>
 <style>
   :root {
     --bg: #060a05;
@@ -83,12 +92,12 @@
     margin: 0;
     background: var(--bg);
     color: var(--ink);
-    font-family: 'IBM Plex Mono', monospace;
+    font-family: 'OCR-A','JetBrains Mono',monospace;
     line-height: 1.6;
     -webkit-font-smoothing: antialiased;
   }
   .mono {
-    font-family: 'IBM Plex Mono', monospace;
+    font-family: 'OCR-A','JetBrains Mono',monospace;
   }
 
   a { color: var(--accent); }
@@ -112,7 +121,7 @@
     overflow-x: auto;
   }
   .topnav-mark {
-    font-family: 'IBM Plex Mono', monospace;
+    font-family: 'OCR-A','JetBrains Mono',monospace;
     font-size: 12px;
     letter-spacing: .08em;
     color: var(--accent);
@@ -121,7 +130,7 @@
     border-right: 1px solid var(--line);
   }
   .topnav a {
-    font-family: 'IBM Plex Mono', monospace;
+    font-family: 'OCR-A','JetBrains Mono',monospace;
     font-size: 12px;
     letter-spacing: .04em;
     color: var(--ink-muted);
@@ -140,7 +149,7 @@
   section:first-of-type { padding-top: 8px; }
 
   .eyebrow {
-    font-family: 'IBM Plex Mono', monospace;
+    font-family: 'OCR-A','JetBrains Mono',monospace;
     font-size: 11px;
     letter-spacing: .14em;
     text-transform: uppercase;
@@ -175,7 +184,7 @@
     margin: 40px 0 10px;
   }
   h3 .num {
-    font-family: 'IBM Plex Mono', monospace;
+    font-family: 'OCR-A','JetBrains Mono',monospace;
     font-size: 14px;
     color: var(--accent);
     margin-right: 8px;
@@ -211,7 +220,7 @@
   figure.bleed { margin-left: calc(50% - 50vw + 12px); margin-right: calc(50% - 50vw + 12px); max-width: 1120px; margin-left: auto; margin-right: auto; }
   figure svg { display: block; width: 100%; height: auto; padding: 20px; }
   figcaption {
-    font-family: 'IBM Plex Mono', monospace;
+    font-family: 'OCR-A','JetBrains Mono',monospace;
     font-size: 12px;
     color: var(--ink-muted);
     padding: 10px 20px 16px;
@@ -229,7 +238,7 @@
     margin: 24px 0;
   }
   .callout .tag {
-    font-family: 'IBM Plex Mono', monospace;
+    font-family: 'OCR-A','JetBrains Mono',monospace;
     font-size: 11px;
     letter-spacing: .1em;
     text-transform: uppercase;
@@ -246,7 +255,7 @@
     border-radius: 10px;
     padding: 20px 22px;
     overflow-x: auto;
-    font-family: 'IBM Plex Mono', monospace;
+    font-family: 'OCR-A','JetBrains Mono',monospace;
     font-size: 13px;
     line-height: 1.7;
     box-shadow: var(--shadow);
@@ -260,7 +269,7 @@
   table { border-collapse: collapse; width: 100%; background: var(--bg-raised); font-size: 15px; }
   th, td { text-align: left; padding: 12px 16px; border-bottom: 1px solid var(--line); vertical-align: top; }
   thead th {
-    font-family: 'IBM Plex Mono', monospace;
+    font-family: 'OCR-A','JetBrains Mono',monospace;
     font-size: 11px;
     letter-spacing: .08em;
     text-transform: uppercase;
@@ -301,7 +310,7 @@
     max-width: 280px;
     background: var(--ink);
     color: var(--bg);
-    font-family: 'IBM Plex Mono', monospace;
+    font-family: 'OCR-A','JetBrains Mono',monospace;
     font-size: 12px;
     line-height: 1.5;
     padding: 9px 11px;
@@ -311,7 +320,7 @@
   }
   .tt-hint {
     display: inline-block;
-    font-family: 'IBM Plex Mono', monospace;
+    font-family: 'OCR-A','JetBrains Mono',monospace;
     font-size: 10.5px;
     color: var(--ink-faint);
     letter-spacing: .04em;
@@ -354,18 +363,18 @@
     display: flex; align-items: center; gap: 20px; flex-wrap: wrap;
   }
   .genome-strip .glabel {
-    font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: .08em; text-transform: uppercase;
+    font-family: 'OCR-A','JetBrains Mono',monospace; font-size: 10px; letter-spacing: .08em; text-transform: uppercase;
     color: var(--ink-faint); white-space: nowrap;
   }
   .map-box { fill: none; stroke: currentColor; stroke-width: 1.4; transition: fill .3s ease, stroke .3s ease, stroke-width .3s ease; }
   .map-box.map-active { fill: var(--accent-soft); stroke: var(--accent); stroke-width: 1.8; }
   .map-box.map-active-real { fill: var(--kept-soft); stroke: var(--real); stroke-width: 1.8; }
-  .map-label { fill: currentColor; font-family: 'IBM Plex Mono', monospace; transition: fill .3s ease; }
+  .map-label { fill: currentColor; font-family: 'OCR-A','JetBrains Mono',monospace; transition: fill .3s ease; }
   .map-label.map-active { fill: var(--ink); font-weight: 700; }
   .map-arrow { stroke: currentColor; opacity: .6; }
 
   .demo-phase-caption {
-    font-family: 'IBM Plex Mono', monospace;
+    font-family: 'OCR-A','JetBrains Mono',monospace;
     font-size: 13px;
     color: var(--ink);
     background: var(--bg-sunken);
@@ -377,7 +386,7 @@
   .demo-phase-caption strong { color: var(--accent); }
 
   .zone-caption {
-    margin: 22px 0 12px; font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; letter-spacing: .08em;
+    margin: 22px 0 12px; font-family: 'OCR-A','JetBrains Mono',monospace; font-size: 10.5px; letter-spacing: .08em;
     text-transform: uppercase; color: var(--ink-faint);
     display: flex; align-items: center; gap: 10px; cursor: help;
   }
@@ -401,7 +410,7 @@
   }
   .demo-controls { display: flex; flex-wrap: wrap; gap: 8px; }
   .demo-btn {
-    font-family: 'IBM Plex Mono', monospace;
+    font-family: 'OCR-A','JetBrains Mono',monospace;
     font-size: 12.5px;
     letter-spacing: .02em;
     background: var(--bg-sunken);
@@ -416,14 +425,14 @@
   .demo-btn.primary { background: var(--accent); color: var(--accent-ink); border-color: var(--accent); }
   .demo-toggle {
     display: inline-flex; align-items: center; gap: 7px;
-    font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: var(--ink-muted);
+    font-family: 'OCR-A','JetBrains Mono',monospace; font-size: 12px; color: var(--ink-muted);
     cursor: pointer; margin-top: 10px;
   }
   .demo-toggle input { accent-color: var(--accent); }
 
   .demo-legend {
     display: flex; flex-wrap: wrap; align-items: center; gap: 14px;
-    font-family: 'IBM Plex Mono', monospace;
+    font-family: 'OCR-A','JetBrains Mono',monospace;
     font-size: 11.5px; color: var(--ink-muted);
     background: var(--bg-sunken);
     border-radius: 8px;
@@ -458,8 +467,8 @@
     border-radius: 8px;
     padding: 10px 12px;
   }
-  .demo-stat .lbl { font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: .08em; text-transform: uppercase; color: var(--ink-faint); }
-  .demo-stat .val { font-family: 'IBM Plex Mono', monospace; font-size: 20px; color: var(--ink); font-variant-numeric: tabular-nums; }
+  .demo-stat .lbl { font-family: 'OCR-A','JetBrains Mono',monospace; font-size: 10px; letter-spacing: .08em; text-transform: uppercase; color: var(--ink-faint); }
+  .demo-stat .val { font-family: 'OCR-A','JetBrains Mono',monospace; font-size: 20px; color: var(--ink); font-variant-numeric: tabular-nums; }
 
   .demo-genome { display: flex; flex-wrap: wrap; gap: 10px; margin: 4px 0 6px; }
   .trap-group { display: flex; gap: 3px; padding: 5px; border-radius: 7px; background: var(--bg-sunken); }
@@ -468,7 +477,7 @@
     display: flex; align-items: center; justify-content: center;
     border-radius: 5px;
     border: 1.4px solid var(--line-strong);
-    font-family: 'IBM Plex Mono', monospace;
+    font-family: 'OCR-A','JetBrains Mono',monospace;
     font-size: 13px;
     background: var(--bg-raised);
     color: var(--ink);
@@ -478,7 +487,7 @@
   .gene-box.real { border-color: var(--real); background: var(--kept-soft); }
 
   .demo-log {
-    font-family: 'IBM Plex Mono', monospace;
+    font-family: 'OCR-A','JetBrains Mono',monospace;
     font-size: 12.5px;
     color: var(--ink-muted);
     background: var(--bg-sunken);
@@ -491,12 +500,12 @@
 
   .demo-cost-wrap { display: flex; flex-direction: column; gap: 10px; }
   .demo-cost-row { display: flex; align-items: center; gap: 10px; }
-  .demo-cost-row .cost-lbl { font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; color: var(--ink-faint); width: 92px; flex: none; }
+  .demo-cost-row .cost-lbl { font-family: 'OCR-A','JetBrains Mono',monospace; font-size: 10.5px; color: var(--ink-faint); width: 92px; flex: none; }
   .demo-cost-track { flex: 1; height: 16px; background: var(--bg-sunken); border-radius: 5px; overflow: hidden; position: relative; border: 1px solid var(--line); }
   .demo-cost-fill { height: 100%; border-radius: 5px 0 0 5px; transition: width .35s ease; }
   .demo-cost-fill.real { background: var(--real); }
   .demo-cost-fill.query { background: var(--accent); }
-  .demo-cost-num { font-family: 'IBM Plex Mono', monospace; font-size: 11.5px; color: var(--ink); width: 44px; text-align: right; flex: none; font-variant-numeric: tabular-nums; }
+  .demo-cost-num { font-family: 'OCR-A','JetBrains Mono',monospace; font-size: 11.5px; color: var(--ink); width: 44px; text-align: right; flex: none; font-variant-numeric: tabular-nums; }
 
   .demo-chip {
     position: absolute;
@@ -509,7 +518,7 @@
   }
 
   .demo-copyhint {
-    font-family: 'IBM Plex Mono', monospace;
+    font-family: 'OCR-A','JetBrains Mono',monospace;
     font-size: 11px;
     color: var(--ink-faint);
     margin: -2px 0 10px;
@@ -520,7 +529,7 @@
 
   .cluster-chips { display: flex; flex-wrap: wrap; gap: 6px; margin: 4px 0 6px; min-height: 30px; }
   .chip {
-    font-family: 'IBM Plex Mono', monospace;
+    font-family: 'OCR-A','JetBrains Mono',monospace;
     font-size: 11px;
     padding: 5px 9px;
     border-radius: 6px;
@@ -534,12 +543,12 @@
   .chip.active { border-color: var(--accent); background: var(--accent-soft); color: var(--ink); font-weight: 700; }
 
   .demo-panel h4 {
-    font-family: 'IBM Plex Mono', monospace;
+    font-family: 'OCR-A','JetBrains Mono',monospace;
     font-size: 11px; letter-spacing: .08em; text-transform: uppercase;
     color: var(--ink-faint); margin: 0 0 10px;
   }
   .demo-note {
-    font-family: 'IBM Plex Mono', monospace;
+    font-family: 'OCR-A','JetBrains Mono',monospace;
     font-size: 11.5px; color: var(--ink-faint);
     margin-top: 14px; line-height: 1.6;
   }
@@ -547,7 +556,7 @@
   /* ---------- objective-space scatter ---------- */
   .scatter-wrap svg { width: 100%; height: auto; display: block; }
   .scatter-axis { stroke: var(--line-strong); stroke-width: 1; }
-  .scatter-axis-label { font-family: 'IBM Plex Mono', monospace; font-size: 9.5px; fill: var(--ink-faint); }
+  .scatter-axis-label { font-family: 'OCR-A','JetBrains Mono',monospace; font-size: 9.5px; fill: var(--ink-faint); }
   .scatter-pt-front0 { fill: var(--accent); stroke: var(--ink); stroke-width: .6; }
   .scatter-pt-other { fill: var(--bg-sunken); stroke: var(--ink-muted); stroke-width: 1; }
   .scatter-pt-sample { fill: var(--real); }
@@ -555,14 +564,14 @@
   .scatter-errline { stroke: var(--ink-faint); stroke-width: 1; stroke-dasharray: 2 2; }
 
   /* ---------- misc ---------- */
-  .diagram-label { font-family: 'IBM Plex Mono', monospace; }
+  .diagram-label { font-family: 'OCR-A','JetBrains Mono',monospace; }
   ::selection { background: var(--accent-soft); }
 
   footer.page-end {
     max-width: 720px; margin: 80px auto 0; padding: 24px 24px 40px;
     border-top: 1px solid var(--line);
     color: var(--ink-faint);
-    font-family: 'IBM Plex Mono', monospace;
+    font-family: 'OCR-A','JetBrains Mono',monospace;
     font-size: 12px;
   }
 </style>
@@ -571,7 +580,7 @@
   <a href="../Portfolio.dc.html" style="font-size:18px;font-weight:600;color:oklch(0.92 0.004 250);text-decoration:none;">JP.<span style="color:#9CAF6B;">_</span></a>
   <div style="display:flex;gap:32px;align-items:center;font-size:14px;">
     <a href="../Portfolio.dc.html" style="color:var(--ink-muted);text-decoration:none;">strona główna</a>
-    <a href="../Portfolio.dc.html?view=solutions" style="color:oklch(0.85 0.004 250);text-decoration:none;">:solutions</a>
+    <a href="../Portfolio.dc.html?view=solutions" style="color:oklch(0.85 0.004 250);text-decoration:none;">~/solutions</a>
     <a href="../Portfolio.dc.html?view=badania" style="color:var(--ink-muted);text-decoration:none;">:badania</a>
     <a href="../Portfolio.dc.html?view=kontakt" style="color:var(--ink-muted);text-decoration:none;">:kontakt</a>
     <a href="nsganetv2.html" style="font-size:12px;font-weight:700;padding:6px 12px;border:1px solid #9CAF6B;border-radius:2px;background:rgba(156,175,107,0.15);color:#9CAF6B;text-decoration:none;">EN</a>
@@ -592,23 +601,23 @@
 <main>
 
 <section id="top">
-  <div class="eyebrow"><span>NSGANetV2 — NSGA-Net z tanią wyrocznią zamiast treningu</span></div>
+  <div class="eyebrow"><span>NSGANetV2 - NSGA-Net z tanią wyrocznią zamiast treningu</span></div>
   <h1>Jak naprawdę działa NSGANetV2</h1>
-  <p class="lede">Ta sama pętla NSGA-II co w NSGA-Net — sortowanie niezdominowane, odległość zagęszczenia, krzyżowanie, mutacja — tylko że nikt już nie trenuje sieci, żeby ocenić kandydata. Ocenia go <em class="term">wyrocznia</em>: predyktor dokładności i/lub supersieć wag współdzielonych, wytrenowana raz, na garstce prawdziwych przebiegów, zanim ewolucja w ogóle ruszy.</p>
+  <p class="lede">Ta sama pętla NSGA-II co w NSGA-Net - sortowanie niezdominowane, odległość zagęszczenia, krzyżowanie, mutacja - tylko że nikt już nie trenuje sieci, żeby ocenić kandydata. Ocenia go <em class="term">wyrocznia</em>: predyktor dokładności i/lub supersieć wag współdzielonych, wytrenowana raz, na garstce prawdziwych przebiegów, zanim ewolucja w ogóle ruszy.</p>
   <p class="subdek">Ułożone jak diagram C4: kontekst, potem duże ruchome elementy, potem każdy z nich rozłożony na czynniki pierwsze, potem kod, na końcu praktyczna checklista.</p>
 </section>
 
 <hr class="rule">
 
 <section id="context">
-  <h3><span class="num">1</span>Kontekst — problem, na który NSGANetV2 jest odpowiedzią</h3>
-  <p class="lede" style="font-size:17px;">Jednym zdaniem: NSGA-Net trenuje każdego kandydata naprawdę, w każdym pokoleniu — NSGANetV2 bierze dokładnie tę samą pętlę i zastępuje trening jednorazowo wytrenowaną, tanią wyrocznią.</p>
-  <p>NSGA-Net (poprzednia strona tej serii) stosuje klasyczny NSGA-II wprost do genotypów architektur: populacja, sortowanie niezdominowane, odległość zagęszczenia, krzyżowanie, mutacja — i każdy pojedynczy osobnik w każdym pokoleniu dostaje pełny, realny trening, żeby poznać jego prawdziwe dopasowanie. To poprawne, ale kosztowne: koszt liczony w godzinach GPU rośnie liniowo z rozmiarem populacji razy liczbą pokoleń, bez żadnego skrótu.</p>
-  <p>NSGANetV2 (Lu i in., ECCV 2020) atakuje dokładnie ten koszt, nie samą pętlę ewolucyjną. Przed uruchomieniem NSGA-II buduje raz, z góry, tanią wyrocznię — supersieć wag współdzielonych i/lub predyktor dokładności dopasowany do garstki naprawdę wytrenowanych architektur — a potem uruchamia dokładnie tę samą pętlę NSGA-II co NSGA-Net, tyle że każde zapytanie o dopasowanie trafia do wyroczni zamiast do trenera sieci.</p>
+  <h3><span class="num">1</span>Kontekst - problem, na który NSGANetV2 jest odpowiedzią</h3>
+  <p class="lede" style="font-size:17px;">Jednym zdaniem: NSGA-Net trenuje każdego kandydata naprawdę, w każdym pokoleniu - NSGANetV2 bierze dokładnie tę samą pętlę i zastępuje trening jednorazowo wytrenowaną, tanią wyrocznią.</p>
+  <p>NSGA-Net (poprzednia strona tej serii) stosuje klasyczny NSGA-II wprost do genotypów architektur: populacja, sortowanie niezdominowane, odległość zagęszczenia, krzyżowanie, mutacja - i każdy pojedynczy osobnik w każdym pokoleniu dostaje pełny, realny trening, żeby poznać jego prawdziwe dopasowanie. To poprawne, ale kosztowne: koszt liczony w godzinach GPU rośnie liniowo z rozmiarem populacji razy liczbą pokoleń, bez żadnego skrótu.</p>
+  <p>NSGANetV2 (Lu i in., ECCV 2020) atakuje dokładnie ten koszt, nie samą pętlę ewolucyjną. Przed uruchomieniem NSGA-II buduje raz, z góry, tanią wyrocznię - supersieć wag współdzielonych i/lub predyktor dokładności dopasowany do garstki naprawdę wytrenowanych architektur - a potem uruchamia dokładnie tę samą pętlę NSGA-II co NSGA-Net, tyle że każde zapytanie o dopasowanie trafia do wyroczni zamiast do trenera sieci.</p>
 
   <div class="callout">
     <span class="tag">Gdzie to miejsce w siatce ablacyjnej artykułu</span>
-    <p>W dziewięcioramiennej siatce ablacyjnej tego artykułu (NSGA-Net, NSGANetV2, SH-EMOA, MO-BOHB, TPE, random search — każdy skonfrontowany z P3Net na JAHS-Bench-201 i NAS-HPO-Bench-II) NSGANetV2 jest ramieniem najbliższym P3Net <em>w intencji</em>: oba używają taniego surogatu, żeby uniknąć płacenia pełnej ceny za każdego kandydata. Różnią się jednak tym, <em>jakiego</em> surogatu używają. NSGANetV2 opiera się na predyktorze <strong>globalnym i bezwzględnym</strong> — dopasowanym raz, z góry, i przewidującym dopasowanie jednego kandydata z osobna, bez pojęcia o tym, które geny są ze sobą funkcjonalnie powiązane. P3Net opiera się na surogacie <strong>relatywnym i świadomym powiązań</strong> — porównującym kandydata względem konkretnego dawcy, budowanym z tego samego drzewa powiązań, które steruje krzyżowaniem, i retrenowanym w locie przy każdej nowej prawdziwej ewaluacji. Sekcja&nbsp;6 wraca do tej różnicy.</p>
+    <p>W dziewięcioramiennej siatce ablacyjnej tego artykułu (NSGA-Net, NSGANetV2, SH-EMOA, MO-BOHB, TPE, random search - każdy skonfrontowany z P3Net na JAHS-Bench-201 i NAS-HPO-Bench-II) NSGANetV2 jest ramieniem najbliższym P3Net <em>w intencji</em>: oba używają taniego surogatu, żeby uniknąć płacenia pełnej ceny za każdego kandydata. Różnią się jednak tym, <em>jakiego</em> surogatu używają. NSGANetV2 opiera się na predyktorze <strong>globalnym i bezwzględnym</strong> - dopasowanym raz, z góry, i przewidującym dopasowanie jednego kandydata z osobna, bez pojęcia o tym, które geny są ze sobą funkcjonalnie powiązane. P3Net opiera się na surogacie <strong>relatywnym i świadomym powiązań</strong> - porównującym kandydata względem konkretnego dawcy, budowanym z tego samego drzewa powiązań, które steruje krzyżowaniem, i retrenowanym w locie przy każdej nowej prawdziwej ewaluacji. Sekcja&nbsp;6 wraca do tej różnicy.</p>
   </div>
 
   <figure class="bleed">
@@ -619,22 +628,22 @@
         </marker>
       </defs>
 
-      <text x="30" y="20" class="diagram-label" font-size="12" letter-spacing="0.06em" fill="currentColor" opacity="0.6">NSGA-NET — realny trening co pokolenie</text>
+      <text x="30" y="20" class="diagram-label" font-size="12" letter-spacing="0.06em" fill="currentColor" opacity="0.6">NSGA-NET - realny trening co pokolenie</text>
 
-      <rect x="30" y="30" width="280" height="48" rx="8" fill="none" stroke="currentColor" stroke-width="1.4" pointer-events="all" tabindex="0" data-tt="Rozmiar populacji ustalasz z góry, dokładnie jak w zwykłym GA — NSGA-II nie usuwa tego parametru."></rect>
+      <rect x="30" y="30" width="280" height="48" rx="8" fill="none" stroke="currentColor" stroke-width="1.4" pointer-events="all" tabindex="0" data-tt="Rozmiar populacji ustalasz z góry, dokładnie jak w zwykłym GA - NSGA-II nie usuwa tego parametru."></rect>
       <text fill="currentColor" x="170" y="59" text-anchor="middle" class="diagram-label" font-size="12">Populacja architektur</text>
       <path d="M170,78 L170,110" stroke="currentColor" stroke-width="1.3" marker-end="url(#arrN1)"></path>
 
-      <rect x="30" y="110" width="280" height="48" rx="8" class="real-box" pointer-events="all" tabindex="0" data-tt="Każdy kandydat jest trenowany naprawdę, od zera albo z checkpointu — to jest cały koszt tego arm-a."></rect>
+      <rect x="30" y="110" width="280" height="48" rx="8" class="real-box" pointer-events="all" tabindex="0" data-tt="Każdy kandydat jest trenowany naprawdę, od zera albo z checkpointu - to jest cały koszt tego arm-a."></rect>
       <text fill="currentColor" x="170" y="134" text-anchor="middle" class="diagram-label" font-size="12">Trening + ewaluacja</text>
       <text fill="var(--real)" x="170" y="150" text-anchor="middle" class="diagram-label" font-size="10.5">prawdziwy, pełny koszt</text>
       <path d="M170,158 L170,190" stroke="currentColor" stroke-width="1.3" marker-end="url(#arrN1)"></path>
 
-      <rect x="30" y="190" width="280" height="48" rx="8" fill="none" stroke="currentColor" stroke-width="1.4" pointer-events="all" tabindex="0" data-tt="Ranga frontu niezdominowanego — dokładnie ten sam mechanizm, który wraca w NSGANetV2 bez zmian."></rect>
+      <rect x="30" y="190" width="280" height="48" rx="8" fill="none" stroke="currentColor" stroke-width="1.4" pointer-events="all" tabindex="0" data-tt="Ranga frontu niezdominowanego - dokładnie ten sam mechanizm, który wraca w NSGANetV2 bez zmian."></rect>
       <text fill="currentColor" x="170" y="219" text-anchor="middle" class="diagram-label" font-size="12">Sortowanie niezdominowane</text>
       <path d="M170,238 L170,270" stroke="currentColor" stroke-width="1.3" marker-end="url(#arrN1)"></path>
 
-      <rect x="30" y="270" width="280" height="48" rx="8" fill="var(--accent-soft)" stroke="var(--accent)" stroke-width="1.6" pointer-events="all" tabindex="0" data-tt="Zagęszczenie w przestrzeni celów decyduje, kto przetrwa remisy rangi — też bez zmian w NSGANetV2."></rect>
+      <rect x="30" y="270" width="280" height="48" rx="8" fill="var(--accent-soft)" stroke="var(--accent)" stroke-width="1.6" pointer-events="all" tabindex="0" data-tt="Zagęszczenie w przestrzeni celów decyduje, kto przetrwa remisy rangi - też bez zmian w NSGANetV2."></rect>
       <text fill="currentColor" x="170" y="299" text-anchor="middle" class="diagram-label" font-size="12">Zagęszczenie + selekcja</text>
 
       <path d="M310,294 C405,294 405,134 310,134" fill="none" stroke="currentColor" stroke-width="1.2" marker-end="url(#arrN1)"></path>
@@ -644,9 +653,9 @@
 
       <line x1="450" y1="10" x2="450" y2="440" stroke="currentColor" stroke-width="1" opacity="0.15"></line>
 
-      <text x="480" y="20" class="diagram-label" font-size="12" letter-spacing="0.06em" fill="currentColor" opacity="0.6">NSGANETV2 — jedna wyrocznia, ta sama pętla</text>
+      <text x="480" y="20" class="diagram-label" font-size="12" letter-spacing="0.06em" fill="currentColor" opacity="0.6">NSGANETV2 - jedna wyrocznia, ta sama pętla</text>
 
-      <rect x="480" y="30" width="280" height="60" rx="8" class="real-box" pointer-events="all" tabindex="0" data-tt="Faza A, jednorazowa: N prawdziwie wytrenowanych architektur, zanim ewolucja w ogóle ruszy. Ten koszt jest realny i płacony raz — sekcja 3.1."></rect>
+      <rect x="480" y="30" width="280" height="60" rx="8" class="real-box" pointer-events="all" tabindex="0" data-tt="Faza A, jednorazowa: N prawdziwie wytrenowanych architektur, zanim ewolucja w ogóle ruszy. Ten koszt jest realny i płacony raz - sekcja 3.1."></rect>
       <text fill="currentColor" x="620" y="55" text-anchor="middle" class="diagram-label" font-size="12">Faza A: N realnych treningów</text>
       <text fill="var(--real)" x="620" y="72" text-anchor="middle" class="diagram-label" font-size="10.5">jednorazowo, przed pętlą</text>
       <path d="M620,90 L620,110" stroke="currentColor" stroke-width="1.3" marker-end="url(#arrN1)"></path>
@@ -656,41 +665,41 @@
       <path d="M620,154 L620,178" stroke="var(--accent)" stroke-width="1.6" marker-end="url(#arrN1)"></path>
       <text x="700" y="172" text-anchor="middle" class="diagram-label" font-size="10.5" fill="var(--accent)" font-weight="700">↓ SWAP: tu real eval znika</text>
 
-      <rect x="480" y="182" width="280" height="42" rx="8" fill="none" stroke="currentColor" stroke-width="1.4" pointer-events="all" tabindex="0" data-tt="Ta sama populacja co po lewej — tylko że od tego miejsca nikt jej już nie trenuje."></rect>
+      <rect x="480" y="182" width="280" height="42" rx="8" fill="none" stroke="currentColor" stroke-width="1.4" pointer-events="all" tabindex="0" data-tt="Ta sama populacja co po lewej - tylko że od tego miejsca nikt jej już nie trenuje."></rect>
       <text fill="currentColor" x="620" y="207" text-anchor="middle" class="diagram-label" font-size="12">Populacja architektur</text>
       <path d="M620,224 L620,246" stroke="currentColor" stroke-width="1.3" marker-end="url(#arrN1)"></path>
 
-      <rect x="480" y="250" width="280" height="42" rx="8" class="oracle-box" pointer-events="all" tabindex="0" data-tt="oracle.query(genotyp) zamiast train_and_eval(genotyp) — jedyna linijka pętli NSGA-II, która się zmienia."></rect>
-      <text fill="currentColor" x="620" y="269" text-anchor="middle" class="diagram-label" font-size="12">oracle.query() — tania ocena</text>
+      <rect x="480" y="250" width="280" height="42" rx="8" class="oracle-box" pointer-events="all" tabindex="0" data-tt="oracle.query(genotyp) zamiast train_and_eval(genotyp) - jedyna linijka pętli NSGA-II, która się zmienia."></rect>
+      <text fill="currentColor" x="620" y="269" text-anchor="middle" class="diagram-label" font-size="12">oracle.query() - tania ocena</text>
       <text fill="var(--accent)" x="620" y="285" text-anchor="middle" class="diagram-label" font-size="10">zamiast train_and_eval()</text>
       <path d="M620,292 L620,314" stroke="currentColor" stroke-width="1.3" marker-end="url(#arrN1)"></path>
 
-      <rect x="480" y="318" width="280" height="42" rx="8" fill="none" stroke="currentColor" stroke-width="1.4" pointer-events="all" tabindex="0" data-tt="Identyczne jak po lewej stronie — kod tej procedury nie różni się ani linijką."></rect>
+      <rect x="480" y="318" width="280" height="42" rx="8" fill="none" stroke="currentColor" stroke-width="1.4" pointer-events="all" tabindex="0" data-tt="Identyczne jak po lewej stronie - kod tej procedury nie różni się ani linijką."></rect>
       <text fill="currentColor" x="620" y="343" text-anchor="middle" class="diagram-label" font-size="12">Sortowanie niezdominowane</text>
       <path d="M620,360 L620,382" stroke="currentColor" stroke-width="1.3" marker-end="url(#arrN1)"></path>
 
-      <rect x="480" y="386" width="280" height="42" rx="8" fill="var(--accent-soft)" stroke="var(--accent)" stroke-width="1.6" pointer-events="all" tabindex="0" data-tt="Identyczne jak po lewej — zagęszczenie i selekcja nie wiedzą i nie muszą wiedzieć, skąd wzięło się dopasowanie."></rect>
+      <rect x="480" y="386" width="280" height="42" rx="8" fill="var(--accent-soft)" stroke="var(--accent)" stroke-width="1.6" pointer-events="all" tabindex="0" data-tt="Identyczne jak po lewej - zagęszczenie i selekcja nie wiedzą i nie muszą wiedzieć, skąd wzięło się dopasowanie."></rect>
       <text fill="currentColor" x="620" y="411" text-anchor="middle" class="diagram-label" font-size="12">Zagęszczenie + selekcja</text>
 
       <path d="M760,407 C860,407 860,196 760,196" fill="none" stroke="var(--accent)" stroke-width="1.3" marker-end="url(#arrN1)"></path>
-      <text x="784" y="300" text-anchor="middle" class="diagram-label" font-size="10.5" fill="var(--accent)" transform="rotate(90 784 300)">kolejne pokolenie — wyrocznia bez zmian</text>
+      <text x="784" y="300" text-anchor="middle" class="diagram-label" font-size="10.5" fill="var(--accent)" transform="rotate(90 784 300)">kolejne pokolenie - wyrocznia bez zmian</text>
 
-      <text x="620" y="448" text-anchor="middle" class="diagram-label" font-size="11" fill="var(--accent)">koszt pętli: ~0 nowych treningów — tylko tanie zapytania</text>
+      <text x="620" y="448" text-anchor="middle" class="diagram-label" font-size="11" fill="var(--accent)">koszt pętli: ~0 nowych treningów - tylko tanie zapytania</text>
     </svg>
-    <figcaption><span class="k">Co pokazuje ten diagram —</span> lewa kolumna to NSGA-Net: każde pokolenie płaci pełny koszt treningu od nowa. Prawa kolumna to ta sama pętla, z dwoma dodanymi krokami na samej górze (jednorazowy trening N architektur, dopasowanie wyroczni) i jedną podmienioną linijką w środku — dokładnie w miejscu oznaczonym „SWAP”. Reszta pętli, poniżej tego miejsca, jest identyczna po obu stronach. Najedź na dowolne pudełko po szczegóły.</figcaption>
+    <figcaption><span class="k">Co pokazuje ten diagram -</span> lewa kolumna to NSGA-Net: każde pokolenie płaci pełny koszt treningu od nowa. Prawa kolumna to ta sama pętla, z dwoma dodanymi krokami na samej górze (jednorazowy trening N architektur, dopasowanie wyroczni) i jedną podmienioną linijką w środku - dokładnie w miejscu oznaczonym „SWAP”. Reszta pętli, poniżej tego miejsca, jest identyczna po obu stronach. Najedź na dowolne pudełko po szczegóły.</figcaption>
   </figure>
 </section>
 
 <section id="bigpicture">
-  <h3><span class="num">2</span>Ogólny obraz — dwie fazy karmiące jedną pętlę</h3>
-  <p class="lede" style="font-size:17px;">Jednym zdaniem: Faza A dzieje się raz i jest droga; Faza B powtarza się wielokrotnie i jest tania — a granica między nimi to dokładnie ten moment, w którym „prawdziwa ewaluacja” staje się „zapytaniem do wyroczni”.</p>
+  <h3><span class="num">2</span>Ogólny obraz - dwie fazy karmiące jedną pętlę</h3>
+  <p class="lede" style="font-size:17px;">Jednym zdaniem: Faza A dzieje się raz i jest droga; Faza B powtarza się wielokrotnie i jest tania - a granica między nimi to dokładnie ten moment, w którym „prawdziwa ewaluacja” staje się „zapytaniem do wyroczni”.</p>
 
   <div class="tablewrap">
     <table>
       <thead><tr><th>Faza</th><th>Co się dzieje</th></tr></thead>
       <tbody>
-        <tr><td><strong>Faza A — budowa wyroczni</strong></td><td>N architektur trenowanych naprawdę (typowo dziesiątki do niskich setek, nie tysiące). Na tych parach (genotyp, prawdziwe dopasowanie) dopasowywany jest predyktor i/lub trenowana supersieć wag współdzielonych. Jednorazowy koszt, poniesiony <em>przed</em> uruchomieniem ewolucji.</td></tr>
-        <tr><td><strong>Faza B — NSGA-II z wyrocznią</strong></td><td>Dokładnie ta sama pętla co w NSGA-Net: populacja, potomkowie przez krzyżowanie i mutację, ocena, sortowanie niezdominowane, odległość zagęszczenia, selekcja, powtórz. Jedyna zmiana: „ocena” to teraz <span class="mono">oracle.query(genotyp)</span>, nie trening.</td></tr>
+        <tr><td><strong>Faza A - budowa wyroczni</strong></td><td>N architektur trenowanych naprawdę (typowo dziesiątki do niskich setek, nie tysiące). Na tych parach (genotyp, prawdziwe dopasowanie) dopasowywany jest predyktor i/lub trenowana supersieć wag współdzielonych. Jednorazowy koszt, poniesiony <em>przed</em> uruchomieniem ewolucji.</td></tr>
+        <tr><td><strong>Faza B - NSGA-II z wyrocznią</strong></td><td>Dokładnie ta sama pętla co w NSGA-Net: populacja, potomkowie przez krzyżowanie i mutację, ocena, sortowanie niezdominowane, odległość zagęszczenia, selekcja, powtórz. Jedyna zmiana: „ocena” to teraz <span class="mono">oracle.query(genotyp)</span>, nie trening.</td></tr>
       </tbody>
     </table>
   </div>
@@ -698,14 +707,14 @@
   <p>Z lotu ptaka, obie fazy karmią jedną pętlę tak:</p>
 
   <figure class="bleed">
-    <svg viewBox="0 0 880 240" role="img" aria-label="NSGANetV2 z lotu ptaka: Faza A trenuje N architektur naprawdę i dopasowuje wyrocznię, a wynik zasila Fazę B — pętlę NSGA-II, w której ocena każdego kandydata to zapytanie do wyroczni, nie trening.">
+    <svg viewBox="0 0 880 240" role="img" aria-label="NSGANetV2 z lotu ptaka: Faza A trenuje N architektur naprawdę i dopasowuje wyrocznię, a wynik zasila Fazę B - pętlę NSGA-II, w której ocena każdego kandydata to zapytanie do wyroczni, nie trening.">
       <defs>
         <marker id="arrN2" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
           <path d="M0,0 L10,5 L0,10 z" fill="currentColor"></path>
         </marker>
       </defs>
 
-      <rect x="20" y="80" width="230" height="60" rx="9" class="real-box" pointer-events="all" tabindex="0" data-tt="Wydarza się raz, na samym początku — nigdy w środku pętli NSGA-II. To jest jedyne miejsce w całym algorytmie, gdzie płaci się za prawdziwy trening. Sekcja 3.1.">
+      <rect x="20" y="80" width="230" height="60" rx="9" class="real-box" pointer-events="all" tabindex="0" data-tt="Wydarza się raz, na samym początku - nigdy w środku pętli NSGA-II. To jest jedyne miejsce w całym algorytmie, gdzie płaci się za prawdziwy trening. Sekcja 3.1.">
       </rect>
       <text fill="currentColor" x="135" y="106" text-anchor="middle" class="diagram-label" font-size="13">Faza A</text>
       <text fill="var(--real)" x="135" y="123" text-anchor="middle" class="diagram-label" font-size="11">N realnych treningów</text>
@@ -720,53 +729,53 @@
       <text fill="var(--accent)" x="475" y="123" text-anchor="middle" class="diagram-label" font-size="11">predyktor / supersieć</text>
       <path d="M590,110 L640,110" stroke="currentColor" stroke-width="1.3" marker-end="url(#arrN2)"></path>
 
-      <rect x="650" y="80" width="210" height="60" rx="9" fill="none" stroke="currentColor" stroke-width="1.4" pointer-events="all" tabindex="0" data-tt="Sortowanie niezdominowane + odległość zagęszczenia + selekcja + krzyżowanie + mutacja — dosłownie ten sam kod, co w NSGA-Net. Sekcja 3.3.">
+      <rect x="650" y="80" width="210" height="60" rx="9" fill="none" stroke="currentColor" stroke-width="1.4" pointer-events="all" tabindex="0" data-tt="Sortowanie niezdominowane + odległość zagęszczenia + selekcja + krzyżowanie + mutacja - dosłownie ten sam kod, co w NSGA-Net. Sekcja 3.3.">
       </rect>
       <text fill="currentColor" x="755" y="104" text-anchor="middle" class="diagram-label" font-size="12">Faza B</text>
       <text fill="currentColor" x="755" y="120" text-anchor="middle" class="diagram-label" font-size="11" opacity="0.8">pętla NSGA-II</text>
 
       <path d="M755,142 C755,205 475,205 475,142" fill="none" stroke="currentColor" stroke-width="1.3" stroke-dasharray="2 4" marker-end="url(#arrN2)"></path>
-      <text x="615" y="220" text-anchor="middle" class="diagram-label" font-size="11" fill="currentColor" opacity="0.7" pointer-events="all" tabindex="0" data-tt="Pętla wraca do wyroczni, nigdy do Fazy A — wyrocznia dopasowana raz na starcie służy całej reszcie przeszukiwania bez retrenowania.">kolejne pokolenie — wraca do wyroczni, nie do Fazy A</text>
+      <text x="615" y="220" text-anchor="middle" class="diagram-label" font-size="11" fill="currentColor" opacity="0.7" pointer-events="all" tabindex="0" data-tt="Pętla wraca do wyroczni, nigdy do Fazy A - wyrocznia dopasowana raz na starcie służy całej reszcie przeszukiwania bez retrenowania.">kolejne pokolenie - wraca do wyroczni, nie do Fazy A</text>
     </svg>
-    <figcaption><span class="k">Co pokazuje ten diagram —</span> przerywana bursztynowa linia to dokładnie ten sam punkt „SWAP” co w diagramie z sekcji 1 — po prostu narysowany jako granica między fazami zamiast jako para kolumn. Wszystko na lewo od niej dzieje się raz. Wszystko na prawo — łącznie z wielokrotnymi przebiegami pętli — nigdy nie wraca w lewo.</figcaption>
+    <figcaption><span class="k">Co pokazuje ten diagram -</span> przerywana bursztynowa linia to dokładnie ten sam punkt „SWAP” co w diagramie z sekcji 1 - po prostu narysowany jako granica między fazami zamiast jako para kolumn. Wszystko na lewo od niej dzieje się raz. Wszystko na prawo - łącznie z wielokrotnymi przebiegami pętli - nigdy nie wraca w lewo.</figcaption>
   </figure>
 
   <p>To, czego celowo tu nie ma, jest równie ważne: żadnego retrenowania wyroczni w środku pętli NSGA-II (w przeciwieństwie do P3Net, które retrenuje swój surogat po każdej nowej prawdziwej ewaluacji), i żadnej gwarancji, że wyrocznia zostanie w ogóle odpytana w regionie przestrzeni przeszukiwania, którego nie widziała w Fazie A. Sekcja&nbsp;4 pokazuje na żywo, dlaczego to drugie ma znaczenie.</p>
 </section>
 
 <section id="components">
-  <h2>3&nbsp; Komponenty — rozkładanie każdego elementu na czynniki</h2>
+  <h2>3&nbsp; Komponenty - rozkładanie każdego elementu na czynniki</h2>
   <p class="subdek">Trzy elementy: budowa wyroczni, samo zapytanie do niej, i mechanika selekcji NSGA-II, którą NSGANetV2 dziedziczy bez żadnej zmiany.</p>
 
-  <h3><span class="num">3.1</span>Budowa wyroczni — jednorazowy koszt przed pętlą</h3>
+  <h3><span class="num">3.1</span>Budowa wyroczni - jednorazowy koszt przed pętlą</h3>
   <p class="lede" style="font-size:16px;">Jednym zdaniem: wytrenuj naprawdę N architektur, zapamiętaj pary (genotyp, dopasowanie), dopasuj do nich tani model.</p>
-  <p>N architektur jest próbkowanych z tej samej przestrzeni przeszukiwania, w której będzie działać NSGA-II — losowo, albo metodą pokrywającą przestrzeń równomierniej (np. Latin Hypercube). Każda jest trenowana naprawdę, dokładnie tak jak zrobiłby to NSGA-Net dla każdego swojego kandydata. Z tych N par (genotyp, prawdziwe dopasowanie) powstaje wyrocznia — w oryginalnym artykule zwykle oba naraz: supersieć wag współdzielonych (żeby ocenić dowolną pod-architekturę bez treningu jej od zera) oraz lekki predyktor dokładności dopasowany na wierzchu tych ocen (żeby ocena była jeszcze szybsza niż jeden przebieg walidacyjny przez supersieć).</p>
-  <p>To N jest jedyną prawdziwie drogą liczbą w całym algorytmie. Zbyt małe — wyrocznia generalizuje słabo poza garstką punktów, które widziała. Zbyt duże — koszt Fazy A zaczyna dorównywać temu, co po prostu kosztowałoby uruchomienie NSGA-Net wprost.</p>
+  <p>N architektur jest próbkowanych z tej samej przestrzeni przeszukiwania, w której będzie działać NSGA-II - losowo, albo metodą pokrywającą przestrzeń równomierniej (np. Latin Hypercube). Każda jest trenowana naprawdę, dokładnie tak jak zrobiłby to NSGA-Net dla każdego swojego kandydata. Z tych N par (genotyp, prawdziwe dopasowanie) powstaje wyrocznia - w oryginalnym artykule zwykle oba naraz: supersieć wag współdzielonych (żeby ocenić dowolną pod-architekturę bez treningu jej od zera) oraz lekki predyktor dokładności dopasowany na wierzchu tych ocen (żeby ocena była jeszcze szybsza niż jeden przebieg walidacyjny przez supersieć).</p>
+  <p>To N jest jedyną prawdziwie drogą liczbą w całym algorytmie. Zbyt małe - wyrocznia generalizuje słabo poza garstką punktów, które widziała. Zbyt duże - koszt Fazy A zaczyna dorównywać temu, co po prostu kosztowałoby uruchomienie NSGA-Net wprost.</p>
 
-  <h3><span class="num">3.2</span>Zapytanie do wyroczni — <span class="mono">oracle.query(genotyp)</span></h3>
-  <p class="lede" style="font-size:16px;">Jednym zdaniem: od Fazy A do końca przeszukiwania, każde „jak dobry jest ten kandydat?” to jedno tanie zapytanie do modelu dopasowanego w 3.1 — nigdy trening.</p>
-  <p>Zapytanie jest <em class="term">globalne</em> i <em class="term">bezwzględne</em>: dostaje jeden genotyp, zwraca jedno przewidywane dopasowanie, bez odniesienia do żadnego innego kandydata i bez żadnej informacji o tym, które geny tego genotypu są ze sobą powiązane. To jest dokładnie ta właściwość, którą sekcja&nbsp;6 zestawia z surogatem P3Net. Drugi cel (parametry, FLOPs) zwykle nie wymaga wyroczni w ogóle — daje się policzyć analitycznie wprost z genotypu, za darmo, tak samo jak w P3Net.</p>
+  <h3><span class="num">3.2</span>Zapytanie do wyroczni - <span class="mono">oracle.query(genotyp)</span></h3>
+  <p class="lede" style="font-size:16px;">Jednym zdaniem: od Fazy A do końca przeszukiwania, każde „jak dobry jest ten kandydat?” to jedno tanie zapytanie do modelu dopasowanego w 3.1 - nigdy trening.</p>
+  <p>Zapytanie jest <em class="term">globalne</em> i <em class="term">bezwzględne</em>: dostaje jeden genotyp, zwraca jedno przewidywane dopasowanie, bez odniesienia do żadnego innego kandydata i bez żadnej informacji o tym, które geny tego genotypu są ze sobą powiązane. To jest dokładnie ta właściwość, którą sekcja&nbsp;6 zestawia z surogatem P3Net. Drugi cel (parametry, FLOPs) zwykle nie wymaga wyroczni w ogóle - daje się policzyć analitycznie wprost z genotypu, za darmo, tak samo jak w P3Net.</p>
 
   <div class="callout">
     <span class="tag">Dlaczego wyrocznia bywa myląca dokładnie tam, gdzie nie patrzyła</span>
-    <p>Ponieważ wyrocznia jest dopasowana raz, do stałego zbioru N próbek, jej trafność nie jest równa wszędzie w przestrzeni przeszukiwania. Blisko próbek, które widziała, przewiduje dobrze. Daleko od nich — ekstrapoluje, i błąd rośnie w sposób, którego NSGA-II wewnątrz Fazy B nie ma jak wykryć, bo nie ma dostępu do niczego poza samą liczbą, którą wyrocznia zwróciła. Żywa symulacja w sekcji&nbsp;4 pokazuje to wprost: te same 12 realnie ocenionych punktów, ta sama wyrocznia, i wyraźnie różna trafność w zależności od tego, jak blisko któregoś z nich leży dany kandydat.</p>
+    <p>Ponieważ wyrocznia jest dopasowana raz, do stałego zbioru N próbek, jej trafność nie jest równa wszędzie w przestrzeni przeszukiwania. Blisko próbek, które widziała, przewiduje dobrze. Daleko od nich - ekstrapoluje, i błąd rośnie w sposób, którego NSGA-II wewnątrz Fazy B nie ma jak wykryć, bo nie ma dostępu do niczego poza samą liczbą, którą wyrocznia zwróciła. Żywa symulacja w sekcji&nbsp;4 pokazuje to wprost: te same 12 realnie ocenionych punktów, ta sama wyrocznia, i wyraźnie różna trafność w zależności od tego, jak blisko któregoś z nich leży dany kandydat.</p>
   </div>
 
-  <h3><span class="num">3.3</span>Selekcja NSGA-II — bez zmian względem NSGA-Net</h3>
-  <p class="lede" style="font-size:16px;">Jednym zdaniem: sortowanie niezdominowane, odległość zagęszczenia, turniej, krzyżowanie, mutacja — ta część jest tym samym mechanizmem, opisanym w poprzedniej stronie tej serii, poświęconej NSGA-Netowi.</p>
-  <p>NSGANetV2 nie zmienia ani jednej linijki tego, jak NSGA-II decyduje, kto przetrwa do kolejnego pokolenia. Ranga frontu (ile kandydatów dominuje danego osobnika) i odległość zagęszczenia (jak izolowany jest w przestrzeni celów wśród osobników o tej samej randze) liczone są dokładnie tak samo jak w NSGA-Net — strona poświęcona NSGA-Netowi w tej samej serii rozkłada ten mechanizm na czynniki pierwsze bardziej szczegółowo. Jedyna różnica jest o jeden poziom niżej: liczby, na których te porównania operują, pochodzą teraz z <span class="mono">oracle.query()</span>, nie z <span class="mono">train_and_eval()</span>. Sortowanie i zagęszczenie nie wiedzą — i nie muszą wiedzieć — skąd te liczby przyszły.</p>
+  <h3><span class="num">3.3</span>Selekcja NSGA-II - bez zmian względem NSGA-Net</h3>
+  <p class="lede" style="font-size:16px;">Jednym zdaniem: sortowanie niezdominowane, odległość zagęszczenia, turniej, krzyżowanie, mutacja - ta część jest tym samym mechanizmem, opisanym w poprzedniej stronie tej serii, poświęconej NSGA-Netowi.</p>
+  <p>NSGANetV2 nie zmienia ani jednej linijki tego, jak NSGA-II decyduje, kto przetrwa do kolejnego pokolenia. Ranga frontu (ile kandydatów dominuje danego osobnika) i odległość zagęszczenia (jak izolowany jest w przestrzeni celów wśród osobników o tej samej randze) liczone są dokładnie tak samo jak w NSGA-Net - strona poświęcona NSGA-Netowi w tej samej serii rozkłada ten mechanizm na czynniki pierwsze bardziej szczegółowo. Jedyna różnica jest o jeden poziom niżej: liczby, na których te porównania operują, pochodzą teraz z <span class="mono">oracle.query()</span>, nie z <span class="mono">train_and_eval()</span>. Sortowanie i zagęszczenie nie wiedzą - i nie muszą wiedzieć - skąd te liczby przyszły.</p>
 </section>
 
 <section id="live">
   <h2>4&nbsp; Zobacz to w akcji</h2>
-  <p class="subdek">Naprawdę policzone NSGA-II w Twojej przeglądarce — z realną fazą budowy wyroczni na starcie i widocznym punktem, w którym realna ewaluacja znika z pętli.</p>
+  <p class="subdek">Naprawdę policzone NSGA-II w Twojej przeglądarce - z realną fazą budowy wyroczni na starcie i widocznym punktem, w którym realna ewaluacja znika z pętli.</p>
 
   <h3><span class="num">4.1</span>Problem: mały, ale ze strukturą, której globalny predyktor nie widzi</h3>
-  <p>Genotyp poniżej to wektor <strong>5 genów</strong>, każdy o wartościach <span class="mono">0–4</span> (np. „poziom szerokości” kolejnej warstwy). Dwa cele, oba minimalizowane: <strong>błąd</strong> (nieliniowa funkcja wszystkich pięciu genów, z jedną celową „pułapką powiązań” — geny 0 i 1 dają duży bonus, jeśli mają <em>tę samą</em> wartość, niezależnie od tego, jaka to wartość) i <strong>koszt</strong> (po prostu suma genów — policzalny od razu, bez treningu, dokładnie jak parametry albo FLOPs w prawdziwym NAS).</p>
-  <p>Ta „pułapka powiązań” w błędzie jest tu celowo: globalny predyktor, który widział tylko garstkę losowych próbek, może jej w ogóle nie wychwycić, jeśli akurat żadna z próbek nie trafiła w parę genów 0–1 dostatecznie blisko. To nie jest hipotetyczne — to dokładnie ta różnica, do której wraca sekcja&nbsp;6.</p>
+  <p>Genotyp poniżej to wektor <strong>5 genów</strong>, każdy o wartościach <span class="mono">0–4</span> (np. „poziom szerokości” kolejnej warstwy). Dwa cele, oba minimalizowane: <strong>błąd</strong> (nieliniowa funkcja wszystkich pięciu genów, z jedną celową „pułapką powiązań” - geny 0 i 1 dają duży bonus, jeśli mają <em>tę samą</em> wartość, niezależnie od tego, jaka to wartość) i <strong>koszt</strong> (po prostu suma genów - policzalny od razu, bez treningu, dokładnie jak parametry albo FLOPs w prawdziwym NAS).</p>
+  <p>Ta „pułapka powiązań” w błędzie jest tu celowo: globalny predyktor, który widział tylko garstkę losowych próbek, może jej w ogóle nie wychwycić, jeśli akurat żadna z próbek nie trafiła w parę genów 0–1 dostatecznie blisko. To nie jest hipotetyczne - to dokładnie ta różnica, do której wraca sekcja&nbsp;6.</p>
 
   <h3><span class="num">4.2</span>Rozwiązanie: Faza A, potem Faza B, naprawdę policzone</h3>
-  <p>Klik „Krok” najpierw przeprowadza Fazę A — 12 realnie „wytrenowanych” genotypów (licznik realnych ewaluacji rośnie), z których dopasowywana jest wyrocznia (prosty regresor k najbliższych sąsiadów w przestrzeni genów — celowo najprostszy możliwy model, żeby nic nie ukrywać). Zaraz potem zaczyna się Faza B: NSGA-II odpytuje wyrocznię zamiast trenować — licznik realnych ewaluacji <strong>zamraża się</strong>, licznik zapytań rośnie. Włącz „Pokaż błąd predykcji”, żeby zobaczyć, jak bardzo (i gdzie) wyrocznia się myli względem prawdziwej wartości.</p>
+  <p>Klik „Krok” najpierw przeprowadza Fazę A - 12 realnie „wytrenowanych” genotypów (licznik realnych ewaluacji rośnie), z których dopasowywana jest wyrocznia (prosty regresor k najbliższych sąsiadów w przestrzeni genów - celowo najprostszy możliwy model, żeby nic nie ukrywać). Zaraz potem zaczyna się Faza B: NSGA-II odpytuje wyrocznię zamiast trenować - licznik realnych ewaluacji <strong>zamraża się</strong>, licznik zapytań rośnie. Włącz „Pokaż błąd predykcji”, żeby zobaczyć, jak bardzo (i gdzie) wyrocznia się myli względem prawdziwej wartości.</p>
 
   <div class="demo-bleed-wrap">
   <div class="demo" id="nsgaDemo">
@@ -778,46 +787,46 @@
 
     <div class="hero-block">
       <div class="demo-map-wrap map-strip">
-        <svg viewBox="0 0 1360 280" role="img" aria-label="Mapa NSGANetV2: Faza A trenuje realnie N próbek, dopasowanie wyroczni, granica SWAP, potem pętla NSGA-II — populacja, ranking, wariacja z zapytaniem do wyroczni, selekcja przetrwania — wracająca do rankingu bez ponownego treningu.">
+        <svg viewBox="0 0 1360 280" role="img" aria-label="Mapa NSGANetV2: Faza A trenuje realnie N próbek, dopasowanie wyroczni, granica SWAP, potem pętla NSGA-II - populacja, ranking, wariacja z zapytaniem do wyroczni, selekcja przetrwania - wracająca do rankingu bez ponownego treningu.">
           <defs>
             <marker id="arrMapN" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto-start-reverse">
               <path d="M0,0 L10,5 L0,10 z" fill="currentColor"></path>
             </marker>
           </defs>
 
-          <rect id="mapBoxPhaseA" class="map-box" data-node="phaseA" x="20" y="170" width="160" height="60" rx="8" pointer-events="all" tabindex="0" data-tt="12 genotypów, wybranych losowo, każdy oceniony naprawdę — jedyne miejsce w całym przebiegu, gdzie licznik realnych ewaluacji rośnie."></rect>
+          <rect id="mapBoxPhaseA" class="map-box" data-node="phaseA" x="20" y="170" width="160" height="60" rx="8" pointer-events="all" tabindex="0" data-tt="12 genotypów, wybranych losowo, każdy oceniony naprawdę - jedyne miejsce w całym przebiegu, gdzie licznik realnych ewaluacji rośnie."></rect>
           <text id="mapLabelPhaseA" class="map-label" data-node="phaseA" x="100" y="197" text-anchor="middle" font-size="12">Faza A</text>
           <text class="map-label" data-node="phaseA" x="100" y="213" text-anchor="middle" font-size="9.5" opacity="0.75">12 realnych ewaluacji</text>
           <path class="map-arrow" d="M180,200 L206,200" stroke-width="1.2" marker-end="url(#arrMapN)"></path>
 
-          <rect id="mapBoxFit" class="map-box" data-node="fit" x="212" y="170" width="150" height="60" rx="8" pointer-events="all" tabindex="0" data-tt="Regresor k najbliższych sąsiadów dopasowany do 12 par (genotyp, realny błąd) — od tego momentu to jedyne źródło oceny w całym przebiegu."></rect>
+          <rect id="mapBoxFit" class="map-box" data-node="fit" x="212" y="170" width="150" height="60" rx="8" pointer-events="all" tabindex="0" data-tt="Regresor k najbliższych sąsiadów dopasowany do 12 par (genotyp, realny błąd) - od tego momentu to jedyne źródło oceny w całym przebiegu."></rect>
           <text id="mapLabelFit" class="map-label" data-node="fit" x="287" y="204" text-anchor="middle" font-size="12">Dopasuj wyrocznię</text>
 
           <line x1="378" y1="150" x2="378" y2="255" stroke="var(--accent)" stroke-width="1.4" stroke-dasharray="3 4"></line>
           <text x="378" y="142" text-anchor="middle" class="diagram-label" font-size="10.5" fill="var(--accent)" font-weight="700">SWAP</text>
           <path class="map-arrow" d="M362,200 L406,200" stroke-width="1.2" marker-end="url(#arrMapN)"></path>
 
-          <rect id="mapBoxPop" class="map-box" data-node="population" x="412" y="170" width="150" height="60" rx="8" pointer-events="all" tabindex="0" data-tt="Populacja NSGA-II — startowo losowa, potem złożona z przetrwałych rodziców i potomków poprzedniej generacji."></rect>
+          <rect id="mapBoxPop" class="map-box" data-node="population" x="412" y="170" width="150" height="60" rx="8" pointer-events="all" tabindex="0" data-tt="Populacja NSGA-II - startowo losowa, potem złożona z przetrwałych rodziców i potomków poprzedniej generacji."></rect>
           <text id="mapLabelPop" class="map-label" data-node="population" x="487" y="204" text-anchor="middle" font-size="12">Populacja</text>
           <path class="map-arrow" d="M562,200 L588,200" stroke-width="1.2" marker-end="url(#arrMapN)"></path>
 
-          <rect id="mapBoxRank" class="map-box" data-node="rank" x="594" y="170" width="180" height="60" rx="8" pointer-events="all" tabindex="0" data-tt="Sortowanie niezdominowane + odległość zagęszczenia — identyczne z NSGA-Net, opisane w poprzedniej stronie tej serii."></rect>
+          <rect id="mapBoxRank" class="map-box" data-node="rank" x="594" y="170" width="180" height="60" rx="8" pointer-events="all" tabindex="0" data-tt="Sortowanie niezdominowane + odległość zagęszczenia - identyczne z NSGA-Net, opisane w poprzedniej stronie tej serii."></rect>
           <text id="mapLabelRank" class="map-label" data-node="rank" x="684" y="197" text-anchor="middle" font-size="11.5">Ranking niezdominowany</text>
           <text class="map-label" data-node="rank" x="684" y="212" text-anchor="middle" font-size="9.5" opacity="0.75">+ zagęszczenie</text>
           <path class="map-arrow" d="M774,200 L800,200" stroke-width="1.2" marker-end="url(#arrMapN)"></path>
 
-          <rect id="mapBoxVary" class="map-box" data-node="vary" x="806" y="170" width="230" height="60" rx="8" pointer-events="all" tabindex="0" data-tt="Turniej wg rangi i zagęszczenia, krzyżowanie, mutacja — potem oracle.query() na każdym potomku zamiast treningu. Zero nowych realnych ewaluacji."></rect>
+          <rect id="mapBoxVary" class="map-box" data-node="vary" x="806" y="170" width="230" height="60" rx="8" pointer-events="all" tabindex="0" data-tt="Turniej wg rangi i zagęszczenia, krzyżowanie, mutacja - potem oracle.query() na każdym potomku zamiast treningu. Zero nowych realnych ewaluacji."></rect>
           <text id="mapLabelVary" class="map-label" data-node="vary" x="921" y="194" text-anchor="middle" font-size="11.5">Selekcja + krzyżowanie</text>
           <text id="mapLabelVary2" class="map-label" data-node="vary" x="921" y="210" text-anchor="middle" font-size="11.5">+ mutacja + oracle.query()</text>
           <path class="map-arrow" d="M1036,200 L1062,200" stroke-width="1.2" marker-end="url(#arrMapN)"></path>
 
-          <rect id="mapBoxSelect" class="map-box" data-node="select" x="1068" y="170" width="270" height="60" rx="8" pointer-events="all" tabindex="0" data-tt="Rodzice + potomkowie razem, posortowani ponownie wg rangi i zagęszczenia — najlepsi przechodzą do kolejnej generacji."></rect>
+          <rect id="mapBoxSelect" class="map-box" data-node="select" x="1068" y="170" width="270" height="60" rx="8" pointer-events="all" tabindex="0" data-tt="Rodzice + potomkowie razem, posortowani ponownie wg rangi i zagęszczenia - najlepsi przechodzą do kolejnej generacji."></rect>
           <text id="mapLabelSelect" class="map-label" data-node="select" x="1203" y="204" text-anchor="middle" font-size="12">Selekcja przetrwania</text>
 
           <path class="map-arrow" d="M1203,168 C1203,40 684,40 684,168" fill="none" stroke-width="1.1" stroke-dasharray="2 3" marker-end="url(#arrMapN)"></path>
-          <text x="944" y="26" text-anchor="middle" class="diagram-label" font-size="10.5" fill="currentColor" opacity="0.65">kolejna generacja — wraca do rankingu, nigdy do Fazy A</text>
+          <text x="944" y="26" text-anchor="middle" class="diagram-label" font-size="10.5" fill="currentColor" opacity="0.65">kolejna generacja - wraca do rankingu, nigdy do Fazy A</text>
 
-          <text x="700" y="265" text-anchor="middle" class="diagram-label" font-size="11" fill="currentColor" opacity="0.6">Wszystko na prawo od linii SWAP powtarza się generacja po generacji — bez jednej nowej realnej ewaluacji.</text>
+          <text x="700" y="265" text-anchor="middle" class="diagram-label" font-size="11" fill="currentColor" opacity="0.6">Wszystko na prawo od linii SWAP powtarza się generacja po generacji - bez jednej nowej realnej ewaluacji.</text>
         </svg>
       </div>
       <div class="genome-strip">
@@ -826,22 +835,22 @@
       </div>
     </div>
 
-    <div class="demo-phase-caption" id="phaseCaption">Kliknij „Krok” albo „Uruchom”, żeby zobaczyć algorytm w akcji — mapa powyżej podświetla dokładny krok na żywo.</div>
+    <div class="demo-phase-caption" id="phaseCaption">Kliknij „Krok” albo „Uruchom”, żeby zobaczyć algorytm w akcji - mapa powyżej podświetla dokładny krok na żywo.</div>
     <div class="demo-log" id="demoLog">Kliknij „Krok” albo „Uruchom”, żeby zacząć.</div>
 
-    <div class="zone-caption" pointer-events="all" tabindex="0" data-tt="Te cztery karty czerpią z całego dotychczasowego przebiegu — populacji, zbioru treningowego wyroczni i skumulowanego kosztu.">③ nagromadzony wynik — cała populacja i wyrocznia do tej pory</div>
+    <div class="zone-caption" pointer-events="all" tabindex="0" data-tt="Te cztery karty czerpią z całego dotychczasowego przebiegu - populacji, zbioru treningowego wyroczni i skumulowanego kosztu.">③ nagromadzony wynik - cała populacja i wyrocznia do tej pory</div>
     <div class="result-row">
       <div class="demo-panel">
-        <h4 pointer-events="all" tabindex="0" data-tt="Oś X: koszt (suma genów, liczony za darmo). Oś Y: błąd wg wyroczni — im wyżej punkt, tym gorszy. Bursztynowe wypełnienie = front Pareto rangi 0 aktualnej populacji.">Przestrzeń celów (na żywo)</h4>
+        <h4 pointer-events="all" tabindex="0" data-tt="Oś X: koszt (suma genów, liczony za darmo). Oś Y: błąd wg wyroczni - im wyżej punkt, tym gorszy. Bursztynowe wypełnienie = front Pareto rangi 0 aktualnej populacji.">Przestrzeń celów (na żywo)</h4>
         <div class="scatter-wrap" id="scatterWrap"></div>
         <p class="demo-note" id="scatterNote">Populacja pojawi się po zakończeniu Fazy A.</p>
       </div>
       <div class="demo-panel">
-        <h4 pointer-events="all" tabindex="0" data-tt="12 genotypów wytrenowanych naprawdę w Fazie A — jedyne dane, na których wyrocznia w ogóle się opiera.">Zbiór treningowy wyroczni (H)</h4>
+        <h4 pointer-events="all" tabindex="0" data-tt="12 genotypów wytrenowanych naprawdę w Fazie A - jedyne dane, na których wyrocznia w ogóle się opiera.">Zbiór treningowy wyroczni (H)</h4>
         <div class="cluster-chips" id="samplesView"></div>
       </div>
       <div class="demo-panel">
-        <h4 pointer-events="all" tabindex="0" data-tt="Zielony pasek to realne ewaluacje — rośnie tylko w Fazie A, potem zamraża się na stałe. Bursztynowy to zapytania do wyroczni — tanie, rosną przez całą Fazę B.">Koszt: realny vs. zapytania</h4>
+        <h4 pointer-events="all" tabindex="0" data-tt="Zielony pasek to realne ewaluacje - rośnie tylko w Fazie A, potem zamraża się na stałe. Bursztynowy to zapytania do wyroczni - tanie, rosną przez całą Fazę B.">Koszt: realny vs. zapytania</h4>
         <div class="demo-cost-wrap">
           <div class="demo-cost-row">
             <span class="cost-lbl">Realne</span>
@@ -854,7 +863,7 @@
             <span class="demo-cost-num" id="costQueryNum">0</span>
           </div>
         </div>
-        <p class="demo-note" id="hypoNote">Gdyby to był NSGA-Net: każda z tych zapytań byłaby osobnym treningiem — realny licznik rosłby razem z bursztynowym, nie zatrzymał się po Fazie A.</p>
+        <p class="demo-note" id="hypoNote">Gdyby to był NSGA-Net: każda z tych zapytań byłaby osobnym treningiem - realny licznik rosłby razem z bursztynowym, nie zatrzymał się po Fazie A.</p>
       </div>
       <div class="demo-panel">
         <h4 pointer-events="all" tabindex="0" data-tt="Najlepszy dotąd znaleziony kandydat na froncie rangi 0, wg oceny wyroczni.">Najlepszy dotąd (front rangi 0)</h4>
@@ -863,7 +872,7 @@
       </div>
     </div>
 
-    <div class="zone-caption" pointer-events="all" tabindex="0" data-tt="Te dwie dotyczą tylko bieżącego kroku — sterowanie i statystyki.">④ bieżący krok — sterowanie, statystyki</div>
+    <div class="zone-caption" pointer-events="all" tabindex="0" data-tt="Te dwie dotyczą tylko bieżącego kroku - sterowanie i statystyki.">④ bieżący krok - sterowanie, statystyki</div>
     <div class="card-row">
       <div class="demo-panel">
         <h4>Sterowanie</h4>
@@ -881,10 +890,10 @@
           <div class="demo-stat" pointer-events="all" tabindex="0" data-tt="Numer generacji NSGA-II w Fazie B. Zero, dopóki trwa Faza A.">
             <div class="lbl">Generacja</div><div class="val" id="statGen">0</div>
           </div>
-          <div class="demo-stat" pointer-events="all" tabindex="0" data-tt="Łączna liczba prawdziwych treningów — rośnie wyłącznie w Fazie A, potem zamrożona.">
+          <div class="demo-stat" pointer-events="all" tabindex="0" data-tt="Łączna liczba prawdziwych treningów - rośnie wyłącznie w Fazie A, potem zamrożona.">
             <div class="lbl">Realne ewaluacje</div><div class="val" id="statReal">0</div>
           </div>
-          <div class="demo-stat" pointer-events="all" tabindex="0" data-tt="Łączna liczba wywołań oracle.query() — tanich zapytań do wyroczni.">
+          <div class="demo-stat" pointer-events="all" tabindex="0" data-tt="Łączna liczba wywołań oracle.query() - tanich zapytań do wyroczni.">
             <div class="lbl">Zapytania</div><div class="val" id="statQuery">0</div>
           </div>
           <div class="demo-stat" pointer-events="all" tabindex="0" data-tt="Liczba osobników na froncie rangi 0 aktualnej populacji.">
@@ -899,33 +908,33 @@
 </section>
 
 <section id="code">
-  <h2>5&nbsp; Pseudokod — co naprawdę trzeba by napisać</h2>
-  <p class="subdek">Dwa bloki. Faza A jest osobną procedurą, uruchamianą raz. Faza B to niemal dokładnie NSGA-Net — z jedną podmienioną linijką.</p>
+  <h2>5&nbsp; Pseudokod - co naprawdę trzeba by napisać</h2>
+  <p class="subdek">Dwa bloki. Faza A jest osobną procedurą, uruchamianą raz. Faza B to niemal dokładnie NSGA-Net - z jedną podmienioną linijką.</p>
 
 <pre class="code"><span class="kw">procedure</span> BUILD-ORACLE(search_space, N)
     H ← ∅                                  <span class="cm">// zbiór realnie ocenionych par</span>
     <span class="kw">for</span> i <span class="kw">in</span> 1..N <span class="kw">do</span>
         g ← losowy genotyp <span class="kw">from</span> search_space
-        f1 ← train_and_eval(g)             <span class="cm">// §3.1 — jedyny realny koszt całego algorytmu</span>
+        f1 ← train_and_eval(g)             <span class="cm">// §3.1 - jedyny realny koszt całego algorytmu</span>
         H.add( (g, f1) )
-    oracle ← FIT-PREDICTOR(H)               <span class="cm">// regresor / supersieć — §3.1, TY wybierasz model</span>
+    oracle ← FIT-PREDICTOR(H)               <span class="cm">// regresor / supersieć - §3.1, TY wybierasz model</span>
     <span class="kw">return</span> oracle, H</pre>
 
 <pre class="code"><span class="kw">procedure</span> NSGANETV2(oracle, pop_size, generations)
     P ← losowa populacja rozmiaru pop_size
     <span class="kw">for</span> x <span class="kw">in</span> P <span class="kw">do</span>
-        x.f1 ← oracle.query(x)             <span class="cm">// §3.2 — TU jest cała podmiana względem NSGA-Net</span>
+        x.f1 ← oracle.query(x)             <span class="cm">// §3.2 - TU jest cała podmiana względem NSGA-Net</span>
         x.f2 ← cost(x)                     <span class="cm">// liczone analitycznie, bez treningu</span>
 
     <span class="kw">repeat</span> generations <span class="kw">times</span>
-        fronts ← FAST-NON-DOMINATED-SORT(P)         <span class="cm">// §3.3 — bez zmian względem NSGA-Net</span>
-        <span class="kw">for</span> F <span class="kw">in</span> fronts <span class="kw">do</span> CROWDING-DISTANCE-ASSIGN(F)  <span class="cm">// §3.3 — bez zmian</span>
+        fronts ← FAST-NON-DOMINATED-SORT(P)         <span class="cm">// §3.3 - bez zmian względem NSGA-Net</span>
+        <span class="kw">for</span> F <span class="kw">in</span> fronts <span class="kw">do</span> CROWDING-DISTANCE-ASSIGN(F)  <span class="cm">// §3.3 - bez zmian</span>
 
         Q ← ∅
         <span class="kw">while</span> |Q| &lt; pop_size <span class="kw">do</span>
-            a, b ← TOURNAMENT-SELECT(P)     <span class="cm">// wg (ranga, zagęszczenie) — bez zmian</span>
+            a, b ← TOURNAMENT-SELECT(P)     <span class="cm">// wg (ranga, zagęszczenie) - bez zmian</span>
             child ← CROSSOVER(a, b); MUTATE(child)
-            child.f1 ← oracle.query(child)  <span class="cm">// nie train_and_eval(child) — jedyna zmiana</span>
+            child.f1 ← oracle.query(child)  <span class="cm">// nie train_and_eval(child) - jedyna zmiana</span>
             child.f2 ← cost(child)
             Q.add(child)
 
@@ -939,8 +948,8 @@
 </section>
 
 <section id="practice">
-  <h2>6&nbsp; Co wymyślasz sam — zastosowanie NSGANetV2 do rzeczywistego problemu</h2>
-  <p>Mechanizm selekcji jest ustalony przez NSGA-II — nie ruszasz tego, jak działa sortowanie niezdominowane czy zagęszczenie. To, co zmienia się za każdym razem, to jak buduje się wyrocznia i jak podłącza się do niej Twój problem.</p>
+  <h2>6&nbsp; Co wymyślasz sam - zastosowanie NSGANetV2 do rzeczywistego problemu</h2>
+  <p>Mechanizm selekcji jest ustalony przez NSGA-II - nie ruszasz tego, jak działa sortowanie niezdominowane czy zagęszczenie. To, co zmienia się za każdym razem, to jak buduje się wyrocznia i jak podłącza się do niej Twój problem.</p>
 
   <div class="tablewrap">
     <table>
@@ -948,23 +957,23 @@
       <tbody>
         <tr>
           <td><strong>Reguła niezdominowania</strong></td>
-          <td class="fixed-col">Kandydat dominuje inny, jeśli nie jest gorszy w żadnym celu i lepszy w co najmniej jednym — dokładnie jak w NSGA-Net.</td>
-          <td class="decide-col">Ile masz celów i jak je zdefiniujesz (błąd, koszt, czas inferencji, zużycie pamięci…) — reguła dominacji jest stała, ale to Ty ustalasz, co do niej wchodzi.</td>
+          <td class="fixed-col">Kandydat dominuje inny, jeśli nie jest gorszy w żadnym celu i lepszy w co najmniej jednym - dokładnie jak w NSGA-Net.</td>
+          <td class="decide-col">Ile masz celów i jak je zdefiniujesz (błąd, koszt, czas inferencji, zużycie pamięci…) - reguła dominacji jest stała, ale to Ty ustalasz, co do niej wchodzi.</td>
         </tr>
         <tr>
           <td><strong>Odległość zagęszczenia</strong></td>
-          <td class="fixed-col">Tie-break między kandydatami tej samej rangi, wg izolacji w przestrzeni celów — bez zmian.</td>
-          <td class="decide-col">Nic — to jest część, której nie ruszasz. Jeśli chcesz inny tie-break, to już nie jest NSGA-II.</td>
+          <td class="fixed-col">Tie-break między kandydatami tej samej rangi, wg izolacji w przestrzeni celów - bez zmian.</td>
+          <td class="decide-col">Nic - to jest część, której nie ruszasz. Jeśli chcesz inny tie-break, to już nie jest NSGA-II.</td>
         </tr>
         <tr>
           <td><strong>Wyrocznia w pętli</strong></td>
-          <td class="fixed-col">Wzorzec „zapytaj wyrocznię zamiast trenuj” jest ustalony — cała pętla NSGA-II jest wobec niego ślepa, przyjmuje liczbę, jaką dostanie.</td>
+          <td class="fixed-col">Wzorzec „zapytaj wyrocznię zamiast trenuj” jest ustalony - cała pętla NSGA-II jest wobec niego ślepa, przyjmuje liczbę, jaką dostanie.</td>
           <td class="decide-col">Rodzina modelu wyroczni (regresor? mały MLP? supersieć wag współdzielonych?), i ile realnych próbek N wydać na jej dopasowanie w Fazie A.</td>
         </tr>
         <tr>
           <td><strong>Operatory ewolucyjne</strong></td>
-          <td class="fixed-col">Turniej wg (ranga, zagęszczenie) jako mechanizm selekcji rodziców — bez zmian.</td>
-          <td class="decide-col">Konkretna postać krzyżowania i mutacji, rozmiar populacji, liczba generacji, kodowanie genotypu — te same decyzje, które podjąłbyś dla samego NSGA-Net.</td>
+          <td class="fixed-col">Turniej wg (ranga, zagęszczenie) jako mechanizm selekcji rodziców - bez zmian.</td>
+          <td class="decide-col">Konkretna postać krzyżowania i mutacji, rozmiar populacji, liczba generacji, kodowanie genotypu - te same decyzje, które podjąłbyś dla samego NSGA-Net.</td>
         </tr>
       </tbody>
     </table>
@@ -972,18 +981,18 @@
 
   <div class="callout">
     <span class="tag">Ślepy punkt, który to odsłania dla P3Net</span>
-    <p>Predyktor NSGANetV2 jest <strong>globalny</strong> (jeden model, oceniający każdego kandydata z osobna, bez odniesienia do reszty populacji) i <strong>bezwzględny</strong> (przewiduje samą wartość dopasowania, nie różnicę względem znanego punktu). Jego trafność jest więc dokładnie tak dobra, jak dobrze N próbek z Fazy A pokryło region przestrzeni, w którym akurat pyta go NSGA-II — a że N jest ustalane raz, z góry, zanim ewolucja zdąży pokazać, które regiony w ogóle są interesujące, pokrycie bywa nierówne. Gorzej: predyktor nie ma żadnego pojęcia o tym, które geny genotypu są ze sobą funkcjonalnie powiązane — dwa geny, które muszą zmieniać się razem, żeby coś znaczyć (jak w żywej symulacji powyżej), są dla niego tak samo niezależne jak dwa geny, które nic ze sobą nie mają wspólnego.</p>
-    <p>Surogat P3Net (<span class="mono">δ̂F</span>) atakuje oba te punkty naraz, inaczej niż wyrocznia NSGANetV2. Jest <strong>relatywny</strong> — nie zgaduje wartości bezwzględnej, tylko różnicę dopasowania między konkretnym kandydatem a konkretnym dawcą, z którym akurat jest porównywany, więc błąd nie musi się kumulować po całej przestrzeni naraz. I jest <strong>świadomy powiązań</strong> — budowany z tego samego drzewa powiązań, które steruje krzyżowaniem, więc geny kopiowane razem są też oceniane razem, nie osobno. To inny zakład o tym, gdzie tani surogat pozostaje wiarygodny: NSGANetV2 stawia na to, że jedna globalna funkcja regresji wystarczy; P3Net stawia na to, że wystarczy tylko lokalnie, wokół konkretnego porównania, które akurat jest robione.</p>
+    <p>Predyktor NSGANetV2 jest <strong>globalny</strong> (jeden model, oceniający każdego kandydata z osobna, bez odniesienia do reszty populacji) i <strong>bezwzględny</strong> (przewiduje samą wartość dopasowania, nie różnicę względem znanego punktu). Jego trafność jest więc dokładnie tak dobra, jak dobrze N próbek z Fazy A pokryło region przestrzeni, w którym akurat pyta go NSGA-II - a że N jest ustalane raz, z góry, zanim ewolucja zdąży pokazać, które regiony w ogóle są interesujące, pokrycie bywa nierówne. Gorzej: predyktor nie ma żadnego pojęcia o tym, które geny genotypu są ze sobą funkcjonalnie powiązane - dwa geny, które muszą zmieniać się razem, żeby coś znaczyć (jak w żywej symulacji powyżej), są dla niego tak samo niezależne jak dwa geny, które nic ze sobą nie mają wspólnego.</p>
+    <p>Surogat P3Net (<span class="mono">δ̂F</span>) atakuje oba te punkty naraz, inaczej niż wyrocznia NSGANetV2. Jest <strong>relatywny</strong> - nie zgaduje wartości bezwzględnej, tylko różnicę dopasowania między konkretnym kandydatem a konkretnym dawcą, z którym akurat jest porównywany, więc błąd nie musi się kumulować po całej przestrzeni naraz. I jest <strong>świadomy powiązań</strong> - budowany z tego samego drzewa powiązań, które steruje krzyżowaniem, więc geny kopiowane razem są też oceniane razem, nie osobno. To inny zakład o tym, gdzie tani surogat pozostaje wiarygodny: NSGANetV2 stawia na to, że jedna globalna funkcja regresji wystarczy; P3Net stawia na to, że wystarczy tylko lokalnie, wokół konkretnego porównania, które akurat jest robione.</p>
   </div>
 
   <h3 style="margin-top:32px;"><span class="num">✓</span>Checklista przy stosowaniu NSGANetV2 do nowego problemu</h3>
   <ul class="checklist">
-    <li><span class="box"></span><span>Zdefiniuj genotyp i przestrzeń przeszukiwania — dokładnie jak dla NSGA-Net.</span></li>
+    <li><span class="box"></span><span>Zdefiniuj genotyp i przestrzeń przeszukiwania - dokładnie jak dla NSGA-Net.</span></li>
     <li><span class="box"></span><span>Wybierz N na Fazę A: ile realnych treningów jesteś w stanie sobie pozwolić spalić, zanim ewolucja w ogóle ruszy.</span></li>
     <li><span class="box"></span><span>Wybierz rodzinę modelu wyroczni i sposób jej dopasowania (regresor, supersieć, albo oba naraz).</span></li>
-    <li><span class="box"></span><span>Sprawdź empirycznie trafność wyroczni poza próbkami z Fazy A — nie zakładaj, że dobra trafność blisko próbek oznacza dobrą trafność wszędzie.</span></li>
+    <li><span class="box"></span><span>Sprawdź empirycznie trafność wyroczni poza próbkami z Fazy A - nie zakładaj, że dobra trafność blisko próbek oznacza dobrą trafność wszędzie.</span></li>
     <li><span class="box"></span><span>Zdefiniuj drugi cel (koszt), upewniając się, że da się go policzyć bez treningu.</span></li>
-    <li><span class="box"></span><span>Jeśli Twój problem ma silne powiązania między genami, których N próbek z Fazy A raczej nie pokryje równomiernie — to jest dokładnie ta luka, którą wypełnia relatywny, świadomy powiązań surogat P3Net.</span></li>
+    <li><span class="box"></span><span>Jeśli Twój problem ma silne powiązania między genami, których N próbek z Fazy A raczej nie pokryje równomiernie - to jest dokładnie ta luka, którą wypełnia relatywny, świadomy powiązań surogat P3Net.</span></li>
   </ul>
 
 </section>
@@ -991,7 +1000,7 @@
 </main>
 
 <footer class="page-end">
-  Źródło: Z. Lu, K. Deb, E. Goodman, W. Banzhaf, V. N. Boddeti, „NSGANetV2: Evolutionary Multi-Objective Surrogate-Assisted Neural Architecture Search”, ECCV 2020 — surogat-owe rozszerzenie NSGA-Net (Lu i in., GECCO 2019) o wyrocznię łączącą supersieć wag współdzielonych z predyktorem dokładności.
+  Źródło: Z. Lu, K. Deb, E. Goodman, W. Banzhaf, V. N. Boddeti, „NSGANetV2: Evolutionary Multi-Objective Surrogate-Assisted Neural Architecture Search”, ECCV 2020 - surogat-owe rozszerzenie NSGA-Net (Lu i in., GECCO 2019) o wyrocznię łączącą supersieć wag współdzielonych z predyktorem dokładności.
 </footer>
 
 <script>
@@ -1051,7 +1060,7 @@
   }
   function genomeKey(g) { return g.join(""); }
 
-  // true, expensive "training" — never called inside Phase B
+  // true, expensive "training" - never called inside Phase B
   function f1True(g) {
     var base = 8;
     for (var i = 0; i < GENES; i++) {
@@ -1101,7 +1110,7 @@
     };
   }
 
-  /* ============ NSGA-II machinery — unmodified from NSGA-Net ============ */
+  /* ============ NSGA-II machinery - unmodified from NSGA-Net ============ */
   function dominates(a, b) {
     return (a.f1 <= b.f1 && a.f2 <= b.f2) && (a.f1 < b.f1 || a.f2 < b.f2);
   }
@@ -1184,7 +1193,7 @@
       yield {
         type: "phaseA-sample", genome: g.slice(), f1: f1,
         evalCountReal: evalCountReal, queryCount: queryCount, samples: samples.slice(),
-        log: "Faza A, próbka " + (i + 1) + "/" + N_INIT + ": genotyp trenowany naprawdę — prawdziwy błąd " + f1.toFixed(1) + ". Ten koszt płacimy tylko tutaj."
+        log: "Faza A, próbka " + (i + 1) + "/" + N_INIT + ": genotyp trenowany naprawdę - prawdziwy błąd " + f1.toFixed(1) + ". Ten koszt płacimy tylko tutaj."
       };
     }
     var oracle = makeOracle(samples);
@@ -1201,7 +1210,7 @@
     }
     yield {
       type: "pop-init", pop: pop.slice(), evalCountReal: evalCountReal, queryCount: queryCount, samples: samples.slice(),
-      log: "Populacja startowa Fazy B (" + POP + " osobników) — każdy oceniony zapytaniem do wyroczni, zero nowych realnych treningów."
+      log: "Populacja startowa Fazy B (" + POP + " osobników) - każdy oceniony zapytaniem do wyroczni, zero nowych realnych treningów."
     };
 
     var gen = 0;
@@ -1209,7 +1218,7 @@
       gen++;
       yield {
         type: "gen-start", genNum: gen, pop: pop.slice(), evalCountReal: evalCountReal, queryCount: queryCount, samples: samples.slice(),
-        log: "Generacja " + gen + ": zaczynam od sortowania niezdominowanego i odległości zagęszczenia — dokładnie ten sam mechanizm co w NSGA-Net."
+        log: "Generacja " + gen + ": zaczynam od sortowania niezdominowanego i odległości zagęszczenia - dokładnie ten sam mechanizm co w NSGA-Net."
       };
       var fronts = fastNonDominatedSort(pop);
       fronts.forEach(crowdingDistance);
@@ -1231,7 +1240,7 @@
       yield {
         type: "offspring", genNum: gen, offspring: offspring.slice(), pop: pop.slice(),
         evalCountReal: evalCountReal, queryCount: queryCount, samples: samples.slice(),
-        log: "Turniej + krzyżowanie + mutacja wyprodukowały " + POP + " potomków; każdy oceniony przez oracle.query() — realne ewaluacje: bez zmian."
+        log: "Turniej + krzyżowanie + mutacja wyprodukowały " + POP + " potomków; każdy oceniony przez oracle.query() - realne ewaluacje: bez zmian."
       };
 
       var combined = pop.concat(offspring);
@@ -1279,12 +1288,12 @@
   var mapNodes = Array.prototype.slice.call(document.querySelectorAll(".demo-map-wrap [data-node]"));
 
   var PHASE_INFO = {
-    phaseA:     { text: "<strong>Faza A</strong> (sekcja 3.1) — realny trening kolejnej z " + N_INIT + " próbek, z których powstanie wyrocznia. Jedyny moment, w którym licznik realnych ewaluacji rośnie." },
-    fit:        { text: "<strong>Dopasowanie wyroczni</strong> (sekcja 3.1) — regresor k najbliższych sąsiadów dopasowany do zebranych par (genotyp, realny błąd)." },
-    population: { text: "<strong>Populacja</strong> (sekcja 2) — bieżący zbiór kandydatów wchodzący w kolejną generację NSGA-II." },
-    rank:       { text: "<strong>Ranking niezdominowany + zagęszczenie</strong> (sekcja 3.3) — identyczne z NSGA-Net, opisane w poprzedniej stronie tej serii." },
-    vary:       { text: "<strong>Selekcja + krzyżowanie + mutacja + oracle.query()</strong> (sekcja 3.2) — jedyne miejsce, gdzie NSGANetV2 różni się od NSGA-Net: ocena idzie przez wyrocznię, nie przez trening." },
-    select:     { text: "<strong>Selekcja przetrwania</strong> (sekcja 3.3) — rodzice i potomkowie razem, posortowani ponownie, najlepsi przechodzą dalej." }
+    phaseA:     { text: "<strong>Faza A</strong> (sekcja 3.1) - realny trening kolejnej z " + N_INIT + " próbek, z których powstanie wyrocznia. Jedyny moment, w którym licznik realnych ewaluacji rośnie." },
+    fit:        { text: "<strong>Dopasowanie wyroczni</strong> (sekcja 3.1) - regresor k najbliższych sąsiadów dopasowany do zebranych par (genotyp, realny błąd)." },
+    population: { text: "<strong>Populacja</strong> (sekcja 2) - bieżący zbiór kandydatów wchodzący w kolejną generację NSGA-II." },
+    rank:       { text: "<strong>Ranking niezdominowany + zagęszczenie</strong> (sekcja 3.3) - identyczne z NSGA-Net, opisane w poprzedniej stronie tej serii." },
+    vary:       { text: "<strong>Selekcja + krzyżowanie + mutacja + oracle.query()</strong> (sekcja 3.2) - jedyne miejsce, gdzie NSGANetV2 różni się od NSGA-Net: ocena idzie przez wyrocznię, nie przez trening." },
+    select:     { text: "<strong>Selekcja przetrwania</strong> (sekcja 3.3) - rodzice i potomkowie razem, posortowani ponownie, najlepsi przechodzą dalej." }
   };
 
   function phaseForEvent(ev) {
@@ -1311,7 +1320,7 @@
 
   function renderGenome(container, genome, cls) {
     container.innerHTML = "";
-    if (!genome) { container.textContent = "—"; return; }
+    if (!genome) { container.textContent = "-"; return; }
     var grp = document.createElement("div");
     grp.className = "trap-group";
     for (var i = 0; i < genome.length; i++) {
@@ -1325,7 +1334,7 @@
 
   function renderSamples(samples) {
     el.samplesView.innerHTML = "";
-    if (!samples.length) { el.samplesView.textContent = "—"; return; }
+    if (!samples.length) { el.samplesView.textContent = "-"; return; }
     for (var i = 0; i < samples.length; i++) {
       var chip = document.createElement("span");
       chip.className = "chip tried-kept";
@@ -1399,7 +1408,7 @@
     el.costRealNum.textContent = String(ev.evalCountReal);
     el.costQueryFill.style.width = costQuery + "%";
     el.costQueryNum.textContent = String(ev.queryCount);
-    el.hypoNote.textContent = "Gdyby to był NSGA-Net: te " + hypoQueries + " zapytań byłoby " + hypoQueries + " oddzielnymi treningami — realny licznik urósłby do " + (ev.evalCountReal - N_INIT >= 0 ? (N_INIT + hypoQueries) : hypoQueries) + ", nie zamroził się po Fazie A.";
+    el.hypoNote.textContent = "Gdyby to był NSGA-Net: te " + hypoQueries + " zapytań byłoby " + hypoQueries + " oddzielnymi treningami - realny licznik urósłby do " + (ev.evalCountReal - N_INIT >= 0 ? (N_INIT + hypoQueries) : hypoQueries) + ", nie zamroził się po Fazie A.";
 
     renderSamples(ev.samples);
 
@@ -1482,21 +1491,21 @@
     el.statGen.textContent = "0"; el.statReal.textContent = "0"; el.statQuery.textContent = "0"; el.statFront.textContent = "0";
     el.costRealFill.style.width = "0%"; el.costRealNum.textContent = "0";
     el.costQueryFill.style.width = "0%"; el.costQueryNum.textContent = "0";
-    el.hypoNote.textContent = "Gdyby to był NSGA-Net: każda z tych zapytań byłaby osobnym treningiem — realny licznik rosłby razem z bursztynowym, nie zatrzymał się po Fazie A.";
+    el.hypoNote.textContent = "Gdyby to był NSGA-Net: każda z tych zapytań byłaby osobnym treningiem - realny licznik rosłby razem z bursztynowym, nie zatrzymał się po Fazie A.";
     renderGenome(el.genomeView, null); renderGenome(el.bestGenomeView, null);
     el.bestDecode.textContent = "";
     el.genomeStripLabel.textContent = "genotyp teraz";
-    el.samplesView.innerHTML = ""; el.samplesView.textContent = "—";
+    el.samplesView.innerHTML = ""; el.samplesView.textContent = "-";
     el.scatterWrap.innerHTML = "";
     el.scatterNote.textContent = "Populacja pojawi się po zakończeniu Fazy A.";
     updateMap(null, false);
-    el.phaseCaption.textContent = "Kliknij „Krok” albo „Uruchom”, żeby zobaczyć algorytm w akcji — mapa powyżej podświetla dokładny krok na żywo.";
+    el.phaseCaption.textContent = "Kliknij „Krok” albo „Uruchom”, żeby zobaczyć algorytm w akcji - mapa powyżej podświetla dokładny krok na żywo.";
   });
 
   newGen();
   renderGenome(el.genomeView, null);
   renderGenome(el.bestGenomeView, null);
-  el.samplesView.textContent = "—";
+  el.samplesView.textContent = "-";
 })();
 </script>
 

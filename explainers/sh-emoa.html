@@ -1,6 +1,15 @@
 <title>How SH-EMOA actually works</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet" crossorigin="anonymous">
+<link href="https://db.onlinewebfonts.com/c/cc4a7a8da4c5d4af9361d85a1d1c0bba?family=OCR-A" rel="stylesheet">
+<style>
+@font-face{font-family:'OCR-A';unicode-range:U+0100-024F;font-weight:400;src:url('https://cdn.jsdelivr.net/npm/@fontsource/jetbrains-mono/files/jetbrains-mono-latin-ext-400-normal.woff2') format('woff2');}
+@font-face{font-family:'OCR-A';unicode-range:U+0100-024F;font-weight:500;src:url('https://cdn.jsdelivr.net/npm/@fontsource/jetbrains-mono/files/jetbrains-mono-latin-ext-500-normal.woff2') format('woff2');}
+@font-face{font-family:'OCR-A';unicode-range:U+0100-024F;font-weight:600;src:url('https://cdn.jsdelivr.net/npm/@fontsource/jetbrains-mono/files/jetbrains-mono-latin-ext-600-normal.woff2') format('woff2');}
+@font-face{font-family:'OCR-A';unicode-range:U+0100-024F;font-weight:700;src:url('https://cdn.jsdelivr.net/npm/@fontsource/jetbrains-mono/files/jetbrains-mono-latin-ext-700-normal.woff2') format('woff2');}
+</style>
 <style>
   :root {
     --bg: #060a05;
@@ -80,12 +89,12 @@
     margin: 0;
     background: var(--bg);
     color: var(--ink);
-    font-family: 'IBM Plex Mono', monospace;
+    font-family: 'OCR-A','JetBrains Mono',monospace;
     line-height: 1.6;
     -webkit-font-smoothing: antialiased;
   }
   .mono {
-    font-family: 'IBM Plex Mono', monospace;
+    font-family: 'OCR-A','JetBrains Mono',monospace;
   }
 
   a { color: var(--accent); }
@@ -109,7 +118,7 @@
     overflow-x: auto;
   }
   .topnav-mark {
-    font-family: 'IBM Plex Mono', monospace;
+    font-family: 'OCR-A','JetBrains Mono',monospace;
     font-size: 12px;
     letter-spacing: .08em;
     color: var(--accent);
@@ -118,7 +127,7 @@
     border-right: 1px solid var(--line);
   }
   .topnav a {
-    font-family: 'IBM Plex Mono', monospace;
+    font-family: 'OCR-A','JetBrains Mono',monospace;
     font-size: 12px;
     letter-spacing: .04em;
     color: var(--ink-muted);
@@ -137,7 +146,7 @@
   section:first-of-type { padding-top: 8px; }
 
   .eyebrow {
-    font-family: 'IBM Plex Mono', monospace;
+    font-family: 'OCR-A','JetBrains Mono',monospace;
     font-size: 11px;
     letter-spacing: .14em;
     text-transform: uppercase;
@@ -172,7 +181,7 @@
     margin: 40px 0 10px;
   }
   h3 .num {
-    font-family: 'IBM Plex Mono', monospace;
+    font-family: 'OCR-A','JetBrains Mono',monospace;
     font-size: 14px;
     color: var(--accent);
     margin-right: 8px;
@@ -208,7 +217,7 @@
   figure.bleed { margin-left: calc(50% - 50vw + 12px); margin-right: calc(50% - 50vw + 12px); max-width: 1120px; margin-left: auto; margin-right: auto; }
   figure svg { display: block; width: 100%; height: auto; padding: 20px; }
   figcaption {
-    font-family: 'IBM Plex Mono', monospace;
+    font-family: 'OCR-A','JetBrains Mono',monospace;
     font-size: 12px;
     color: var(--ink-muted);
     padding: 10px 20px 16px;
@@ -226,7 +235,7 @@
     margin: 24px 0;
   }
   .callout .tag {
-    font-family: 'IBM Plex Mono', monospace;
+    font-family: 'OCR-A','JetBrains Mono',monospace;
     font-size: 11px;
     letter-spacing: .1em;
     text-transform: uppercase;
@@ -243,7 +252,7 @@
     border-radius: 10px;
     padding: 20px 22px;
     overflow-x: auto;
-    font-family: 'IBM Plex Mono', monospace;
+    font-family: 'OCR-A','JetBrains Mono',monospace;
     font-size: 13px;
     line-height: 1.7;
     box-shadow: var(--shadow);
@@ -257,7 +266,7 @@
   table { border-collapse: collapse; width: 100%; background: var(--bg-raised); font-size: 15px; }
   th, td { text-align: left; padding: 12px 16px; border-bottom: 1px solid var(--line); vertical-align: top; }
   thead th {
-    font-family: 'IBM Plex Mono', monospace;
+    font-family: 'OCR-A','JetBrains Mono',monospace;
     font-size: 11px;
     letter-spacing: .08em;
     text-transform: uppercase;
@@ -298,7 +307,7 @@
     max-width: 280px;
     background: var(--ink);
     color: var(--bg);
-    font-family: 'IBM Plex Mono', monospace;
+    font-family: 'OCR-A','JetBrains Mono',monospace;
     font-size: 12px;
     line-height: 1.5;
     padding: 9px 11px;
@@ -308,7 +317,7 @@
   }
   .tt-hint {
     display: inline-block;
-    font-family: 'IBM Plex Mono', monospace;
+    font-family: 'OCR-A','JetBrains Mono',monospace;
     font-size: 10.5px;
     color: var(--ink-faint);
     letter-spacing: .04em;
@@ -343,7 +352,7 @@
   .map-strip svg { display: block; width: 100%; height: auto; }
 
   .demo-phase-caption {
-    font-family: 'IBM Plex Mono', monospace;
+    font-family: 'OCR-A','JetBrains Mono',monospace;
     font-size: 13px;
     color: var(--ink);
     background: var(--bg-sunken);
@@ -355,7 +364,7 @@
   .demo-phase-caption strong { color: var(--accent); }
 
   .zone-caption {
-    margin: 22px 0 12px; font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; letter-spacing: .08em;
+    margin: 22px 0 12px; font-family: 'OCR-A','JetBrains Mono',monospace; font-size: 10.5px; letter-spacing: .08em;
     text-transform: uppercase; color: var(--ink-faint);
     display: flex; align-items: center; gap: 10px; cursor: help;
   }
@@ -371,7 +380,7 @@
 
   .demo-controls { display: flex; flex-wrap: wrap; gap: 8px; }
   .demo-btn {
-    font-family: 'IBM Plex Mono', monospace;
+    font-family: 'OCR-A','JetBrains Mono',monospace;
     font-size: 12.5px;
     letter-spacing: .02em;
     background: var(--bg-sunken);
@@ -387,7 +396,7 @@
 
   .demo-legend {
     display: flex; flex-wrap: wrap; align-items: center; gap: 14px;
-    font-family: 'IBM Plex Mono', monospace;
+    font-family: 'OCR-A','JetBrains Mono',monospace;
     font-size: 11.5px; color: var(--ink-muted);
     background: var(--bg-sunken);
     border-radius: 8px;
@@ -419,11 +428,11 @@
     border-radius: 8px;
     padding: 10px 12px;
   }
-  .demo-stat .lbl { font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: .08em; text-transform: uppercase; color: var(--ink-faint); }
-  .demo-stat .val { font-family: 'IBM Plex Mono', monospace; font-size: 20px; color: var(--ink); font-variant-numeric: tabular-nums; }
+  .demo-stat .lbl { font-family: 'OCR-A','JetBrains Mono',monospace; font-size: 10px; letter-spacing: .08em; text-transform: uppercase; color: var(--ink-faint); }
+  .demo-stat .val { font-family: 'OCR-A','JetBrains Mono',monospace; font-size: 20px; color: var(--ink); font-variant-numeric: tabular-nums; }
 
   .demo-log {
-    font-family: 'IBM Plex Mono', monospace;
+    font-family: 'OCR-A','JetBrains Mono',monospace;
     font-size: 12.5px;
     color: var(--ink-muted);
     background: var(--bg-sunken);
@@ -435,19 +444,19 @@
   .demo-log strong { color: var(--accent); }
 
   .demo-panel h4 {
-    font-family: 'IBM Plex Mono', monospace;
+    font-family: 'OCR-A','JetBrains Mono',monospace;
     font-size: 11px; letter-spacing: .08em; text-transform: uppercase;
     color: var(--ink-faint); margin: 0 0 10px;
   }
   .demo-note {
-    font-family: 'IBM Plex Mono', monospace;
+    font-family: 'OCR-A','JetBrains Mono',monospace;
     font-size: 11.5px; color: var(--ink-faint);
     margin-top: 14px; line-height: 1.6;
   }
 
   /* rung ladder mini-bars */
   .rung-list { display: flex; flex-direction: column; gap: 6px; }
-  .rung-row { display: flex; align-items: center; gap: 10px; font-family: 'IBM Plex Mono', monospace; font-size: 11.5px; }
+  .rung-row { display: flex; align-items: center; gap: 10px; font-family: 'OCR-A','JetBrains Mono',monospace; font-size: 11.5px; }
   .rung-row .rname { width: 78px; color: var(--ink-muted); flex: none; }
   .rung-row .rbar-wrap { flex: 1; background: var(--bg-sunken); border-radius: 5px; height: 20px; overflow: hidden; position: relative; }
   .rung-row .rbar { height: 100%; background: var(--line-strong); transition: width .3s ease, background-color .3s ease; }
@@ -458,7 +467,7 @@
   .rank-list { display: flex; flex-direction: column; gap: 4px; max-height: 210px; overflow-y: auto; }
   .rank-item {
     display: grid; grid-template-columns: 20px 1fr 56px; gap: 8px; align-items: center;
-    font-family: 'IBM Plex Mono', monospace; font-size: 11px;
+    font-family: 'OCR-A','JetBrains Mono',monospace; font-size: 11px;
     padding: 5px 8px; border-radius: 6px; background: var(--bg-sunken);
     color: var(--ink-muted);
   }
@@ -472,21 +481,21 @@
   .gene-bars { display: flex; align-items: flex-end; gap: 3px; height: 40px; margin: 4px 0 2px; }
   .gene-bars .gbar { flex: 1; background: var(--accent-soft); border: 1.2px solid var(--accent-soft-line); border-radius: 2px 2px 0 0; min-width: 8px; }
   .gene-bars .gbar.f1gene { background: var(--bg-sunken); border-color: var(--line-strong); }
-  .gene-caption { font-family: 'IBM Plex Mono', monospace; font-size: 10px; color: var(--ink-faint); display: flex; justify-content: space-between; }
+  .gene-caption { font-family: 'OCR-A','JetBrains Mono',monospace; font-size: 10px; color: var(--ink-faint); display: flex; justify-content: space-between; }
 
   .front-list { display: flex; flex-direction: column; gap: 6px; }
-  .front-row { display: flex; align-items: center; gap: 8px; font-family: 'IBM Plex Mono', monospace; font-size: 11.5px; color: var(--ink-muted); }
+  .front-row { display: flex; align-items: center; gap: 8px; font-family: 'OCR-A','JetBrains Mono',monospace; font-size: 11.5px; color: var(--ink-muted); }
   .front-row .fdot { width: 10px; height: 10px; border-radius: 50%; flex: none; }
 
   /* ---------- misc ---------- */
-  .diagram-label { font-family: 'IBM Plex Mono', monospace; }
+  .diagram-label { font-family: 'OCR-A','JetBrains Mono',monospace; }
   ::selection { background: var(--accent-soft); }
 
   footer.page-end {
     max-width: 720px; margin: 80px auto 0; padding: 24px 24px 40px;
     border-top: 1px solid var(--line);
     color: var(--ink-faint);
-    font-family: 'IBM Plex Mono', monospace;
+    font-family: 'OCR-A','JetBrains Mono',monospace;
     font-size: 12px;
   }
 </style>
@@ -495,9 +504,9 @@
   <a href="../Portfolio.dc.html" style="font-size:18px;font-weight:600;color:oklch(0.92 0.004 250);text-decoration:none;">JP.<span style="color:#9CAF6B;">_</span></a>
   <div style="display:flex;gap:32px;align-items:center;font-size:14px;">
     <a href="../Portfolio.dc.html" style="color:oklch(0.85 0.004 250);text-decoration:none;">home</a>
-    <a href="../Portfolio.dc.html?view=solutions" style="color:oklch(0.85 0.004 250);text-decoration:none;">:solutions</a>
-    <a href="../Portfolio.dc.html?view=badania" style="color:oklch(0.85 0.004 250);text-decoration:none;">:research</a>
-    <a href="../Portfolio.dc.html?view=kontakt" style="color:oklch(0.85 0.004 250);text-decoration:none;">:contact</a>
+    <a href="../Portfolio.dc.html?view=solutions" style="color:oklch(0.85 0.004 250);text-decoration:none;">~/solutions</a>
+    <a href="../Portfolio.dc.html?view=badania" style="color:oklch(0.85 0.004 250);text-decoration:none;">~/research</a>
+    <a href="../Portfolio.dc.html?view=kontakt" style="color:oklch(0.85 0.004 250);text-decoration:none;">~/contact</a>
     <a href="sh-emoa-pl.html" style="font-size:12px;font-weight:700;padding:6px 12px;border:1px solid #9CAF6B;border-radius:2px;background:rgba(156,175,107,0.15);color:#9CAF6B;text-decoration:none;">PL</a>
   </div>
 </nav>
@@ -516,36 +525,36 @@
 <main>
 
 <section id="top">
-  <div class="eyebrow"><span>SH-EMOA — Successive Halving Evolutionary Multi-Objective Algorithm</span></div>
+  <div class="eyebrow"><span>SH-EMOA - Successive Halving Evolutionary Multi-Objective Algorithm</span></div>
   <h1>How SH-EMOA actually works</h1>
-  <p class="lede">One of the seven arms in the P3Net paper's ablation table — ordinary multi-objective evolution (Pareto sorting + crowding distance), with one thing added: the evaluation budget is cut <em class="term">inside</em> every generation, in waves of fidelity reduction, before anyone even reaches Pareto sorting.</p>
+  <p class="lede">One of the seven arms in the P3Net paper's ablation table - ordinary multi-objective evolution (Pareto sorting + crowding distance), with one thing added: the evaluation budget is cut <em class="term">inside</em> every generation, in waves of fidelity reduction, before anyone even reaches Pareto sorting.</p>
   <p class="subdek">Laid out like a C4 diagram: context, then the big moving parts, then each one broken down in detail, then code, and finally a practical checklist.</p>
 </section>
 
 <hr class="rule">
 
 <section id="context">
-  <h3><span class="num">1</span>Context — two problems at once, one algorithm</h3>
+  <h3><span class="num">1</span>Context - two problems at once, one algorithm</h3>
   <p class="lede" style="font-size:17px;">In one sentence: SH-EMOA is an NSGA-II-like multi-objective evolution in which every offspring evaluation is first tested cheaply, and only the survivors get a full, expensive assessment.</p>
-  <p>Take any standard EMOA (evolutionary multi-objective algorithm) — a population, offspring through mutation and crossover, selection into the next generation based on Pareto non-domination and crowding distance, exactly like NSGA-II. Now assume a single evaluation is expensive — for us: a full neural network training run. Fully evaluating <em>every</em> offspring in <em>every</em> generation quickly becomes unaffordable. SH-EMOA answers this exactly the way Hyperband answers the same problem in a single-objective context: instead of training every candidate fully, train cheaply, stop the weaker half, train the survivors a bit longer, repeat — until only a handful remain that deserve the full budget.</p>
+  <p>Take any standard EMOA (evolutionary multi-objective algorithm) - a population, offspring through mutation and crossover, selection into the next generation based on Pareto non-domination and crowding distance, exactly like NSGA-II. Now assume a single evaluation is expensive - for us: a full neural network training run. Fully evaluating <em>every</em> offspring in <em>every</em> generation quickly becomes unaffordable. SH-EMOA answers this exactly the way Hyperband answers the same problem in a single-objective context: instead of training every candidate fully, train cheaply, stop the weaker half, train the survivors a bit longer, repeat - until only a handful remain that deserve the full budget.</p>
 
   <div class="callout">
     <span class="tag">Place in the ablation table</span>
-    <p>In the nine-armed comparison grid from the P3Net paper (JAHS-Bench-201, NAS-HPO-Bench-II; see <span class="mono">implementation/lib/README.md</span>), SH-EMOA stands alongside NSGA-Net, NSGANetV2, MO-BOHB, TPE, and random search. It's the arm that combines <strong>evolution with budget cutting</strong> — but without learning any structure. Mutation and crossover stay naive: no information at all about which genes of the architecture genotype are functionally linked. This is exactly the gap P3Net's linkage tree targets — the algorithm below shows what a multi-objective search looks like that cuts evaluation cost just as cleverly as P3Net, but still recombines blindly.</p>
+    <p>In the nine-armed comparison grid from the P3Net paper (JAHS-Bench-201, NAS-HPO-Bench-II; see <span class="mono">implementation/lib/README.md</span>), SH-EMOA stands alongside NSGA-Net, NSGANetV2, MO-BOHB, TPE, and random search. It's the arm that combines <strong>evolution with budget cutting</strong> - but without learning any structure. Mutation and crossover stay naive: no information at all about which genes of the architecture genotype are functionally linked. This is exactly the gap P3Net's linkage tree targets - the algorithm below shows what a multi-objective search looks like that cuts evaluation cost just as cleverly as P3Net, but still recombines blindly.</p>
   </div>
 
-  <p>In other words: SH-EMOA is the product of two separate, well-known ideas — <strong>Pareto selection</strong> (how to know what's “better” when there's more than one objective) and <strong>the fidelity ladder</strong> (how to know who's even worth evaluating fully). The rest of this page breaks down both, separately and together.</p>
+  <p>In other words: SH-EMOA is the product of two separate, well-known ideas - <strong>Pareto selection</strong> (how to know what's “better” when there's more than one objective) and <strong>the fidelity ladder</strong> (how to know who's even worth evaluating fully). The rest of this page breaks down both, separately and together.</p>
 </section>
 
 <section id="bigpicture">
-  <h3><span class="num">2</span>Big picture — one loop, two mechanisms</h3>
+  <h3><span class="num">2</span>Big picture - one loop, two mechanisms</h3>
   <p class="lede" style="font-size:17px;">In one sentence: every generation creates offspring naively, sieves them through the fidelity ladder, and only what survives to full evaluation competes for a spot in the next population via Pareto sorting and crowding distance.</p>
 
   <div class="tablewrap">
     <table>
       <thead><tr><th>Part</th><th>Job</th></tr></thead>
       <tbody>
-        <tr><td><strong>Naive variation</strong></td><td>Crossover and mutation with no knowledge of the genotype's structure at all — every gene treated independently of the rest.</td></tr>
+        <tr><td><strong>Naive variation</strong></td><td>Crossover and mutation with no knowledge of the genotype's structure at all - every gene treated independently of the rest.</td></tr>
         <tr><td><strong>Fidelity ladder</strong></td><td>Successive, increasingly expensive evaluation levels; after every level half the candidates drop out, before anyone gets the full training budget.</td></tr>
         <tr><td><strong>Pareto selection</strong></td><td>Those who make it to full evaluation join a shared pool with the parents; non-domination sorting and crowding distance pick the next population.</td></tr>
       </tbody>
@@ -560,16 +569,16 @@
         </marker>
       </defs>
 
-      <rect x="300" y="10" width="300" height="52" rx="9" fill="var(--accent-soft)" stroke="var(--accent)" stroke-width="1.6" pointer-events="all" tabindex="0" data-tt="μ individuals, each already fully evaluated on both objectives. The result of selection from the previous generation — or random initialization if this is the first generation."></rect>
+      <rect x="300" y="10" width="300" height="52" rx="9" fill="var(--accent-soft)" stroke="var(--accent)" stroke-width="1.6" pointer-events="all" tabindex="0" data-tt="μ individuals, each already fully evaluated on both objectives. The result of selection from the previous generation - or random initialization if this is the first generation."></rect>
       <text x="450" y="42" text-anchor="middle" class="diagram-label" font-size="13" fill="var(--ink)">Parent population P (full fidelity)</text>
       <path d="M450,62 L450,90" stroke="currentColor" stroke-width="1.3" marker-end="url(#arrBP)"></path>
 
-      <rect x="300" y="92" width="300" height="52" rx="9" fill="none" stroke="currentColor" stroke-width="1.4" pointer-events="all" tabindex="0" data-tt="Uniform crossover + independent per-gene mutation — no information about which genes are linked. Details in 3.1."></rect>
+      <rect x="300" y="92" width="300" height="52" rx="9" fill="none" stroke="currentColor" stroke-width="1.4" pointer-events="all" tabindex="0" data-tt="Uniform crossover + independent per-gene mutation - no information about which genes are linked. Details in 3.1."></rect>
       <text x="450" y="123" text-anchor="middle" class="diagram-label" font-size="13">Naive crossover + mutation</text>
       <path d="M450,144 L450,172" stroke="currentColor" stroke-width="1.3" marker-end="url(#arrBP)"></path>
 
       <rect x="140" y="174" width="620" height="150" rx="10" fill="var(--bg-sunken)" stroke="currentColor" stroke-width="1" opacity="0.9"></rect>
-      <text x="164" y="198" class="diagram-label" font-size="11" letter-spacing="0.06em" fill="currentColor" opacity="0.6">FIDELITY LADDER — from the cheapest level upward</text>
+      <text x="164" y="198" class="diagram-label" font-size="11" letter-spacing="0.06em" fill="currentColor" opacity="0.6">FIDELITY LADDER - from the cheapest level upward</text>
 
       <rect x="170" y="212" width="170" height="44" rx="8" fill="none" stroke="currentColor" stroke-width="1.3" pointer-events="all" tabindex="0" data-tt="The cheapest level: a high-variance evaluation, e.g. training on a small data subset or with few epochs. Details in 3.2."></rect>
       <text x="255" y="238" text-anchor="middle" class="diagram-label" font-size="11.5">cheap rung</text>
@@ -581,10 +590,10 @@
       <path d="M557,234 L602,234" stroke="currentColor" stroke-width="1.2" marker-end="url(#arrBP)"></path>
       <text x="579" y="222" text-anchor="middle" class="diagram-label" font-size="9.5" fill="currentColor" opacity="0.65">drop half</text>
 
-      <rect x="604" y="212" width="140" height="44" rx="8" fill="var(--accent-soft)" stroke="var(--accent)" stroke-width="1.7" pointer-events="all" tabindex="0" data-tt="Full fidelity — only now does a candidate get a real, expensive score on both objectives. This is the only stage that's allowed to be directly compared with parents in Pareto sorting."></rect>
+      <rect x="604" y="212" width="140" height="44" rx="8" fill="var(--accent-soft)" stroke="var(--accent)" stroke-width="1.7" pointer-events="all" tabindex="0" data-tt="Full fidelity - only now does a candidate get a real, expensive score on both objectives. This is the only stage that's allowed to be directly compared with parents in Pareto sorting."></rect>
       <text x="674" y="238" text-anchor="middle" class="diagram-label" font-size="11.5" fill="var(--ink)">full fidelity</text>
 
-      <text x="450" y="298" text-anchor="middle" class="diagram-label" font-size="10.5" fill="currentColor" opacity="0.65">only the handful of offspring that survived every wave get here — the rest of the budget went to cheap filtering</text>
+      <text x="450" y="298" text-anchor="middle" class="diagram-label" font-size="10.5" fill="currentColor" opacity="0.65">only the handful of offspring that survived every wave get here - the rest of the budget went to cheap filtering</text>
       <path d="M674,256 L674,290" stroke="var(--accent)" stroke-width="1.3" marker-end="url(#arrBP)"></path>
       <text x="702" y="278" class="diagram-label" font-size="10.5" fill="var(--accent)">survivors</text>
 
@@ -600,31 +609,31 @@
       <path d="M600,433 C820,433 820,36 600,36" fill="none" stroke="currentColor" stroke-width="1.2" marker-end="url(#arrBP)"></path>
       <text x="700" y="20" text-anchor="middle" class="diagram-label" font-size="10.5" fill="currentColor" opacity="0.7">next generation</text>
     </svg>
-    <figcaption><span class="k">What this diagram shows —</span> the gray box in the middle is the only part that plain NSGA-II doesn't have: before an offspring even earns the right to appear in Pareto sorting, it has to survive successive, increasingly expensive evaluation waves. Everything outside that box is exactly the same skeleton as any EMOA. Hover any box for detail.</figcaption>
+    <figcaption><span class="k">What this diagram shows -</span> the gray box in the middle is the only part that plain NSGA-II doesn't have: before an offspring even earns the right to appear in Pareto sorting, it has to survive successive, increasingly expensive evaluation waves. Everything outside that box is exactly the same skeleton as any EMOA. Hover any box for detail.</figcaption>
   </figure>
 </section>
 
 <section id="components">
-  <h2>3&nbsp; Components — breaking down each part</h2>
+  <h2>3&nbsp; Components - breaking down each part</h2>
   <p class="subdek">The same three parts as above, now at the level of detail needed to implement them.</p>
 
-  <h3><span class="num">3.1</span>Naive variation operators — crossover and mutation without structure</h3>
-  <p class="lede" style="font-size:16px;">In one sentence: every gene is treated as if it has nothing to do with any other gene — because, for these operators, it truly doesn't.</p>
-  <p>Crossover is usually uniform: for every gene position, independently draw whether the value comes from parent A or parent B. Mutation is usually independent per gene: with a fixed probability <span class="mono">p_m</span>, perturb the value at that one locus, without looking at the rest of the genotype. Neither operator knows, or tries to find out, which genes tend to move together — there's no frequency table, no linkage tree, no clusters.</p>
-  <p>This works fine as long as the objective function is roughly separable — improving one gene on its own genuinely moves you toward a better solution. It fails exactly where several genes have to change <em>together</em> to see any improvement at all (exactly the same problem the trap function in the P3 guide illustrates) — uniform crossover with a 50% chance per gene almost never copies a whole such group at once, so the beneficial combination practically never arises.</p>
+  <h3><span class="num">3.1</span>Naive variation operators - crossover and mutation without structure</h3>
+  <p class="lede" style="font-size:16px;">In one sentence: every gene is treated as if it has nothing to do with any other gene - because, for these operators, it truly doesn't.</p>
+  <p>Crossover is usually uniform: for every gene position, independently draw whether the value comes from parent A or parent B. Mutation is usually independent per gene: with a fixed probability <span class="mono">p_m</span>, perturb the value at that one locus, without looking at the rest of the genotype. Neither operator knows, or tries to find out, which genes tend to move together - there's no frequency table, no linkage tree, no clusters.</p>
+  <p>This works fine as long as the objective function is roughly separable - improving one gene on its own genuinely moves you toward a better solution. It fails exactly where several genes have to change <em>together</em> to see any improvement at all (exactly the same problem the trap function in the P3 guide illustrates) - uniform crossover with a 50% chance per gene almost never copies a whole such group at once, so the beneficial combination practically never arises.</p>
 
   <div class="callout">
     <span class="tag">This is exactly the gap P3Net attacks</span>
-    <p>In a neural network architecture genotype, genes describing, say, two edges of the same computational cell often have to change together to produce a sensible, better architecture — a single edge change alone can be neutral or harmful. Uniform crossover has no idea these two genes are linked; P3Net learns this explicitly through the linkage tree and recombines whole learned clusters at once. Section 6 returns to this with a concrete comparison.</p>
+    <p>In a neural network architecture genotype, genes describing, say, two edges of the same computational cell often have to change together to produce a sensible, better architecture - a single edge change alone can be neutral or harmful. Uniform crossover has no idea these two genes are linked; P3Net learns this explicitly through the linkage tree and recombines whole learned clusters at once. Section 6 returns to this with a concrete comparison.</p>
   </div>
 
-  <h3><span class="num">3.2</span>The fidelity ladder — the halving rule</h3>
+  <h3><span class="num">3.2</span>The fidelity ladder - the halving rule</h3>
   <p class="lede" style="font-size:16px;">In one sentence: evaluate cheaply, stop the worse half, repeat on a more expensive level, until only as many candidates remain as you can afford to evaluate fully.</p>
-  <p>The ladder is a sequence of fidelity levels of increasing cost — e.g. training on 1/9, then 1/3, then all of the training data; or 10, then 30, then 100 epochs. At every level, every still-alive candidate gets an evaluation at that level, candidates are ranked, and the top half (hence “successive halving”) moves on to the next, more expensive level. The rest are dropped — they get no further chance in this generation.</p>
-  <p>The key design decision: <strong>what the ranking at an intermediate level even is</strong>, given that there are two (or more) objectives, and full Pareto sorting only makes sense on fully evaluated points. The typical solution — also used in the section 4 demo — is a simple scalar proxy score (e.g. a sum of normalized objectives, or hypervolume contribution) just for the purposes of one elimination wave; proper, full Pareto sorting with crowding distance is reserved for once candidates already have real, full evaluations.</p>
+  <p>The ladder is a sequence of fidelity levels of increasing cost - e.g. training on 1/9, then 1/3, then all of the training data; or 10, then 30, then 100 epochs. At every level, every still-alive candidate gets an evaluation at that level, candidates are ranked, and the top half (hence “successive halving”) moves on to the next, more expensive level. The rest are dropped - they get no further chance in this generation.</p>
+  <p>The key design decision: <strong>what the ranking at an intermediate level even is</strong>, given that there are two (or more) objectives, and full Pareto sorting only makes sense on fully evaluated points. The typical solution - also used in the section 4 demo - is a simple scalar proxy score (e.g. a sum of normalized objectives, or hypervolume contribution) just for the purposes of one elimination wave; proper, full Pareto sorting with crowding distance is reserved for once candidates already have real, full evaluations.</p>
 
   <figure class="bleed">
-    <svg viewBox="0 0 880 210" role="img" aria-label="A three-level fidelity ladder: 12 candidates enter the cheap level, 6 advance to the medium level, 3 reach the full level — exactly half drops out at every transition.">
+    <svg viewBox="0 0 880 210" role="img" aria-label="A three-level fidelity ladder: 12 candidates enter the cheap level, 6 advance to the medium level, 3 reach the full level - exactly half drops out at every transition.">
       <defs>
         <marker id="arrLad" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
           <path d="M0,0 L10,5 L0,10 z" fill="currentColor"></path>
@@ -645,7 +654,7 @@
         <path d="M440,117 L490,117" stroke="currentColor" stroke-width="1.3" marker-end="url(#arrLad)"></path>
         <text x="465" y="105" text-anchor="middle" font-size="10" fill="currentColor" opacity="0.6">−50%</text>
 
-        <rect x="500" y="103" width="180" height="47" rx="8" fill="var(--accent-soft)" stroke="var(--accent)" stroke-width="1.7" pointer-events="all" tabindex="0" data-tt="3 finalists of this halving wave. Only they get a full, real evaluation — exactly this number then enters Pareto sorting together with the parents."></rect>
+        <rect x="500" y="103" width="180" height="47" rx="8" fill="var(--accent-soft)" stroke="var(--accent)" stroke-width="1.7" pointer-events="all" tabindex="0" data-tt="3 finalists of this halving wave. Only they get a full, real evaluation - exactly this number then enters Pareto sorting together with the parents."></rect>
         <text x="590" y="89" text-anchor="middle" font-size="12" fill="var(--accent)">full rung</text>
         <text x="590" y="132" text-anchor="middle" font-size="20" fill="var(--ink)">3</text>
 
@@ -656,13 +665,13 @@
       </g>
       <text x="20" y="185" class="diagram-label" font-size="11" fill="currentColor" opacity="0.6">12 → 6 → 3: evaluating all 12 candidates fully would cost 12 full evaluations; this same handful of finalists cost only 3 full + 12 cheap + 6 medium.</text>
     </svg>
-    <figcaption><span class="k">What this diagram shows —</span> these are exactly the numbers the section 4 demo will use: 12 offspring to start, halving to 6, then to 3. Every arrow is one elimination wave by proxy ranking, not Pareto sorting — full sorting waits until the end of the ladder.</figcaption>
+    <figcaption><span class="k">What this diagram shows -</span> these are exactly the numbers the section 4 demo will use: 12 offspring to start, halving to 6, then to 3. Every arrow is one elimination wave by proxy ranking, not Pareto sorting - full sorting waits until the end of the ladder.</figcaption>
   </figure>
 
-  <h3><span class="num">3.3</span>Selection — non-domination sorting and crowding distance</h3>
+  <h3><span class="num">3.3</span>Selection - non-domination sorting and crowding distance</h3>
   <p class="lede" style="font-size:16px;">In one sentence: build the new population front by front from the best, and when a front doesn't fit entirely, keep the individuals spread furthest apart in objective space from it.</p>
-  <p>Individual <em>x</em> dominates individual <em>y</em> if <em>x</em> is no worse than <em>y</em> on any objective and strictly better on at least one. <strong>Front 1</strong> is the set of individuals dominated by nobody in the pool. Remove it, recompute domination on what's left — that's <strong>front 2</strong>. Repeat. The new population fills up front by front from the first, as long as the next whole front fits.</p>
-  <p>The problem arises when the boundary front <em>doesn't</em> fit entirely — some of its individuals have to be picked and the rest dropped, even though they're formally equal (none dominates any other). <strong>Crowding distance</strong> breaks this tie: for each objective separately, sort the front by that objective's value; the front's edges (smallest and largest value) get infinite distance (always kept), and every middle individual gets the sum of normalized distances to its neighbors on each objective. Higher distance = less crowded neighborhood = priority in selection. This keeps the front spread evenly along the whole trade-off curve, instead of clumping in one place.</p>
+  <p>Individual <em>x</em> dominates individual <em>y</em> if <em>x</em> is no worse than <em>y</em> on any objective and strictly better on at least one. <strong>Front 1</strong> is the set of individuals dominated by nobody in the pool. Remove it, recompute domination on what's left - that's <strong>front 2</strong>. Repeat. The new population fills up front by front from the first, as long as the next whole front fits.</p>
+  <p>The problem arises when the boundary front <em>doesn't</em> fit entirely - some of its individuals have to be picked and the rest dropped, even though they're formally equal (none dominates any other). <strong>Crowding distance</strong> breaks this tie: for each objective separately, sort the front by that objective's value; the front's edges (smallest and largest value) get infinite distance (always kept), and every middle individual gets the sum of normalized distances to its neighbors on each objective. Higher distance = less crowded neighborhood = priority in selection. This keeps the front spread evenly along the whole trade-off curve, instead of clumping in one place.</p>
 
   <figure class="bleed">
     <svg viewBox="0 0 880 260" role="img" aria-label="A five-point boundary front in two-objective space; edge points get infinite crowding distance, middle points get the sum of distances to their neighbors on both objectives, and three of the five with the largest distance have to be chosen.">
@@ -672,19 +681,19 @@
         <text fill="currentColor" x="440" y="242" text-anchor="middle" font-size="11" opacity="0.6">objective f₁ (less = better) →</text>
         <text fill="currentColor" x="30" y="120" text-anchor="middle" font-size="11" opacity="0.6" transform="rotate(-90 30 120)">objective f₂ ↑</text>
 
-        <circle cx="100" cy="60" r="7" fill="var(--accent)" pointer-events="all" tabindex="0" data-tt="The extreme on the f₂ axis — a front edge. Crowding distance = ∞, always kept."></circle>
+        <circle cx="100" cy="60" r="7" fill="var(--accent)" pointer-events="all" tabindex="0" data-tt="The extreme on the f₂ axis - a front edge. Crowding distance = ∞, always kept."></circle>
         <text x="100" y="44" text-anchor="middle" font-size="10.5" fill="var(--accent)">∞</text>
 
         <circle cx="260" cy="110" r="7" fill="var(--accent)" pointer-events="all" tabindex="0" data-tt="Neighbors on both sides are close (a small enclosing rectangle) → a small sum of normalized distances → a low crowding distance."></circle>
         <text x="260" y="94" text-anchor="middle" font-size="10.5" fill="currentColor" opacity="0.8">0.18</text>
 
-        <circle cx="430" cy="150" r="7" fill="var(--accent)" pointer-events="all" tabindex="0" data-tt="Also tightly surrounded by neighbors on both sides on both objectives — low distance, a candidate for dropping in a tie."></circle>
+        <circle cx="430" cy="150" r="7" fill="var(--accent)" pointer-events="all" tabindex="0" data-tt="Also tightly surrounded by neighbors on both sides on both objectives - low distance, a candidate for dropping in a tie."></circle>
         <text x="430" y="134" text-anchor="middle" font-size="10.5" fill="currentColor" opacity="0.8">0.15</text>
 
         <circle cx="620" cy="185" r="7" fill="var(--accent)" pointer-events="all" tabindex="0" data-tt="A clear gap to the nearest neighbors on both objectives → a large rectangle → a high crowding distance, filling a sparsely occupied part of the front."></circle>
         <text x="620" y="169" text-anchor="middle" font-size="10.5" fill="currentColor" opacity="0.9">0.52</text>
 
-        <circle cx="780" cy="205" r="7" fill="var(--accent)" pointer-events="all" tabindex="0" data-tt="The extreme on the f₁ axis — the other front edge. Crowding distance = ∞, always kept."></circle>
+        <circle cx="780" cy="205" r="7" fill="var(--accent)" pointer-events="all" tabindex="0" data-tt="The extreme on the f₁ axis - the other front edge. Crowding distance = ∞, always kept."></circle>
         <text x="780" y="189" text-anchor="middle" font-size="10.5" fill="var(--accent)">∞</text>
 
         <path d="M100,60 L260,110 L430,150 L620,185 L780,205" fill="none" stroke="currentColor" stroke-width="1.1" stroke-dasharray="3 3" opacity="0.4"></path>
@@ -693,17 +702,17 @@
         <text x="84" y="251" font-size="10.5" fill="currentColor" opacity="0.75">kept at a limit of 3 of 5 (two edges + the sparsest middle one)</text>
       </g>
     </svg>
-    <figcaption><span class="k">What this diagram shows —</span> five points on the same front, all formally indistinguishable by non-domination alone. If only three of them had to be picked, crowding distance would keep both edges (∞) and the middle point with the biggest gap to its neighbors (0.52) — dropping the two most crowded points (0.18 and 0.15).</figcaption>
+    <figcaption><span class="k">What this diagram shows -</span> five points on the same front, all formally indistinguishable by non-domination alone. If only three of them had to be picked, crowding distance would keep both edges (∞) and the middle point with the biggest gap to its neighbors (0.52) - dropping the two most crowded points (0.18 and 0.15).</figcaption>
   </figure>
 </section>
 
 <section id="live">
   <h2>4&nbsp; See it in action</h2>
-  <p class="subdek">Not an animation of one fixed example — this is SH-EMOA actually running, computing in your browser, on a two-objective test function similar to ZDT1.</p>
+  <p class="subdek">Not an animation of one fixed example - this is SH-EMOA actually running, computing in your browser, on a two-objective test function similar to ZDT1.</p>
 
   <h3><span class="num">4.1</span>The problem: what SH-EMOA actually has to prove itself on</h3>
-  <p>The genotype is six real-valued genes in [0, 1]: <span class="mono">x₀</span> and five “distance genes” <span class="mono">x₁…x₅</span>. The first objective is simply <span class="mono">f₁ = x₀</span> — smaller is better. The second objective depends on how close to zero the distance genes are: <span class="mono">g = 1 + 9 · average(x₁…x₅)</span>, <span class="mono">f₂ = g · (1 − √(f₁/g))</span> — also smaller is better. The true Pareto front lies where all distance genes are close to zero (<span class="mono">g ≈ 1</span>); any distance gene that stays high drags the whole front up and to the right, i.e. toward worse solutions.</p>
-  <p>The fidelity ladder trick: <strong>low fidelity computes <span class="mono">g</span> from just one randomly chosen distance gene instead of all five</strong> — exactly as a cheap architecture evaluation might train on a small data subset instead of the whole thing. Medium fidelity uses three genes. Full fidelity uses all five and gives the true value. The fewer genes a given level sees, the noisier (but still correlated) its estimate is — this is exactly the cost/accuracy trade-off the whole ladder is meant to exploit.</p>
+  <p>The genotype is six real-valued genes in [0, 1]: <span class="mono">x₀</span> and five “distance genes” <span class="mono">x₁…x₅</span>. The first objective is simply <span class="mono">f₁ = x₀</span> - smaller is better. The second objective depends on how close to zero the distance genes are: <span class="mono">g = 1 + 9 · average(x₁…x₅)</span>, <span class="mono">f₂ = g · (1 − √(f₁/g))</span> - also smaller is better. The true Pareto front lies where all distance genes are close to zero (<span class="mono">g ≈ 1</span>); any distance gene that stays high drags the whole front up and to the right, i.e. toward worse solutions.</p>
+  <p>The fidelity ladder trick: <strong>low fidelity computes <span class="mono">g</span> from just one randomly chosen distance gene instead of all five</strong> - exactly as a cheap architecture evaluation might train on a small data subset instead of the whole thing. Medium fidelity uses three genes. Full fidelity uses all five and gives the true value. The fewer genes a given level sees, the noisier (but still correlated) its estimate is - this is exactly the cost/accuracy trade-off the whole ladder is meant to exploit.</p>
 
   <h3><span class="num">4.2</span>The solution: SH-EMOA actually run on this problem</h3>
   <p>The parent population has 8 individuals. Every generation creates 12 offspring by uniform crossover (a random pair of parents, each gene independently from one of them) and independent per-gene mutation. The fidelity ladder sieves them 12→6→3 (exactly as in the 3.2 diagram), and the 3 full-fidelity finalists join the 8 parents in a pool of 11 candidates. From there, Pareto sorting and crowding distance select the 8 individuals of the new population.</p>
@@ -719,7 +728,7 @@
       <span class="demo-legend-item"><span class="swatch sw-f1"></span>front 1</span>
       <span class="demo-legend-item"><span class="swatch sw-f2"></span>front 2</span>
       <span class="demo-legend-item"><span class="swatch sw-f3"></span>front 3+</span>
-      <span class="demo-legend-item demo-legend-phases">Click “Step” or “Run” — the chart below shows the current population state live.</span>
+      <span class="demo-legend-item demo-legend-phases">Click “Step” or “Run” - the chart below shows the current population state live.</span>
     </div>
 
     <div class="hero-block">
@@ -732,8 +741,8 @@
           </defs>
           <line x1="70" y1="420" x2="860" y2="420" stroke="currentColor" stroke-width="1.2" opacity="0.35" marker-end="url(#arrPlot)"></line>
           <line x1="70" y1="420" x2="70" y2="20" stroke="currentColor" stroke-width="1.2" opacity="0.35" marker-end="url(#arrPlot)"></line>
-          <text x="465" y="452" text-anchor="middle" class="diagram-label" font-size="13" fill="currentColor" opacity="0.65">objective f₁ — smaller = better</text>
-          <text x="40" y="220" text-anchor="middle" class="diagram-label" font-size="13" fill="currentColor" opacity="0.65" transform="rotate(-90 40 220)">objective f₂ — smaller = better</text>
+          <text x="465" y="452" text-anchor="middle" class="diagram-label" font-size="13" fill="currentColor" opacity="0.65">objective f₁ - smaller = better</text>
+          <text x="40" y="220" text-anchor="middle" class="diagram-label" font-size="13" fill="currentColor" opacity="0.65" transform="rotate(-90 40 220)">objective f₂ - smaller = better</text>
           <text x="90" y="404" class="diagram-label" font-size="10.5" fill="currentColor" opacity="0.5">0</text>
           <text x="840" y="404" class="diagram-label" font-size="10.5" fill="currentColor" opacity="0.5" text-anchor="end">1</text>
           <text x="76" y="34" class="diagram-label" font-size="10.5" fill="currentColor" opacity="0.5">10</text>
@@ -752,7 +761,7 @@
         <div class="rung-list" id="rungView"></div>
       </div>
       <div class="demo-panel">
-        <h4 pointer-events="all" tabindex="0" data-tt="Ranking of candidates at the current fidelity level (a scalar proxy score — not full Pareto sorting). The top half moves on.">Ranking at this level</h4>
+        <h4 pointer-events="all" tabindex="0" data-tt="Ranking of candidates at the current fidelity level (a scalar proxy score - not full Pareto sorting). The top half moves on.">Ranking at this level</h4>
         <div class="rank-list" id="rankView"></div>
       </div>
       <div class="demo-panel">
@@ -783,10 +792,10 @@
           <div class="demo-stat" pointer-events="all" tabindex="0" data-tt="How many times the main SH-EMOA loop has started from a new parent generation.">
             <div class="lbl">Generation</div><div class="val" id="statGen">0</div>
           </div>
-          <div class="demo-stat" pointer-events="all" tabindex="0" data-tt="Total number of evaluations at the full-fidelity level — this is the real cost the ladder is meant to minimize.">
+          <div class="demo-stat" pointer-events="all" tabindex="0" data-tt="Total number of evaluations at the full-fidelity level - this is the real cost the ladder is meant to minimize.">
             <div class="lbl">Full evaluations</div><div class="val" id="statFull">0</div>
           </div>
-          <div class="demo-stat" pointer-events="all" tabindex="0" data-tt="Total number of evaluations at the cheap and medium levels combined — much cheaper than full, but still a non-zero cost.">
+          <div class="demo-stat" pointer-events="all" tabindex="0" data-tt="Total number of evaluations at the cheap and medium levels combined - much cheaper than full, but still a non-zero cost.">
             <div class="lbl">Cheap + medium</div><div class="val" id="statCheap">0</div>
           </div>
           <div class="demo-stat" pointer-events="all" tabindex="0" data-tt="Size of front 1 (non-dominated) in the current parent population.">
@@ -801,7 +810,7 @@
 </section>
 
 <section id="code">
-  <h2>5&nbsp; Pseudocode — what you'd actually have to write</h2>
+  <h2>5&nbsp; Pseudocode - what you'd actually have to write</h2>
   <p class="subdek">Four procedures. The first two are plain NSGA-II; the third is the only thing SH-EMOA adds.</p>
 
 <pre class="code"><span class="kw">procedure</span> SH-EMOA
@@ -815,7 +824,7 @@
             child ← CROSSOVER(pa, pb)          <span class="cm">// §3.1, uniform, no structure</span>
             child ← MUTATE(child)              <span class="cm">// §3.1, independent per gene</span>
             O.add(child)
-        O ← FIDELITY-LADDER(O)                 <span class="cm">// §3.2 — this is where halving happens</span>
+        O ← FIDELITY-LADDER(O)                 <span class="cm">// §3.2 - this is where halving happens</span>
         Q ← P ∪ O                              <span class="cm">// parents + those who made it to full fidelity</span>
         (F1, F2, …) ← NON-DOMINATED-SORT(Q)
         P ← ∅; i ← 1
@@ -833,7 +842,7 @@
         <span class="kw">for</span> x <span class="kw">in</span> O <span class="kw">do</span>
             score(x) ← EVALUATE-AT(x, r)        <span class="cm">// a cheaper, biased evaluation; YOU define this cost</span>
         <span class="kw">if</span> r ≠ full <span class="kw">then</span>
-            O ← top half of O by score(r)      <span class="cm">// halving — scalar ranking, not full Pareto</span>
+            O ← top half of O by score(r)      <span class="cm">// halving - scalar ranking, not full Pareto</span>
         <span class="kw">else</span>
             EVALUATE-FULL(O)                    <span class="cm">// only now the real (f1, f2, …)</span>
     <span class="kw">return</span> O                                   <span class="cm">// those who made it to full fidelity</span></pre>
@@ -862,11 +871,11 @@
             F[i].crowd += (F[i+1].m − F[i−1].m) / (max_m − min_m)
     <span class="kw">return</span> F                                        <span class="cm">// sorted descending by crowd at selection time</span></pre>
 
-  <p>That's the whole algorithm. There's no procedure at all that learns the genotype's structure — <span class="mono">CROSSOVER</span> and <span class="mono">MUTATE</span> work identically regardless of whether genes are linked or not.</p>
+  <p>That's the whole algorithm. There's no procedure at all that learns the genotype's structure - <span class="mono">CROSSOVER</span> and <span class="mono">MUTATE</span> work identically regardless of whether genes are linked or not.</p>
 </section>
 
 <section id="practice">
-  <h2>6&nbsp; What you design yourself — applying SH-EMOA to a real problem</h2>
+  <h2>6&nbsp; What you design yourself - applying SH-EMOA to a real problem</h2>
   <p>The selection mechanism (Pareto + crowding) and the budget-cutting mechanism (halving) are fixed by the algorithm. What changes every time you plug this into a new problem is the genotype, the variation operators, and the ladder itself.</p>
 
   <div class="tablewrap">
@@ -876,37 +885,37 @@
         <tr>
           <td><strong>Non-domination rule</strong></td>
           <td class="fixed-col">x dominates y if x is no worse on any objective and strictly better on at least one; fronts are built iteratively from F1.</td>
-          <td class="decide-col">Which objectives even enter the comparison, and whether each is minimized or maximized (e.g. accuracy to maximize, cost to minimize — this has to be unified before comparison).</td>
+          <td class="decide-col">Which objectives even enter the comparison, and whether each is minimized or maximized (e.g. accuracy to maximize, cost to minimize - this has to be unified before comparison).</td>
         </tr>
         <tr>
           <td><strong>Tie-break on the front</strong></td>
           <td class="fixed-col">Crowding distance: the sum of normalized distances to neighbors on each objective, front edges always kept.</td>
-          <td class="decide-col">Nothing — this is the one point in the table usually left unchanged even between problems.</td>
+          <td class="decide-col">Nothing - this is the one point in the table usually left unchanged even between problems.</td>
         </tr>
         <tr>
           <td><strong>Ladder promotion rule</strong></td>
           <td class="fixed-col">The top half of the ranking at a given level moves on to the next, more expensive level; the rest drops out with no further chance this generation.</td>
-          <td class="decide-col">What the proxy ranking at an intermediate level even is, given that full Pareto doesn't work there yet — scalar, hypervolume, something else.</td>
+          <td class="decide-col">What the proxy ranking at an intermediate level even is, given that full Pareto doesn't work there yet - scalar, hypervolume, something else.</td>
         </tr>
         <tr>
           <td><strong>Genotype</strong></td>
           <td class="fixed-col">A vector of values, compared solely through the evaluation result.</td>
-          <td class="decide-col">How your problem becomes that vector — for a network architecture: genes for cell-graph edges plus genes for training hyperparameters.</td>
+          <td class="decide-col">How your problem becomes that vector - for a network architecture: genes for cell-graph edges plus genes for training hyperparameters.</td>
         </tr>
         <tr>
           <td><strong>Crossover and mutation</strong></td>
-          <td class="fixed-col">Uniform crossover, independent per-gene mutation — a scheme, not concrete parameters.</td>
-          <td class="decide-col">The mutation probability, the perturbation strength, possibly a different crossover operator — but no “structure-aware” version without going beyond the algorithm itself.</td>
+          <td class="fixed-col">Uniform crossover, independent per-gene mutation - a scheme, not concrete parameters.</td>
+          <td class="decide-col">The mutation probability, the perturbation strength, possibly a different crossover operator - but no “structure-aware” version without going beyond the algorithm itself.</td>
         </tr>
         <tr>
           <td><strong>Ladder budgets and halving rate</strong></td>
-          <td class="fixed-col">The number of levels, and that each one drops half, is the scheme — the concrete numbers aren't.</td>
+          <td class="fixed-col">The number of levels, and that each one drops half, is the scheme - the concrete numbers aren't.</td>
           <td class="decide-col">How many levels, at what cost each (epochs, data subset, proxy-network size), and whether the reduction factor really has to be 2.</td>
         </tr>
         <tr>
           <td><strong>Population size μ and offspring λ</strong></td>
-          <td class="fixed-col">Not fixed by the algorithm — unlike P3, SH-EMOA doesn't derive them automatically.</td>
-          <td class="decide-col">Both have to be chosen up front, just as in a plain GA — SH-EMOA doesn't solve this problem, only the evaluation-cost one.</td>
+          <td class="fixed-col">Not fixed by the algorithm - unlike P3, SH-EMOA doesn't derive them automatically.</td>
+          <td class="decide-col">Both have to be chosen up front, just as in a plain GA - SH-EMOA doesn't solve this problem, only the evaluation-cost one.</td>
         </tr>
       </tbody>
     </table>
@@ -914,8 +923,8 @@
 
   <div class="callout">
     <span class="tag">The blind spot this page reveals</span>
-    <p>SH-EMOA cuts evaluation cost exactly the same way MO-BOHB does — via the fidelity ladder — and does multi-objective selection correctly, with full Pareto sorting and crowding distance. But the variation operators (§3.1) have no idea at all which genes of the genotype are functionally linked. Uniform crossover recombines genes one at a time and blindly — if a good architecture requires changing three specific edges together, the probability that uniform crossover copies exactly those three at once from the same parent drops exponentially with the number of genes.</p>
-    <p>This is exactly the gap P3Net targets: the linkage tree learns which genes usually change value together, and linkage-guided crossover recombines <em>whole learned clusters</em> at once, instead of individual genes. SH-EMOA and P3Net can both cut evaluation cost with the same kind of trick (fidelity ladder vs. relative surrogate) — the difference that actually decides the quality of the architectures found lies in whether recombination even knows what to change together.</p>
+    <p>SH-EMOA cuts evaluation cost exactly the same way MO-BOHB does - via the fidelity ladder - and does multi-objective selection correctly, with full Pareto sorting and crowding distance. But the variation operators (§3.1) have no idea at all which genes of the genotype are functionally linked. Uniform crossover recombines genes one at a time and blindly - if a good architecture requires changing three specific edges together, the probability that uniform crossover copies exactly those three at once from the same parent drops exponentially with the number of genes.</p>
+    <p>This is exactly the gap P3Net targets: the linkage tree learns which genes usually change value together, and linkage-guided crossover recombines <em>whole learned clusters</em> at once, instead of individual genes. SH-EMOA and P3Net can both cut evaluation cost with the same kind of trick (fidelity ladder vs. relative surrogate) - the difference that actually decides the quality of the architectures found lies in whether recombination even knows what to change together.</p>
   </div>
 
   <h3 style="margin-top:32px;"><span class="num">✓</span>Checklist for applying SH-EMOA to a new problem</h3>
@@ -924,8 +933,8 @@
     <li><span class="box"></span><span>Define all objectives and unify the optimization direction (minimize or maximize) for each.</span></li>
     <li><span class="box"></span><span>Design the fidelity ladder: how many levels, at what real cost each, and whether the cost difference between levels actually translates into savings.</span></li>
     <li><span class="box"></span><span>Decide what the proxy ranking at intermediate levels even is, given that full Pareto sorting doesn't make sense there yet.</span></li>
-    <li><span class="box"></span><span>Choose μ, λ, and the halving rate — SH-EMOA won't guess these for you.</span></li>
-    <li><span class="box"></span><span>If you suspect strong gene linkage (and in architecture genotypes there usually is), that's a real design problem, not a parameter to tune — P3Net's answer: the linkage tree and linkage-guided crossover.</span></li>
+    <li><span class="box"></span><span>Choose μ, λ, and the halving rate - SH-EMOA won't guess these for you.</span></li>
+    <li><span class="box"></span><span>If you suspect strong gene linkage (and in architecture genotypes there usually is), that's a real design problem, not a parameter to tune - P3Net's answer: the linkage tree and linkage-guided crossover.</span></li>
   </ul>
 
 </section>
@@ -933,7 +942,7 @@
 </main>
 
 <footer class="page-end">
-  Context: the P3Net paper's (GECCO 2027) nine-armed ablation table — SH-EMOA as one of the seven comparison arms, see <span class="mono">implementation/lib/README.md</span>, “Relationship to the experiments repository.”
+  Context: the P3Net paper's (GECCO 2027) nine-armed ablation table - SH-EMOA as one of the seven comparison arms, see <span class="mono">implementation/lib/README.md</span>, “Relationship to the experiments repository.”
 </footer>
 
 <script>
@@ -1107,7 +1116,7 @@
       yield { type: "gen-start", parents: parents, offspring: [], rung: null, rankInfo: null,
         fronts: poolFronts, active: null, statFull: statFull, statCheap: statCheap, genNum: genNum,
         caption: "Generation " + genNum + ": parent population P (" + parents.length + " individuals, all already at full fidelity).",
-        log: "Start of generation " + genNum + " — every parent already has real (f1, f2)." };
+        log: "Start of generation " + genNum + " - every parent already has real (f1, f2)." };
 
       // --- generate offspring: naive uniform crossover + mutation ---
       var offspring = [];
@@ -1121,7 +1130,7 @@
       }
       yield { type: "offspring", parents: parents, offspring: offspring, rung: null, rankInfo: null,
         fronts: poolFronts, active: null, statFull: statFull, statCheap: statCheap, genNum: genNum,
-        caption: LAMBDA + " offspring via uniform crossover + independent per-gene mutation — with no knowledge at all of which genes are linked.",
+        caption: LAMBDA + " offspring via uniform crossover + independent per-gene mutation - with no knowledge at all of which genes are linked.",
         log: "Generated " + LAMBDA + " offspring. None have been evaluated yet." };
 
       // --- fidelity ladder: two halving waves, then full evaluation ---
@@ -1209,7 +1218,7 @@
         rung: null, rankInfo: null, fronts: fronts, active: null,
         boundaryFront: boundaryFront, boundarySelected: boundarySelected, boundaryCut: boundaryCut,
         statFull: statFull, statCheap: statCheap, genNum: genNum,
-        caption: boundaryFront ? ("The boundary front has " + boundaryFront.length + " individuals for " + (MU - (nextPop.length - (boundarySelected ? boundarySelected.length : 0))) + " open slots — crowding distance picks " + (boundarySelected ? boundarySelected.length : 0) + ".") : "The successive full fronts fit exactly within the μ limit — crowding distance had nothing to decide this generation.",
+        caption: boundaryFront ? ("The boundary front has " + boundaryFront.length + " individuals for " + (MU - (nextPop.length - (boundarySelected ? boundarySelected.length : 0))) + " open slots - crowding distance picks " + (boundarySelected ? boundarySelected.length : 0) + ".") : "The successive full fronts fit exactly within the μ limit - crowding distance had nothing to decide this generation.",
         log: boundaryFront ? ("Crowding distance kept " + boundarySelected.length + " of " + boundaryFront.length + " on the boundary front.") : "No tie to break this generation." };
 
       nextPop.forEach(function (x) { x.state = "parent"; });
@@ -1382,7 +1391,7 @@
       dot.className = "fdot";
       dot.style.background = frontColor(i + 1);
       var label = document.createElement("span");
-      label.textContent = "Front " + (i + 1) + " — " + fr.length + (fr.length === 1 ? " individual" : " individuals");
+      label.textContent = "Front " + (i + 1) + " - " + fr.length + (fr.length === 1 ? " individual" : " individuals");
       row.appendChild(dot); row.appendChild(label);
       el.front.appendChild(row);
     });

@@ -1,6 +1,15 @@
 <title>Jak naprawdę działa SH-EMOA</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet" crossorigin="anonymous">
+<link href="https://db.onlinewebfonts.com/c/cc4a7a8da4c5d4af9361d85a1d1c0bba?family=OCR-A" rel="stylesheet">
+<style>
+@font-face{font-family:'OCR-A';unicode-range:U+0100-024F;font-weight:400;src:url('https://cdn.jsdelivr.net/npm/@fontsource/jetbrains-mono/files/jetbrains-mono-latin-ext-400-normal.woff2') format('woff2');}
+@font-face{font-family:'OCR-A';unicode-range:U+0100-024F;font-weight:500;src:url('https://cdn.jsdelivr.net/npm/@fontsource/jetbrains-mono/files/jetbrains-mono-latin-ext-500-normal.woff2') format('woff2');}
+@font-face{font-family:'OCR-A';unicode-range:U+0100-024F;font-weight:600;src:url('https://cdn.jsdelivr.net/npm/@fontsource/jetbrains-mono/files/jetbrains-mono-latin-ext-600-normal.woff2') format('woff2');}
+@font-face{font-family:'OCR-A';unicode-range:U+0100-024F;font-weight:700;src:url('https://cdn.jsdelivr.net/npm/@fontsource/jetbrains-mono/files/jetbrains-mono-latin-ext-700-normal.woff2') format('woff2');}
+</style>
 <style>
   :root {
     --bg: #060a05;
@@ -80,12 +89,12 @@
     margin: 0;
     background: var(--bg);
     color: var(--ink);
-    font-family: 'IBM Plex Mono', monospace;
+    font-family: 'OCR-A','JetBrains Mono',monospace;
     line-height: 1.6;
     -webkit-font-smoothing: antialiased;
   }
   .mono {
-    font-family: 'IBM Plex Mono', monospace;
+    font-family: 'OCR-A','JetBrains Mono',monospace;
   }
 
   a { color: var(--accent); }
@@ -109,7 +118,7 @@
     overflow-x: auto;
   }
   .topnav-mark {
-    font-family: 'IBM Plex Mono', monospace;
+    font-family: 'OCR-A','JetBrains Mono',monospace;
     font-size: 12px;
     letter-spacing: .08em;
     color: var(--accent);
@@ -118,7 +127,7 @@
     border-right: 1px solid var(--line);
   }
   .topnav a {
-    font-family: 'IBM Plex Mono', monospace;
+    font-family: 'OCR-A','JetBrains Mono',monospace;
     font-size: 12px;
     letter-spacing: .04em;
     color: var(--ink-muted);
@@ -137,7 +146,7 @@
   section:first-of-type { padding-top: 8px; }
 
   .eyebrow {
-    font-family: 'IBM Plex Mono', monospace;
+    font-family: 'OCR-A','JetBrains Mono',monospace;
     font-size: 11px;
     letter-spacing: .14em;
     text-transform: uppercase;
@@ -172,7 +181,7 @@
     margin: 40px 0 10px;
   }
   h3 .num {
-    font-family: 'IBM Plex Mono', monospace;
+    font-family: 'OCR-A','JetBrains Mono',monospace;
     font-size: 14px;
     color: var(--accent);
     margin-right: 8px;
@@ -208,7 +217,7 @@
   figure.bleed { margin-left: calc(50% - 50vw + 12px); margin-right: calc(50% - 50vw + 12px); max-width: 1120px; margin-left: auto; margin-right: auto; }
   figure svg { display: block; width: 100%; height: auto; padding: 20px; }
   figcaption {
-    font-family: 'IBM Plex Mono', monospace;
+    font-family: 'OCR-A','JetBrains Mono',monospace;
     font-size: 12px;
     color: var(--ink-muted);
     padding: 10px 20px 16px;
@@ -226,7 +235,7 @@
     margin: 24px 0;
   }
   .callout .tag {
-    font-family: 'IBM Plex Mono', monospace;
+    font-family: 'OCR-A','JetBrains Mono',monospace;
     font-size: 11px;
     letter-spacing: .1em;
     text-transform: uppercase;
@@ -243,7 +252,7 @@
     border-radius: 10px;
     padding: 20px 22px;
     overflow-x: auto;
-    font-family: 'IBM Plex Mono', monospace;
+    font-family: 'OCR-A','JetBrains Mono',monospace;
     font-size: 13px;
     line-height: 1.7;
     box-shadow: var(--shadow);
@@ -257,7 +266,7 @@
   table { border-collapse: collapse; width: 100%; background: var(--bg-raised); font-size: 15px; }
   th, td { text-align: left; padding: 12px 16px; border-bottom: 1px solid var(--line); vertical-align: top; }
   thead th {
-    font-family: 'IBM Plex Mono', monospace;
+    font-family: 'OCR-A','JetBrains Mono',monospace;
     font-size: 11px;
     letter-spacing: .08em;
     text-transform: uppercase;
@@ -298,7 +307,7 @@
     max-width: 280px;
     background: var(--ink);
     color: var(--bg);
-    font-family: 'IBM Plex Mono', monospace;
+    font-family: 'OCR-A','JetBrains Mono',monospace;
     font-size: 12px;
     line-height: 1.5;
     padding: 9px 11px;
@@ -308,7 +317,7 @@
   }
   .tt-hint {
     display: inline-block;
-    font-family: 'IBM Plex Mono', monospace;
+    font-family: 'OCR-A','JetBrains Mono',monospace;
     font-size: 10.5px;
     color: var(--ink-faint);
     letter-spacing: .04em;
@@ -343,7 +352,7 @@
   .map-strip svg { display: block; width: 100%; height: auto; }
 
   .demo-phase-caption {
-    font-family: 'IBM Plex Mono', monospace;
+    font-family: 'OCR-A','JetBrains Mono',monospace;
     font-size: 13px;
     color: var(--ink);
     background: var(--bg-sunken);
@@ -355,7 +364,7 @@
   .demo-phase-caption strong { color: var(--accent); }
 
   .zone-caption {
-    margin: 22px 0 12px; font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; letter-spacing: .08em;
+    margin: 22px 0 12px; font-family: 'OCR-A','JetBrains Mono',monospace; font-size: 10.5px; letter-spacing: .08em;
     text-transform: uppercase; color: var(--ink-faint);
     display: flex; align-items: center; gap: 10px; cursor: help;
   }
@@ -371,7 +380,7 @@
 
   .demo-controls { display: flex; flex-wrap: wrap; gap: 8px; }
   .demo-btn {
-    font-family: 'IBM Plex Mono', monospace;
+    font-family: 'OCR-A','JetBrains Mono',monospace;
     font-size: 12.5px;
     letter-spacing: .02em;
     background: var(--bg-sunken);
@@ -387,7 +396,7 @@
 
   .demo-legend {
     display: flex; flex-wrap: wrap; align-items: center; gap: 14px;
-    font-family: 'IBM Plex Mono', monospace;
+    font-family: 'OCR-A','JetBrains Mono',monospace;
     font-size: 11.5px; color: var(--ink-muted);
     background: var(--bg-sunken);
     border-radius: 8px;
@@ -419,11 +428,11 @@
     border-radius: 8px;
     padding: 10px 12px;
   }
-  .demo-stat .lbl { font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: .08em; text-transform: uppercase; color: var(--ink-faint); }
-  .demo-stat .val { font-family: 'IBM Plex Mono', monospace; font-size: 20px; color: var(--ink); font-variant-numeric: tabular-nums; }
+  .demo-stat .lbl { font-family: 'OCR-A','JetBrains Mono',monospace; font-size: 10px; letter-spacing: .08em; text-transform: uppercase; color: var(--ink-faint); }
+  .demo-stat .val { font-family: 'OCR-A','JetBrains Mono',monospace; font-size: 20px; color: var(--ink); font-variant-numeric: tabular-nums; }
 
   .demo-log {
-    font-family: 'IBM Plex Mono', monospace;
+    font-family: 'OCR-A','JetBrains Mono',monospace;
     font-size: 12.5px;
     color: var(--ink-muted);
     background: var(--bg-sunken);
@@ -435,19 +444,19 @@
   .demo-log strong { color: var(--accent); }
 
   .demo-panel h4 {
-    font-family: 'IBM Plex Mono', monospace;
+    font-family: 'OCR-A','JetBrains Mono',monospace;
     font-size: 11px; letter-spacing: .08em; text-transform: uppercase;
     color: var(--ink-faint); margin: 0 0 10px;
   }
   .demo-note {
-    font-family: 'IBM Plex Mono', monospace;
+    font-family: 'OCR-A','JetBrains Mono',monospace;
     font-size: 11.5px; color: var(--ink-faint);
     margin-top: 14px; line-height: 1.6;
   }
 
   /* rung ladder mini-bars */
   .rung-list { display: flex; flex-direction: column; gap: 6px; }
-  .rung-row { display: flex; align-items: center; gap: 10px; font-family: 'IBM Plex Mono', monospace; font-size: 11.5px; }
+  .rung-row { display: flex; align-items: center; gap: 10px; font-family: 'OCR-A','JetBrains Mono',monospace; font-size: 11.5px; }
   .rung-row .rname { width: 78px; color: var(--ink-muted); flex: none; }
   .rung-row .rbar-wrap { flex: 1; background: var(--bg-sunken); border-radius: 5px; height: 20px; overflow: hidden; position: relative; }
   .rung-row .rbar { height: 100%; background: var(--line-strong); transition: width .3s ease, background-color .3s ease; }
@@ -458,7 +467,7 @@
   .rank-list { display: flex; flex-direction: column; gap: 4px; max-height: 210px; overflow-y: auto; }
   .rank-item {
     display: grid; grid-template-columns: 20px 1fr 56px; gap: 8px; align-items: center;
-    font-family: 'IBM Plex Mono', monospace; font-size: 11px;
+    font-family: 'OCR-A','JetBrains Mono',monospace; font-size: 11px;
     padding: 5px 8px; border-radius: 6px; background: var(--bg-sunken);
     color: var(--ink-muted);
   }
@@ -472,21 +481,21 @@
   .gene-bars { display: flex; align-items: flex-end; gap: 3px; height: 40px; margin: 4px 0 2px; }
   .gene-bars .gbar { flex: 1; background: var(--accent-soft); border: 1.2px solid var(--accent-soft-line); border-radius: 2px 2px 0 0; min-width: 8px; }
   .gene-bars .gbar.f1gene { background: var(--bg-sunken); border-color: var(--line-strong); }
-  .gene-caption { font-family: 'IBM Plex Mono', monospace; font-size: 10px; color: var(--ink-faint); display: flex; justify-content: space-between; }
+  .gene-caption { font-family: 'OCR-A','JetBrains Mono',monospace; font-size: 10px; color: var(--ink-faint); display: flex; justify-content: space-between; }
 
   .front-list { display: flex; flex-direction: column; gap: 6px; }
-  .front-row { display: flex; align-items: center; gap: 8px; font-family: 'IBM Plex Mono', monospace; font-size: 11.5px; color: var(--ink-muted); }
+  .front-row { display: flex; align-items: center; gap: 8px; font-family: 'OCR-A','JetBrains Mono',monospace; font-size: 11.5px; color: var(--ink-muted); }
   .front-row .fdot { width: 10px; height: 10px; border-radius: 50%; flex: none; }
 
   /* ---------- misc ---------- */
-  .diagram-label { font-family: 'IBM Plex Mono', monospace; }
+  .diagram-label { font-family: 'OCR-A','JetBrains Mono',monospace; }
   ::selection { background: var(--accent-soft); }
 
   footer.page-end {
     max-width: 720px; margin: 80px auto 0; padding: 24px 24px 40px;
     border-top: 1px solid var(--line);
     color: var(--ink-faint);
-    font-family: 'IBM Plex Mono', monospace;
+    font-family: 'OCR-A','JetBrains Mono',monospace;
     font-size: 12px;
   }
 </style>
@@ -495,7 +504,7 @@
   <a href="../Portfolio.dc.html" style="font-size:18px;font-weight:600;color:oklch(0.92 0.004 250);text-decoration:none;">JP.<span style="color:#9CAF6B;">_</span></a>
   <div style="display:flex;gap:32px;align-items:center;font-size:14px;">
     <a href="../Portfolio.dc.html" style="color:var(--ink-muted);text-decoration:none;">strona główna</a>
-    <a href="../Portfolio.dc.html?view=solutions" style="color:oklch(0.85 0.004 250);text-decoration:none;">:solutions</a>
+    <a href="../Portfolio.dc.html?view=solutions" style="color:oklch(0.85 0.004 250);text-decoration:none;">~/solutions</a>
     <a href="../Portfolio.dc.html?view=badania" style="color:var(--ink-muted);text-decoration:none;">:badania</a>
     <a href="../Portfolio.dc.html?view=kontakt" style="color:var(--ink-muted);text-decoration:none;">:kontakt</a>
     <a href="sh-emoa.html" style="font-size:12px;font-weight:700;padding:6px 12px;border:1px solid #9CAF6B;border-radius:2px;background:rgba(156,175,107,0.15);color:#9CAF6B;text-decoration:none;">EN</a>
@@ -516,36 +525,36 @@
 <main>
 
 <section id="top">
-  <div class="eyebrow"><span>SH-EMOA — Successive Halving Evolutionary Multi-Objective Algorithm</span></div>
+  <div class="eyebrow"><span>SH-EMOA - Successive Halving Evolutionary Multi-Objective Algorithm</span></div>
   <h1>Jak naprawdę działa SH-EMOA</h1>
-  <p class="lede">Jeden z siedmiu ramion w tabeli ablacji z artykułu o P3Net — zwykła wielokryterialna ewolucja (sortowanie Pareto + crowding distance), do której dołożono jedną rzecz: budżet ewaluacji jest cięty <em class="term">wewnątrz</em> każdego pokolenia, falami redukcji wierności, zanim ktokolwiek w ogóle trafi do sortowania Pareto.</p>
+  <p class="lede">Jeden z siedmiu ramion w tabeli ablacji z artykułu o P3Net - zwykła wielokryterialna ewolucja (sortowanie Pareto + crowding distance), do której dołożono jedną rzecz: budżet ewaluacji jest cięty <em class="term">wewnątrz</em> każdego pokolenia, falami redukcji wierności, zanim ktokolwiek w ogóle trafi do sortowania Pareto.</p>
   <p class="subdek">Ułożone jak diagram C4: kontekst, potem duże ruchome elementy, potem każdy z nich rozłożony na czynniki pierwsze, potem kod, na końcu praktyczna checklista.</p>
 </section>
 
 <hr class="rule">
 
 <section id="context">
-  <h3><span class="num">1</span>Kontekst — dwa problemy naraz, jednym algorytmem</h3>
+  <h3><span class="num">1</span>Kontekst - dwa problemy naraz, jednym algorytmem</h3>
   <p class="lede" style="font-size:17px;">Jednym zdaniem: SH-EMOA to NSGA-II-podobna ewolucja wielokryterialna, w której każda ewaluacja potomka jest najpierw testowana tanio, a dopiero przetrwali dostają pełną, kosztowną ocenę.</p>
-  <p>Weź dowolny standardowy EMOA (evolutionary multi-objective algorithm) — populacja, potomstwo przez mutację i krzyżowanie, selekcja do następnego pokolenia oparta o niezdominowanie Pareto i crowding distance, dokładnie jak w NSGA-II. Teraz załóż, że pojedyncza ewaluacja jest droga — dla nas: pełny trening sieci neuronowej. Pełna ewaluacja <em>każdego</em> potomka w <em>każdym</em> pokoleniu szybko staje się nie do udźwignięcia. SH-EMOA odpowiada na to dokładnie tak samo, jak Hyperband odpowiada na ten sam problem w kontekście jednokryterialnym: zamiast trenować każdego kandydata w pełni, trenuj tanio, zatrzymaj słabszą połowę, trenuj przetrwałych trochę dłużej, powtórz — aż zostanie garstka, która zasługuje na pełny budżet.</p>
+  <p>Weź dowolny standardowy EMOA (evolutionary multi-objective algorithm) - populacja, potomstwo przez mutację i krzyżowanie, selekcja do następnego pokolenia oparta o niezdominowanie Pareto i crowding distance, dokładnie jak w NSGA-II. Teraz załóż, że pojedyncza ewaluacja jest droga - dla nas: pełny trening sieci neuronowej. Pełna ewaluacja <em>każdego</em> potomka w <em>każdym</em> pokoleniu szybko staje się nie do udźwignięcia. SH-EMOA odpowiada na to dokładnie tak samo, jak Hyperband odpowiada na ten sam problem w kontekście jednokryterialnym: zamiast trenować każdego kandydata w pełni, trenuj tanio, zatrzymaj słabszą połowę, trenuj przetrwałych trochę dłużej, powtórz - aż zostanie garstka, która zasługuje na pełny budżet.</p>
 
   <div class="callout">
     <span class="tag">Miejsce w tabeli ablacji</span>
-    <p>W dziewięcioramiennej siatce porównawczej z artykułu o P3Net (JAHS-Bench-201, NAS-HPO-Bench-II; zobacz <span class="mono">implementation/lib/README.md</span>) SH-EMOA stoi obok NSGA-Net, NSGANetV2, MO-BOHB, TPE i losowego przeszukiwania. To ramię, które łączy <strong>ewolucję z cięciem budżetu</strong> — ale bez uczenia się struktury. Mutacja i krzyżowanie zostają naiwne: żadnej informacji o tym, które geny genotypu architektury są ze sobą funkcjonalnie powiązane. To dokładnie ta luka, w którą celuje drzewo powiązań P3Net — algorytm poniżej pokazuje, jak wygląda multi-objective search, który tnie koszt ewaluacji tak samo sprytnie jak P3Net, ale wciąż rekombinuje na ślepo.</p>
+    <p>W dziewięcioramiennej siatce porównawczej z artykułu o P3Net (JAHS-Bench-201, NAS-HPO-Bench-II; zobacz <span class="mono">implementation/lib/README.md</span>) SH-EMOA stoi obok NSGA-Net, NSGANetV2, MO-BOHB, TPE i losowego przeszukiwania. To ramię, które łączy <strong>ewolucję z cięciem budżetu</strong> - ale bez uczenia się struktury. Mutacja i krzyżowanie zostają naiwne: żadnej informacji o tym, które geny genotypu architektury są ze sobą funkcjonalnie powiązane. To dokładnie ta luka, w którą celuje drzewo powiązań P3Net - algorytm poniżej pokazuje, jak wygląda multi-objective search, który tnie koszt ewaluacji tak samo sprytnie jak P3Net, ale wciąż rekombinuje na ślepo.</p>
   </div>
 
-  <p>Innymi słowy: SH-EMOA to iloczyn dwóch osobnych, dobrze znanych idei — <strong>selekcja Pareto</strong> (skąd wiadomo, co jest „lepsze”, gdy celów jest więcej niż jeden) i <strong>drabinka wierności</strong> (skąd wiadomo, kogo w ogóle warto ocenić w pełni). Reszta tej strony rozkłada obie na czynniki pierwsze, osobno i razem.</p>
+  <p>Innymi słowy: SH-EMOA to iloczyn dwóch osobnych, dobrze znanych idei - <strong>selekcja Pareto</strong> (skąd wiadomo, co jest „lepsze”, gdy celów jest więcej niż jeden) i <strong>drabinka wierności</strong> (skąd wiadomo, kogo w ogóle warto ocenić w pełni). Reszta tej strony rozkłada obie na czynniki pierwsze, osobno i razem.</p>
 </section>
 
 <section id="bigpicture">
-  <h3><span class="num">2</span>Ogólny obraz — jedna pętla, dwa mechanizmy</h3>
+  <h3><span class="num">2</span>Ogólny obraz - jedna pętla, dwa mechanizmy</h3>
   <p class="lede" style="font-size:17px;">Jednym zdaniem: każde pokolenie generuje potomstwo naiwnie, przesiewa je drabinką wierności, a dopiero to, co przetrwa do pełnej oceny, konkuruje o miejsce w następnej populacji przez sortowanie Pareto i crowding distance.</p>
 
   <div class="tablewrap">
     <table>
       <thead><tr><th>Element</th><th>Zadanie</th></tr></thead>
       <tbody>
-        <tr><td><strong>Naiwna wariacja</strong></td><td>Krzyżowanie i mutacja bez żadnej wiedzy o strukturze genotypu — każdy gen traktowany niezależnie od pozostałych.</td></tr>
+        <tr><td><strong>Naiwna wariacja</strong></td><td>Krzyżowanie i mutacja bez żadnej wiedzy o strukturze genotypu - każdy gen traktowany niezależnie od pozostałych.</td></tr>
         <tr><td><strong>Drabinka wierności</strong></td><td>Kolejne, coraz droższe poziomy oceny; po każdym poziomie odpada połowa kandydatów, zanim ktokolwiek dostanie pełny budżet treningowy.</td></tr>
         <tr><td><strong>Selekcja Pareto</strong></td><td>Ci, którzy dotrwali do pełnej oceny, wchodzą do wspólnej puli z rodzicami; sortowanie po niezdominowaniu i crowding distance wybiera następną populację.</td></tr>
       </tbody>
@@ -560,16 +569,16 @@
         </marker>
       </defs>
 
-      <rect x="300" y="10" width="300" height="52" rx="9" fill="var(--accent-soft)" stroke="var(--accent)" stroke-width="1.6" pointer-events="all" tabindex="0" data-tt="μ osobników, każdy już w pełni oceniony na obu celach. Wynik selekcji z poprzedniego pokolenia — albo losowa inicjalizacja, jeśli to pierwsze pokolenie."></rect>
+      <rect x="300" y="10" width="300" height="52" rx="9" fill="var(--accent-soft)" stroke="var(--accent)" stroke-width="1.6" pointer-events="all" tabindex="0" data-tt="μ osobników, każdy już w pełni oceniony na obu celach. Wynik selekcji z poprzedniego pokolenia - albo losowa inicjalizacja, jeśli to pierwsze pokolenie."></rect>
       <text x="450" y="42" text-anchor="middle" class="diagram-label" font-size="13" fill="var(--ink)">Populacja rodzicielska P (pełna wierność)</text>
       <path d="M450,62 L450,90" stroke="currentColor" stroke-width="1.3" marker-end="url(#arrBP)"></path>
 
-      <rect x="300" y="92" width="300" height="52" rx="9" fill="none" stroke="currentColor" stroke-width="1.4" pointer-events="all" tabindex="0" data-tt="Krzyżowanie jednolite + niezależna mutacja na gen — żadnej informacji o tym, które geny są ze sobą powiązane. Szczegóły w 3.1."></rect>
+      <rect x="300" y="92" width="300" height="52" rx="9" fill="none" stroke="currentColor" stroke-width="1.4" pointer-events="all" tabindex="0" data-tt="Krzyżowanie jednolite + niezależna mutacja na gen - żadnej informacji o tym, które geny są ze sobą powiązane. Szczegóły w 3.1."></rect>
       <text x="450" y="123" text-anchor="middle" class="diagram-label" font-size="13">Naiwne krzyżowanie + mutacja</text>
       <path d="M450,144 L450,172" stroke="currentColor" stroke-width="1.3" marker-end="url(#arrBP)"></path>
 
       <rect x="140" y="174" width="620" height="150" rx="10" fill="var(--bg-sunken)" stroke="currentColor" stroke-width="1" opacity="0.9"></rect>
-      <text x="164" y="198" class="diagram-label" font-size="11" letter-spacing="0.06em" fill="currentColor" opacity="0.6">DRABINKA WIERNOŚCI — od najtańszego poziomu w górę</text>
+      <text x="164" y="198" class="diagram-label" font-size="11" letter-spacing="0.06em" fill="currentColor" opacity="0.6">DRABINKA WIERNOŚCI - od najtańszego poziomu w górę</text>
 
       <rect x="170" y="212" width="170" height="44" rx="8" fill="none" stroke="currentColor" stroke-width="1.3" pointer-events="all" tabindex="0" data-tt="Najtańszy poziom: ocena z dużą wariancją, np. trening na małym podzbiorze danych albo z małą liczbą epok. Szczegóły w 3.2."></rect>
       <text x="255" y="238" text-anchor="middle" class="diagram-label" font-size="11.5">tani poziom</text>
@@ -581,10 +590,10 @@
       <path d="M557,234 L602,234" stroke="currentColor" stroke-width="1.2" marker-end="url(#arrBP)"></path>
       <text x="579" y="222" text-anchor="middle" class="diagram-label" font-size="9.5" fill="currentColor" opacity="0.65">odrzuć połowę</text>
 
-      <rect x="604" y="212" width="140" height="44" rx="8" fill="var(--accent-soft)" stroke="var(--accent)" stroke-width="1.7" pointer-events="all" tabindex="0" data-tt="Pełna wierność — dopiero teraz kandydat dostaje prawdziwy, kosztowny wynik na obu celach. To jedyny etap, który wolno bezpośrednio porównywać z rodzicami w sortowaniu Pareto."></rect>
+      <rect x="604" y="212" width="140" height="44" rx="8" fill="var(--accent-soft)" stroke="var(--accent)" stroke-width="1.7" pointer-events="all" tabindex="0" data-tt="Pełna wierność - dopiero teraz kandydat dostaje prawdziwy, kosztowny wynik na obu celach. To jedyny etap, który wolno bezpośrednio porównywać z rodzicami w sortowaniu Pareto."></rect>
       <text x="674" y="238" text-anchor="middle" class="diagram-label" font-size="11.5" fill="var(--ink)">pełna wierność</text>
 
-      <text x="450" y="298" text-anchor="middle" class="diagram-label" font-size="10.5" fill="currentColor" opacity="0.65">tylko garstka potomków, która przetrwała każdą falę, dociera tutaj — reszta budżetu poszła na tanie odsiewanie</text>
+      <text x="450" y="298" text-anchor="middle" class="diagram-label" font-size="10.5" fill="currentColor" opacity="0.65">tylko garstka potomków, która przetrwała każdą falę, dociera tutaj - reszta budżetu poszła na tanie odsiewanie</text>
       <path d="M674,256 L674,290" stroke="var(--accent)" stroke-width="1.3" marker-end="url(#arrBP)"></path>
       <text x="702" y="278" class="diagram-label" font-size="10.5" fill="var(--accent)">przetrwali</text>
 
@@ -600,31 +609,31 @@
       <path d="M600,433 C820,433 820,36 600,36" fill="none" stroke="currentColor" stroke-width="1.2" marker-end="url(#arrBP)"></path>
       <text x="700" y="20" text-anchor="middle" class="diagram-label" font-size="10.5" fill="currentColor" opacity="0.7">kolejne pokolenie</text>
     </svg>
-    <figcaption><span class="k">Co pokazuje ten diagram —</span> szara ramka w środku to jedyna część, której nie ma w zwykłym NSGA-II: zanim potomek w ogóle dostanie prawo wystąpić w sortowaniu Pareto, musi przetrwać kolejne, coraz droższe fale oceny. Wszystko poza tą ramką to dokładnie ten sam szkielet, co w dowolnym EMOA. Najedź na dowolne pudełko po szczegóły.</figcaption>
+    <figcaption><span class="k">Co pokazuje ten diagram -</span> szara ramka w środku to jedyna część, której nie ma w zwykłym NSGA-II: zanim potomek w ogóle dostanie prawo wystąpić w sortowaniu Pareto, musi przetrwać kolejne, coraz droższe fale oceny. Wszystko poza tą ramką to dokładnie ten sam szkielet, co w dowolnym EMOA. Najedź na dowolne pudełko po szczegóły.</figcaption>
   </figure>
 </section>
 
 <section id="components">
-  <h2>3&nbsp; Komponenty — rozkładanie każdego elementu na czynniki</h2>
+  <h2>3&nbsp; Komponenty - rozkładanie każdego elementu na czynniki</h2>
   <p class="subdek">Te same trzy elementy co wyżej, teraz na poziomie szczegółowości potrzebnym do ich zaimplementowania.</p>
 
-  <h3><span class="num">3.1</span>Naiwne operatory wariacji — krzyżowanie i mutacja bez struktury</h3>
-  <p class="lede" style="font-size:16px;">Jednym zdaniem: każdy gen jest traktowany tak, jakby nie miał nic wspólnego z żadnym innym genem — bo dla tych operatorów faktycznie nie ma.</p>
-  <p>Krzyżowanie jest zwykle jednolite (uniform crossover): dla każdej pozycji genu niezależnie wylosuj, czy wartość pochodzi od rodzica A, czy od rodzica B. Mutacja jest zwykle niezależna na gen: z ustalonym prawdopodobieństwem <span class="mono">p_m</span> zaburz wartość tego jednego locus, bez patrzenia na resztę genotypu. Żaden z tych operatorów nie wie ani nie próbuje się dowiedzieć, które geny mają tendencję do wspólnego przemieszczania się — nie ma tabeli częstości, nie ma drzewa powiązań, nie ma klastrów.</p>
-  <p>To działa dobrze, dopóki funkcja celu jest w przybliżeniu separowalna — poprawa jednego genu z osobna faktycznie przybliża do lepszego rozwiązania. Zawodzi dokładnie tam, gdzie kilka genów trzeba zmienić <em>razem</em>, żeby zobaczyć jakąkolwiek poprawę (dokładnie ten sam problem, który ilustruje funkcja pułapki w przewodniku po P3) — jednolite krzyżowanie z szansą 50% na gen prawie nigdy nie skopiuje całej takiej grupy naraz, więc korzystna kombinacja praktycznie nigdy nie powstaje.</p>
+  <h3><span class="num">3.1</span>Naiwne operatory wariacji - krzyżowanie i mutacja bez struktury</h3>
+  <p class="lede" style="font-size:16px;">Jednym zdaniem: każdy gen jest traktowany tak, jakby nie miał nic wspólnego z żadnym innym genem - bo dla tych operatorów faktycznie nie ma.</p>
+  <p>Krzyżowanie jest zwykle jednolite (uniform crossover): dla każdej pozycji genu niezależnie wylosuj, czy wartość pochodzi od rodzica A, czy od rodzica B. Mutacja jest zwykle niezależna na gen: z ustalonym prawdopodobieństwem <span class="mono">p_m</span> zaburz wartość tego jednego locus, bez patrzenia na resztę genotypu. Żaden z tych operatorów nie wie ani nie próbuje się dowiedzieć, które geny mają tendencję do wspólnego przemieszczania się - nie ma tabeli częstości, nie ma drzewa powiązań, nie ma klastrów.</p>
+  <p>To działa dobrze, dopóki funkcja celu jest w przybliżeniu separowalna - poprawa jednego genu z osobna faktycznie przybliża do lepszego rozwiązania. Zawodzi dokładnie tam, gdzie kilka genów trzeba zmienić <em>razem</em>, żeby zobaczyć jakąkolwiek poprawę (dokładnie ten sam problem, który ilustruje funkcja pułapki w przewodniku po P3) - jednolite krzyżowanie z szansą 50% na gen prawie nigdy nie skopiuje całej takiej grupy naraz, więc korzystna kombinacja praktycznie nigdy nie powstaje.</p>
 
   <div class="callout">
     <span class="tag">To jest dokładnie ta luka, którą P3Net atakuje</span>
-    <p>W genotypie architektury sieci neuronowej geny opisujące np. dwie krawędzie tej samej komórki obliczeniowej często muszą zmienić się razem, żeby dać sensowną, lepszą architekturę — pojedyncza zmiana jednej krawędzi bywa neutralna albo szkodliwa. Jednolite krzyżowanie nie ma pojęcia, że te dwa geny są powiązane; P3Net uczy się tego jawnie drzewem powiązań i rekombinuje całymi wyuczonymi klastrami naraz. Sekcja 6 wraca do tego z konkretnym porównaniem.</p>
+    <p>W genotypie architektury sieci neuronowej geny opisujące np. dwie krawędzie tej samej komórki obliczeniowej często muszą zmienić się razem, żeby dać sensowną, lepszą architekturę - pojedyncza zmiana jednej krawędzi bywa neutralna albo szkodliwa. Jednolite krzyżowanie nie ma pojęcia, że te dwa geny są powiązane; P3Net uczy się tego jawnie drzewem powiązań i rekombinuje całymi wyuczonymi klastrami naraz. Sekcja 6 wraca do tego z konkretnym porównaniem.</p>
   </div>
 
-  <h3><span class="num">3.2</span>Drabinka wierności — reguła halvingu</h3>
+  <h3><span class="num">3.2</span>Drabinka wierności - reguła halvingu</h3>
   <p class="lede" style="font-size:16px;">Jednym zdaniem: oceń tanio, zatrzymaj gorszą połowę, powtórz na droższym poziomie, aż zostanie tylko tylu kandydatów, ilu stać Cię ocenić w pełni.</p>
-  <p>Drabinka to ciąg poziomów wierności o rosnącym koszcie — np. trening na 1/9, potem 1/3, potem całości danych treningowych; albo 10, potem 30, potem 100 epok. Na każdym poziomie każdy wciąż żywy kandydat dostaje ocenę na tym poziomie, kandydaci są rankowani, a górna połowa (stąd „successive halving") przechodzi na kolejny, droższy poziom. Reszta jest odrzucana — nie dostanie już żadnej kolejnej szansy w tym pokoleniu.</p>
-  <p>Kluczowa decyzja projektowa: <strong>czym jest ranking na pośrednim poziomie</strong>, skoro cele mamy dwa (albo więcej), a pełne sortowanie Pareto ma sens tylko na w pełni ocenionych punktach. Typowe rozwiązanie — użyte też w demie sekcji 4 — to prosty skalarny wynik zastępczy (np. suma znormalizowanych celów albo wkład do hiperwolumenu) tylko na potrzeby jednej fali eliminacji; właściwe, pełne sortowanie Pareto z crowding distance jest zarezerwowane dla momentu, gdy kandydaci mają już prawdziwe, pełne oceny.</p>
+  <p>Drabinka to ciąg poziomów wierności o rosnącym koszcie - np. trening na 1/9, potem 1/3, potem całości danych treningowych; albo 10, potem 30, potem 100 epok. Na każdym poziomie każdy wciąż żywy kandydat dostaje ocenę na tym poziomie, kandydaci są rankowani, a górna połowa (stąd „successive halving") przechodzi na kolejny, droższy poziom. Reszta jest odrzucana - nie dostanie już żadnej kolejnej szansy w tym pokoleniu.</p>
+  <p>Kluczowa decyzja projektowa: <strong>czym jest ranking na pośrednim poziomie</strong>, skoro cele mamy dwa (albo więcej), a pełne sortowanie Pareto ma sens tylko na w pełni ocenionych punktach. Typowe rozwiązanie - użyte też w demie sekcji 4 - to prosty skalarny wynik zastępczy (np. suma znormalizowanych celów albo wkład do hiperwolumenu) tylko na potrzeby jednej fali eliminacji; właściwe, pełne sortowanie Pareto z crowding distance jest zarezerwowane dla momentu, gdy kandydaci mają już prawdziwe, pełne oceny.</p>
 
   <figure class="bleed">
-    <svg viewBox="0 0 880 210" role="img" aria-label="Drabinka wierności o trzech poziomach: 12 kandydatów wchodzi na poziom tani, 6 przechodzi na poziom średni, 3 dochodzi do poziomu pełnego — na każdym przejściu odpada dokładnie połowa.">
+    <svg viewBox="0 0 880 210" role="img" aria-label="Drabinka wierności o trzech poziomach: 12 kandydatów wchodzi na poziom tani, 6 przechodzi na poziom średni, 3 dochodzi do poziomu pełnego - na każdym przejściu odpada dokładnie połowa.">
       <defs>
         <marker id="arrLad" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
           <path d="M0,0 L10,5 L0,10 z" fill="currentColor"></path>
@@ -645,7 +654,7 @@
         <path d="M440,117 L490,117" stroke="currentColor" stroke-width="1.3" marker-end="url(#arrLad)"></path>
         <text x="465" y="105" text-anchor="middle" font-size="10" fill="currentColor" opacity="0.6">−50%</text>
 
-        <rect x="500" y="103" width="180" height="47" rx="8" fill="var(--accent-soft)" stroke="var(--accent)" stroke-width="1.7" pointer-events="all" tabindex="0" data-tt="3 finaliści tej fali halvingu. Dopiero oni dostają pełną, prawdziwą ocenę — dokładnie ta liczba wchodzi potem do sortowania Pareto razem z rodzicami."></rect>
+        <rect x="500" y="103" width="180" height="47" rx="8" fill="var(--accent-soft)" stroke="var(--accent)" stroke-width="1.7" pointer-events="all" tabindex="0" data-tt="3 finaliści tej fali halvingu. Dopiero oni dostają pełną, prawdziwą ocenę - dokładnie ta liczba wchodzi potem do sortowania Pareto razem z rodzicami."></rect>
         <text x="590" y="89" text-anchor="middle" font-size="12" fill="var(--accent)">pełny poziom</text>
         <text x="590" y="132" text-anchor="middle" font-size="20" fill="var(--ink)">3</text>
 
@@ -656,13 +665,13 @@
       </g>
       <text x="20" y="185" class="diagram-label" font-size="11" fill="currentColor" opacity="0.6">12 → 6 → 3: 4 pełne ewaluacje kosztowałoby 12 kandydatów wprost; ta sama garstka finalistów kosztowała tu tylko 3 pełne + 12 tanich + 6 średnich.</text>
     </svg>
-    <figcaption><span class="k">Co pokazuje ten diagram —</span> to dokładnie liczby, których użyje demo w sekcji 4: 12 potomków na start, halving do 6, potem do 3. Każda strzałka to jedna fala eliminacji rankingiem zastępczym, nie sortowaniem Pareto — pełne sortowanie czeka na koniec drabinki.</figcaption>
+    <figcaption><span class="k">Co pokazuje ten diagram -</span> to dokładnie liczby, których użyje demo w sekcji 4: 12 potomków na start, halving do 6, potem do 3. Każda strzałka to jedna fala eliminacji rankingiem zastępczym, nie sortowaniem Pareto - pełne sortowanie czeka na koniec drabinki.</figcaption>
   </figure>
 
-  <h3><span class="num">3.3</span>Selekcja — sortowanie po niezdominowaniu i crowding distance</h3>
+  <h3><span class="num">3.3</span>Selekcja - sortowanie po niezdominowaniu i crowding distance</h3>
   <p class="lede" style="font-size:16px;">Jednym zdaniem: buduj nową populację front po froncie od najlepszego, a gdy front nie mieści się w całości, zatrzymaj z niego osobniki najdalej rozstawione w przestrzeni celów.</p>
-  <p>Osobnik <em>x</em> dominuje osobnika <em>y</em>, jeśli <em>x</em> nie jest gorszy od <em>y</em> na żadnym celu i ściśle lepszy na przynajmniej jednym. <strong>Front 1</strong> to zbiór osobników niezdominowanych przez nikogo w puli. Usuń go, policz dominację od nowa na tym, co zostało — to <strong>front 2</strong>. Powtarzaj. Nowa populacja wypełnia się frontami od pierwszego, dopóki cały kolejny front się mieści.</p>
-  <p>Problem pojawia się, gdy front graniczny <em>nie</em> mieści się w całości — trzeba wybrać część jego osobników i odrzucić resztę, mimo że formalnie są sobie równi (żaden nie dominuje żadnego). <strong>Crowding distance</strong> rozstrzyga ten remis: dla każdego celu osobno posortuj front po wartości tego celu, brzegi frontu (najmniejsza i największa wartość) dostają dystans nieskończony (zawsze zachowywane), a każdy środkowy osobnik dostaje sumę znormalizowanych odległości do swoich sąsiadów na każdym celu. Wyższy dystans = mniej zatłoczona okolica = pierwszeństwo w selekcji. To utrzymuje front rozłożony równomiernie wzdłuż całej krzywej kompromisu, zamiast zbijać się w jednym miejscu.</p>
+  <p>Osobnik <em>x</em> dominuje osobnika <em>y</em>, jeśli <em>x</em> nie jest gorszy od <em>y</em> na żadnym celu i ściśle lepszy na przynajmniej jednym. <strong>Front 1</strong> to zbiór osobników niezdominowanych przez nikogo w puli. Usuń go, policz dominację od nowa na tym, co zostało - to <strong>front 2</strong>. Powtarzaj. Nowa populacja wypełnia się frontami od pierwszego, dopóki cały kolejny front się mieści.</p>
+  <p>Problem pojawia się, gdy front graniczny <em>nie</em> mieści się w całości - trzeba wybrać część jego osobników i odrzucić resztę, mimo że formalnie są sobie równi (żaden nie dominuje żadnego). <strong>Crowding distance</strong> rozstrzyga ten remis: dla każdego celu osobno posortuj front po wartości tego celu, brzegi frontu (najmniejsza i największa wartość) dostają dystans nieskończony (zawsze zachowywane), a każdy środkowy osobnik dostaje sumę znormalizowanych odległości do swoich sąsiadów na każdym celu. Wyższy dystans = mniej zatłoczona okolica = pierwszeństwo w selekcji. To utrzymuje front rozłożony równomiernie wzdłuż całej krzywej kompromisu, zamiast zbijać się w jednym miejscu.</p>
 
   <figure class="bleed">
     <svg viewBox="0 0 880 260" role="img" aria-label="Front graniczny pięciu punktów w przestrzeni dwóch celów; punkty brzegowe dostają nieskończony crowding distance, punkty środkowe dostają sumę odległości do sąsiadów po obu celach, a z pięciu trzeba wybrać trzech o największym dystansie.">
@@ -672,19 +681,19 @@
         <text fill="currentColor" x="440" y="242" text-anchor="middle" font-size="11" opacity="0.6">cel f₁ (mniej = lepiej) →</text>
         <text fill="currentColor" x="30" y="120" text-anchor="middle" font-size="11" opacity="0.6" transform="rotate(-90 30 120)">cel f₂ ↑</text>
 
-        <circle cx="100" cy="60" r="7" fill="var(--accent)" pointer-events="all" tabindex="0" data-tt="Skrajny na osi f₂ — brzeg frontu. Crowding distance = ∞, zawsze zachowywany."></circle>
+        <circle cx="100" cy="60" r="7" fill="var(--accent)" pointer-events="all" tabindex="0" data-tt="Skrajny na osi f₂ - brzeg frontu. Crowding distance = ∞, zawsze zachowywany."></circle>
         <text x="100" y="44" text-anchor="middle" font-size="10.5" fill="var(--accent)">∞</text>
 
         <circle cx="260" cy="110" r="7" fill="var(--accent)" pointer-events="all" tabindex="0" data-tt="Sąsiedzi po obu stronach są blisko (mały prostokąt otaczający) → mała suma znormalizowanych odległości → niski crowding distance."></circle>
         <text x="260" y="94" text-anchor="middle" font-size="10.5" fill="currentColor" opacity="0.8">0,18</text>
 
-        <circle cx="430" cy="150" r="7" fill="var(--accent)" pointer-events="all" tabindex="0" data-tt="Też ciasno otoczony sąsiadami po obu stronach na obu celach — niski dystans, kandydat do odrzucenia przy remisie."></circle>
+        <circle cx="430" cy="150" r="7" fill="var(--accent)" pointer-events="all" tabindex="0" data-tt="Też ciasno otoczony sąsiadami po obu stronach na obu celach - niski dystans, kandydat do odrzucenia przy remisie."></circle>
         <text x="430" y="134" text-anchor="middle" font-size="10.5" fill="currentColor" opacity="0.8">0,15</text>
 
         <circle cx="620" cy="185" r="7" fill="var(--accent)" pointer-events="all" tabindex="0" data-tt="Wyraźna luka do najbliższych sąsiadów po obu celach → duży prostokąt → wysoki crowding distance, wypełnia rzadko obsadzoną część frontu."></circle>
         <text x="620" y="169" text-anchor="middle" font-size="10.5" fill="currentColor" opacity="0.9">0,52</text>
 
-        <circle cx="780" cy="205" r="7" fill="var(--accent)" pointer-events="all" tabindex="0" data-tt="Skrajny na osi f₁ — drugi brzeg frontu. Crowding distance = ∞, zawsze zachowywany."></circle>
+        <circle cx="780" cy="205" r="7" fill="var(--accent)" pointer-events="all" tabindex="0" data-tt="Skrajny na osi f₁ - drugi brzeg frontu. Crowding distance = ∞, zawsze zachowywany."></circle>
         <text x="780" y="189" text-anchor="middle" font-size="10.5" fill="var(--accent)">∞</text>
 
         <path d="M100,60 L260,110 L430,150 L620,185 L780,205" fill="none" stroke="currentColor" stroke-width="1.1" stroke-dasharray="3 3" opacity="0.4"></path>
@@ -693,17 +702,17 @@
         <text x="84" y="251" font-size="10.5" fill="currentColor" opacity="0.75">zachowany przy limicie 3 z 5 (dwa brzegi + najrzadszy środek)</text>
       </g>
     </svg>
-    <figcaption><span class="k">Co pokazuje ten diagram —</span> pięć punktów tego samego frontu, wszystkie formalnie nierozróżnialne przez samo niezdominowanie. Gdyby trzeba było wybrać z nich tylko trzech, crowding distance zachowa oba brzegi (∞) i punkt środkowy z największą luką do sąsiadów (0,52) — odrzucając dwa punkty najbardziej stłoczone (0,18 i 0,15).</figcaption>
+    <figcaption><span class="k">Co pokazuje ten diagram -</span> pięć punktów tego samego frontu, wszystkie formalnie nierozróżnialne przez samo niezdominowanie. Gdyby trzeba było wybrać z nich tylko trzech, crowding distance zachowa oba brzegi (∞) i punkt środkowy z największą luką do sąsiadów (0,52) - odrzucając dwa punkty najbardziej stłoczone (0,18 i 0,15).</figcaption>
   </figure>
 </section>
 
 <section id="live">
   <h2>4&nbsp; Zobacz to w akcji</h2>
-  <p class="subdek">Nie animacja jednego ustalonego przykładu — to naprawdę uruchomiony SH-EMOA, licząc w Twojej przeglądarce, na dwucelowej funkcji testowej podobnej do ZDT1.</p>
+  <p class="subdek">Nie animacja jednego ustalonego przykładu - to naprawdę uruchomiony SH-EMOA, licząc w Twojej przeglądarce, na dwucelowej funkcji testowej podobnej do ZDT1.</p>
 
   <h3><span class="num">4.1</span>Problem: na czym SH-EMOA właściwie ma się wykazać</h3>
-  <p>Genotyp to sześć genów rzeczywistych w przedziale [0, 1]: <span class="mono">x₀</span> i pięć „genów dystansu" <span class="mono">x₁…x₅</span>. Pierwszy cel to po prostu <span class="mono">f₁ = x₀</span> — im mniejszy, tym lepiej. Drugi cel zależy od tego, jak blisko zera są geny dystansu: <span class="mono">g = 1 + 9 · średnia(x₁…x₅)</span>, <span class="mono">f₂ = g · (1 − √(f₁/g))</span> — też im mniejszy, tym lepiej. Prawdziwy front Pareto leży tam, gdzie wszystkie geny dystansu są bliskie zeru (<span class="mono">g ≈ 1</span>); każdy gen dystansu, który zostaje wysoki, ściąga cały front w górę i w prawo, czyli w stronę gorszych rozwiązań.</p>
-  <p>Sztuczka drabinki wierności: <strong>niska wierność liczy <span class="mono">g</span> tylko z jednego losowo wybranego genu dystansu zamiast wszystkich pięciu</strong> — dokładnie tak, jak tania ocena architektury mogłaby trenować na małym podzbiorze danych zamiast na całości. Średnia wierność używa trzech genów. Pełna wierność używa wszystkich pięciu i daje prawdziwą wartość. Im mniej genów widzi dany poziom, tym bardziej hałaśliwe (ale wciąż skorelowane) jest jego oszacowanie — to jest właśnie ten kompromis koszt/dokładność, który cała drabinka ma wykorzystać.</p>
+  <p>Genotyp to sześć genów rzeczywistych w przedziale [0, 1]: <span class="mono">x₀</span> i pięć „genów dystansu" <span class="mono">x₁…x₅</span>. Pierwszy cel to po prostu <span class="mono">f₁ = x₀</span> - im mniejszy, tym lepiej. Drugi cel zależy od tego, jak blisko zera są geny dystansu: <span class="mono">g = 1 + 9 · średnia(x₁…x₅)</span>, <span class="mono">f₂ = g · (1 − √(f₁/g))</span> - też im mniejszy, tym lepiej. Prawdziwy front Pareto leży tam, gdzie wszystkie geny dystansu są bliskie zeru (<span class="mono">g ≈ 1</span>); każdy gen dystansu, który zostaje wysoki, ściąga cały front w górę i w prawo, czyli w stronę gorszych rozwiązań.</p>
+  <p>Sztuczka drabinki wierności: <strong>niska wierność liczy <span class="mono">g</span> tylko z jednego losowo wybranego genu dystansu zamiast wszystkich pięciu</strong> - dokładnie tak, jak tania ocena architektury mogłaby trenować na małym podzbiorze danych zamiast na całości. Średnia wierność używa trzech genów. Pełna wierność używa wszystkich pięciu i daje prawdziwą wartość. Im mniej genów widzi dany poziom, tym bardziej hałaśliwe (ale wciąż skorelowane) jest jego oszacowanie - to jest właśnie ten kompromis koszt/dokładność, który cała drabinka ma wykorzystać.</p>
 
   <h3><span class="num">4.2</span>Rozwiązanie: SH-EMOA naprawdę uruchomiony na tym problemie</h3>
   <p>Populacja rodzicielska liczy 8 osobników. Każde pokolenie tworzy 12 potomków przez jednolite krzyżowanie (losowa para rodziców, każdy gen niezależnie od jednego z nich) i niezależną mutację na gen. Drabinka wierności przesiewa ich 12→6→3 (dokładnie jak w diagramie 3.2), a 3 finalistów w pełnej wierności łączy się z 8 rodzicami w pulę 11 kandydatów. Stamtąd sortowanie Pareto i crowding distance wybierają 8 osobników nowej populacji.</p>
@@ -719,7 +728,7 @@
       <span class="demo-legend-item"><span class="swatch sw-f1"></span>front 1</span>
       <span class="demo-legend-item"><span class="swatch sw-f2"></span>front 2</span>
       <span class="demo-legend-item"><span class="swatch sw-f3"></span>front 3+</span>
-      <span class="demo-legend-item demo-legend-phases">Kliknij „Krok" albo „Uruchom" — wykres poniżej pokazuje bieżący stan populacji na żywo.</span>
+      <span class="demo-legend-item demo-legend-phases">Kliknij „Krok" albo „Uruchom" - wykres poniżej pokazuje bieżący stan populacji na żywo.</span>
     </div>
 
     <div class="hero-block">
@@ -732,8 +741,8 @@
           </defs>
           <line x1="70" y1="420" x2="860" y2="420" stroke="currentColor" stroke-width="1.2" opacity="0.35" marker-end="url(#arrPlot)"></line>
           <line x1="70" y1="420" x2="70" y2="20" stroke="currentColor" stroke-width="1.2" opacity="0.35" marker-end="url(#arrPlot)"></line>
-          <text x="465" y="452" text-anchor="middle" class="diagram-label" font-size="13" fill="currentColor" opacity="0.65">cel f₁ — mniejsze = lepsze</text>
-          <text x="40" y="220" text-anchor="middle" class="diagram-label" font-size="13" fill="currentColor" opacity="0.65" transform="rotate(-90 40 220)">cel f₂ — mniejsze = lepsze</text>
+          <text x="465" y="452" text-anchor="middle" class="diagram-label" font-size="13" fill="currentColor" opacity="0.65">cel f₁ - mniejsze = lepsze</text>
+          <text x="40" y="220" text-anchor="middle" class="diagram-label" font-size="13" fill="currentColor" opacity="0.65" transform="rotate(-90 40 220)">cel f₂ - mniejsze = lepsze</text>
           <text x="90" y="404" class="diagram-label" font-size="10.5" fill="currentColor" opacity="0.5">0</text>
           <text x="840" y="404" class="diagram-label" font-size="10.5" fill="currentColor" opacity="0.5" text-anchor="end">1</text>
           <text x="76" y="34" class="diagram-label" font-size="10.5" fill="currentColor" opacity="0.5">10</text>
@@ -752,7 +761,7 @@
         <div class="rung-list" id="rungView"></div>
       </div>
       <div class="demo-panel">
-        <h4 pointer-events="all" tabindex="0" data-tt="Ranking kandydatów na aktualnym poziomie wierności (skalarny wynik zastępczy — nie pełne sortowanie Pareto). Górna połowa przechodzi dalej.">Ranking na tym poziomie</h4>
+        <h4 pointer-events="all" tabindex="0" data-tt="Ranking kandydatów na aktualnym poziomie wierności (skalarny wynik zastępczy - nie pełne sortowanie Pareto). Górna połowa przechodzi dalej.">Ranking na tym poziomie</h4>
         <div class="rank-list" id="rankView"></div>
       </div>
       <div class="demo-panel">
@@ -783,10 +792,10 @@
           <div class="demo-stat" pointer-events="all" tabindex="0" data-tt="Ile razy pętla główna SH-EMOA wystartowała od nowego pokolenia rodzicielskiego.">
             <div class="lbl">Pokolenie</div><div class="val" id="statGen">0</div>
           </div>
-          <div class="demo-stat" pointer-events="all" tabindex="0" data-tt="Łączna liczba ewaluacji na poziomie pełnej wierności — to jest prawdziwy koszt, który drabinka ma zminimalizować.">
+          <div class="demo-stat" pointer-events="all" tabindex="0" data-tt="Łączna liczba ewaluacji na poziomie pełnej wierności - to jest prawdziwy koszt, który drabinka ma zminimalizować.">
             <div class="lbl">Pełne ewaluacje</div><div class="val" id="statFull">0</div>
           </div>
-          <div class="demo-stat" pointer-events="all" tabindex="0" data-tt="Łączna liczba ewaluacji na poziomach tanim i średnim razem — dużo tańszych niż pełna, ale wciąż niezerowy koszt.">
+          <div class="demo-stat" pointer-events="all" tabindex="0" data-tt="Łączna liczba ewaluacji na poziomach tanim i średnim razem - dużo tańszych niż pełna, ale wciąż niezerowy koszt.">
             <div class="lbl">Tanie + średnie</div><div class="val" id="statCheap">0</div>
           </div>
           <div class="demo-stat" pointer-events="all" tabindex="0" data-tt="Rozmiar frontu 1 (niezdominowanych) w bieżącej populacji rodzicielskiej.">
@@ -801,7 +810,7 @@
 </section>
 
 <section id="code">
-  <h2>5&nbsp; Pseudokod — co naprawdę trzeba by napisać</h2>
+  <h2>5&nbsp; Pseudokod - co naprawdę trzeba by napisać</h2>
   <p class="subdek">Cztery procedury. Pierwsze dwie to zwykły NSGA-II; trzecia to jedyna rzecz, którą SH-EMOA dokłada.</p>
 
 <pre class="code"><span class="kw">procedure</span> SH-EMOA
@@ -815,7 +824,7 @@
             child ← CROSSOVER(pa, pb)          <span class="cm">// §3.1, jednolite, bez struktury</span>
             child ← MUTATE(child)              <span class="cm">// §3.1, niezależna na gen</span>
             O.add(child)
-        O ← FIDELITY-LADDER(O)                 <span class="cm">// §3.2 — tu dzieje się halving</span>
+        O ← FIDELITY-LADDER(O)                 <span class="cm">// §3.2 - tu dzieje się halving</span>
         Q ← P ∪ O                              <span class="cm">// rodzice + ci, którzy dotrwali do pełnej wierności</span>
         (F1, F2, …) ← NON-DOMINATED-SORT(Q)
         P ← ∅; i ← 1
@@ -833,7 +842,7 @@
         <span class="kw">for</span> x <span class="kw">in</span> O <span class="kw">do</span>
             score(x) ← EVALUATE-AT(x, r)        <span class="cm">// tańsza, obciążona ocena; TY definiujesz ten koszt</span>
         <span class="kw">if</span> r ≠ pełny <span class="kw">then</span>
-            O ← górna połowa O wg score(r)      <span class="cm">// halving — skalarny ranking, nie pełne Pareto</span>
+            O ← górna połowa O wg score(r)      <span class="cm">// halving - skalarny ranking, nie pełne Pareto</span>
         <span class="kw">else</span>
             EVALUATE-FULL(O)                    <span class="cm">// dopiero teraz prawdziwe (f1, f2, …)</span>
     <span class="kw">return</span> O                                   <span class="cm">// ci, którzy dotrwali do pełnej wierności</span></pre>
@@ -862,11 +871,11 @@
             F[i].crowd += (F[i+1].m − F[i−1].m) / (max_m − min_m)
     <span class="kw">return</span> F                                        <span class="cm">// posortowane malejąco po crowd przy selekcji</span></pre>
 
-  <p>To cały algorytm. Nie ma tu żadnej procedury uczącej się struktury genotypu — <span class="mono">CROSSOVER</span> i <span class="mono">MUTATE</span> działają identycznie niezależnie od tego, czy geny są ze sobą powiązane, czy nie.</p>
+  <p>To cały algorytm. Nie ma tu żadnej procedury uczącej się struktury genotypu - <span class="mono">CROSSOVER</span> i <span class="mono">MUTATE</span> działają identycznie niezależnie od tego, czy geny są ze sobą powiązane, czy nie.</p>
 </section>
 
 <section id="practice">
-  <h2>6&nbsp; Co wymyślasz sam — zastosowanie SH-EMOA do rzeczywistego problemu</h2>
+  <h2>6&nbsp; Co wymyślasz sam - zastosowanie SH-EMOA do rzeczywistego problemu</h2>
   <p>Mechanizm selekcji (Pareto + crowding) i mechanizm cięcia budżetu (halving) są ustalone przez algorytm. To, co zmienia się za każdym razem, gdy podłączasz to do nowego problemu, to genotyp, operatory wariacji i sama drabinka.</p>
 
   <div class="tablewrap">
@@ -876,37 +885,37 @@
         <tr>
           <td><strong>Reguła niezdominowania</strong></td>
           <td class="fixed-col">x dominuje y, jeśli x nie jest gorsze na żadnym celu i ściśle lepsze na przynajmniej jednym; fronty budowane iteracyjnie od F1.</td>
-          <td class="decide-col">Które cele w ogóle wchodzą do porównania i czy każdy jest minimalizowany czy maksymalizowany (np. dokładność do maksymalizacji, koszt do minimalizacji — trzeba to ujednolicić przed porównaniem).</td>
+          <td class="decide-col">Które cele w ogóle wchodzą do porównania i czy każdy jest minimalizowany czy maksymalizowany (np. dokładność do maksymalizacji, koszt do minimalizacji - trzeba to ujednolicić przed porównaniem).</td>
         </tr>
         <tr>
           <td><strong>Tie-break przy remisie na froncie</strong></td>
           <td class="fixed-col">Crowding distance: suma znormalizowanych odległości do sąsiadów po każdym celu, brzegi frontu zawsze zachowywane.</td>
-          <td class="decide-col">Nic — to jedyny punkt w tabeli, który zwykle zostawia się bez zmian nawet między problemami.</td>
+          <td class="decide-col">Nic - to jedyny punkt w tabeli, który zwykle zostawia się bez zmian nawet między problemami.</td>
         </tr>
         <tr>
           <td><strong>Reguła promocji w drabince</strong></td>
           <td class="fixed-col">Górna połowa rankingu na danym poziomie przechodzi na kolejny, droższy poziom; reszta odpada bez dalszych szans w tym pokoleniu.</td>
-          <td class="decide-col">Czym jest ranking zastępczy na poziomie pośrednim, skoro pełne Pareto tam jeszcze nie działa — skalar, hiperwolumen, coś innego.</td>
+          <td class="decide-col">Czym jest ranking zastępczy na poziomie pośrednim, skoro pełne Pareto tam jeszcze nie działa - skalar, hiperwolumen, coś innego.</td>
         </tr>
         <tr>
           <td><strong>Genotyp</strong></td>
           <td class="fixed-col">Wektor wartości, porównywanych wyłącznie przez wynik ewaluacji.</td>
-          <td class="decide-col">Jak Twój problem staje się tym wektorem — dla architektury sieci: geny na krawędzie grafu komórki plus geny na hiperparametry treningowe.</td>
+          <td class="decide-col">Jak Twój problem staje się tym wektorem - dla architektury sieci: geny na krawędzie grafu komórki plus geny na hiperparametry treningowe.</td>
         </tr>
         <tr>
           <td><strong>Krzyżowanie i mutacja</strong></td>
-          <td class="fixed-col">Jednolite krzyżowanie, niezależna mutacja na gen — schemat, nie konkretne parametry.</td>
-          <td class="decide-col">Prawdopodobieństwo mutacji, siła zaburzenia, ewentualnie inny operator krzyżowania — ale bez żadnej wersji „świadomej struktury" bez wyjścia poza sam algorytm.</td>
+          <td class="fixed-col">Jednolite krzyżowanie, niezależna mutacja na gen - schemat, nie konkretne parametry.</td>
+          <td class="decide-col">Prawdopodobieństwo mutacji, siła zaburzenia, ewentualnie inny operator krzyżowania - ale bez żadnej wersji „świadomej struktury" bez wyjścia poza sam algorytm.</td>
         </tr>
         <tr>
           <td><strong>Budżety drabinki i współczynnik halvingu</strong></td>
-          <td class="fixed-col">Liczba poziomów i to, że każdy odrzuca połowę, jest schematem — konkretne liczby nie.</td>
+          <td class="fixed-col">Liczba poziomów i to, że każdy odrzuca połowę, jest schematem - konkretne liczby nie.</td>
           <td class="decide-col">Ile poziomów, jakim kosztem każdy (epoki, podzbiór danych, rozmiar sieci-proxy) i czy współczynnik redukcji rzeczywiście musi wynosić 2.</td>
         </tr>
         <tr>
           <td><strong>Rozmiar populacji μ i potomstwa λ</strong></td>
-          <td class="fixed-col">Nieustalone przez algorytm — w przeciwieństwie do P3, SH-EMOA ich nie wyprowadza automatycznie.</td>
-          <td class="decide-col">Oba trzeba dobrać z góry, tak jak w zwykłym GA — SH-EMOA nie rozwiązuje tego problemu, tylko ten z kosztem ewaluacji.</td>
+          <td class="fixed-col">Nieustalone przez algorytm - w przeciwieństwie do P3, SH-EMOA ich nie wyprowadza automatycznie.</td>
+          <td class="decide-col">Oba trzeba dobrać z góry, tak jak w zwykłym GA - SH-EMOA nie rozwiązuje tego problemu, tylko ten z kosztem ewaluacji.</td>
         </tr>
       </tbody>
     </table>
@@ -914,8 +923,8 @@
 
   <div class="callout">
     <span class="tag">Ślepy punkt, który ta strona odsłania</span>
-    <p>SH-EMOA tnie koszt ewaluacji dokładnie tym samym sposobem co MO-BOHB — drabinką wierności — i robi selekcję wielokryterialną poprawnie, z pełnym sortowaniem Pareto i crowding distance. Ale operatory wariacji (§3.1) nie mają żadnego pojęcia, które geny genotypu są ze sobą funkcjonalnie powiązane. Jednolite krzyżowanie rekombinuje geny pojedynczo i na ślepo — jeśli dobra architektura wymaga zmiany trzech konkretnych krawędzi razem, prawdopodobieństwo, że jednolite krzyżowanie skopiuje akurat te trzy naraz od tego samego rodzica, spada wykładniczo z liczbą genów.</p>
-    <p>To dokładnie ta luka, w którą celuje P3Net: drzewo powiązań uczy się, które geny zwykle zmieniają wartość razem, a krzyżowanie sterowane powiązaniami rekombinuje <em>całymi wyuczonymi klastrami</em> naraz, zamiast pojedynczymi genami. SH-EMOA i P3Net mogą ciąć koszt ewaluacji tym samym rodzajem sztuczki (fidelity ladder vs. relatywny surogat) — różnica, która naprawdę decyduje o jakości znalezionych architektur, leży w tym, czy rekombinacja w ogóle wie, co ze sobą zmieniać naraz.</p>
+    <p>SH-EMOA tnie koszt ewaluacji dokładnie tym samym sposobem co MO-BOHB - drabinką wierności - i robi selekcję wielokryterialną poprawnie, z pełnym sortowaniem Pareto i crowding distance. Ale operatory wariacji (§3.1) nie mają żadnego pojęcia, które geny genotypu są ze sobą funkcjonalnie powiązane. Jednolite krzyżowanie rekombinuje geny pojedynczo i na ślepo - jeśli dobra architektura wymaga zmiany trzech konkretnych krawędzi razem, prawdopodobieństwo, że jednolite krzyżowanie skopiuje akurat te trzy naraz od tego samego rodzica, spada wykładniczo z liczbą genów.</p>
+    <p>To dokładnie ta luka, w którą celuje P3Net: drzewo powiązań uczy się, które geny zwykle zmieniają wartość razem, a krzyżowanie sterowane powiązaniami rekombinuje <em>całymi wyuczonymi klastrami</em> naraz, zamiast pojedynczymi genami. SH-EMOA i P3Net mogą ciąć koszt ewaluacji tym samym rodzajem sztuczki (fidelity ladder vs. relatywny surogat) - różnica, która naprawdę decyduje o jakości znalezionych architektur, leży w tym, czy rekombinacja w ogóle wie, co ze sobą zmieniać naraz.</p>
   </div>
 
   <h3 style="margin-top:32px;"><span class="num">✓</span>Checklista przy stosowaniu SH-EMOA do nowego problemu</h3>
@@ -924,8 +933,8 @@
     <li><span class="box"></span><span>Zdefiniuj wszystkie cele i ujednolić kierunek optymalizacji (minimalizacja albo maksymalizacja) dla każdego z nich.</span></li>
     <li><span class="box"></span><span>Zaprojektuj drabinkę wierności: ile poziomów, jakim realnym kosztem każdy, i czy różnica kosztu między poziomami faktycznie przekłada się na oszczędność.</span></li>
     <li><span class="box"></span><span>Zdecyduj, czym jest ranking zastępczy na poziomach pośrednich, skoro pełne sortowanie Pareto tam jeszcze nie ma sensu.</span></li>
-    <li><span class="box"></span><span>Dobierz μ, λ i współczynnik halvingu — SH-EMOA nie zgadnie tego za Ciebie.</span></li>
-    <li><span class="box"></span><span>Jeśli podejrzewasz silne powiązania między genami (a w genotypach architektur zwykle są), to jest faktyczny problem projektowy, nie parametr do dostrojenia — odpowiedź P3Net: drzewo powiązań i krzyżowanie nim sterowane.</span></li>
+    <li><span class="box"></span><span>Dobierz μ, λ i współczynnik halvingu - SH-EMOA nie zgadnie tego za Ciebie.</span></li>
+    <li><span class="box"></span><span>Jeśli podejrzewasz silne powiązania między genami (a w genotypach architektur zwykle są), to jest faktyczny problem projektowy, nie parametr do dostrojenia - odpowiedź P3Net: drzewo powiązań i krzyżowanie nim sterowane.</span></li>
   </ul>
 
 </section>
@@ -933,7 +942,7 @@
 </main>
 
 <footer class="page-end">
-  Kontekst: dziewięcioramienna tabela ablacji artykułu o P3Net (GECCO 2027) — SH-EMOA jako jedno z siedmiu ramion porównawczych, zob. <span class="mono">implementation/lib/README.md</span>, „Relationship to the experiments repository".
+  Kontekst: dziewięcioramienna tabela ablacji artykułu o P3Net (GECCO 2027) - SH-EMOA jako jedno z siedmiu ramion porównawczych, zob. <span class="mono">implementation/lib/README.md</span>, „Relationship to the experiments repository".
 </footer>
 
 <script>
@@ -1107,7 +1116,7 @@
       yield { type: "gen-start", parents: parents, offspring: [], rung: null, rankInfo: null,
         fronts: poolFronts, active: null, statFull: statFull, statCheap: statCheap, genNum: genNum,
         caption: "Pokolenie " + genNum + ": populacja rodzicielska P (" + parents.length + " osobników, wszyscy już w pełnej wierności).",
-        log: "Start pokolenia " + genNum + " — każdy rodzic ma już prawdziwe (f1, f2)." };
+        log: "Start pokolenia " + genNum + " - każdy rodzic ma już prawdziwe (f1, f2)." };
 
       // --- generate offspring: naive uniform crossover + mutation ---
       var offspring = [];
@@ -1121,7 +1130,7 @@
       }
       yield { type: "offspring", parents: parents, offspring: offspring, rung: null, rankInfo: null,
         fronts: poolFronts, active: null, statFull: statFull, statCheap: statCheap, genNum: genNum,
-        caption: LAMBDA + " potomków przez jednolite krzyżowanie + niezależną mutację na gen — bez żadnej wiedzy o tym, które geny są powiązane.",
+        caption: LAMBDA + " potomków przez jednolite krzyżowanie + niezależną mutację na gen - bez żadnej wiedzy o tym, które geny są powiązane.",
         log: "Wygenerowano " + LAMBDA + " potomków. Jeszcze żaden nie został oceniony." };
 
       // --- fidelity ladder: two halving waves, then full evaluation ---
@@ -1209,7 +1218,7 @@
         rung: null, rankInfo: null, fronts: fronts, active: null,
         boundaryFront: boundaryFront, boundarySelected: boundarySelected, boundaryCut: boundaryCut,
         statFull: statFull, statCheap: statCheap, genNum: genNum,
-        caption: boundaryFront ? ("Front graniczny ma " + boundaryFront.length + " osobników na " + (MU - (nextPop.length - (boundarySelected ? boundarySelected.length : 0))) + " wolnych miejsc — crowding distance wybiera " + (boundarySelected ? boundarySelected.length : 0) + ".") : "Kolejne pełne fronty zmieściły się dokładnie w limicie μ — crowding distance nie musiał nic rozstrzygać w tym pokoleniu.",
+        caption: boundaryFront ? ("Front graniczny ma " + boundaryFront.length + " osobników na " + (MU - (nextPop.length - (boundarySelected ? boundarySelected.length : 0))) + " wolnych miejsc - crowding distance wybiera " + (boundarySelected ? boundarySelected.length : 0) + ".") : "Kolejne pełne fronty zmieściły się dokładnie w limicie μ - crowding distance nie musiał nic rozstrzygać w tym pokoleniu.",
         log: boundaryFront ? ("Crowding distance zachował " + boundarySelected.length + " z " + boundaryFront.length + " na froncie granicznym.") : "Brak remisu do rozstrzygnięcia w tym pokoleniu." };
 
       nextPop.forEach(function (x) { x.state = "parent"; });
@@ -1382,7 +1391,7 @@
       dot.className = "fdot";
       dot.style.background = frontColor(i + 1);
       var label = document.createElement("span");
-      label.textContent = "Front " + (i + 1) + " — " + fr.length + (fr.length === 1 ? " osobnik" : " osobników");
+      label.textContent = "Front " + (i + 1) + " - " + fr.length + (fr.length === 1 ? " osobnik" : " osobników");
       row.appendChild(dot); row.appendChild(label);
       el.front.appendChild(row);
     });

@@ -1,6 +1,15 @@
 <title>How Random search actually works</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet" crossorigin="anonymous">
+<link href="https://db.onlinewebfonts.com/c/cc4a7a8da4c5d4af9361d85a1d1c0bba?family=OCR-A" rel="stylesheet">
+<style>
+@font-face{font-family:'OCR-A';unicode-range:U+0100-024F;font-weight:400;src:url('https://cdn.jsdelivr.net/npm/@fontsource/jetbrains-mono/files/jetbrains-mono-latin-ext-400-normal.woff2') format('woff2');}
+@font-face{font-family:'OCR-A';unicode-range:U+0100-024F;font-weight:500;src:url('https://cdn.jsdelivr.net/npm/@fontsource/jetbrains-mono/files/jetbrains-mono-latin-ext-500-normal.woff2') format('woff2');}
+@font-face{font-family:'OCR-A';unicode-range:U+0100-024F;font-weight:600;src:url('https://cdn.jsdelivr.net/npm/@fontsource/jetbrains-mono/files/jetbrains-mono-latin-ext-600-normal.woff2') format('woff2');}
+@font-face{font-family:'OCR-A';unicode-range:U+0100-024F;font-weight:700;src:url('https://cdn.jsdelivr.net/npm/@fontsource/jetbrains-mono/files/jetbrains-mono-latin-ext-700-normal.woff2') format('woff2');}
+</style>
 <style>
   :root {
     --bg: #060a05;
@@ -74,12 +83,12 @@
     margin: 0;
     background: var(--bg);
     color: var(--ink);
-    font-family: 'IBM Plex Mono', monospace;
+    font-family: 'OCR-A','JetBrains Mono',monospace;
     line-height: 1.6;
     -webkit-font-smoothing: antialiased;
   }
   .mono {
-    font-family: 'IBM Plex Mono', monospace;
+    font-family: 'OCR-A','JetBrains Mono',monospace;
   }
 
   a { color: var(--accent); }
@@ -103,7 +112,7 @@
     overflow-x: auto;
   }
   .topnav-mark {
-    font-family: 'IBM Plex Mono', monospace;
+    font-family: 'OCR-A','JetBrains Mono',monospace;
     font-size: 12px;
     letter-spacing: .08em;
     color: var(--accent);
@@ -112,7 +121,7 @@
     border-right: 1px solid var(--line);
   }
   .topnav a {
-    font-family: 'IBM Plex Mono', monospace;
+    font-family: 'OCR-A','JetBrains Mono',monospace;
     font-size: 12px;
     letter-spacing: .04em;
     color: var(--ink-muted);
@@ -131,7 +140,7 @@
   section:first-of-type { padding-top: 8px; }
 
   .eyebrow {
-    font-family: 'IBM Plex Mono', monospace;
+    font-family: 'OCR-A','JetBrains Mono',monospace;
     font-size: 11px;
     letter-spacing: .14em;
     text-transform: uppercase;
@@ -166,7 +175,7 @@
     margin: 40px 0 10px;
   }
   h3 .num {
-    font-family: 'IBM Plex Mono', monospace;
+    font-family: 'OCR-A','JetBrains Mono',monospace;
     font-size: 14px;
     color: var(--accent);
     margin-right: 8px;
@@ -202,7 +211,7 @@
   figure.bleed { margin-left: calc(50% - 50vw + 12px); margin-right: calc(50% - 50vw + 12px); max-width: 1120px; margin-left: auto; margin-right: auto; }
   figure svg { display: block; width: 100%; height: auto; padding: 20px; }
   figcaption {
-    font-family: 'IBM Plex Mono', monospace;
+    font-family: 'OCR-A','JetBrains Mono',monospace;
     font-size: 12px;
     color: var(--ink-muted);
     padding: 10px 20px 16px;
@@ -220,7 +229,7 @@
     margin: 24px 0;
   }
   .callout .tag {
-    font-family: 'IBM Plex Mono', monospace;
+    font-family: 'OCR-A','JetBrains Mono',monospace;
     font-size: 11px;
     letter-spacing: .1em;
     text-transform: uppercase;
@@ -237,7 +246,7 @@
     border-radius: 10px;
     padding: 20px 22px;
     overflow-x: auto;
-    font-family: 'IBM Plex Mono', monospace;
+    font-family: 'OCR-A','JetBrains Mono',monospace;
     font-size: 13px;
     line-height: 1.7;
     box-shadow: var(--shadow);
@@ -251,7 +260,7 @@
   table { border-collapse: collapse; width: 100%; background: var(--bg-raised); font-size: 15px; }
   th, td { text-align: left; padding: 12px 16px; border-bottom: 1px solid var(--line); vertical-align: top; }
   thead th {
-    font-family: 'IBM Plex Mono', monospace;
+    font-family: 'OCR-A','JetBrains Mono',monospace;
     font-size: 11px;
     letter-spacing: .08em;
     text-transform: uppercase;
@@ -292,7 +301,7 @@
     max-width: 280px;
     background: var(--ink);
     color: var(--bg);
-    font-family: 'IBM Plex Mono', monospace;
+    font-family: 'OCR-A','JetBrains Mono',monospace;
     font-size: 12px;
     line-height: 1.5;
     padding: 9px 11px;
@@ -302,7 +311,7 @@
   }
   .tt-hint {
     display: inline-block;
-    font-family: 'IBM Plex Mono', monospace;
+    font-family: 'OCR-A','JetBrains Mono',monospace;
     font-size: 10.5px;
     color: var(--ink-faint);
     letter-spacing: .04em;
@@ -341,17 +350,17 @@
     display: flex; align-items: center; gap: 20px; flex-wrap: wrap;
   }
   .genome-strip .glabel {
-    font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: .08em; text-transform: uppercase;
+    font-family: 'OCR-A','JetBrains Mono',monospace; font-size: 10px; letter-spacing: .08em; text-transform: uppercase;
     color: var(--ink-faint); white-space: nowrap;
   }
   .map-box { fill: none; stroke: currentColor; stroke-width: 1.4; transition: fill .3s ease, stroke .3s ease, stroke-width .3s ease; }
   .map-box.map-active { fill: var(--accent-soft); stroke: var(--accent); stroke-width: 1.8; }
-  .map-label { fill: currentColor; font-family: 'IBM Plex Mono', monospace; transition: fill .3s ease; }
+  .map-label { fill: currentColor; font-family: 'OCR-A','JetBrains Mono',monospace; transition: fill .3s ease; }
   .map-label.map-active { fill: var(--ink); font-weight: 700; }
   .map-arrow { stroke: currentColor; opacity: .6; }
 
   .demo-phase-caption {
-    font-family: 'IBM Plex Mono', monospace;
+    font-family: 'OCR-A','JetBrains Mono',monospace;
     font-size: 13px;
     color: var(--ink);
     background: var(--bg-sunken);
@@ -363,7 +372,7 @@
   .demo-phase-caption strong { color: var(--accent); }
 
   .zone-caption {
-    margin: 22px 0 12px; font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; letter-spacing: .08em;
+    margin: 22px 0 12px; font-family: 'OCR-A','JetBrains Mono',monospace; font-size: 10.5px; letter-spacing: .08em;
     text-transform: uppercase; color: var(--ink-faint);
     display: flex; align-items: center; gap: 10px; cursor: help;
   }
@@ -379,7 +388,7 @@
 
   .demo-controls { display: flex; flex-wrap: wrap; gap: 8px; }
   .demo-btn {
-    font-family: 'IBM Plex Mono', monospace;
+    font-family: 'OCR-A','JetBrains Mono',monospace;
     font-size: 12.5px;
     letter-spacing: .02em;
     background: var(--bg-sunken);
@@ -395,7 +404,7 @@
 
   .demo-legend {
     display: flex; flex-wrap: wrap; align-items: center; gap: 14px;
-    font-family: 'IBM Plex Mono', monospace;
+    font-family: 'OCR-A','JetBrains Mono',monospace;
     font-size: 11.5px; color: var(--ink-muted);
     background: var(--bg-sunken);
     border-radius: 8px;
@@ -421,8 +430,8 @@
     border-radius: 8px;
     padding: 10px 12px;
   }
-  .demo-stat .lbl { font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: .08em; text-transform: uppercase; color: var(--ink-faint); }
-  .demo-stat .val { font-family: 'IBM Plex Mono', monospace; font-size: 20px; color: var(--ink); font-variant-numeric: tabular-nums; }
+  .demo-stat .lbl { font-family: 'OCR-A','JetBrains Mono',monospace; font-size: 10px; letter-spacing: .08em; text-transform: uppercase; color: var(--ink-faint); }
+  .demo-stat .val { font-family: 'OCR-A','JetBrains Mono',monospace; font-size: 20px; color: var(--ink); font-variant-numeric: tabular-nums; }
 
   .demo-genome { display: flex; flex-wrap: wrap; gap: 10px; margin: 4px 0 6px; }
   .trap-group { display: flex; gap: 3px; padding: 5px; border-radius: 7px; background: var(--bg-sunken); }
@@ -431,7 +440,7 @@
     display: flex; align-items: center; justify-content: center;
     border-radius: 5px;
     border: 1.4px solid var(--line-strong);
-    font-family: 'IBM Plex Mono', monospace;
+    font-family: 'OCR-A','JetBrains Mono',monospace;
     font-size: 12px;
     background: var(--bg-raised);
     color: var(--ink);
@@ -441,7 +450,7 @@
   .gene-box.faint { opacity: .5; }
 
   .demo-log {
-    font-family: 'IBM Plex Mono', monospace;
+    font-family: 'OCR-A','JetBrains Mono',monospace;
     font-size: 12.5px;
     color: var(--ink-muted);
     background: var(--bg-sunken);
@@ -454,19 +463,19 @@
   .demo-log .rec { color: var(--kept); font-weight: 700; }
 
   .demo-panel h4 {
-    font-family: 'IBM Plex Mono', monospace;
+    font-family: 'OCR-A','JetBrains Mono',monospace;
     font-size: 11px; letter-spacing: .08em; text-transform: uppercase;
     color: var(--ink-faint); margin: 0 0 10px;
   }
   .demo-note {
-    font-family: 'IBM Plex Mono', monospace;
+    font-family: 'OCR-A','JetBrains Mono',monospace;
     font-size: 11.5px; color: var(--ink-faint);
     margin-top: 14px; line-height: 1.6;
   }
 
   .demo-absent-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; }
   .demo-absent-list li {
-    font-family: 'IBM Plex Mono', monospace;
+    font-family: 'OCR-A','JetBrains Mono',monospace;
     font-size: 12.5px;
     color: var(--ink-faint);
     display: flex; align-items: baseline; gap: 8px;
@@ -481,18 +490,18 @@
 
   .pair-row { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; }
   .pair-col { flex: 1 1 auto; min-width: 130px; }
-  .pair-col .plabel { font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: .06em; text-transform: uppercase; color: var(--ink-faint); margin-bottom: 6px; }
-  .pair-arrow { font-family: 'IBM Plex Mono', monospace; font-size: 18px; color: var(--ink-faint); }
+  .pair-col .plabel { font-family: 'OCR-A','JetBrains Mono',monospace; font-size: 10px; letter-spacing: .06em; text-transform: uppercase; color: var(--ink-faint); margin-bottom: 6px; }
+  .pair-arrow { font-family: 'OCR-A','JetBrains Mono',monospace; font-size: 18px; color: var(--ink-faint); }
 
   /* ---------- misc ---------- */
-  .diagram-label { font-family: 'IBM Plex Mono', monospace; }
+  .diagram-label { font-family: 'OCR-A','JetBrains Mono',monospace; }
   ::selection { background: var(--accent-soft); }
 
   footer.page-end {
     max-width: 720px; margin: 80px auto 0; padding: 24px 24px 40px;
     border-top: 1px solid var(--line);
     color: var(--ink-faint);
-    font-family: 'IBM Plex Mono', monospace;
+    font-family: 'OCR-A','JetBrains Mono',monospace;
     font-size: 12px;
   }
 </style>
@@ -501,9 +510,9 @@
   <a href="../Portfolio.dc.html" style="font-size:18px;font-weight:600;color:oklch(0.92 0.004 250);text-decoration:none;">JP.<span style="color:#9CAF6B;">_</span></a>
   <div style="display:flex;gap:32px;align-items:center;font-size:14px;">
     <a href="../Portfolio.dc.html" style="color:oklch(0.85 0.004 250);text-decoration:none;">home</a>
-    <a href="../Portfolio.dc.html?view=solutions" style="color:oklch(0.85 0.004 250);text-decoration:none;">:solutions</a>
-    <a href="../Portfolio.dc.html?view=badania" style="color:oklch(0.85 0.004 250);text-decoration:none;">:research</a>
-    <a href="../Portfolio.dc.html?view=kontakt" style="color:oklch(0.85 0.004 250);text-decoration:none;">:contact</a>
+    <a href="../Portfolio.dc.html?view=solutions" style="color:oklch(0.85 0.004 250);text-decoration:none;">~/solutions</a>
+    <a href="../Portfolio.dc.html?view=badania" style="color:oklch(0.85 0.004 250);text-decoration:none;">~/research</a>
+    <a href="../Portfolio.dc.html?view=kontakt" style="color:oklch(0.85 0.004 250);text-decoration:none;">~/contact</a>
     <a href="random-search-pl.html" style="font-size:12px;font-weight:700;padding:6px 12px;border:1px solid #9CAF6B;border-radius:2px;background:rgba(156,175,107,0.15);color:#9CAF6B;text-decoration:none;">PL</a>
   </div>
 </nav>
@@ -522,59 +531,59 @@
 <main>
 
 <section id="top">
-  <div class="eyebrow"><span>Random search — the reference baseline</span></div>
+  <div class="eyebrow"><span>Random search - the reference baseline</span></div>
   <h1>How Random search actually works</h1>
-  <p class="lede">Not a smarter cousin of P3 — its opposite. Zero structure, zero memory, zero learning from history. From one idea, through the two procedures needed to implement it, to the question this simplicity poses to every more sophisticated algorithm that gets compared against it.</p>
+  <p class="lede">Not a smarter cousin of P3 - its opposite. Zero structure, zero memory, zero learning from history. From one idea, through the two procedures needed to implement it, to the question this simplicity poses to every more sophisticated algorithm that gets compared against it.</p>
   <p class="subdek">Laid out like a C4 diagram: context, then the big moving parts (there aren't many), then each one broken down in detail, then code, and finally a practical checklist.</p>
 </section>
 
 <hr class="rule">
 
 <section id="context">
-  <h3><span class="num">1</span>Context — why bother comparing against something this simple</h3>
+  <h3><span class="num">1</span>Context - why bother comparing against something this simple</h3>
   <p class="lede" style="font-size:17px;">In one sentence: random search draws points from the search space independently of each other, remembers the best result seen so far, and does literally nothing else.</p>
-  <p>No density model, no population, no linkage tree, no fidelity. Every evaluation is blind to all previous ones — neither where sampling has already happened nor what was found there. This makes it the cheapest possible baseline: if a method can't beat it at the same evaluation budget, all its extra machinery — surrogate, population, fidelity schedule — isn't earning its cost.</p>
+  <p>No density model, no population, no linkage tree, no fidelity. Every evaluation is blind to all previous ones - neither where sampling has already happened nor what was found there. This makes it the cheapest possible baseline: if a method can't beat it at the same evaluation budget, all its extra machinery - surrogate, population, fidelity schedule - isn't earning its cost.</p>
 
-  <p>This is where this page differs from the rest of the series: the other pages describe methods that build <em>something</em> — a model, a population, a tree. This one describes a method that builds nothing, and that's exactly why it's the zero point of the GECCO 2027 P3Net paper. The paper compares P3Net in a nine-armed ablation grid against six other methods — NSGA-Net, NSGANetV2, SH-EMOA, MO-BOHB, TPE, and random search itself — on JAHS-Bench-201 and NAS-HPO-Bench-II. Random search stands at one end of that grid as the floor: no structure, no learning, no fidelity. Everything to the right of it in the series adds exactly one of those three things at a time.</p>
+  <p>This is where this page differs from the rest of the series: the other pages describe methods that build <em>something</em> - a model, a population, a tree. This one describes a method that builds nothing, and that's exactly why it's the zero point of the GECCO 2027 P3Net paper. The paper compares P3Net in a nine-armed ablation grid against six other methods - NSGA-Net, NSGANetV2, SH-EMOA, MO-BOHB, TPE, and random search itself - on JAHS-Bench-201 and NAS-HPO-Bench-II. Random search stands at one end of that grid as the floor: no structure, no learning, no fidelity. Everything to the right of it in the series adds exactly one of those three things at a time.</p>
 
   <figure class="bleed">
     <svg viewBox="0 0 900 230" role="img" aria-label="Seven methods from the ablation grid arranged on an axis from no structure to full structure: random search on the left with no memory at all, TPE and MO-BOHB with a sequential model, SH-EMOA and NSGA-Net with a population, NSGANetV2 with a cheap predictor, P3Net on the right with a full linkage tree and relative surrogate.">
-      <text x="20" y="24" class="diagram-label" font-size="11" fill="currentColor" opacity="0.6">ABLATION GRID — “how much structure and memory each method adds”</text>
+      <text x="20" y="24" class="diagram-label" font-size="11" fill="currentColor" opacity="0.6">ABLATION GRID - “how much structure and memory each method adds”</text>
       <line x1="30" y1="140" x2="870" y2="140" stroke="currentColor" stroke-width="1.2" opacity="0.35"></line>
 
-      <g pointer-events="all" tabindex="0" data-tt="Zero memory between evaluations. Every point sampled independently of all previous ones — exactly the method this page describes.">
+      <g pointer-events="all" tabindex="0" data-tt="Zero memory between evaluations. Every point sampled independently of all previous ones - exactly the method this page describes.">
         <rect x="30" y="112" width="90" height="56" rx="7" fill="var(--accent-soft)" stroke="var(--accent)" stroke-width="1.7"></rect>
         <text x="75" y="145" text-anchor="middle" class="diagram-label" font-size="11.5" fill="var(--ink)">Random</text>
         <text x="75" y="160" text-anchor="middle" class="diagram-label" font-size="11.5" fill="var(--ink)">search</text>
       </g>
 
-      <g pointer-events="all" tabindex="0" data-tt="A sequential density model over raw configurations — splits observations into good/bad and samples from their ratio. There's memory, but no notion of dependencies between variables.">
+      <g pointer-events="all" tabindex="0" data-tt="A sequential density model over raw configurations - splits observations into good/bad and samples from their ratio. There's memory, but no notion of dependencies between variables.">
         <rect x="150" y="120" width="90" height="48" rx="7" fill="none" stroke="currentColor" stroke-width="1.3"></rect>
         <text x="195" y="149" text-anchor="middle" class="diagram-label" font-size="11.5">TPE</text>
       </g>
 
-      <g pointer-events="all" tabindex="0" data-tt="TPE plus Hyperband-style fidelity rungs — model-based sampling, but cuts cost through cheap, early evaluations instead of learning the problem's structure.">
+      <g pointer-events="all" tabindex="0" data-tt="TPE plus Hyperband-style fidelity rungs - model-based sampling, but cuts cost through cheap, early evaluations instead of learning the problem's structure.">
         <rect x="270" y="112" width="110" height="56" rx="7" fill="none" stroke="currentColor" stroke-width="1.3"></rect>
         <text x="325" y="145" text-anchor="middle" class="diagram-label" font-size="11.5">MO-BOHF</text>
         <text x="325" y="160" text-anchor="middle" class="diagram-label" font-size="10" opacity="0.6">MO-BOHB</text>
       </g>
 
-      <g pointer-events="all" tabindex="0" data-tt="Population plus non-dominated sorting plus early fidelity cuts — evolution with budgeting, but crossover and mutation remain blind to the genotype's structure.">
+      <g pointer-events="all" tabindex="0" data-tt="Population plus non-dominated sorting plus early fidelity cuts - evolution with budgeting, but crossover and mutation remain blind to the genotype's structure.">
         <rect x="400" y="100" width="110" height="68" rx="7" fill="none" stroke="currentColor" stroke-width="1.3"></rect>
         <text x="455" y="133" text-anchor="middle" class="diagram-label" font-size="11.5">SH-EMOA</text>
       </g>
 
-      <g pointer-events="all" tabindex="0" data-tt="Classic NSGA-II on architecture genotypes, every candidate trained fully — population and Pareto front, but zero fidelity and zero linkage.">
+      <g pointer-events="all" tabindex="0" data-tt="Classic NSGA-II on architecture genotypes, every candidate trained fully - population and Pareto front, but zero fidelity and zero linkage.">
         <rect x="530" y="92" width="110" height="76" rx="7" fill="none" stroke="currentColor" stroke-width="1.3"></rect>
         <text x="585" y="126" text-anchor="middle" class="diagram-label" font-size="11.5">NSGA-Net</text>
       </g>
 
-      <g pointer-events="all" tabindex="0" data-tt="The same NSGA-II loop, but real training replaced by a cheap predictor/supernet — a surrogate, but not relative and not linkage-aware.">
+      <g pointer-events="all" tabindex="0" data-tt="The same NSGA-II loop, but real training replaced by a cheap predictor/supernet - a surrogate, but not relative and not linkage-aware.">
         <rect x="660" y="84" width="115" height="84" rx="7" fill="none" stroke="currentColor" stroke-width="1.3"></rect>
         <text x="717" y="122" text-anchor="middle" class="diagram-label" font-size="11.5">NSGANetV2</text>
       </g>
 
-      <g pointer-events="all" tabindex="0" data-tt="A linkage tree, a population pyramid, and a relative, linkage-aware surrogate δ̂F — full structure and full memory. The method the rest of this page holds to account.">
+      <g pointer-events="all" tabindex="0" data-tt="A linkage tree, a population pyramid, and a relative, linkage-aware surrogate δ̂F - full structure and full memory. The method the rest of this page holds to account.">
         <rect x="795" y="72" width="80" height="96" rx="7" fill="none" stroke="var(--accent)" stroke-width="1.6" stroke-dasharray="4 3"></rect>
         <text x="835" y="118" text-anchor="middle" class="diagram-label" font-size="11.5" fill="var(--accent)">P3Net</text>
       </g>
@@ -582,15 +591,15 @@
       <text x="75" y="200" text-anchor="middle" class="diagram-label" font-size="10.5" fill="var(--accent)">no structure</text>
       <text x="835" y="200" text-anchor="middle" class="diagram-label" font-size="10.5" fill="var(--accent)">full structure</text>
     </svg>
-    <figcaption><span class="k">What this diagram shows —</span> the seven methods from the paper's ablation grid, arranged from left (no memory, no model) to right (P3Net's full linkage tree and relative surrogate). Box height is just a visual shorthand for “how much machinery” — the higher, the more structure that method adds on top of plain sampling. Hover any box for detail.</figcaption>
+    <figcaption><span class="k">What this diagram shows -</span> the seven methods from the paper's ablation grid, arranged from left (no memory, no model) to right (P3Net's full linkage tree and relative surrogate). Box height is just a visual shorthand for “how much machinery” - the higher, the more structure that method adds on top of plain sampling. Hover any box for detail.</figcaption>
   </figure>
 
-  <p>The rest of this page breaks down that left edge of the diagram — exactly the two parts random search is made of, and nothing more.</p>
+  <p>The rest of this page breaks down that left edge of the diagram - exactly the two parts random search is made of, and nothing more.</p>
 </section>
 
 <section id="bigpicture">
-  <h3><span class="num">2</span>Big picture — one loop, two parts</h3>
-  <p class="lede" style="font-size:17px;">In one sentence: sample a point, evaluate it, compare against the best so far, repeat — with no step that ever looks back.</p>
+  <h3><span class="num">2</span>Big picture - one loop, two parts</h3>
+  <p class="lede" style="font-size:17px;">In one sentence: sample a point, evaluate it, compare against the best so far, repeat - with no step that ever looks back.</p>
 
   <div class="tablewrap">
     <table>
@@ -602,7 +611,7 @@
     </table>
   </div>
 
-  <p>That's all of it. Section 3 has nothing more to break down beyond these two points — there's no third part, because none exists.</p>
+  <p>That's all of it. Section 3 has nothing more to break down beyond these two points - there's no third part, because none exists.</p>
 
   <figure class="bleed">
     <svg viewBox="0 0 900 260" role="img" aria-label="The random search loop: sample a point, evaluate it, compare against the best so far, go back to sampling another point independently of what just happened. A separate, crossed-out arrow shows the feedback loop back to the sampler that doesn't exist.">
@@ -617,29 +626,29 @@
       <text x="140" y="115" text-anchor="middle" class="diagram-label" font-size="13" fill="currentColor">Sample a point</text>
       <path d="M250,110 L300,110" stroke="currentColor" stroke-width="1.3" marker-end="url(#arrRS)"></path>
 
-      <rect x="300" y="80" width="220" height="60" rx="9" fill="none" stroke="currentColor" stroke-width="1.4" pointer-events="all" tabindex="0" data-tt="One real objective-function evaluation on this point. Random search has no shortcut and no surrogate — every point costs a full evaluation.">
+      <rect x="300" y="80" width="220" height="60" rx="9" fill="none" stroke="currentColor" stroke-width="1.4" pointer-events="all" tabindex="0" data-tt="One real objective-function evaluation on this point. Random search has no shortcut and no surrogate - every point costs a full evaluation.">
       </rect>
       <text x="410" y="115" text-anchor="middle" class="diagram-label" font-size="13" fill="currentColor">Evaluate</text>
       <path d="M520,110 L570,110" stroke="currentColor" stroke-width="1.3" marker-end="url(#arrRS)"></path>
 
-      <rect x="570" y="80" width="240" height="60" rx="9" fill="var(--accent-soft)" stroke="var(--accent)" stroke-width="1.6" pointer-events="all" tabindex="0" data-tt="A strict comparison against the current record holder. This is the only part of the algorithm that remembers anything at all — one number (and the point that achieved it), nothing more. Full detail in 3.2.">
+      <rect x="570" y="80" width="240" height="60" rx="9" fill="var(--accent-soft)" stroke="var(--accent)" stroke-width="1.6" pointer-events="all" tabindex="0" data-tt="A strict comparison against the current record holder. This is the only part of the algorithm that remembers anything at all - one number (and the point that achieved it), nothing more. Full detail in 3.2.">
       </rect>
       <text x="690" y="115" text-anchor="middle" class="diagram-label" font-size="13" fill="var(--ink)">Compare against best</text>
 
       <path d="M690,140 C690,210 140,210 140,142" fill="none" stroke="currentColor" stroke-width="1.3" marker-end="url(#arrRS)"></path>
-      <text x="415" y="222" text-anchor="middle" class="diagram-label" font-size="11" fill="currentColor" opacity="0.75">next iteration — point sampled from scratch, independent of everything above</text>
+      <text x="415" y="222" text-anchor="middle" class="diagram-label" font-size="11" fill="currentColor" opacity="0.75">next iteration - point sampled from scratch, independent of everything above</text>
 
       <path d="M690,80 C560,-10 260,-10 140,78" fill="none" stroke="var(--ink-faint)" stroke-width="1.3" stroke-dasharray="2 4" opacity="0.7" pointer-events="all" tabindex="0" data-tt="This arrow DOES NOT EXIST in random search. In model-based methods (e.g. TPE) information from this step would flow back here, influencing the next point. Here, nothing flows back."></path>
       <text x="415" y="34" text-anchor="middle" class="diagram-label" font-size="11" fill="var(--ink-faint)">missing: feedback to the sampler</text>
       <text x="690" y="60" text-anchor="middle" class="diagram-label" font-size="16" fill="var(--ink-faint)">✕</text>
     </svg>
-    <figcaption><span class="k">What this diagram shows —</span> the whole loop is three boxes, no more. The dashed, crossed-out arrow at the top is a deliberate absence — exactly the one model-based methods (TPE, MO-BOHB) and structural ones (P3, P3Net) close, each their own way. Here, that arrow simply doesn't exist.</figcaption>
+    <figcaption><span class="k">What this diagram shows -</span> the whole loop is three boxes, no more. The dashed, crossed-out arrow at the top is a deliberate absence - exactly the one model-based methods (TPE, MO-BOHB) and structural ones (P3, P3Net) close, each their own way. Here, that arrow simply doesn't exist.</figcaption>
   </figure>
 </section>
 
 <section id="components">
-  <h2>3&nbsp; Components — breaking down what's there</h2>
-  <p class="subdek">The two parts from the table above, now at the level of detail needed to implement them. Deliberately short — because that's really all there is.</p>
+  <h2>3&nbsp; Components - breaking down what's there</h2>
+  <p class="subdek">The two parts from the table above, now at the level of detail needed to implement them. Deliberately short - because that's really all there is.</p>
 
   <h3><span class="num">3.1</span>The search-space sampler</h3>
   <p class="lede" style="font-size:16px;">In one sentence: for each dimension separately, draw a value uniformly from its domain, assemble into one point, done.</p>
@@ -647,23 +656,23 @@
 
   <div class="callout">
     <span class="tag">What's not here</span>
-    <p>No <span class="mono">l(x)</span> or <span class="mono">g(x)</span> like in TPE, no gene-pair frequency table like in the P3 linkage tree, no population to sample a parent from. The sampler keeps no state between calls beyond the random number generator. Call it a million times — the millionth call knows nothing more about the problem than the first.</p>
+    <p>No <span class="mono">l(x)</span> or <span class="mono">g(x)</span> like in TPE, no gene-pair frequency table like in the P3 linkage tree, no population to sample a parent from. The sampler keeps no state between calls beyond the random number generator. Call it a million times - the millionth call knows nothing more about the problem than the first.</p>
   </div>
 
   <h3><span class="num">3.2</span>Best-so-far tracking</h3>
   <p class="lede" style="font-size:16px;">In one sentence: after every evaluation, compare the result against the record holder; if it's strictly better, replace the record holder.</p>
-  <p>This is one variable (or, with multiple objectives, one Pareto front) and one comparison per iteration. No selection mechanism, no diversity pressure, no removing worse solutions from any structure — because there's no structure to remove them from. Points that don't beat the record are simply discarded: they don't join any population, don't influence future sampling, leave no trace beyond being counted against the budget.</p>
+  <p>This is one variable (or, with multiple objectives, one Pareto front) and one comparison per iteration. No selection mechanism, no diversity pressure, no removing worse solutions from any structure - because there's no structure to remove them from. Points that don't beat the record are simply discarded: they don't join any population, don't influence future sampling, leave no trace beyond being counted against the budget.</p>
 
   <p>For multiple objectives at once, the only change is the comparison rule: instead of a single strict inequality you use Pareto non-domination, and “best so far” becomes the front of non-dominated points instead of one point. The sampler itself doesn't change at all.</p>
 </section>
 
 <section id="live">
   <h2>4&nbsp; See it live</h2>
-  <p class="subdek">Not an animation of one fixed example — this is a genuinely running random search, exactly per the pseudocode in section&nbsp;5, computing in your browser.</p>
+  <p class="subdek">Not an animation of one fixed example - this is a genuinely running random search, exactly per the pseudocode in section&nbsp;5, computing in your browser.</p>
 
   <h3><span class="num">4.1</span>The problem: the same deceptive genotype, a different algorithm</h3>
-  <p>The demo below samples the same kind of genotype you'll meet on other pages in this series: <strong>4 independent “traps” of 4 genes each</strong> (16 genes total). Within one trap the goal is a full set of four ones — but every step in that direction, unless it's a change of all four at once, is punished, not rewarded. The maximum possible fitness is 16 (all four traps at <span class="mono">1111</span>).</p>
-  <p>Methods that learn which genes to hold together can deliberately exploit this — copy the whole cluster at once from someone who's already solved it. Random search has no such option: every point is an independent coin flip on each of the 16 genes separately. Watch how slowly the best-so-far curve below climbs — and how rarely it even touches the ceiling.</p>
+  <p>The demo below samples the same kind of genotype you'll meet on other pages in this series: <strong>4 independent “traps” of 4 genes each</strong> (16 genes total). Within one trap the goal is a full set of four ones - but every step in that direction, unless it's a change of all four at once, is punished, not rewarded. The maximum possible fitness is 16 (all four traps at <span class="mono">1111</span>).</p>
+  <p>Methods that learn which genes to hold together can deliberately exploit this - copy the whole cluster at once from someone who's already solved it. Random search has no such option: every point is an independent coin flip on each of the 16 genes separately. Watch how slowly the best-so-far curve below climbs - and how rarely it even touches the ceiling.</p>
 
   <div class="demo-bleed-wrap">
   <div class="demo" id="rsdemo">
@@ -671,7 +680,7 @@
       <span class="demo-legend-item"><span class="swatch active"></span>current step</span>
       <span class="demo-legend-item"><span class="swatch neutral"></span>sampled point (no “good/bad” meaning at the moment of sampling)</span>
       <span class="demo-legend-item"><span class="swatch kept"></span>new record</span>
-      <span class="demo-legend-item demo-legend-phases">Highlighted background = the step you're currently on. No gene is ever “copied from a donor” — there's no donor here.</span>
+      <span class="demo-legend-item demo-legend-phases">Highlighted background = the step you're currently on. No gene is ever “copied from a donor” - there's no donor here.</span>
     </div>
 
     <div class="hero-block">
@@ -683,14 +692,14 @@
             </marker>
           </defs>
 
-          <path class="map-arrow" d="M690,138 C690,208 140,208 140,140" fill="none" stroke-width="1.3" stroke-dasharray="2 4" marker-end="url(#arrMapRS)" pointer-events="all" tabindex="0" data-tt="A new iteration, a completely new random point — nothing from the previous iteration influences this choice."></path>
+          <path class="map-arrow" d="M690,138 C690,208 140,208 140,140" fill="none" stroke-width="1.3" stroke-dasharray="2 4" marker-end="url(#arrMapRS)" pointer-events="all" tabindex="0" data-tt="A new iteration, a completely new random point - nothing from the previous iteration influences this choice."></path>
           <text x="415" y="222" text-anchor="middle" class="diagram-label" font-size="11" fill="var(--accent)" opacity="0.9">next iteration, independent point</text>
 
           <rect id="mapBoxSample" class="map-box" data-node="sample" x="30" y="80" width="220" height="60" rx="9" pointer-events="all" tabindex="0" data-tt="Each of the 16 genes sampled independently, uniformly from {0,1}. Section 3.1."></rect>
           <text id="mapLabelSample" class="map-label" data-node="sample" x="140" y="115" text-anchor="middle" font-size="13">Sample a point</text>
           <path class="map-arrow" d="M250,110 L300,110" stroke-width="1.2" marker-end="url(#arrMapRS)"></path>
 
-          <rect id="mapBoxEvaluate" class="map-box" data-node="evaluate" x="300" y="80" width="220" height="60" rx="9" pointer-events="all" tabindex="0" data-tt="One real evaluation of the trap function — no shortcut, no surrogate."></rect>
+          <rect id="mapBoxEvaluate" class="map-box" data-node="evaluate" x="300" y="80" width="220" height="60" rx="9" pointer-events="all" tabindex="0" data-tt="One real evaluation of the trap function - no shortcut, no surrogate."></rect>
           <text id="mapLabelEvaluate" class="map-label" data-node="evaluate" x="410" y="115" text-anchor="middle" font-size="13">Evaluate</text>
           <path class="map-arrow" d="M520,110 L570,110" stroke-width="1.2" marker-end="url(#arrMapRS)"></path>
 
@@ -699,7 +708,7 @@
         </svg>
       </div>
       <div class="genome-strip">
-        <span class="glabel" pointer-events="all" tabindex="0" data-tt="The point currently being sampled — there's no “tested/kept/reverted” color, because none of that exists in random search. There's only: sampled, evaluated.">current sample</span>
+        <span class="glabel" pointer-events="all" tabindex="0" data-tt="The point currently being sampled - there's no “tested/kept/reverted” color, because none of that exists in random search. There's only: sampled, evaluated.">current sample</span>
         <div class="demo-genome" id="genomeView"></div>
       </div>
     </div>
@@ -707,10 +716,10 @@
     <div class="demo-phase-caption" id="phaseCaption">Click “Step” or “Run” to see the algorithm in action.</div>
     <div class="demo-log" id="demoLog">Click “Step” or “Run” to begin.</div>
 
-    <div class="zone-caption" pointer-events="all" tabindex="0" data-tt="These four cards draw on the whole run's history so far.">③ accumulated result — from the whole run so far</div>
+    <div class="zone-caption" pointer-events="all" tabindex="0" data-tt="These four cards draw on the whole run's history so far.">③ accumulated result - from the whole run so far</div>
     <div class="result-row">
       <div class="demo-panel">
-        <h4 pointer-events="all" tabindex="0" data-tt="The value of the best-so-far point after every iteration. Only jumps when a new record hits — between records the line is flat, since nothing new happens.">Curve: best so far</h4>
+        <h4 pointer-events="all" tabindex="0" data-tt="The value of the best-so-far point after every iteration. Only jumps when a new record hits - between records the line is flat, since nothing new happens.">Curve: best so far</h4>
         <svg class="chart-svg" id="chartSvg" viewBox="0 0 480 160" role="img" aria-label="A line chart of best-so-far fitness against iteration.">
           <line class="chart-cap-line" x1="0" y1="10" x2="480" y2="10"></line>
           <text x="4" y="22" class="diagram-label" font-size="9" fill="currentColor" opacity="0.5">max = 16</text>
@@ -721,7 +730,7 @@
         <p class="demo-note">Horizontal axis: iterations (last 120). Vertical axis: 0–16.</p>
       </div>
       <div class="demo-panel">
-        <h4 pointer-events="all" tabindex="0" data-tt="What other pages in this series call their model, population, or tree. Here, there's none of that — that's the whole point of this page.">What's not here</h4>
+        <h4 pointer-events="all" tabindex="0" data-tt="What other pages in this series call their model, population, or tree. Here, there's none of that - that's the whole point of this page.">What's not here</h4>
         <ul class="demo-absent-list">
           <li><span class="x">✕</span> density model l(x) / g(x)</li>
           <li><span class="x">✕</span> linkage tree / gene clusters</li>
@@ -737,13 +746,13 @@
             <div class="plabel">previous</div>
             <div class="demo-genome" id="prevGenomeView"></div>
           </div>
-          <div class="pair-arrow" pointer-events="all" tabindex="0" data-tt="This arrow doesn't denote any dependency — it's just the passage of time. The values on the right aren't a function of the values on the left.">≠→</div>
+          <div class="pair-arrow" pointer-events="all" tabindex="0" data-tt="This arrow doesn't denote any dependency - it's just the passage of time. The values on the right aren't a function of the values on the left.">≠→</div>
           <div class="pair-col">
             <div class="plabel">new</div>
             <div class="demo-genome" id="currGenomeView"></div>
           </div>
         </div>
-        <p class="demo-note" id="pairNote">No relation — the new point wasn't chosen based on the previous one or its result.</p>
+        <p class="demo-note" id="pairNote">No relation - the new point wasn't chosen based on the previous one or its result.</p>
       </div>
       <div class="demo-panel">
         <h4 pointer-events="all" tabindex="0" data-tt="The best genotype found since this run started. This is the only thing random search remembers from its whole history.">Best so far</h4>
@@ -770,13 +779,13 @@
           <div class="demo-stat" pointer-events="all" tabindex="0" data-tt="How many times the SAMPLE-EVALUATE-COMPARE loop has started from a new random point.">
             <div class="lbl">Iteration</div><div class="val" id="statIter">0</div>
           </div>
-          <div class="demo-stat" pointer-events="all" tabindex="0" data-tt="Total number of fitness function calls — in random search always equal to the number of iterations.">
+          <div class="demo-stat" pointer-events="all" tabindex="0" data-tt="Total number of fitness function calls - in random search always equal to the number of iterations.">
             <div class="lbl">Evaluations</div><div class="val" id="statEval">0</div>
           </div>
           <div class="demo-stat" pointer-events="all" tabindex="0" data-tt="16 is the global optimum: all 4 traps at 1111.">
             <div class="lbl">Best</div><div class="val" id="statBest">0 / 16</div>
           </div>
-          <div class="demo-stat" pointer-events="all" tabindex="0" data-tt="How many times a new record has hit since the run started — usually rare on this problem, after a dense start.">
+          <div class="demo-stat" pointer-events="all" tabindex="0" data-tt="How many times a new record has hit since the run started - usually rare on this problem, after a dense start.">
             <div class="lbl">Records</div><div class="val" id="statRecords">0</div>
           </div>
         </div>
@@ -788,8 +797,8 @@
 </section>
 
 <section id="code">
-  <h2>5&nbsp; Pseudocode — what you'd actually have to write</h2>
-  <p class="subdek">Two procedures. Shorter than anything else in this series — and that's the whole point, not an oversight.</p>
+  <h2>5&nbsp; Pseudocode - what you'd actually have to write</h2>
+  <p class="subdek">Two procedures. Shorter than anything else in this series - and that's the whole point, not an oversight.</p>
 
 <pre class="code"><span class="kw">procedure</span> RANDOM-SEARCH(budget)
     best ← null
@@ -806,12 +815,12 @@
         x[d] ← random value uniformly from domain(d)   <span class="cm">// §5.a: YOU define this domain</span>
     <span class="kw">return</span> x</pre>
 
-  <p>That's the whole algorithm. There's no mutation procedure, no crossover, no tree-building, no auxiliary structure at all — <span class="mono">RANDOM-SEARCH</span> calls <span class="mono">SAMPLE</span> once per iteration, and <span class="mono">SAMPLE</span> refers to nothing beyond each dimension's domain. The rest of this series is a description of what gets added to these two procedures — and at what price.</p>
+  <p>That's the whole algorithm. There's no mutation procedure, no crossover, no tree-building, no auxiliary structure at all - <span class="mono">RANDOM-SEARCH</span> calls <span class="mono">SAMPLE</span> once per iteration, and <span class="mono">SAMPLE</span> refers to nothing beyond each dimension's domain. The rest of this series is a description of what gets added to these two procedures - and at what price.</p>
 </section>
 
 <section id="practice">
-  <h2>6&nbsp; What you design yourself — applying random search to a real problem</h2>
-  <p>The same split as the other pages in this series: the <em>mechanism</em> is fixed by the algorithm and fits into the two short procedures from section 5. What changes every time is how your problem plugs into that mechanism — and, in this case, how much budget you can even give it.</p>
+  <h2>6&nbsp; What you design yourself - applying random search to a real problem</h2>
+  <p>The same split as the other pages in this series: the <em>mechanism</em> is fixed by the algorithm and fits into the two short procedures from section 5. What changes every time is how your problem plugs into that mechanism - and, in this case, how much budget you can even give it.</p>
 
   <div class="tablewrap">
     <table>
@@ -820,21 +829,21 @@
         <tr>
           <td><strong>Sampling</strong></td>
           <td class="fixed-col">Uniform, independent sampling of each dimension from its domain, with no memory between trials.</td>
-          <td class="decide-col">The search-space encoding and decoder — how your problem becomes a vector of dimensions that can even be sampled uniformly.</td>
+          <td class="decide-col">The search-space encoding and decoder - how your problem becomes a vector of dimensions that can even be sampled uniformly.</td>
         </tr>
         <tr>
           <td><strong>Best tracking</strong></td>
           <td class="fixed-col">A plain <span class="mono">argmax</span> over fitness; ties don't replace the record holder.</td>
-          <td class="decide-col">The fitness/objective definition — and, with multiple objectives, the non-domination rule you compare points by.</td>
+          <td class="decide-col">The fitness/objective definition - and, with multiple objectives, the non-domination rule you compare points by.</td>
         </tr>
         <tr>
           <td><strong>Evaluation budget</strong></td>
-          <td class="fixed-col">The loop stops exactly after the given number of evaluations — no other stopping condition.</td>
+          <td class="fixed-col">The loop stops exactly after the given number of evaluations - no other stopping condition.</td>
           <td class="decide-col">The budget itself: how many evaluations you can afford. This is the algorithm's one parameter, and you have to choose it yourself every time.</td>
         </tr>
         <tr>
           <td><strong>Invalid points</strong></td>
-          <td class="fixed-col">No built-in handling — the sampler doesn't know something like an “invalid point” exists.</td>
+          <td class="fixed-col">No built-in handling - the sampler doesn't know something like an “invalid point” exists.</td>
           <td class="decide-col">What to do with a sample outside the allowed set: reject and resample, repair it, or penalize it in the objective function.</td>
         </tr>
       </tbody>
@@ -843,8 +852,8 @@
 
   <div class="callout">
     <span class="tag">The blind spot this page holds up to P3Net</span>
-    <p>Random search doesn't win on any problem with structure — exactly what the demo in section 4 shows: with no way to copy a whole trap cluster at once, the probability of hitting the global optimum drops exponentially with the number of traps. That's no surprise. The question this page actually answers is different: <strong>does P3Net's extra structure and cost — the linkage tree, the relative surrogate, the population pyramid — actually earn its keep at a given budget, or would blind, uniform sampling reach a comparable result more cheaply?</strong></p>
-    <p>This question has no answer known in advance for every problem — it depends on how much actual structure (dependencies between architecture genes and hyperparameters) a given benchmark even has to exploit, and how expensive one real evaluation is. Random search is what you have to beat for the answer to that question to be “yes” — not because it's a good algorithm, but because it's the cheapest honest test.</p>
+    <p>Random search doesn't win on any problem with structure - exactly what the demo in section 4 shows: with no way to copy a whole trap cluster at once, the probability of hitting the global optimum drops exponentially with the number of traps. That's no surprise. The question this page actually answers is different: <strong>does P3Net's extra structure and cost - the linkage tree, the relative surrogate, the population pyramid - actually earn its keep at a given budget, or would blind, uniform sampling reach a comparable result more cheaply?</strong></p>
+    <p>This question has no answer known in advance for every problem - it depends on how much actual structure (dependencies between architecture genes and hyperparameters) a given benchmark even has to exploit, and how expensive one real evaluation is. Random search is what you have to beat for the answer to that question to be “yes” - not because it's a good algorithm, but because it's the cheapest honest test.</p>
   </div>
 
   <h3 style="margin-top:32px;"><span class="num">✓</span>Checklist for applying random search to a new problem</h3>
@@ -852,7 +861,7 @@
     <li><span class="box"></span><span>Define each dimension's domain: a finite set of values or an interval you can sample uniformly.</span></li>
     <li><span class="box"></span><span>Define fitness as a single, strict comparison (or a non-domination rule, if there's more than one objective).</span></li>
     <li><span class="box"></span><span>Decide what happens to samples that don't decode to a valid solution.</span></li>
-    <li><span class="box"></span><span>Set the evaluation budget up front — it's the only parameter you have to choose at all.</span></li>
+    <li><span class="box"></span><span>Set the evaluation budget up front - it's the only parameter you have to choose at all.</span></li>
     <li><span class="box"></span><span>Run it as a baseline before you believe a more sophisticated method actually helps on your problem.</span></li>
   </ul>
 
@@ -861,7 +870,7 @@
 </main>
 
 <footer class="page-end">
-  Source: J. Bergstra and Y. Bengio, “Random Search for Hyper-Parameter Optimization,” JMLR 2012 — the classic argument for random search as a baseline, which is what this method's role in the ablation grid above rests on.
+  Source: J. Bergstra and Y. Bengio, “Random Search for Hyper-Parameter Optimization,” JMLR 2012 - the classic argument for random search as a baseline, which is what this method's role in the ablation grid above rests on.
 </footer>
 
 <script>
@@ -986,7 +995,7 @@
     if (!genome) {
       var span = document.createElement("span");
       span.className = "demo-note";
-      span.textContent = "—";
+      span.textContent = "-";
       container.appendChild(span);
       return;
     }
@@ -1043,10 +1052,10 @@
     renderGenome(el.currGenomeView, state.curr, "active");
     renderGenome(el.bestGenomeView, state.best, "kept");
     if (state.prev && state.curr) {
-      el.pairNote.textContent = "No relation — the new point wasn't chosen based on the previous one (" + state.prev.join("") + ") or its result.";
+      el.pairNote.textContent = "No relation - the new point wasn't chosen based on the previous one (" + state.prev.join("") + ") or its result.";
     }
     if (state.best) {
-      el.bestNote.textContent = "Fitness: " + state.bestFit + " / " + MAXFIT + " — remembered as the only piece of information that survived from the whole run's history.";
+      el.bestNote.textContent = "Fitness: " + state.bestFit + " / " + MAXFIT + " - remembered as the only piece of information that survived from the whole run's history.";
     }
     refreshStats();
     renderChart();
@@ -1081,19 +1090,19 @@
   function animatedStep(done) {
     clearPhaseTimer();
     setActiveNode("sample");
-    el.phaseCaption.innerHTML = "<strong>Sample a point</strong> — each of the " + N + " genes independently, uniformly from {0,1}.";
+    el.phaseCaption.innerHTML = "<strong>Sample a point</strong> - each of the " + N + " genes independently, uniformly from {0,1}.";
     stepPhaseTimer = setTimeout(function () {
       var info = doIteration();
       renderGenome(el.genomeView, info.genome, "active");
       setActiveNode("evaluate");
-      el.phaseCaption.innerHTML = "<strong>Evaluate</strong> — this point's fitness: " + info.fitness + " / " + MAXFIT + ".";
+      el.phaseCaption.innerHTML = "<strong>Evaluate</strong> - this point's fitness: " + info.fitness + " / " + MAXFIT + ".";
       stepPhaseTimer = setTimeout(function () {
         setActiveNode("compare");
         if (info.isRecord) {
-          el.phaseCaption.innerHTML = "<strong>Compare against best</strong> — new record: " + info.fitness + " / " + MAXFIT + ".";
+          el.phaseCaption.innerHTML = "<strong>Compare against best</strong> - new record: " + info.fitness + " / " + MAXFIT + ".";
           el.demoLog.innerHTML = "Iteration " + state.iter + ": point " + info.genome.join("") + " → fitness " + info.fitness + ". <span class=\"rec\">New record.</span>";
         } else {
-          el.phaseCaption.innerHTML = "<strong>Compare against best</strong> — no improvement, the record holder (" + state.bestFit + ") stays unchanged.";
+          el.phaseCaption.innerHTML = "<strong>Compare against best</strong> - no improvement, the record holder (" + state.bestFit + ") stays unchanged.";
           el.demoLog.innerHTML = "Iteration " + state.iter + ": point " + info.genome.join("") + " → fitness " + info.fitness + ". Record (" + state.bestFit + ") unchanged.";
         }
         refreshPanels();
@@ -1134,7 +1143,7 @@
     clearPhaseTimer();
     for (var i = 0; i < 20; i++) doIteration();
     setActiveNode(null);
-    el.phaseCaption.innerHTML = "<strong>⏩ 20 iterations</strong> computed at once — the record and the curve below reflect all of them at once.";
+    el.phaseCaption.innerHTML = "<strong>⏩ 20 iterations</strong> computed at once - the record and the curve below reflect all of them at once.";
     el.demoLog.innerHTML = "Computed 20 consecutive, independent points. Current record: " + state.bestFit + " / " + MAXFIT + ".";
     refreshPanels();
   });
@@ -1154,7 +1163,7 @@
     setActiveNode(null);
     el.phaseCaption.textContent = "Click \u201cStep\u201d or \u201cRun\u201d to see the algorithm in action.";
     el.demoLog.textContent = "Click \u201cStep\u201d or \u201cRun\u201d to begin.";
-    el.pairNote.textContent = "No relation — the new point wasn't chosen based on the previous one or its result.";
+    el.pairNote.textContent = "No relation - the new point wasn't chosen based on the previous one or its result.";
     el.bestNote.textContent = "No result yet.";
     renderGenome(el.genomeView, null);
     renderGenome(el.prevGenomeView, null);

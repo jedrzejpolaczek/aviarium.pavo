@@ -1,6 +1,15 @@
 <title>How TPE actually works</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet" crossorigin="anonymous">
+<link href="https://db.onlinewebfonts.com/c/cc4a7a8da4c5d4af9361d85a1d1c0bba?family=OCR-A" rel="stylesheet">
+<style>
+@font-face{font-family:'OCR-A';unicode-range:U+0100-024F;font-weight:400;src:url('https://cdn.jsdelivr.net/npm/@fontsource/jetbrains-mono/files/jetbrains-mono-latin-ext-400-normal.woff2') format('woff2');}
+@font-face{font-family:'OCR-A';unicode-range:U+0100-024F;font-weight:500;src:url('https://cdn.jsdelivr.net/npm/@fontsource/jetbrains-mono/files/jetbrains-mono-latin-ext-500-normal.woff2') format('woff2');}
+@font-face{font-family:'OCR-A';unicode-range:U+0100-024F;font-weight:600;src:url('https://cdn.jsdelivr.net/npm/@fontsource/jetbrains-mono/files/jetbrains-mono-latin-ext-600-normal.woff2') format('woff2');}
+@font-face{font-family:'OCR-A';unicode-range:U+0100-024F;font-weight:700;src:url('https://cdn.jsdelivr.net/npm/@fontsource/jetbrains-mono/files/jetbrains-mono-latin-ext-700-normal.woff2') format('woff2');}
+</style>
 <style>
   :root {
     --bg: #060a05;
@@ -77,12 +86,12 @@
     margin: 0;
     background: var(--bg);
     color: var(--ink);
-    font-family: 'IBM Plex Mono', monospace;
+    font-family: 'OCR-A','JetBrains Mono',monospace;
     line-height: 1.6;
     -webkit-font-smoothing: antialiased;
   }
   .mono {
-    font-family: 'IBM Plex Mono', monospace;
+    font-family: 'OCR-A','JetBrains Mono',monospace;
   }
 
   a { color: var(--accent); }
@@ -106,7 +115,7 @@
     overflow-x: auto;
   }
   .topnav-mark {
-    font-family: 'IBM Plex Mono', monospace;
+    font-family: 'OCR-A','JetBrains Mono',monospace;
     font-size: 12px;
     letter-spacing: .08em;
     color: var(--accent);
@@ -115,7 +124,7 @@
     border-right: 1px solid var(--line);
   }
   .topnav a {
-    font-family: 'IBM Plex Mono', monospace;
+    font-family: 'OCR-A','JetBrains Mono',monospace;
     font-size: 12px;
     letter-spacing: .04em;
     color: var(--ink-muted);
@@ -134,7 +143,7 @@
   section:first-of-type { padding-top: 8px; }
 
   .eyebrow {
-    font-family: 'IBM Plex Mono', monospace;
+    font-family: 'OCR-A','JetBrains Mono',monospace;
     font-size: 11px;
     letter-spacing: .14em;
     text-transform: uppercase;
@@ -156,7 +165,7 @@
   }
   h2 { font-size: 28px; font-weight: 700; margin: 0 0 6px; letter-spacing: -0.005em; }
   h3 { font-size: 19px; font-weight: 700; margin: 40px 0 10px; }
-  h3 .num { font-family: 'IBM Plex Mono', monospace; font-size: 14px; color: var(--accent); margin-right: 8px; }
+  h3 .num { font-family: 'OCR-A','JetBrains Mono',monospace; font-size: 14px; color: var(--accent); margin-right: 8px; }
 
   p { margin: 14px 0; color: var(--ink); max-width: 68ch; }
   .lede { font-size: 20px; color: var(--ink-muted); max-width: 60ch; margin: 0 0 8px; }
@@ -179,7 +188,7 @@
   figure.bleed { margin-left: calc(50% - 50vw + 12px); margin-right: calc(50% - 50vw + 12px); max-width: 1120px; margin-left: auto; margin-right: auto; }
   figure svg { display: block; width: 100%; height: auto; padding: 20px; }
   figcaption {
-    font-family: 'IBM Plex Mono', monospace;
+    font-family: 'OCR-A','JetBrains Mono',monospace;
     font-size: 12px;
     color: var(--ink-muted);
     padding: 10px 20px 16px;
@@ -197,7 +206,7 @@
     margin: 24px 0;
   }
   .callout .tag {
-    font-family: 'IBM Plex Mono', monospace;
+    font-family: 'OCR-A','JetBrains Mono',monospace;
     font-size: 11px;
     letter-spacing: .1em;
     text-transform: uppercase;
@@ -214,7 +223,7 @@
     border-radius: 10px;
     padding: 20px 22px;
     overflow-x: auto;
-    font-family: 'IBM Plex Mono', monospace;
+    font-family: 'OCR-A','JetBrains Mono',monospace;
     font-size: 13px;
     line-height: 1.7;
     box-shadow: var(--shadow);
@@ -228,7 +237,7 @@
   table { border-collapse: collapse; width: 100%; background: var(--bg-raised); font-size: 15px; }
   th, td { text-align: left; padding: 12px 16px; border-bottom: 1px solid var(--line); vertical-align: top; }
   thead th {
-    font-family: 'IBM Plex Mono', monospace;
+    font-family: 'OCR-A','JetBrains Mono',monospace;
     font-size: 11px;
     letter-spacing: .08em;
     text-transform: uppercase;
@@ -264,7 +273,7 @@
     max-width: 280px;
     background: var(--ink);
     color: var(--bg);
-    font-family: 'IBM Plex Mono', monospace;
+    font-family: 'OCR-A','JetBrains Mono',monospace;
     font-size: 12px;
     line-height: 1.5;
     padding: 9px 11px;
@@ -272,7 +281,7 @@
     box-shadow: var(--shadow);
     pointer-events: none;
   }
-  .tt-hint { display: inline-block; font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; color: var(--ink-faint); letter-spacing: .04em; margin: 2px 0 0; }
+  .tt-hint { display: inline-block; font-family: 'OCR-A','JetBrains Mono',monospace; font-size: 10.5px; color: var(--ink-faint); letter-spacing: .04em; margin: 2px 0 0; }
 
   /* ---------- live demo (section 4) ---------- */
   .demo-bleed-wrap {
@@ -302,7 +311,7 @@
   .tpe-plot-wrap svg { display: block; width: 100%; height: auto; }
 
   .demo-phase-caption {
-    font-family: 'IBM Plex Mono', monospace;
+    font-family: 'OCR-A','JetBrains Mono',monospace;
     font-size: 13px;
     color: var(--ink);
     background: var(--bg-sunken);
@@ -314,7 +323,7 @@
   .demo-phase-caption strong { color: var(--accent); }
 
   .zone-caption {
-    margin: 22px 0 12px; font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; letter-spacing: .08em;
+    margin: 22px 0 12px; font-family: 'OCR-A','JetBrains Mono',monospace; font-size: 10.5px; letter-spacing: .08em;
     text-transform: uppercase; color: var(--ink-faint);
     display: flex; align-items: center; gap: 10px; cursor: help;
   }
@@ -328,7 +337,7 @@
 
   .demo-controls { display: flex; flex-wrap: wrap; gap: 8px; }
   .demo-btn {
-    font-family: 'IBM Plex Mono', monospace;
+    font-family: 'OCR-A','JetBrains Mono',monospace;
     font-size: 12.5px;
     letter-spacing: .02em;
     background: var(--bg-sunken);
@@ -341,13 +350,13 @@
   .demo-btn:hover { border-color: var(--accent); }
   .demo-btn:focus-visible { outline: 2px solid var(--accent); outline-offset: 1px; }
   .demo-btn.primary { background: var(--accent); color: var(--accent-ink); border-color: var(--accent); }
-  .demo-mode { display: flex; gap: 0; border: 1px solid var(--line-strong); border-radius: 7px; overflow: hidden; font-family: 'IBM Plex Mono', monospace; font-size: 12px; }
+  .demo-mode { display: flex; gap: 0; border: 1px solid var(--line-strong); border-radius: 7px; overflow: hidden; font-family: 'OCR-A','JetBrains Mono',monospace; font-size: 12px; }
   .demo-mode button { border: none; background: var(--bg-sunken); color: var(--ink-muted); padding: 8px 12px; cursor: pointer; }
   .demo-mode button.active { background: var(--accent); color: var(--accent-ink); }
 
   .demo-legend {
     display: flex; flex-wrap: wrap; align-items: center; gap: 14px;
-    font-family: 'IBM Plex Mono', monospace;
+    font-family: 'OCR-A','JetBrains Mono',monospace;
     font-size: 11.5px; color: var(--ink-muted);
     background: var(--bg-sunken);
     border-radius: 8px;
@@ -367,11 +376,11 @@
 
   .demo-stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(110px, 1fr)); gap: 10px; margin-bottom: 18px; }
   .demo-stat { background: var(--bg-sunken); border-radius: 8px; padding: 10px 12px; }
-  .demo-stat .lbl { font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: .08em; text-transform: uppercase; color: var(--ink-faint); }
-  .demo-stat .val { font-family: 'IBM Plex Mono', monospace; font-size: 20px; color: var(--ink); font-variant-numeric: tabular-nums; }
+  .demo-stat .lbl { font-family: 'OCR-A','JetBrains Mono',monospace; font-size: 10px; letter-spacing: .08em; text-transform: uppercase; color: var(--ink-faint); }
+  .demo-stat .val { font-family: 'OCR-A','JetBrains Mono',monospace; font-size: 20px; color: var(--ink); font-variant-numeric: tabular-nums; }
 
   .demo-log {
-    font-family: 'IBM Plex Mono', monospace;
+    font-family: 'OCR-A','JetBrains Mono',monospace;
     font-size: 12.5px;
     color: var(--ink-muted);
     background: var(--bg-sunken);
@@ -383,15 +392,15 @@
   .demo-log strong { color: var(--accent); }
 
   .demo-panel h4 {
-    font-family: 'IBM Plex Mono', monospace;
+    font-family: 'OCR-A','JetBrains Mono',monospace;
     font-size: 11px; letter-spacing: .08em; text-transform: uppercase;
     color: var(--ink-faint); margin: 0 0 10px;
   }
-  .demo-note { font-family: 'IBM Plex Mono', monospace; font-size: 11.5px; color: var(--ink-faint); margin-top: 14px; line-height: 1.6; }
+  .demo-note { font-family: 'OCR-A','JetBrains Mono',monospace; font-size: 11.5px; color: var(--ink-faint); margin-top: 14px; line-height: 1.6; }
 
   .history-chips { display: flex; flex-wrap: wrap; gap: 6px; margin: 4px 0 6px; min-height: 30px; }
   .chip {
-    font-family: 'IBM Plex Mono', monospace;
+    font-family: 'OCR-A','JetBrains Mono',monospace;
     font-size: 11px;
     padding: 5px 9px;
     border-radius: 6px;
@@ -405,14 +414,14 @@
   .chip.best { border-color: var(--accent); color: var(--ink); background: var(--accent-soft); font-weight: 700; }
 
   /* ---------- misc ---------- */
-  .diagram-label { font-family: 'IBM Plex Mono', monospace; }
+  .diagram-label { font-family: 'OCR-A','JetBrains Mono',monospace; }
   ::selection { background: var(--accent-soft); }
 
   footer.page-end {
     max-width: 720px; margin: 80px auto 0; padding: 24px 24px 40px;
     border-top: 1px solid var(--line);
     color: var(--ink-faint);
-    font-family: 'IBM Plex Mono', monospace;
+    font-family: 'OCR-A','JetBrains Mono',monospace;
     font-size: 12px;
   }
 </style>
@@ -421,9 +430,9 @@
   <a href="../Portfolio.dc.html" style="font-size:18px;font-weight:600;color:oklch(0.92 0.004 250);text-decoration:none;">JP.<span style="color:#9CAF6B;">_</span></a>
   <div style="display:flex;gap:32px;align-items:center;font-size:14px;">
     <a href="../Portfolio.dc.html" style="color:oklch(0.85 0.004 250);text-decoration:none;">home</a>
-    <a href="../Portfolio.dc.html?view=solutions" style="color:oklch(0.85 0.004 250);text-decoration:none;">:solutions</a>
-    <a href="../Portfolio.dc.html?view=badania" style="color:oklch(0.85 0.004 250);text-decoration:none;">:research</a>
-    <a href="../Portfolio.dc.html?view=kontakt" style="color:oklch(0.85 0.004 250);text-decoration:none;">:contact</a>
+    <a href="../Portfolio.dc.html?view=solutions" style="color:oklch(0.85 0.004 250);text-decoration:none;">~/solutions</a>
+    <a href="../Portfolio.dc.html?view=badania" style="color:oklch(0.85 0.004 250);text-decoration:none;">~/research</a>
+    <a href="../Portfolio.dc.html?view=kontakt" style="color:oklch(0.85 0.004 250);text-decoration:none;">~/contact</a>
     <a href="tpe-pl.html" style="font-size:12px;font-weight:700;padding:6px 12px;border:1px solid #9CAF6B;border-radius:2px;background:rgba(156,175,107,0.15);color:#9CAF6B;text-decoration:none;">PL</a>
   </div>
 </nav>
@@ -442,20 +451,20 @@
 <main>
 
 <section id="top">
-  <div class="eyebrow"><span>TPE — Tree-structured Parzen Estimator</span></div>
+  <div class="eyebrow"><span>TPE - Tree-structured Parzen Estimator</span></div>
   <h1>How TPE actually works</h1>
-  <p class="lede">A classic sequential Bayesian optimizer — one of P3Net's six opponents in this paper's ablation grid. From the one idea it's built around, through the three procedures needed to implement it, to a demo that genuinely computes in your browser and shows the moment the model starts to <em class="term">remember</em>.</p>
+  <p class="lede">A classic sequential Bayesian optimizer - one of P3Net's six opponents in this paper's ablation grid. From the one idea it's built around, through the three procedures needed to implement it, to a demo that genuinely computes in your browser and shows the moment the model starts to <em class="term">remember</em>.</p>
   <p class="subdek">Laid out like a C4 diagram: context, then the big moving parts, then each one broken down in detail, then code, and finally a practical checklist.</p>
 </section>
 
 <hr class="rule">
 
 <section id="context">
-  <h3><span class="num">1</span>Context — the problem TPE answers</h3>
+  <h3><span class="num">1</span>Context - the problem TPE answers</h3>
   <p class="lede" style="font-size:17px;">In one sentence: random search never remembers anything. TPE remembers everything it has measured so far, and uses that to guess better where to try next.</p>
-  <p>That's the entire difference. Random search samples points independently — the tenth point knows exactly as much about the previous nine as the first point did, which is nothing. TPE (Bergstra et al., NeurIPS 2011) splits the observations so far into “good” and “bad” after every evaluation, fits a separate density model to each group, and picks the next point where the good-observation model is dense and the bad-observation model is sparse. It's still a sequential optimizer, sample by sample, but every next sample is now conditioned on history, not random.</p>
+  <p>That's the entire difference. Random search samples points independently - the tenth point knows exactly as much about the previous nine as the first point did, which is nothing. TPE (Bergstra et al., NeurIPS 2011) splits the observations so far into “good” and “bad” after every evaluation, fits a separate density model to each group, and picks the next point where the good-observation model is dense and the bad-observation model is sparse. It's still a sequential optimizer, sample by sample, but every next sample is now conditioned on history, not random.</p>
 
-  <p>In this paper's ablation grid, TPE stands on the side of <strong>classic, sequential model-based optimizers</strong> — alongside random search, MO-BOHB, SH-EMOA, NSGA-Net, and NSGANetV2, all benchmarked against P3Net on JAHS-Bench-201 and NAS-HPO-Bench-II (full grid description in <span class="mono">implementation/lib/README.md</span>). Random search is the floor: no model at all. TPE is the first step up from that floor — there's a model, but it treats the configuration space as a bag of independent (or at best shallowly conditional) dimensions. That boundary — model versus no model — is this page's topic, before section 6 narrows it down to the specific blind spot TPE has against P3Net's linkage-aware approach.</p>
+  <p>In this paper's ablation grid, TPE stands on the side of <strong>classic, sequential model-based optimizers</strong> - alongside random search, MO-BOHB, SH-EMOA, NSGA-Net, and NSGANetV2, all benchmarked against P3Net on JAHS-Bench-201 and NAS-HPO-Bench-II (full grid description in <span class="mono">implementation/lib/README.md</span>). Random search is the floor: no model at all. TPE is the first step up from that floor - there's a model, but it treats the configuration space as a bag of independent (or at best shallowly conditional) dimensions. That boundary - model versus no model - is this page's topic, before section 6 narrows it down to the specific blind spot TPE has against P3Net's linkage-aware approach.</p>
 
   <figure class="bleed">
     <svg viewBox="0 0 900 400" role="img" aria-label="Comparison of two loops: random search samples a point, evaluates it, and returns to the start with no memory; TPE, after every evaluation, splits the history into good and bad observations, fits two densities to them, and picks the next point where the ratio of those densities is highest.">
@@ -465,29 +474,29 @@
         </marker>
       </defs>
 
-      <text x="30" y="20" class="diagram-label" font-size="12" letter-spacing="0.06em" fill="currentColor" opacity="0.6">RANDOM SEARCH — a loop with no memory</text>
+      <text x="30" y="20" class="diagram-label" font-size="12" letter-spacing="0.06em" fill="currentColor" opacity="0.6">RANDOM SEARCH - a loop with no memory</text>
 
-      <rect x="30" y="60" width="280" height="52" rx="8" fill="none" stroke="currentColor" stroke-width="1.4" pointer-events="all" tabindex="0" data-tt="The point is drawn from a uniform distribution over the whole space — nothing from previous evaluations influences this choice."></rect>
+      <rect x="30" y="60" width="280" height="52" rx="8" fill="none" stroke="currentColor" stroke-width="1.4" pointer-events="all" tabindex="0" data-tt="The point is drawn from a uniform distribution over the whole space - nothing from previous evaluations influences this choice."></rect>
       <text fill="currentColor" x="170" y="91" text-anchor="middle" class="diagram-label" font-size="12.5">sample a point uniformly</text>
       <path d="M170,112 L170,144" stroke="currentColor" stroke-width="1.3" marker-end="url(#arrC)"></path>
 
-      <rect x="30" y="146" width="280" height="52" rx="8" fill="none" stroke="currentColor" stroke-width="1.4" pointer-events="all" tabindex="0" data-tt="One real objective-function evaluation — the result goes into the history, but the history is never read when choosing the next point."></rect>
+      <rect x="30" y="146" width="280" height="52" rx="8" fill="none" stroke="currentColor" stroke-width="1.4" pointer-events="all" tabindex="0" data-tt="One real objective-function evaluation - the result goes into the history, but the history is never read when choosing the next point."></rect>
       <text fill="currentColor" x="170" y="177" text-anchor="middle" class="diagram-label" font-size="12.5">evaluate, log to history</text>
 
       <path d="M310,172 C400,172 400,86 310,86" fill="none" stroke="currentColor" stroke-width="1.2" marker-end="url(#arrC)"></path>
-      <text x="325" y="132" class="diagram-label" font-size="10.5" fill="currentColor" opacity="0.7" pointer-events="all" tabindex="0" data-tt="The loop goes back to the top without reading anything it just wrote — the history grows, but nobody uses it.">repeat</text>
+      <text x="325" y="132" class="diagram-label" font-size="10.5" fill="currentColor" opacity="0.7" pointer-events="all" tabindex="0" data-tt="The loop goes back to the top without reading anything it just wrote - the history grows, but nobody uses it.">repeat</text>
 
       <text x="170" y="240" text-anchor="middle" class="diagram-label" font-size="11" fill="currentColor" opacity="0.7">history grows, but nobody reads it</text>
 
       <line x1="450" y1="10" x2="450" y2="390" stroke="currentColor" stroke-width="1" opacity="0.15"></line>
 
-      <text x="480" y="20" class="diagram-label" font-size="12" letter-spacing="0.06em" fill="var(--accent)" opacity="0.9">TPE — a loop with memory</text>
+      <text x="480" y="20" class="diagram-label" font-size="12" letter-spacing="0.06em" fill="var(--accent)" opacity="0.9">TPE - a loop with memory</text>
 
       <rect x="480" y="34" width="280" height="46" rx="8" fill="none" stroke="currentColor" stroke-width="1.4" pointer-events="all" tabindex="0" data-tt="The observations gathered so far are sorted by objective value and split by a quantile threshold γ. Detail in 3.1."></rect>
       <text fill="currentColor" x="620" y="61" text-anchor="middle" class="diagram-label" font-size="12">split history by threshold γ</text>
       <path d="M620,80 L620,104" stroke="currentColor" stroke-width="1.3" marker-end="url(#arrC)"></path>
 
-      <rect x="480" y="106" width="280" height="46" rx="8" fill="none" stroke="currentColor" stroke-width="1.4" pointer-events="all" tabindex="0" data-tt="Two separate density models — l(x) over good points, g(x) over bad ones. Detail in 3.2."></rect>
+      <rect x="480" y="106" width="280" height="46" rx="8" fill="none" stroke="currentColor" stroke-width="1.4" pointer-events="all" tabindex="0" data-tt="Two separate density models - l(x) over good points, g(x) over bad ones. Detail in 3.2."></rect>
       <text fill="currentColor" x="620" y="133" text-anchor="middle" class="diagram-label" font-size="12">fit l(x) and g(x)</text>
       <path d="M620,152 L620,176" stroke="currentColor" stroke-width="1.3" marker-end="url(#arrC)"></path>
 
@@ -495,20 +504,20 @@
       <text fill="currentColor" x="620" y="205" text-anchor="middle" class="diagram-label" font-size="12">sample candidates, score by ratio l/g</text>
       <path d="M620,224 L620,248" stroke="currentColor" stroke-width="1.3" marker-end="url(#arrC)"></path>
 
-      <rect x="480" y="250" width="280" height="46" rx="8" fill="var(--accent-soft)" stroke="var(--accent)" stroke-width="1.6" pointer-events="all" tabindex="0" data-tt="The only real evaluation in this iteration — everything before it was just computing on the model. The result is appended to the history and shifts the next threshold-γ split."></rect>
+      <rect x="480" y="250" width="280" height="46" rx="8" fill="var(--accent-soft)" stroke="var(--accent)" stroke-width="1.6" pointer-events="all" tabindex="0" data-tt="The only real evaluation in this iteration - everything before it was just computing on the model. The result is appended to the history and shifts the next threshold-γ split."></rect>
       <text x="620" y="277" text-anchor="middle" class="diagram-label" font-size="12" fill="var(--ink)">evaluate the winner, append to history</text>
 
       <path d="M760,273 C850,273 850,57 760,57" fill="none" stroke="var(--accent)" stroke-width="1.3" marker-end="url(#arrC)"></path>
-      <text x="774" y="165" class="diagram-label" font-size="10.5" fill="var(--accent)" pointer-events="all" tabindex="0" data-tt="The next iteration reads the full history, now one point larger — the model is a little more accurate every time.">next iteration, the model is a bit smarter now</text>
+      <text x="774" y="165" class="diagram-label" font-size="10.5" fill="var(--accent)" pointer-events="all" tabindex="0" data-tt="The next iteration reads the full history, now one point larger - the model is a little more accurate every time.">next iteration, the model is a bit smarter now</text>
 
       <text x="620" y="340" text-anchor="middle" class="diagram-label" font-size="11" fill="var(--accent)">every decision is conditioned on the entire history so far</text>
     </svg>
-    <figcaption><span class="k">What this diagram shows —</span> both loops have exactly the same “sample → evaluate → return” shape, but the left side never looks at what it has already computed, while the right side builds its entire mechanism out of doing exactly that. Section 2 unfolds the right-hand loop in full detail, section 3 opens each of its steps individually.</figcaption>
+    <figcaption><span class="k">What this diagram shows -</span> both loops have exactly the same “sample → evaluate → return” shape, but the left side never looks at what it has already computed, while the right side builds its entire mechanism out of doing exactly that. Section 2 unfolds the right-hand loop in full detail, section 3 opens each of its steps individually.</figcaption>
   </figure>
 </section>
 
 <section id="bigpicture">
-  <h3><span class="num">2</span>Big picture — one loop, three steps per iteration</h3>
+  <h3><span class="num">2</span>Big picture - one loop, three steps per iteration</h3>
   <p class="lede" style="font-size:17px;">In one sentence: observe, split, fit two densities, sample a dozen or so candidates, pick the one with the best ratio, evaluate for real, go back to the start.</p>
 
   <div class="tablewrap">
@@ -516,8 +525,8 @@
       <thead><tr><th>Part</th><th>Job</th></tr></thead>
       <tbody>
         <tr><td><strong>Quantile split</strong></td><td>Sorts the observations so far by objective value and sets a threshold γ separating the best from the rest.</td></tr>
-        <tr><td><strong>Density estimators l(x), g(x)</strong></td><td>Two probability models — one over “good” points, one over “bad” ones — telling you where in the space each group tends to cluster.</td></tr>
-        <tr><td><strong>Acquisition step</strong></td><td>Samples candidates from l(x) and picks the one with the highest l(x)/g(x) ratio — the only moment an evaluation is actually spent.</td></tr>
+        <tr><td><strong>Density estimators l(x), g(x)</strong></td><td>Two probability models - one over “good” points, one over “bad” ones - telling you where in the space each group tends to cluster.</td></tr>
+        <tr><td><strong>Acquisition step</strong></td><td>Samples candidates from l(x) and picks the one with the highest l(x)/g(x) ratio - the only moment an evaluation is actually spent.</td></tr>
       </tbody>
     </table>
   </div>
@@ -532,7 +541,7 @@
         </marker>
       </defs>
 
-      <rect x="240" y="10" width="400" height="50" rx="8" fill="none" stroke="currentColor" stroke-width="1.4" pointer-events="all" tabindex="0" data-tt="The first few iterations, before the history has enough points to compute anything — these points are purely random, exactly like random search."></rect>
+      <rect x="240" y="10" width="400" height="50" rx="8" fill="none" stroke="currentColor" stroke-width="1.4" pointer-events="all" tabindex="0" data-tt="The first few iterations, before the history has enough points to compute anything - these points are purely random, exactly like random search."></rect>
       <text x="440" y="40" text-anchor="middle" class="diagram-label" font-size="13" fill="currentColor">bootstrap: R random starting points</text>
       <path d="M440,60 L440,90" stroke="currentColor" stroke-width="1.3" marker-end="url(#arrB)"></path>
 
@@ -544,44 +553,44 @@
       <text x="440" y="204" text-anchor="middle" class="diagram-label" font-size="13" fill="currentColor">fit l(x) to good, g(x) to bad</text>
       <path d="M440,224 L440,254" stroke="currentColor" stroke-width="1.3" marker-end="url(#arrB)"></path>
 
-      <rect x="240" y="256" width="400" height="50" rx="8" fill="none" stroke="currentColor" stroke-width="1.4" pointer-events="all" tabindex="0" data-tt="Each candidate is a point drawn from the distribution l(x) — that is, from around the good observations, not blindly from the whole space. §3.3."></rect>
+      <rect x="240" y="256" width="400" height="50" rx="8" fill="none" stroke="currentColor" stroke-width="1.4" pointer-events="all" tabindex="0" data-tt="Each candidate is a point drawn from the distribution l(x) - that is, from around the good observations, not blindly from the whole space. §3.3."></rect>
       <text x="440" y="286" text-anchor="middle" class="diagram-label" font-size="13" fill="currentColor">sample n candidates from l(x)</text>
       <path d="M440,306 L440,336" stroke="currentColor" stroke-width="1.3" marker-end="url(#arrB)"></path>
 
-      <rect x="240" y="338" width="400" height="50" rx="8" fill="none" stroke="currentColor" stroke-width="1.4" pointer-events="all" tabindex="0" data-tt="A high l/g ratio = dense among good, sparse among bad — this is the point the model most “believes” is worth trying. §3.3."></rect>
+      <rect x="240" y="338" width="400" height="50" rx="8" fill="none" stroke="currentColor" stroke-width="1.4" pointer-events="all" tabindex="0" data-tt="A high l/g ratio = dense among good, sparse among bad - this is the point the model most “believes” is worth trying. §3.3."></rect>
       <text x="440" y="368" text-anchor="middle" class="diagram-label" font-size="13" fill="currentColor">score each candidate by l(x)/g(x)</text>
       <path d="M440,388 L440,418" stroke="currentColor" stroke-width="1.3" marker-end="url(#arrB)"></path>
 
-      <rect x="240" y="420" width="400" height="52" rx="8" fill="var(--accent-soft)" stroke="var(--accent)" stroke-width="1.6" pointer-events="all" tabindex="0" data-tt="The only real objective-function evaluation in the whole iteration — everything before it happened purely on the l/g model."></rect>
+      <rect x="240" y="420" width="400" height="52" rx="8" fill="var(--accent-soft)" stroke="var(--accent)" stroke-width="1.6" pointer-events="all" tabindex="0" data-tt="The only real objective-function evaluation in the whole iteration - everything before it happened purely on the l/g model."></rect>
       <text x="440" y="443" text-anchor="middle" class="diagram-label" font-size="13" fill="var(--ink)">take the argmax, run one real evaluation</text>
       <text x="440" y="461" text-anchor="middle" class="diagram-label" font-size="10.5" fill="var(--ink)" opacity="0.75">append (x, y) to history</text>
 
       <path d="M640,446 C760,446 760,116 640,116" fill="none" stroke="var(--accent)" stroke-width="1.3" marker-end="url(#arrB)"></path>
       <text x="700" y="284" text-anchor="middle" class="diagram-label" font-size="10.5" fill="var(--accent)" transform="rotate(90 700 284)" pointer-events="all" tabindex="0" data-tt="The history is now one point larger, so the γ-threshold split in the next iteration runs over a slightly different, slightly more accurate set.">next iteration</text>
 
-      <text x="440" y="510" text-anchor="middle" class="diagram-label" font-size="11.5" fill="currentColor" opacity="0.7">One call to this loop is one TPE iteration — repeat until the evaluation budget runs out.</text>
-      <text x="440" y="532" text-anchor="middle" class="diagram-label" font-size="11.5" fill="currentColor" opacity="0.7">Every step except the last costs zero real evaluations — they compute only on the model.</text>
+      <text x="440" y="510" text-anchor="middle" class="diagram-label" font-size="11.5" fill="currentColor" opacity="0.7">One call to this loop is one TPE iteration - repeat until the evaluation budget runs out.</text>
+      <text x="440" y="532" text-anchor="middle" class="diagram-label" font-size="11.5" fill="currentColor" opacity="0.7">Every step except the last costs zero real evaluations - they compute only on the model.</text>
     </svg>
-    <figcaption><span class="k">What this diagram shows —</span> only one box in the whole loop costs a real objective-function evaluation; everything above it is arithmetic on a model built from history. This is the opposite of random search, where <em>every</em> step is an evaluation, because there's no model to filter candidates beforehand.</figcaption>
+    <figcaption><span class="k">What this diagram shows -</span> only one box in the whole loop costs a real objective-function evaluation; everything above it is arithmetic on a model built from history. This is the opposite of random search, where <em>every</em> step is an evaluation, because there's no model to filter candidates beforehand.</figcaption>
   </figure>
 </section>
 
 <section id="components">
-  <h2>3&nbsp; Components — breaking down each step</h2>
+  <h2>3&nbsp; Components - breaking down each step</h2>
   <p class="subdek">The same three parts as above, now at the level of detail needed to implement them.</p>
 
-  <h3><span class="num">3.1</span>The quantile split — where “good” ends</h3>
-  <p class="lede" style="font-size:16px;">In one sentence: sort the observations by objective value and cut off the best γ of them — the rest go to “bad.”</p>
-  <p>Under minimization, “better” means a smaller objective value. With <span class="mono">n</span> observations, the threshold is <span class="mono">k = max(1, round(γ·n))</span> — the first <span class="mono">k</span> after sorting go into the good set, the rest into bad. A typical <span class="mono">γ</span> is 0.10–0.25; the demo below uses <span class="mono">γ=0.15</span>. The smaller γ is, the sharper and more selective the “good” model — but also the fewer points it has to work with, especially in early iterations.</p>
+  <h3><span class="num">3.1</span>The quantile split - where “good” ends</h3>
+  <p class="lede" style="font-size:16px;">In one sentence: sort the observations by objective value and cut off the best γ of them - the rest go to “bad.”</p>
+  <p>Under minimization, “better” means a smaller objective value. With <span class="mono">n</span> observations, the threshold is <span class="mono">k = max(1, round(γ·n))</span> - the first <span class="mono">k</span> after sorting go into the good set, the rest into bad. A typical <span class="mono">γ</span> is 0.10–0.25; the demo below uses <span class="mono">γ=0.15</span>. The smaller γ is, the sharper and more selective the “good” model - but also the fewer points it has to work with, especially in early iterations.</p>
 
   <figure class="bleed">
     <svg viewBox="0 0 880 220" role="img" aria-label="Eight observations sorted ascending by objective value; at gamma=0.15 the threshold cuts the single best one as good, the remaining seven as bad.">
       <text x="20" y="24" class="diagram-label" font-size="11" fill="currentColor" opacity="0.6">8 OBSERVATIONS, SORTED ASCENDING BY OBJECTIVE VALUE (smaller = better)</text>
       <g class="mono">
-        <rect x="20" y="50" width="90" height="40" rx="6" fill="var(--good-soft)" stroke="var(--good)" stroke-width="1.6" pointer-events="all" tabindex="0" data-tt="The best observation in the history — the only one that fits within the threshold k=round(0.15·8)=1."></rect>
+        <rect x="20" y="50" width="90" height="40" rx="6" fill="var(--good-soft)" stroke="var(--good)" stroke-width="1.6" pointer-events="all" tabindex="0" data-tt="The best observation in the history - the only one that fits within the threshold k=round(0.15·8)=1."></rect>
         <text x="65" y="75" text-anchor="middle" font-size="12" fill="currentColor">0,08</text>
 
-        <rect x="120" y="50" width="90" height="40" rx="6" fill="none" stroke="var(--bad)" stroke-width="1.3" opacity="0.8" pointer-events="all" tabindex="0" data-tt="The second best — but k=1, so despite being close to the threshold it lands on the bad side."></rect>
+        <rect x="120" y="50" width="90" height="40" rx="6" fill="none" stroke="var(--bad)" stroke-width="1.3" opacity="0.8" pointer-events="all" tabindex="0" data-tt="The second best - but k=1, so despite being close to the threshold it lands on the bad side."></rect>
         <text x="165" y="75" text-anchor="middle" font-size="12" fill="currentColor" opacity="0.8">0,31</text>
 
         <rect x="220" y="50" width="90" height="40" rx="6" fill="none" stroke="var(--bad)" stroke-width="1.1" opacity="0.6"></rect>
@@ -604,77 +613,77 @@
       <text x="465" y="180" text-anchor="middle" class="diagram-label" font-size="11" fill="var(--bad)">g(x): 7 points</text>
       <text x="440" y="204" text-anchor="middle" class="diagram-label" font-size="10.5" fill="currentColor" opacity="0.6">the threshold is recomputed every iteration, so the boundary shifts along with the history</text>
     </svg>
-    <figcaption><span class="k">What this diagram shows —</span> with a sample this small the threshold is harsh — a single observation defines the entire “good” model for now. As the history grows, k grows proportionally and l(x) gets more material to work with.</figcaption>
+    <figcaption><span class="k">What this diagram shows -</span> with a sample this small the threshold is harsh - a single observation defines the entire “good” model for now. As the history grows, k grows proportionally and l(x) gets more material to work with.</figcaption>
   </figure>
 
   <h3><span class="num">3.2</span>The density estimators l(x) and g(x)</h3>
-  <p class="lede" style="font-size:16px;">In one sentence: place a Gaussian kernel at every point in a group and sum them — the high points of that sum are where the group tends to cluster.</p>
-  <p>Classic TPE builds these densities hierarchically, dimension by dimension conditioned by the configuration space's dependency tree (hence “tree-structured” in the name) — if hyperparameter B only exists when hyperparameter A has a certain value, the tree reflects that, and a mixture of truncated Gaussians is fit separately at each such conditional node.</p>
+  <p class="lede" style="font-size:16px;">In one sentence: place a Gaussian kernel at every point in a group and sum them - the high points of that sum are where the group tends to cluster.</p>
+  <p>Classic TPE builds these densities hierarchically, dimension by dimension conditioned by the configuration space's dependency tree (hence “tree-structured” in the name) - if hyperparameter B only exists when hyperparameter A has a certain value, the tree reflects that, and a mixture of truncated Gaussians is fit separately at each such conditional node.</p>
 
   <div class="callout">
     <span class="tag">An honest simplification in this demo</span>
-    <p>The demo below and the pseudocode in section 5 use an <strong>independent kernel estimator per dimension, with a fixed bandwidth</strong> — no conditional tree structure and no adaptive bandwidth rule (e.g. Scott's/Silverman's). This is a real, honest version of the algorithm's core — split, two densities, ratio — but not the full implementation from Bergstra's paper. Exactly this difference — shallow, independent dimensions versus real dependency structure — comes back in section 6 as the point of contrast with P3Net.</p>
+    <p>The demo below and the pseudocode in section 5 use an <strong>independent kernel estimator per dimension, with a fixed bandwidth</strong> - no conditional tree structure and no adaptive bandwidth rule (e.g. Scott's/Silverman's). This is a real, honest version of the algorithm's core - split, two densities, ratio - but not the full implementation from Bergstra's paper. Exactly this difference - shallow, independent dimensions versus real dependency structure - comes back in section 6 as the point of contrast with P3Net.</p>
   </div>
 
   <figure class="bleed">
     <svg viewBox="0 0 880 260" role="img" aria-label="Curves l(x) and g(x) over a shared x-axis: l(x) has a narrow, tall bump where good observations cluster, g(x) is widely spread, because bad observations cover most of the space.">
       <g class="mono">
         <line x1="40" y1="220" x2="840" y2="220" stroke="currentColor" stroke-width="1.2" opacity="0.4"></line>
-        <path d="M40,215 C120,215 150,60 220,55 C290,50 300,210 360,215 L840,216" fill="none" stroke="var(--good)" stroke-width="2.2" pointer-events="all" tabindex="0" data-tt="l(x): a sum of Gaussian kernels around the good points. A narrow, tall bump — good observations are squeezed close together, the model is very confident here."></path>
-        <path d="M40,205 C160,150 260,90 400,85 C560,80 680,140 840,200" fill="none" stroke="var(--bad)" stroke-width="2.2" opacity="0.85" pointer-events="all" tabindex="0" data-tt="g(x): a sum of Gaussian kernels around the bad points. A widely spread curve — bad observations are scattered across almost the whole space, so g(x) has no single clear peak."></path>
+        <path d="M40,215 C120,215 150,60 220,55 C290,50 300,210 360,215 L840,216" fill="none" stroke="var(--good)" stroke-width="2.2" pointer-events="all" tabindex="0" data-tt="l(x): a sum of Gaussian kernels around the good points. A narrow, tall bump - good observations are squeezed close together, the model is very confident here."></path>
+        <path d="M40,205 C160,150 260,90 400,85 C560,80 680,140 840,200" fill="none" stroke="var(--bad)" stroke-width="2.2" opacity="0.85" pointer-events="all" tabindex="0" data-tt="g(x): a sum of Gaussian kernels around the bad points. A widely spread curve - bad observations are scattered across almost the whole space, so g(x) has no single clear peak."></path>
 
-        <text x="240" y="30" text-anchor="middle" font-size="12" fill="var(--good)">l(x) — density of “good”</text>
-        <text x="640" y="70" text-anchor="middle" font-size="12" fill="var(--bad)" opacity="0.9">g(x) — density of “bad”</text>
+        <text x="240" y="30" text-anchor="middle" font-size="12" fill="var(--good)">l(x) - density of “good”</text>
+        <text x="640" y="70" text-anchor="middle" font-size="12" fill="var(--bad)" opacity="0.9">g(x) - density of “bad”</text>
         <text x="440" y="240" text-anchor="middle" font-size="11" fill="currentColor" opacity="0.6">search space x</text>
       </g>
     </svg>
-    <figcaption><span class="k">What this diagram shows —</span> where l(x) is high and g(x) is low, the ratio l(x)/g(x) explodes — exactly the region the acquisition step in 3.3 will favor. Where both curves are comparable, the model has no strong preference.</figcaption>
+    <figcaption><span class="k">What this diagram shows -</span> where l(x) is high and g(x) is low, the ratio l(x)/g(x) explodes - exactly the region the acquisition step in 3.3 will favor. Where both curves are comparable, the model has no strong preference.</figcaption>
   </figure>
 
-  <h3><span class="num">3.3</span>The acquisition step — sampling and ranking by ratio l/g</h3>
+  <h3><span class="num">3.3</span>The acquisition step - sampling and ranking by ratio l/g</h3>
   <p class="lede" style="font-size:16px;">In one sentence: draw a handful of candidates from l(x), score each by l(x)/g(x), and take the winner to this iteration's one real evaluation.</p>
-  <p>Maximizing <span class="mono">l(x)/g(x)</span> is equivalent to maximizing expected improvement against the threshold γ in this model — there's no need to compute EI separately, just compare the two densities at the same points. Candidates are drawn from l(x) (not the whole space), so they're immediately concentrated where good observations already are; g(x) in the denominator penalizes those among them that also sit close to bad observations.</p>
+  <p>Maximizing <span class="mono">l(x)/g(x)</span> is equivalent to maximizing expected improvement against the threshold γ in this model - there's no need to compute EI separately, just compare the two densities at the same points. Candidates are drawn from l(x) (not the whole space), so they're immediately concentrated where good observations already are; g(x) in the denominator penalizes those among them that also sit close to bad observations.</p>
 
   <figure class="bleed">
     <svg viewBox="0 0 880 220" role="img" aria-label="Six candidates drawn from l(x), each with a computed l/g ratio; the candidate with the highest ratio is chosen for this iteration's one real evaluation.">
       <g class="mono">
         <line x1="40" y1="170" x2="840" y2="170" stroke="currentColor" stroke-width="1.2" opacity="0.4"></line>
 
-        <circle cx="120" cy="150" r="7" fill="none" stroke="var(--accent)" stroke-width="1.6" opacity="0.55" pointer-events="all" tabindex="0" data-tt="ratio l/g ≈ 1.4 — a decent area, but not the best."></circle>
+        <circle cx="120" cy="150" r="7" fill="none" stroke="var(--accent)" stroke-width="1.6" opacity="0.55" pointer-events="all" tabindex="0" data-tt="ratio l/g ≈ 1.4 - a decent area, but not the best."></circle>
         <text x="120" y="190" text-anchor="middle" font-size="10.5" fill="currentColor" opacity="0.7">1.4</text>
 
-        <circle cx="240" cy="60" r="9" fill="var(--accent-soft)" stroke="var(--accent)" stroke-width="2.2" pointer-events="all" tabindex="0" data-tt="ratio l/g ≈ 5.8 — a clear winner this round: dense among good, sparse among bad. This candidate gets this iteration's one real evaluation."></circle>
+        <circle cx="240" cy="60" r="9" fill="var(--accent-soft)" stroke="var(--accent)" stroke-width="2.2" pointer-events="all" tabindex="0" data-tt="ratio l/g ≈ 5.8 - a clear winner this round: dense among good, sparse among bad. This candidate gets this iteration's one real evaluation."></circle>
         <text x="240" y="46" text-anchor="middle" font-size="12" fill="var(--accent)" font-weight="700">5.8 ← selected</text>
 
-        <circle cx="360" cy="155" r="6" fill="none" stroke="var(--accent)" stroke-width="1.3" opacity="0.4" pointer-events="all" tabindex="0" data-tt="ratio l/g ≈ 1.1 — close to the good/bad boundary, the model isn't sure."></circle>
+        <circle cx="360" cy="155" r="6" fill="none" stroke="var(--accent)" stroke-width="1.3" opacity="0.4" pointer-events="all" tabindex="0" data-tt="ratio l/g ≈ 1.1 - close to the good/bad boundary, the model isn't sure."></circle>
         <text x="360" y="190" text-anchor="middle" font-size="10.5" fill="currentColor" opacity="0.6">1.1</text>
 
         <circle cx="500" cy="140" r="7" fill="none" stroke="var(--accent)" stroke-width="1.5" opacity="0.5" pointer-events="all" tabindex="0" data-tt="ratio l/g ≈ 1.9."></circle>
         <text x="500" y="190" text-anchor="middle" font-size="10.5" fill="currentColor" opacity="0.7">1.9</text>
 
-        <circle cx="640" cy="160" r="6" fill="none" stroke="var(--accent)" stroke-width="1.2" opacity="0.35" pointer-events="all" tabindex="0" data-tt="ratio l/g ≈ 0.7 — closer to the bad-observation area than the good one."></circle>
+        <circle cx="640" cy="160" r="6" fill="none" stroke="var(--accent)" stroke-width="1.2" opacity="0.35" pointer-events="all" tabindex="0" data-tt="ratio l/g ≈ 0.7 - closer to the bad-observation area than the good one."></circle>
         <text x="640" y="190" text-anchor="middle" font-size="10.5" fill="currentColor" opacity="0.55">0.7</text>
 
-        <circle cx="760" cy="165" r="6" fill="none" stroke="var(--accent)" stroke-width="1.1" opacity="0.3" pointer-events="all" tabindex="0" data-tt="ratio l/g ≈ 0.5 — the weakest candidate this round."></circle>
+        <circle cx="760" cy="165" r="6" fill="none" stroke="var(--accent)" stroke-width="1.1" opacity="0.3" pointer-events="all" tabindex="0" data-tt="ratio l/g ≈ 0.5 - the weakest candidate this round."></circle>
         <text x="760" y="190" text-anchor="middle" font-size="10.5" fill="currentColor" opacity="0.5">0.5</text>
 
-        <text x="440" y="20" text-anchor="middle" font-size="11" fill="currentColor" opacity="0.6">marker height ∝ ratio l(x)/g(x) at that point — six candidates drawn from l(x)</text>
+        <text x="440" y="20" text-anchor="middle" font-size="11" fill="currentColor" opacity="0.6">marker height ∝ ratio l(x)/g(x) at that point - six candidates drawn from l(x)</text>
       </g>
     </svg>
-    <figcaption><span class="k">What this diagram shows —</span> every candidate costs zero real evaluations — it's just a read-off from two already-fit curves. Only the ranking's winner actually goes into the objective function, exactly as in the full loop diagram from section 2.</figcaption>
+    <figcaption><span class="k">What this diagram shows -</span> every candidate costs zero real evaluations - it's just a read-off from two already-fit curves. Only the ranking's winner actually goes into the objective function, exactly as in the full loop diagram from section 2.</figcaption>
   </figure>
 </section>
 
 <section id="live">
   <h2>4&nbsp; See it in action</h2>
-  <p class="subdek">Not an animation of one fixed example — this is the algorithm actually running, exactly per the pseudocode in section&nbsp;5, computing in your browser.</p>
+  <p class="subdek">Not an animation of one fixed example - this is the algorithm actually running, exactly per the pseudocode in section&nbsp;5, computing in your browser.</p>
 
   <h3><span class="num">4.1</span>The problem: a small, deceptive 1D objective function</h3>
   <p>The demo below minimizes a one-variable function <span class="mono">x ∈ [0, 10]</span> with two dips: a narrow, deep one around <span class="mono">x≈3.2</span> (the global minimum) and a wide but shallower one around <span class="mono">x≈7.6</span> (a local minimum, an order of magnitude worse). The rest of the space is fairly flat and close to the worst value. This is deliberately deceptive because the wide shallow dip is easy to hit at random, while the narrow deep one isn't; a good density model should eventually concentrate sampling around the latter.</p>
-  <p>The real function is drawn as a thin dashed line purely for you as the reader — the algorithm itself never sees it, just as no black-box optimizer sees the shape of what it's optimizing.</p>
+  <p>The real function is drawn as a thin dashed line purely for you as the reader - the algorithm itself never sees it, just as no black-box optimizer sees the shape of what it's optimizing.</p>
 
   <h3><span class="num">4.2</span>The solution: TPE actually run on this function</h3>
-  <p>The mode switch compares two variants on exactly the same function: <strong>TPE</strong> (quantile split → l/g → acquisition, exactly as in sections 2–3) and <strong>random search</strong> — the pure equivalent of the left-hand loop from section 1, sampling uniformly without using the history at all. Run both on the same function in turn and compare how quickly each settles around the narrow global minimum.</p>
+  <p>The mode switch compares two variants on exactly the same function: <strong>TPE</strong> (quantile split → l/g → acquisition, exactly as in sections 2–3) and <strong>random search</strong> - the pure equivalent of the left-hand loop from section 1, sampling uniformly without using the history at all. Run both on the same function in turn and compare how quickly each settles around the narrow global minimum.</p>
 
   <div class="demo-bleed-wrap">
   <div class="demo" id="tpedemo">
@@ -706,10 +715,10 @@
       </div>
     </div>
 
-    <div class="demo-phase-caption" id="phaseCaption">Click “Step” or “Run” to see the algorithm in action — the chart above updates live with every step.</div>
+    <div class="demo-phase-caption" id="phaseCaption">Click “Step” or “Run” to see the algorithm in action - the chart above updates live with every step.</div>
     <div class="demo-log" id="demoLog">Click “Step” or “Run” to begin.</div>
 
-    <div class="zone-caption" pointer-events="all" tabindex="0" data-tt="These cards draw on the whole history built so far — not just this one step.">③ accumulated result — from the whole history so far</div>
+    <div class="zone-caption" pointer-events="all" tabindex="0" data-tt="These cards draw on the whole history built so far - not just this one step.">③ accumulated result - from the whole history so far</div>
     <div class="result-row">
       <div class="demo-panel">
         <h4 pointer-events="all" tabindex="0" data-tt="The most recent observations in the history, in the order they were added. Color = good/bad membership at the last split.">History (recent)</h4>
@@ -718,15 +727,15 @@
       </div>
       <div class="demo-panel">
         <h4 pointer-events="all" tabindex="0" data-tt="The γ threshold value used at the last history split, and the size of both groups.">Current split</h4>
-        <div class="mono" id="splitView" style="font-size:13px; line-height:1.9;">—</div>
+        <div class="mono" id="splitView" style="font-size:13px; line-height:1.9;">-</div>
       </div>
       <div class="demo-panel">
         <h4 pointer-events="all" tabindex="0" data-tt="The candidate with the highest l(x)/g(x) ratio in the last sampling round.">Last winner</h4>
-        <div class="mono" id="winnerView" style="font-size:13px; line-height:1.9;">—</div>
+        <div class="mono" id="winnerView" style="font-size:13px; line-height:1.9;">-</div>
       </div>
       <div class="demo-panel">
         <h4 pointer-events="all" tabindex="0" data-tt="The best (smallest) objective value found since this run started.">Best so far</h4>
-        <div class="mono" id="bestView" style="font-size:13px; line-height:1.9;">—</div>
+        <div class="mono" id="bestView" style="font-size:13px; line-height:1.9;">-</div>
       </div>
     </div>
 
@@ -755,7 +764,7 @@
             <div class="lbl">TPE iterations</div><div class="val" id="statIter">0</div>
           </div>
           <div class="demo-stat" pointer-events="all" tabindex="0" data-tt="The smallest objective value found so far. This function's global minimum is around 0.05.">
-            <div class="lbl">Best y</div><div class="val" id="statBest">—</div>
+            <div class="lbl">Best y</div><div class="val" id="statBest">-</div>
           </div>
           <div class="demo-stat" pointer-events="all" tabindex="0" data-tt="The fixed quantile threshold used to split into good / bad.">
             <div class="lbl">γ</div><div class="val" id="statGamma">0.15</div>
@@ -768,7 +777,7 @@
 </section>
 
 <section id="code">
-  <h2>5&nbsp; Pseudocode — what you'd actually have to write</h2>
+  <h2>5&nbsp; Pseudocode - what you'd actually have to write</h2>
   <p class="subdek">Three procedures. Nothing else is needed to have a working (simplified) TPE.</p>
 
 <pre class="code"><span class="kw">procedure</span> TPE-LOOP(f, γ, n_candidates, R, budget)
@@ -805,17 +814,17 @@
 <pre class="code"><span class="kw">procedure</span> FIT-DENSITY(points)
     <span class="cm">// Simplification for this page: an independent kernel estimator</span>
     <span class="cm">// per dimension, fixed bandwidth bw. Real TPE builds hierarchical (tree-</span>
-    <span class="cm">// -structured) distributions over the CONDITIONAL structure of the config space —</span>
+    <span class="cm">// -structured) distributions over the CONDITIONAL structure of the config space -</span>
     <span class="cm">// see the callout in §3.2.</span>
     xs ← {x : (x, y) <span class="kw">in</span> points}
     <span class="kw">return</span> x ↦ (1 / (len(xs)·bw)) · Σ_{xi <span class="kw">in</span> xs} K((x − xi) / bw)   <span class="cm">// K = Gaussian kernel</span></pre>
 
-  <p>That's the entire core of the algorithm. A real TPE implementation (e.g. in Optuna or Hyperopt) adds to this: a conditional space structure (a tree that FIT-DENSITY navigates separately at each conditional node), adaptive per-dimension bandwidth selection, and support for mixed spaces — continuous, integer, and categorical at once. The core — split, two densities, ratio — stays the same.</p>
+  <p>That's the entire core of the algorithm. A real TPE implementation (e.g. in Optuna or Hyperopt) adds to this: a conditional space structure (a tree that FIT-DENSITY navigates separately at each conditional node), adaptive per-dimension bandwidth selection, and support for mixed spaces - continuous, integer, and categorical at once. The core - split, two densities, ratio - stays the same.</p>
 </section>
 
 <section id="practice">
-  <h2>6&nbsp; What you design yourself — applying TPE to a real problem</h2>
-  <p>The same split you already know from other algorithms in this series: the <em>mechanism</em> is fixed by the algorithm — you don't touch how the quantile split or acquisition work. What changes every time is how your problem plugs into that mechanism.</p>
+  <h2>6&nbsp; What you design yourself - applying TPE to a real problem</h2>
+  <p>The same split you already know from other algorithms in this series: the <em>mechanism</em> is fixed by the algorithm - you don't touch how the quantile split or acquisition work. What changes every time is how your problem plugs into that mechanism.</p>
 
   <div class="tablewrap">
     <table>
@@ -823,28 +832,28 @@
       <tbody>
         <tr>
           <td><strong>Good/bad split</strong></td>
-          <td class="fixed-col">Always by a quantile threshold over the sorted history — the top γ goes to l(x), the rest to g(x).</td>
-          <td class="decide-col">The value of γ — smaller gives a sharper, more selective model at the cost of fewer points to fit, especially early on.</td>
+          <td class="fixed-col">Always by a quantile threshold over the sorted history - the top γ goes to l(x), the rest to g(x).</td>
+          <td class="decide-col">The value of γ - smaller gives a sharper, more selective model at the cost of fewer points to fit, especially early on.</td>
         </tr>
         <tr>
           <td><strong>The l(x), g(x) density family</strong></td>
-          <td class="fixed-col">Always two separate densities over the same kind of object — one for good, one for bad observations.</td>
-          <td class="decide-col">The concrete form: the kernel and its bandwidth (fixed as in this demo, or adaptive via Scott's/Silverman's rule), and — for real mixed spaces — how to represent categorical and integer dimensions.</td>
+          <td class="fixed-col">Always two separate densities over the same kind of object - one for good, one for bad observations.</td>
+          <td class="decide-col">The concrete form: the kernel and its bandwidth (fixed as in this demo, or adaptive via Scott's/Silverman's rule), and - for real mixed spaces - how to represent categorical and integer dimensions.</td>
         </tr>
         <tr>
-          <td><strong>Acquisition — ratio l/g</strong></td>
-          <td class="fixed-col">The next candidate always maximizes l(x)/g(x) among those sampled — the equivalent of expected improvement against the threshold γ.</td>
-          <td class="decide-col">The number of candidates sampled per iteration — too few and the ranking is random, too many and you waste time on arithmetic that won't change the choice anyway.</td>
+          <td><strong>Acquisition - ratio l/g</strong></td>
+          <td class="fixed-col">The next candidate always maximizes l(x)/g(x) among those sampled - the equivalent of expected improvement against the threshold γ.</td>
+          <td class="decide-col">The number of candidates sampled per iteration - too few and the ranking is random, too many and you waste time on arithmetic that won't change the choice anyway.</td>
         </tr>
         <tr>
           <td><strong>Search-space encoding</strong></td>
-          <td class="fixed-col">Not addressed — TPE assumes a ready-made vector of variables with defined types and ranges.</td>
+          <td class="fixed-col">Not addressed - TPE assumes a ready-made vector of variables with defined types and ranges.</td>
           <td class="decide-col">How your problem becomes that vector. For P3Net: one gene per cell-graph edge plus one per (discretized) hyperparameter; for TPE that exact same vector additionally has to be described as an independent or shallowly conditional variable space.</td>
         </tr>
         <tr>
           <td><strong>Number of starting points R</strong></td>
-          <td class="fixed-col">Always a purely random bootstrap first — the model has nothing to draw on while the history is empty.</td>
-          <td class="decide-col">How many bootstrap points are enough before l(x)/g(x) becomes more reliable than random guessing — too few and early models are noise, too many and you waste budget that informed acquisition could already have used.</td>
+          <td class="fixed-col">Always a purely random bootstrap first - the model has nothing to draw on while the history is empty.</td>
+          <td class="decide-col">How many bootstrap points are enough before l(x)/g(x) becomes more reliable than random guessing - too few and early models are noise, too many and you waste budget that informed acquisition could already have used.</td>
         </tr>
       </tbody>
     </table>
@@ -852,17 +861,17 @@
 
   <div class="callout">
     <span class="tag">The blind spot this page reveals</span>
-    <p>TPE — even in its full, hierarchical version from the paper — builds a model over <strong>raw configuration values</strong>, dimension by dimension. The conditional structure (“B only exists when A has this value”) is known up front and encoded in the space's tree, but <em>which genes tend to move together, correlated, in good solutions</em> — what P3 discovers dynamically through the linkage tree (section 3.3 of the P3 page) — isn't represented here at all. For TPE, every dimension is a separate question to the model; for P3Net, a whole gene cluster that historically worked best together is copied as one unit, and the decision of which genes belong to the same cluster is learned from data, not encoded in the space's structure up front.</p>
-    <p>In other words: TPE answers the question “where in this space is dense-good, and where is dense-bad?” — and it does this well, sequentially, with memory. It doesn't answer the question “which dimensions of this space even make sense considered separately?” That question is only asked by P3Net's relative, linkage-aware surrogate.</p>
+    <p>TPE - even in its full, hierarchical version from the paper - builds a model over <strong>raw configuration values</strong>, dimension by dimension. The conditional structure (“B only exists when A has this value”) is known up front and encoded in the space's tree, but <em>which genes tend to move together, correlated, in good solutions</em> - what P3 discovers dynamically through the linkage tree (section 3.3 of the P3 page) - isn't represented here at all. For TPE, every dimension is a separate question to the model; for P3Net, a whole gene cluster that historically worked best together is copied as one unit, and the decision of which genes belong to the same cluster is learned from data, not encoded in the space's structure up front.</p>
+    <p>In other words: TPE answers the question “where in this space is dense-good, and where is dense-bad?” - and it does this well, sequentially, with memory. It doesn't answer the question “which dimensions of this space even make sense considered separately?” That question is only asked by P3Net's relative, linkage-aware surrogate.</p>
   </div>
 
   <h3 style="margin-top:32px;"><span class="num">✓</span>Checklist for applying TPE to a new problem</h3>
   <ul class="checklist">
     <li><span class="box"></span><span>Define the variable vector: type and range of each dimension (continuous, integer, categorical).</span></li>
-    <li><span class="box"></span><span>Choose γ — smaller gives a sharper “good” model, and fewer points early on.</span></li>
+    <li><span class="box"></span><span>Choose γ - smaller gives a sharper “good” model, and fewer points early on.</span></li>
     <li><span class="box"></span><span>Choose the kernel family and bandwidth selection rule for l(x) and g(x).</span></li>
     <li><span class="box"></span><span>Set the number of bootstrap points R and the number of candidates sampled per iteration.</span></li>
-    <li><span class="box"></span><span>Check whether your space's dimensions are actually reasonably independent — if not, TPE will still work, but it will lose out on what P3Net exploits directly.</span></li>
+    <li><span class="box"></span><span>Check whether your space's dimensions are actually reasonably independent - if not, TPE will still work, but it will lose out on what P3Net exploits directly.</span></li>
   </ul>
 
 </section>
@@ -870,7 +879,7 @@
 </main>
 
 <footer class="page-end">
-  Source: J. Bergstra, R. Bardenet, Y. Bengio, B. Kégl, “Algorithms for Hyper-Parameter Optimization,” NeurIPS 2011 — section 4 for the mechanism described above.
+  Source: J. Bergstra, R. Bardenet, Y. Bengio, B. Kégl, “Algorithms for Hyper-Parameter Optimization,” NeurIPS 2011 - section 4 for the mechanism described above.
 </footer>
 
 <script>
@@ -971,7 +980,7 @@
       var yb = evaluate(xb);
       yield {
         type: "init", history: history.slice(), evalCount: evalCount, iterCount: iterCount,
-        log: "Bootstrap (" + (i + 1) + "/" + R_BOOTSTRAP + "): a random starting point, since the model has nothing to learn from yet — x=" + xb.toFixed(2) + ", y=" + yb.toFixed(3) + "."
+        log: "Bootstrap (" + (i + 1) + "/" + R_BOOTSTRAP + "): a random starting point, since the model has nothing to learn from yet - x=" + xb.toFixed(2) + ", y=" + yb.toFixed(3) + "."
       };
     }
 
@@ -981,7 +990,7 @@
         var yr = evaluate(xr);
         yield {
           type: "random-sample", history: history.slice(), evalCount: evalCount, iterCount: iterCount,
-          log: "Random search: another sample independent of all previous ones (x=" + xr.toFixed(2) + ", y=" + yr.toFixed(3) + ") — the history is not used in any way."
+          log: "Random search: another sample independent of all previous ones (x=" + xr.toFixed(2) + ", y=" + yr.toFixed(3) + ") - the history is not used in any way."
         };
         continue;
       }
@@ -1021,7 +1030,7 @@
       yield {
         type: "sample", history: history.slice(), good: good, bad: bad, lGrid: lGrid, gGrid: gGrid,
         candidates: candidates, best: best, evalCount: evalCount, iterCount: iterCount,
-        log: "Sampling " + N_CANDIDATES + " candidates from l(x), scoring by l(x)/g(x) — best: x=" + best.x.toFixed(2) + " (ratio " + best.score.toFixed(2) + ")."
+        log: "Sampling " + N_CANDIDATES + " candidates from l(x), scoring by l(x)/g(x) - best: x=" + best.x.toFixed(2) + " (ratio " + best.score.toFixed(2) + ")."
       };
 
       var ybest = evaluate(best.x);
@@ -1029,7 +1038,7 @@
       yield {
         type: "evaluate", history: history.slice(), good: good, bad: bad, lGrid: lGrid, gGrid: gGrid,
         candidates: candidates, best: best, y: ybest, evalCount: evalCount, iterCount: iterCount,
-        log: "The only real evaluation this iteration: f(" + best.x.toFixed(2) + ") = " + ybest.toFixed(3) + " — joins the history and will influence the next quantile split."
+        log: "The only real evaluation this iteration: f(" + best.x.toFixed(2) + ") = " + ybest.toFixed(3) + " - joins the history and will influence the next quantile split."
       };
     }
   }
@@ -1090,7 +1099,7 @@
       el.gAxes.appendChild(tick2);
     }
     var lbl1 = svgEl("text", { x: PX0, y: MAIN_Y_TOP - 4, class: "diagram-label", "font-size": "11", fill: "currentColor", opacity: "0.6" });
-    lbl1.textContent = "objective value f(x) — lower = better";
+    lbl1.textContent = "objective value f(x) - lower = better";
     el.gAxes.appendChild(lbl1);
     var lbl2 = svgEl("text", { x: PX0, y: DENS_Y_TOP - 6, class: "diagram-label", "font-size": "11", fill: "currentColor", opacity: "0.6" });
     lbl2.textContent = "l(x), g(x), and ratio l/g (normalized to panel height)";
@@ -1105,17 +1114,17 @@
       d += cmd + px(x).toFixed(1) + "," + pyMain(y).toFixed(1) + " ";
     }
     var fnPath = svgEl("path", { d: d, fill: "none", stroke: "currentColor", "stroke-width": "1.3", "stroke-dasharray": "3 4", opacity: "0.4", "pointer-events": "all", tabindex: "0" });
-    fnPath.setAttribute("data-tt", "The real objective function — drawn only for you as the reader. The algorithm itself never sees it; it only knows the values at points it chose to evaluate.");
+    fnPath.setAttribute("data-tt", "The real objective function - drawn only for you as the reader. The algorithm itself never sees it; it only knows the values at points it chose to evaluate.");
     el.gTrueFn.appendChild(fnPath);
   })();
 
   var PHASE_INFO = {
-    init: "<strong>Bootstrap</strong> — a few purely random starting points, exactly like random search, before the history has anything to base a model on.",
-    "random-sample": "<strong>Random search</strong> — a uniform sample, independent of history. This is the baseline you're comparing TPE mode against.",
-    split: "<strong>Quantile split</strong> (section 3.1) — the history sorted by objective value and cut by threshold γ into good / bad.",
-    fit: "<strong>Fitting densities</strong> (section 3.2) — l(x) over the good points, g(x) over the bad ones, both as sums of Gaussian kernels.",
-    sample: "<strong>Acquisition step</strong> (section 3.3) — candidates sampled from l(x), each scored by the ratio l(x)/g(x).",
-    evaluate: "<strong>The only real evaluation</strong> this iteration — the ranking's winner actually goes into the objective function."
+    init: "<strong>Bootstrap</strong> - a few purely random starting points, exactly like random search, before the history has anything to base a model on.",
+    "random-sample": "<strong>Random search</strong> - a uniform sample, independent of history. This is the baseline you're comparing TPE mode against.",
+    split: "<strong>Quantile split</strong> (section 3.1) - the history sorted by objective value and cut by threshold γ into good / bad.",
+    fit: "<strong>Fitting densities</strong> (section 3.2) - l(x) over the good points, g(x) over the bad ones, both as sums of Gaussian kernels.",
+    sample: "<strong>Acquisition step</strong> (section 3.3) - candidates sampled from l(x), each scored by the ratio l(x)/g(x).",
+    evaluate: "<strong>The only real evaluation</strong> this iteration - the ranking's winner actually goes into the objective function."
   };
 
   function updatePhase(type) {
@@ -1134,7 +1143,7 @@
         fill: fill, stroke: stroke, "stroke-width": "1.6",
         "pointer-events": "all", tabindex: "0"
       });
-      c.setAttribute("data-tt", "x=" + p.x.toFixed(2) + ", y=" + p.y.toFixed(3) + (p.tag ? (" — " + (p.tag === "good" ? "good" : "bad") + " observation") : " — not yet split"));
+      c.setAttribute("data-tt", "x=" + p.x.toFixed(2) + ", y=" + p.y.toFixed(3) + (p.tag ? (" - " + (p.tag === "good" ? "good" : "bad") + " observation") : " - not yet split"));
       el.gPoints.appendChild(c);
     }
   }
@@ -1169,7 +1178,7 @@
           fill: "var(--accent-soft)", stroke: "var(--accent)", "stroke-width": "2.2",
           "pointer-events": "all", tabindex: "0"
         });
-        marker.setAttribute("data-tt", "Ranking winner: x=" + c.x.toFixed(2) + ", ratio l/g=" + c.score.toFixed(2) + " — this candidate gets this iteration's one real evaluation.");
+        marker.setAttribute("data-tt", "Ranking winner: x=" + c.x.toFixed(2) + ", ratio l/g=" + c.score.toFixed(2) + " - this candidate gets this iteration's one real evaluation.");
         el.gCandidates.appendChild(marker);
       }
     }
@@ -1192,11 +1201,11 @@
     }
 
     var lPath = svgEl("path", { d: curvePath(lGrid, maxLG), fill: "none", stroke: "var(--good)", "stroke-width": "2.2", "pointer-events": "all", tabindex: "0" });
-    lPath.setAttribute("data-tt", "l(x) — density of good observations. High here = dense among the best results so far.");
+    lPath.setAttribute("data-tt", "l(x) - density of good observations. High here = dense among the best results so far.");
     el.gDensity.appendChild(lPath);
 
     var gPath = svgEl("path", { d: curvePath(gGrid, maxLG), fill: "none", stroke: "var(--bad)", "stroke-width": "2.2", opacity: "0.85", "pointer-events": "all", tabindex: "0" });
-    gPath.setAttribute("data-tt", "g(x) — density of bad observations. High here = dense among the worse results so far.");
+    gPath.setAttribute("data-tt", "g(x) - density of bad observations. High here = dense among the worse results so far.");
     el.gDensity.appendChild(gPath);
 
     var maxRatio = 0.0001;
@@ -1212,7 +1221,7 @@
       rd += (k === 0 ? "M" : "L") + px(lGrid[k].x).toFixed(1) + "," + yy2.toFixed(1) + " ";
     }
     var rPath = svgEl("path", { d: rd, fill: "none", stroke: "var(--accent)", "stroke-width": "1.6", "stroke-dasharray": "4 3", opacity: "0.85", "pointer-events": "all", tabindex: "0" });
-    rPath.setAttribute("data-tt", "Ratio l(x)/g(x), normalized to the panel height — the higher, the more strongly the model favors this point as the next candidate.");
+    rPath.setAttribute("data-tt", "Ratio l(x)/g(x), normalized to the panel height - the higher, the more strongly the model favors this point as the next candidate.");
     el.gDensity.appendChild(rPath);
 
     if (best) {
@@ -1220,7 +1229,7 @@
     }
   }
 
-  function fmtY(y) { return (y == null) ? "—" : y.toFixed(3); }
+  function fmtY(y) { return (y == null) ? "-" : y.toFixed(3); }
 
   function renderPanels(ev) {
     var history = ev.history || [];
@@ -1233,7 +1242,7 @@
       chip.textContent = "x=" + p.x.toFixed(2) + " y=" + p.y.toFixed(3);
       el.historyView.appendChild(chip);
     }
-    if (!last8.length) el.historyView.textContent = "—";
+    if (!last8.length) el.historyView.textContent = "-";
 
     if (ev.good && ev.bad) {
       el.splitView.innerHTML = "γ=" + GAMMA + "<br>good: " + ev.good.length + " · bad: " + ev.bad.length + "<br>threshold y ≤ " + fmtY(ev.threshold);
@@ -1251,7 +1260,7 @@
 
     el.statEval.textContent = String(ev.evalCount || 0);
     el.statIter.textContent = String(ev.iterCount || 0);
-    el.statBest.textContent = bestY === null ? "—" : bestY.toFixed(3);
+    el.statBest.textContent = bestY === null ? "-" : bestY.toFixed(3);
   }
 
   function render(ev) {
@@ -1285,7 +1294,7 @@
     }
     if (lastVal) {
       render(lastVal);
-      el.log.innerHTML = "Fast-forwarded " + steps + " engine steps — " + (lastVal.log || "");
+      el.log.innerHTML = "Fast-forwarded " + steps + " engine steps - " + (lastVal.log || "");
     }
   }
 
@@ -1308,13 +1317,13 @@
     el.gCandidates.innerHTML = "";
     el.gDensity.innerHTML = "";
     el.historyView.innerHTML = "";
-    el.splitView.textContent = "—";
-    el.winnerView.textContent = "—";
-    el.bestView.textContent = "—";
+    el.splitView.textContent = "-";
+    el.winnerView.textContent = "-";
+    el.bestView.textContent = "-";
     el.statEval.textContent = "0";
     el.statIter.textContent = "0";
-    el.statBest.textContent = "—";
-    el.phaseCaption.textContent = "Click \u201cStep\u201d or \u201cRun\u201d to see the algorithm in action — the chart above updates live with every step.";
+    el.statBest.textContent = "-";
+    el.phaseCaption.textContent = "Click \u201cStep\u201d or \u201cRun\u201d to see the algorithm in action - the chart above updates live with every step.";
     el.log.textContent = "Click \u201cStep\u201d or \u201cRun\u201d to begin.";
   }
 
